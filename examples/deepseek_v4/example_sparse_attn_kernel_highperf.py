@@ -877,5 +877,5 @@ if __name__ == "__main__":
     torch.npu.set_device(0)
     tilelang.cache.clear_cache()
 
-    # Run tests
+    # Run tests 
     run_test(verify_acc=True)
