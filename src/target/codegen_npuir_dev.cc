@@ -2662,13 +2662,21 @@ void CodeGenTileLangNPUIRDEV::VIndirectLoadCodegen(const CallNode *op) {
   tvm::tl::NpuirIndirectLoad npuirop(op->args, this->vmap);
 
   // The transform pass already checks the source pattern. Codegen re-checks
-  // the MLIR-facing shape contract before creating tensor values.
-  ICHECK_EQ(npuirop.indices_ub_range.size(), 1U)
-      << kFeature << ": expected IDX_UB rank 1 in codegen";
+  // the MLIR-facing shape contract before creating tensor values. Phase 1
+  // supports the original rank-1 gather and the minimal 2D LUT-row pattern:
+  //   O_UB[m] = LUT[s, CODES[s, m]]
+  ICHECK(npuirop.indices_ub_range.size() == 1U ||
+         npuirop.indices_ub_range.size() == 2U)
+      << kFeature << ": expected IDX region rank 1 or 2 in codegen";
   ICHECK_EQ(npuirop.dst_ub_range.size(), 1U)
       << kFeature << ": expected O_UB rank 1 in codegen";
-  ICHECK(is_zero(npuirop.indices_ub_range[0]->min))
-      << kFeature << ": expected IDX_UB region offset 0";
+  if (npuirop.indices_ub_range.size() == 1U) {
+    ICHECK(is_zero(npuirop.indices_ub_range[0]->min))
+        << kFeature << ": expected IDX_UB region offset 0";
+  } else {
+    ICHECK(is_one(npuirop.indices_ub_range[0]->extent))
+        << kFeature << ": expected rank-2 IDX_UB row extent 1";
+  }
   ICHECK(is_zero(npuirop.dst_ub_range[0]->min))
       << kFeature << ": expected O_UB region offset 0";
 
@@ -2678,9 +2686,74 @@ void CodeGenTileLangNPUIRDEV::VIndirectLoadCodegen(const CallNode *op) {
                        << *block;
 
   mlir::Location loc = builder.getUnknownLoc();
-  mlir::Value src = GetVarValue(npuirop.src);
-  mlir::Value idx_i32 = GenExtractSliceFromRegion(npuirop.indices_ub,
-                                                  npuirop.indices_ub_range);
+
+  auto normalize_integer_scalar_to_i64 = [&](mlir::Value value) -> mlir::Value {
+    if (value.getType().isIndex()) {
+      return builder.create<mlir::arith::IndexCastOp>(
+          loc, builder.getI64Type(), value);
+    }
+    auto int_type = mlir::dyn_cast<mlir::IntegerType>(value.getType());
+    ICHECK(int_type) << kFeature << ": expected integer scalar value";
+    if (int_type.getWidth() < 64) {
+      return builder.create<mlir::arith::ExtSIOp>(
+          loc, builder.getI64Type(), value);
+    }
+    if (int_type.getWidth() > 64) {
+      return builder.create<mlir::arith::TruncIOp>(
+          loc, builder.getI64Type(), value);
+    }
+    return value;
+  };
+
+  auto collapse_memref_to_rank1 = [&](mlir::Value value) -> mlir::Value {
+    auto memref_type = mlir::dyn_cast<mlir::MemRefType>(value.getType());
+    ICHECK(memref_type) << kFeature << ": expected source to be a memref";
+    if (memref_type.getRank() <= 1) {
+      return value;
+    }
+    llvm::SmallVector<mlir::ReassociationIndices> reassociation;
+    mlir::ReassociationIndices all_dims;
+    for (int64_t i = 0; i < memref_type.getRank(); ++i) {
+      all_dims.push_back(i);
+    }
+    reassociation.push_back(all_dims);
+    return builder
+        .create<mlir::memref::CollapseShapeOp>(loc, value, reassociation)
+        .getResult();
+  };
+
+  auto source_as_flat_memref = [&]() -> mlir::Value {
+    mlir::Value src_value = GetVarValue(npuirop.src);
+    if (auto tensor_type =
+            mlir::dyn_cast<mlir::RankedTensorType>(src_value.getType())) {
+      auto memref_type = mlir::MemRefType::get(tensor_type.getShape(),
+                                               tensor_type.getElementType());
+      src_value = builder.create<mlir::bufferization::ToMemrefOp>(
+          loc, memref_type, src_value);
+    }
+    return collapse_memref_to_rank1(src_value);
+  };
+
+  auto extract_indices_tensor = [&]() -> mlir::Value {
+    mlir::Value base = GetVarValue(npuirop.indices_ub);
+    mlir::Value idx;
+    if (mlir::isa<mlir::MemRefType>(base.getType())) {
+      mlir::Value view =
+          GenSubviewFromRegion(npuirop.indices_ub, npuirop.indices_ub_range);
+      idx = builder.create<mlir::bufferization::ToTensorOp>(
+          loc, view, /*restrict=*/true, /*writable=*/false);
+    } else {
+      idx = GenExtractSliceFromRegion(npuirop.indices_ub,
+                                      npuirop.indices_ub_range);
+    }
+    llvm::SmallVector<int64_t> shape{*block};
+    llvm::SmallVector<mlir::OpFoldResult> shape_ofr{
+        builder.getIndexAttr(*block)};
+    return ReshapeTensorImpl(idx, shape, shape_ofr);
+  };
+
+  mlir::Value src = source_as_flat_memref();
+  mlir::Value idx_i32 = extract_indices_tensor();
   mlir::Value dst = GetVarValue(npuirop.dst_ub);
   auto dst_type = mlir::dyn_cast<mlir::RankedTensorType>(dst.getType());
   ICHECK(dst_type) << kFeature << ": expected O_UB to be a ranked tensor";
@@ -2700,6 +2773,30 @@ void CodeGenTileLangNPUIRDEV::VIndirectLoadCodegen(const CallNode *op) {
       mlir::RankedTensorType::get({*block}, builder.getI64Type());
   mlir::Value idx_i64 =
       builder.create<mlir::arith::ExtSIOp>(loc, i64_tensor_type, idx_i32);
+
+  PrimExpr src_base_expr = tir::make_const(DataType::Int(64), 0);
+  if (npuirop.src_range.size() == 1U) {
+    src_base_expr = npuirop.src_range[0]->min;
+  } else if (npuirop.src_range.size() == 2U) {
+    src_base_expr =
+        npuirop.src_range[0]->min * npuirop.src->shape[1] +
+        npuirop.src_range[1]->min;
+  } else {
+    ICHECK(false) << kFeature << ": expected src region rank 1 or 2";
+  }
+  if (!is_zero(src_base_expr)) {
+    mlir::Value src_base =
+        normalize_integer_scalar_to_i64(MakeValue(src_base_expr));
+    auto base_empty = builder.create<mlir::tensor::EmptyOp>(
+        loc, llvm::ArrayRef<int64_t>{*block}, builder.getI64Type());
+    mlir::Value base_tensor =
+        builder
+            .create<mlir::linalg::FillOp>(loc, src_base,
+                                          base_empty.getResult())
+            ->getResult(0);
+    idx_i64 =
+        builder.create<mlir::arith::AddIOp>(loc, idx_i64, base_tensor);
+  }
 
   // Materialize lanes as a Triton-style make_range linalg op. The attributes
   // are consumed by the downstream compiler and avoid a runtime arange symbol.
