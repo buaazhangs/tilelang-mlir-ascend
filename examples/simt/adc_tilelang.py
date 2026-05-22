@@ -87,14 +87,15 @@ def main(n, block_M, num_subspaces, codebook_size):
     codes_t = torch.randint(
         0, codebook_size, (num_subspaces, n), dtype=torch.int32, device="npu")
 
-    subspace = torch.arange(num_subspaces, device="npu")[:, None]
-    partial = lut[subspace, codes_t.long()]
-    ref = torch.sqrt(partial.sum(dim=0))
-
     kernel = make_adc_kernel(block_M, 128)
     result = kernel(lut, codes_t)
 
-    torch.testing.assert_close(result, ref, rtol=1e-3, atol=1e-3)
+    lut_cpu = lut.cpu()
+    codes_cpu = codes_t.cpu().long()
+    partial = torch.gather(lut_cpu, dim=1, index=codes_cpu)
+    ref = torch.sqrt(partial.sum(dim=0))
+
+    torch.testing.assert_close(result.cpu(), ref, rtol=1e-3, atol=1e-3)
     print(f"PASS n={n} block_M={block_M}")
 
 

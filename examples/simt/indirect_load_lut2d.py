@@ -59,9 +59,10 @@ def main(n, block, num_subspaces, codebook_size):
     )
     kernel(lut, codes, out)
 
-    subspace = torch.arange(num_subspaces, device="npu")[:, None]
-    ref = lut[subspace, codes[:, :n].long()]
-    torch.testing.assert_close(out, ref, rtol=1e-3, atol=1e-3)
+    lut_cpu = lut.cpu()
+    codes_cpu = codes.cpu()[:, :n].long()
+    ref = torch.gather(lut_cpu, dim=1, index=codes_cpu)
+    torch.testing.assert_close(out.cpu(), ref, rtol=1e-3, atol=1e-3)
     print("PASS")
 
 
