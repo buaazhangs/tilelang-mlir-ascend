@@ -2686,7 +2686,6 @@ void CodeGenTileLangNPUIRDEV::VIndirectLoadCodegen(const CallNode *op) {
                        << *block;
 
   mlir::Location loc = builder.getUnknownLoc();
-
   auto normalize_integer_scalar_to_i64 = [&](mlir::Value value) -> mlir::Value {
     if (value.getType().isIndex()) {
       return builder.create<mlir::arith::IndexCastOp>(
@@ -2705,7 +2704,7 @@ void CodeGenTileLangNPUIRDEV::VIndirectLoadCodegen(const CallNode *op) {
     return value;
   };
 
-  auto source_as_memref = [&]() -> mlir::Value {
+  auto source_as_flat_memref = [&]() -> mlir::Value {
     mlir::Value src_value = GetVarValue(npuirop.src);
     if (auto tensor_type =
             mlir::dyn_cast<mlir::RankedTensorType>(src_value.getType())) {
@@ -2716,9 +2715,29 @@ void CodeGenTileLangNPUIRDEV::VIndirectLoadCodegen(const CallNode *op) {
     }
     ICHECK(mlir::isa<mlir::MemRefType>(src_value.getType()))
         << kFeature << ": expected source to be a memref";
-    // HFusion/HIVM 的 indirect_load 接口允许 src 保持 AnyMemRef；
-    // 只由 offsets/dst/mask/other 的 rank 决定 1D/2D SIMT 形态。
-    return src_value;
+    // HFusion/HIVM indirect_load receives scalar offsets, so a multi-rank
+    // source buffer is flattened before lowering to the backend call.
+    auto src_memref_type = mlir::cast<mlir::MemRefType>(src_value.getType());
+    if (src_memref_type.getRank() <= 1) {
+      return src_value;
+    }
+
+    int64_t flat_size = 1;
+    for (int64_t dim : src_memref_type.getShape()) {
+      ICHECK(!mlir::ShapedType::isDynamic(dim))
+          << kFeature << ": expected static source shape for flattening";
+      flat_size *= dim;
+    }
+    auto flat_memref_type = mlir::MemRefType::get(
+        {flat_size}, src_memref_type.getElementType(),
+        mlir::MemRefLayoutAttrInterface{}, src_memref_type.getMemorySpace());
+    llvm::SmallVector<mlir::ReassociationIndices> reassociation(1);
+    for (int64_t dim = 0; dim < src_memref_type.getRank(); ++dim) {
+      reassociation[0].push_back(dim);
+    }
+    auto collapse_op = builder.create<mlir::memref::CollapseShapeOp>(
+        loc, flat_memref_type, src_value, reassociation);
+    return collapse_op.getResult();
   };
 
   auto extract_indices_tensor = [&]() -> mlir::Value {
@@ -2739,7 +2758,7 @@ void CodeGenTileLangNPUIRDEV::VIndirectLoadCodegen(const CallNode *op) {
     return ReshapeTensorImpl(idx, shape, shape_ofr);
   };
 
-  mlir::Value src = source_as_memref();
+  mlir::Value src = source_as_flat_memref();
   mlir::Value idx_i32 = extract_indices_tensor();
   mlir::Value dst = GetVarValue(npuirop.dst_ub);
   auto dst_type = mlir::dyn_cast<mlir::RankedTensorType>(dst.getType());
