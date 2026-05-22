@@ -7,9 +7,9 @@ Input layout:
 
 Each NPU program handles one contiguous block of documents.  For every
 subspace, the kernel separates the original mixed loop into:
-  1. continuous code load into UB, expected to remain on the SIMD path;
+  1. continuous code load into UB by T.copy/MTE2;
   2. 2D LUT indirect load, expected to be rewritten by NpuSimtIndirectLoad;
-  3. vector accumulation, expected to remain on the SIMD path.
+  3. vector accumulation by explicit NPUIR vector add.
 """
 
 import argparse
@@ -50,27 +50,23 @@ def adc_distance_kernel(block_M, num_threads, num_subspaces=64,
             CODES_UB = T.alloc_ub((num_subspaces, block_M), code_dtype)
             LUT_VAL_UB = T.alloc_ub((block_M,), dtype)
             acc = T.alloc_ub((block_M,), dtype)
+            out_ub = T.alloc_ub((block_M,), dtype)
 
             value_zero = 0
             T.npuir_brc(value_zero, acc)
             T.npuir_brc(value_zero, LUT_VAL_UB)
 
             for s in T.serial(num_subspaces):
-                for m in T.Parallel(block_M):
-                    if m < valid:
-                        CODES_UB[s, m] = codes_t[s, start + m]
+                T.copy(codes_t[s, start:start + valid], CODES_UB[s, 0:valid])
 
                 for m in T.Parallel(block_M):
                     if m < valid:
                         LUT_VAL_UB[m] = LUT[s, CODES_UB[s, m]]
 
-                for m in T.Parallel(block_M):
-                    if m < valid:
-                        acc[m] = acc[m] + LUT_VAL_UB[m]
+                T.npuir_add(acc, LUT_VAL_UB, acc)
 
-            for m in T.Parallel(block_M):
-                if m < valid:
-                    out[start + m] = T.sqrt(acc[m])
+            T.vsqrt(acc, out_ub)
+            T.copy(out_ub[0:valid], out[start:start + valid])
 
     return adc_func
 
