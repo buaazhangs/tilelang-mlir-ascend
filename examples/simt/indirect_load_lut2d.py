@@ -24,16 +24,16 @@ def indirect_load_lut2d(n, block, num_subspaces, codebook_size):
         CODES: T.Tensor((num_subspaces, block), "int32"),
         OUT: T.Tensor((num_subspaces, n), "float32"),
     ):
-        with T.Kernel(1, is_npu=True) as (_, _):
-            LUT_shared = T.alloc_ub((num_subspaces, codebook_size), "float32")
+        with T.Kernel(1, is_npu=True) as (pid, vid):
+            CODES_UB = T.alloc_ub((num_subspaces, block), "int32")
             O_UB = T.alloc_ub((block,), "float32")
 
-            T.copy(LUT[0, 0], LUT_shared)
+            T.copy(CODES[0, 0], CODES_UB)
 
             for s in T.serial(num_subspaces):
                 for m in T.Parallel(block):
                     if m < n:
-                        O_UB[m] = LUT_shared[s, CODES[s, m]]
+                        O_UB[m] = LUT[s, CODES_UB[s, m]]
                 T.copy(O_UB[0:n], OUT[s, 0:n])
 
     return main
