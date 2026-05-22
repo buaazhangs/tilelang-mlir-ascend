@@ -2722,21 +2722,31 @@ void CodeGenTileLangNPUIRDEV::VIndirectLoadCodegen(const CallNode *op) {
       return src_value;
     }
 
-    int64_t flat_size = 1;
+    if (auto reinterpret_op =
+            src_value.getDefiningOp<mlir::memref::ReinterpretCastOp>()) {
+      mlir::Value flat_source = reinterpret_op.getSource();
+      if (auto flat_source_type =
+              mlir::dyn_cast<mlir::MemRefType>(flat_source.getType())) {
+        auto static_offsets = reinterpret_op.getStaticOffsets();
+        if (static_offsets.size() == 1 && static_offsets[0] == 0 &&
+            flat_source_type.getRank() <= 1 &&
+            flat_source_type.getElementType() ==
+                src_memref_type.getElementType()) {
+          return flat_source;
+        }
+      }
+    }
+
     for (int64_t dim : src_memref_type.getShape()) {
       ICHECK(!mlir::ShapedType::isDynamic(dim))
           << kFeature << ": expected static source shape for flattening";
-      flat_size *= dim;
     }
-    auto flat_memref_type = mlir::MemRefType::get(
-        {flat_size}, src_memref_type.getElementType(),
-        mlir::MemRefLayoutAttrInterface{}, src_memref_type.getMemorySpace());
     llvm::SmallVector<mlir::ReassociationIndices> reassociation(1);
     for (int64_t dim = 0; dim < src_memref_type.getRank(); ++dim) {
       reassociation[0].push_back(dim);
     }
     auto collapse_op = builder.create<mlir::memref::CollapseShapeOp>(
-        loc, flat_memref_type, src_value, reassociation);
+        loc, src_value, reassociation);
     return collapse_op.getResult();
   };
 
