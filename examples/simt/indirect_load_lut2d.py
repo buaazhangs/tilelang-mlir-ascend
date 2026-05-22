@@ -48,9 +48,13 @@ def main(n, block, num_subspaces, codebook_size):
     torch.manual_seed(0)
     torch.npu.set_device(0)
 
-    lut = torch.randn(num_subspaces, codebook_size, device="npu", dtype=torch.float32)
-    codes = torch.randint(
-        0, codebook_size, (num_subspaces, block), device="npu", dtype=torch.int32)
+    lut_cpu = torch.randn(num_subspaces, codebook_size, dtype=torch.float32)
+    codes_cpu = torch.randint(
+        0, codebook_size, (num_subspaces, block), dtype=torch.int32)
+    ref = torch.gather(lut_cpu, dim=1, index=codes_cpu[:, :n].long())
+
+    lut = lut_cpu.to("npu")
+    codes = codes_cpu.to("npu")
     out = torch.empty(num_subspaces, n, device="npu", dtype=torch.float32)
 
     kernel = tilelang.compile(
@@ -58,10 +62,8 @@ def main(n, block, num_subspaces, codebook_size):
         target="npuir",
     )
     kernel(lut, codes, out)
+    torch.npu.synchronize()
 
-    lut_cpu = lut.cpu()
-    codes_cpu = codes.cpu()[:, :n].long()
-    ref = torch.gather(lut_cpu, dim=1, index=codes_cpu)
     torch.testing.assert_close(out.cpu(), ref, rtol=1e-3, atol=1e-3)
     print("PASS")
 
