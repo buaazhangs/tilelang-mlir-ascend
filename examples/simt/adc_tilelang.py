@@ -35,7 +35,7 @@ def adc_distance_kernel(block_M, num_threads, num_subspaces=64,
                         codebook_size=256, dtype="float32",
                         code_dtype="int32"):
     del num_threads
-    N = T.dynamic("N")
+    N = T.symbolic("N")
 
     @T.prim_func
     def adc_func(
@@ -51,8 +51,9 @@ def adc_distance_kernel(block_M, num_threads, num_subspaces=64,
             LUT_VAL_UB = T.alloc_ub((block_M,), dtype)
             acc = T.alloc_ub((block_M,), dtype)
 
-            T.npuir_brc(0, acc)
-            T.npuir_brc(0, LUT_VAL_UB)
+            value_zero = 0
+            T.npuir_brc(value_zero, acc)
+            T.npuir_brc(value_zero, LUT_VAL_UB)
 
             for s in T.serial(num_subspaces):
                 for m in T.Parallel(block_M):
