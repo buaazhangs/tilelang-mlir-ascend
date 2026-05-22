@@ -2705,24 +2705,7 @@ void CodeGenTileLangNPUIRDEV::VIndirectLoadCodegen(const CallNode *op) {
     return value;
   };
 
-  auto collapse_memref_to_rank1 = [&](mlir::Value value) -> mlir::Value {
-    auto memref_type = mlir::dyn_cast<mlir::MemRefType>(value.getType());
-    ICHECK(memref_type) << kFeature << ": expected source to be a memref";
-    if (memref_type.getRank() <= 1) {
-      return value;
-    }
-    llvm::SmallVector<mlir::ReassociationIndices> reassociation;
-    mlir::ReassociationIndices all_dims;
-    for (int64_t i = 0; i < memref_type.getRank(); ++i) {
-      all_dims.push_back(i);
-    }
-    reassociation.push_back(all_dims);
-    return builder
-        .create<mlir::memref::CollapseShapeOp>(loc, value, reassociation)
-        .getResult();
-  };
-
-  auto source_as_flat_memref = [&]() -> mlir::Value {
+  auto source_as_memref = [&]() -> mlir::Value {
     mlir::Value src_value = GetVarValue(npuirop.src);
     if (auto tensor_type =
             mlir::dyn_cast<mlir::RankedTensorType>(src_value.getType())) {
@@ -2731,7 +2714,11 @@ void CodeGenTileLangNPUIRDEV::VIndirectLoadCodegen(const CallNode *op) {
       src_value = builder.create<mlir::bufferization::ToMemrefOp>(
           loc, memref_type, src_value);
     }
-    return collapse_memref_to_rank1(src_value);
+    ICHECK(mlir::isa<mlir::MemRefType>(src_value.getType()))
+        << kFeature << ": expected source to be a memref";
+    // HFusion/HIVM 的 indirect_load 接口允许 src 保持 AnyMemRef；
+    // 只由 offsets/dst/mask/other 的 rank 决定 1D/2D SIMT 形态。
+    return src_value;
   };
 
   auto extract_indices_tensor = [&]() -> mlir::Value {
@@ -2752,7 +2739,7 @@ void CodeGenTileLangNPUIRDEV::VIndirectLoadCodegen(const CallNode *op) {
     return ReshapeTensorImpl(idx, shape, shape_ofr);
   };
 
-  mlir::Value src = source_as_flat_memref();
+  mlir::Value src = source_as_memref();
   mlir::Value idx_i32 = extract_indices_tensor();
   mlir::Value dst = GetVarValue(npuirop.dst_ub);
   auto dst_type = mlir::dyn_cast<mlir::RankedTensorType>(dst.getType());
