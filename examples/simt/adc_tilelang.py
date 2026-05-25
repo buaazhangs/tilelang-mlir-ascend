@@ -79,10 +79,12 @@ def main(n, block_M, num_subspaces, codebook_size):
     if n <= 0 or block_M <= 0:
         raise ValueError("n and block_M must be positive")
 
-    # torch.manual_seed(42)
+    torch.manual_seed(42)
     # torch.npu.set_device(0)
 
-    lut_cpu = torch.randn(
+    # ADC LUT stores per-subspace distance contributions.  Keep the benchmark
+    # table non-negative so sqrt(sum(contrib)) is a real distance.
+    lut_cpu = torch.rand(
         num_subspaces, codebook_size, dtype=torch.float32)
     codes_t_cpu = torch.randint(
         0, codebook_size, (num_subspaces, n), dtype=torch.int32)
@@ -94,8 +96,6 @@ def main(n, block_M, num_subspaces, codebook_size):
 
     kernel = make_adc_kernel(block_M, 128)
     result = kernel(lut, codes_t)
-    print("result",result)
-    print("ref",ref)
     torch.npu.synchronize()
 
     torch.testing.assert_close(result.cpu(), ref, rtol=1e-3, atol=1e-3)
