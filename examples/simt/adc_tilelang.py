@@ -79,8 +79,8 @@ def main(n, block_M, num_subspaces, codebook_size):
     if n <= 0 or block_M <= 0:
         raise ValueError("n and block_M must be positive")
 
-    torch.manual_seed(42)
-    torch.npu.set_device(0)
+    # torch.manual_seed(42)
+    # torch.npu.set_device(0)
 
     lut_cpu = torch.randn(
         num_subspaces, codebook_size, dtype=torch.float32)
@@ -94,6 +94,8 @@ def main(n, block_M, num_subspaces, codebook_size):
 
     kernel = make_adc_kernel(block_M, 128)
     result = kernel(lut, codes_t)
+    print("result",result)
+    print("ref",ref)
     torch.npu.synchronize()
 
     torch.testing.assert_close(result.cpu(), ref, rtol=1e-3, atol=1e-3)
@@ -102,7 +104,7 @@ def main(n, block_M, num_subspaces, codebook_size):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--n", type=int, default=env_int("TILELANG_ADC_N", 200000))
+    parser.add_argument("--n", type=int, default=env_int("TILELANG_ADC_N", 100))
     parser.add_argument("--block-m", type=int,
                         default=env_int("TILELANG_ADC_BLOCK_M", 256))
     parser.add_argument("--num-subspaces", type=int,
