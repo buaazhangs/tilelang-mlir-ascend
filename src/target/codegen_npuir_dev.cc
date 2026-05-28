@@ -2417,6 +2417,262 @@ void CodeGenTileLangNPUIRDEV::VgatherCodegen(const CallNode *op) {
                                         src, indices, dst);
 }
 
+void CodeGenTileLangNPUIRDEV::EnsureTritonIndirectLoadDecl(
+    mlir::Type src_type, mlir::RankedTensorType indices_type,
+    mlir::RankedTensorType mask_type, mlir::RankedTensorType other_type,
+    mlir::RankedTensorType result_type) {
+  // BiSheng recognizes this private function name as the discrete read hook.
+  // Emit one declaration per module and call it from every indirect-load site.
+  if (triton_indirect_load_declared_) {
+    return;
+  }
+
+  mlir::OpBuilder::InsertionGuard guard(builder);
+  builder.setInsertionPointToStart(module->getBody());
+  llvm::SmallVector<mlir::Type> args = {src_type, indices_type, mask_type,
+                                        other_type};
+  auto func_type = builder.getFunctionType(args, {result_type});
+  auto func_op = builder.create<mlir::func::FuncOp>(
+      builder.getUnknownLoc(), "triton_indirect_load", func_type);
+  func_op.setPrivate();
+  triton_indirect_load_declared_ = true;
+}
+
+void CodeGenTileLangNPUIRDEV::VIndirectLoadCodegen(const CallNode *op) {
+  constexpr const char *kFeature = "A5 SIMT indirect load phase 1";
+  tvm::tl::NpuirIndirectLoad npuirop(op->args, this->vmap);
+
+  ICHECK(npuirop.indices_ub_range.size() == 1U ||
+         npuirop.indices_ub_range.size() == 2U)
+      << kFeature << ": expected IDX region rank 1 or 2 in codegen";
+  ICHECK_EQ(npuirop.dst_ub_range.size(), 1U)
+      << kFeature << ": expected O_UB rank 1 in codegen";
+  if (npuirop.indices_ub_range.size() == 1U) {
+    ICHECK(is_zero(npuirop.indices_ub_range[0]->min))
+        << kFeature << ": expected IDX_UB region offset 0";
+  } else {
+    ICHECK(is_one(npuirop.indices_ub_range[0]->extent))
+        << kFeature << ": expected rank-2 IDX_UB row extent 1";
+  }
+  ICHECK(is_zero(npuirop.dst_ub_range[0]->min))
+      << kFeature << ": expected O_UB region offset 0";
+
+  auto block = as_const_int(npuirop.dst_ub_range[0]->extent);
+  ICHECK(block) << kFeature << ": expected static O_UB extent";
+  ICHECK_GT(*block, 0) << kFeature << ": expected positive O_UB extent, got "
+                       << *block;
+
+  mlir::Location loc = builder.getUnknownLoc();
+  auto normalize_integer_scalar_to_i64 = [&](mlir::Value value) -> mlir::Value {
+    if (value.getType().isIndex()) {
+      return builder.create<mlir::arith::IndexCastOp>(
+          loc, builder.getI64Type(), value);
+    }
+    auto int_type = mlir::dyn_cast<mlir::IntegerType>(value.getType());
+    ICHECK(int_type) << kFeature << ": expected integer scalar value";
+    if (int_type.getWidth() < 64) {
+      return builder.create<mlir::arith::ExtSIOp>(
+          loc, builder.getI64Type(), value);
+    }
+    if (int_type.getWidth() > 64) {
+      return builder.create<mlir::arith::TruncIOp>(
+          loc, builder.getI64Type(), value);
+    }
+    return value;
+  };
+
+  auto source_as_flat_memref = [&]() -> mlir::Value {
+    mlir::Value src_value = GetVarValue(npuirop.src);
+    if (auto tensor_type =
+            mlir::dyn_cast<mlir::RankedTensorType>(src_value.getType())) {
+      auto memref_type = mlir::MemRefType::get(tensor_type.getShape(),
+                                               tensor_type.getElementType());
+      src_value = builder.create<mlir::bufferization::ToMemrefOp>(
+          loc, memref_type, src_value);
+    }
+    ICHECK(mlir::isa<mlir::MemRefType>(src_value.getType()))
+        << kFeature << ": expected source to be a memref";
+    // HFusion/HIVM indirect_load receives scalar offsets, so a multi-rank
+    // source buffer is flattened before lowering to the backend call.
+    auto src_memref_type = mlir::cast<mlir::MemRefType>(src_value.getType());
+    if (src_memref_type.getRank() <= 1) {
+      return src_value;
+    }
+
+    if (auto reinterpret_op =
+            src_value.getDefiningOp<mlir::memref::ReinterpretCastOp>()) {
+      mlir::Value flat_source = reinterpret_op.getSource();
+      if (auto flat_source_type =
+              mlir::dyn_cast<mlir::MemRefType>(flat_source.getType())) {
+        auto static_offsets = reinterpret_op.getStaticOffsets();
+        if (static_offsets.size() == 1 && static_offsets[0] == 0 &&
+            flat_source_type.getRank() <= 1 &&
+            flat_source_type.getElementType() ==
+                src_memref_type.getElementType()) {
+          return flat_source;
+        }
+      }
+    }
+
+    for (int64_t dim : src_memref_type.getShape()) {
+      ICHECK(!mlir::ShapedType::isDynamic(dim))
+          << kFeature << ": expected static source shape for flattening";
+    }
+    llvm::SmallVector<mlir::ReassociationIndices> reassociation(1);
+    for (int64_t dim = 0; dim < src_memref_type.getRank(); ++dim) {
+      reassociation[0].push_back(dim);
+    }
+    auto collapse_op = builder.create<mlir::memref::CollapseShapeOp>(
+        loc, src_value, reassociation);
+    return collapse_op.getResult();
+  };
+
+  auto extract_indices_tensor = [&]() -> mlir::Value {
+    mlir::Value base = GetVarValue(npuirop.indices_ub);
+    mlir::Value idx;
+    if (mlir::isa<mlir::MemRefType>(base.getType())) {
+      mlir::Value view =
+          GenSubviewFromRegion(npuirop.indices_ub, npuirop.indices_ub_range);
+      idx = builder.create<mlir::bufferization::ToTensorOp>(
+          loc, view, /*restrict=*/true, /*writable=*/false);
+    } else {
+      idx = GenExtractSliceFromRegion(npuirop.indices_ub,
+                                      npuirop.indices_ub_range);
+    }
+    llvm::SmallVector<int64_t> shape{*block};
+    llvm::SmallVector<mlir::OpFoldResult> shape_ofr{
+        builder.getIndexAttr(*block)};
+    return ReshapeTensorImpl(idx, shape, shape_ofr);
+  };
+
+  mlir::Value src = source_as_flat_memref();
+  mlir::Value idx_i32 = extract_indices_tensor();
+  mlir::Value dst = GetVarValue(npuirop.dst_ub);
+  auto dst_type = mlir::dyn_cast<mlir::RankedTensorType>(dst.getType());
+  ICHECK(dst_type) << kFeature << ": expected O_UB to be a ranked tensor";
+  ICHECK_EQ(dst_type.getRank(), 1) << kFeature
+                                   << ": expected O_UB tensor rank 1";
+  ICHECK_EQ(dst_type.getShape()[0], *block)
+      << kFeature << ": expected O_UB tensor shape to match BLOCK";
+
+  auto idx_type = mlir::dyn_cast<mlir::RankedTensorType>(idx_i32.getType());
+  ICHECK(idx_type) << kFeature << ": expected IDX_UB to be a ranked tensor";
+  ICHECK_EQ(idx_type.getRank(), 1) << kFeature
+                                   << ": expected IDX_UB tensor rank 1";
+  ICHECK_EQ(idx_type.getShape()[0], *block)
+      << kFeature << ": expected IDX_UB tensor shape to match BLOCK";
+
+  auto i64_tensor_type =
+      mlir::RankedTensorType::get({*block}, builder.getI64Type());
+  mlir::Value idx_i64 =
+      builder.create<mlir::arith::ExtSIOp>(loc, i64_tensor_type, idx_i32);
+
+  PrimExpr src_base_expr = tir::make_const(DataType::Int(64), 0);
+  if (npuirop.src_range.size() == 1U) {
+    src_base_expr = npuirop.src_range[0]->min;
+  } else if (npuirop.src_range.size() == 2U) {
+    src_base_expr =
+        npuirop.src_range[0]->min * npuirop.src->shape[1] +
+        npuirop.src_range[1]->min;
+  } else {
+    ICHECK(false) << kFeature << ": expected src region rank 1 or 2";
+  }
+  if (!is_zero(src_base_expr)) {
+    mlir::Value src_base =
+        normalize_integer_scalar_to_i64(MakeValue(src_base_expr));
+    auto base_empty = builder.create<mlir::tensor::EmptyOp>(
+        loc, llvm::ArrayRef<int64_t>{*block}, builder.getI64Type());
+    mlir::Value base_tensor =
+        builder
+            .create<mlir::linalg::FillOp>(loc, src_base,
+                                          base_empty.getResult())
+            ->getResult(0);
+    idx_i64 =
+        builder.create<mlir::arith::AddIOp>(loc, idx_i64, base_tensor);
+  }
+
+  auto i32_tensor_type =
+      mlir::RankedTensorType::get({*block}, builder.getI32Type());
+  auto mask_type = mlir::RankedTensorType::get({*block}, builder.getI1Type());
+  auto make_range_tensor = [&]() -> mlir::Value {
+    auto lane_empty = builder.create<mlir::tensor::EmptyOp>(
+        loc, llvm::ArrayRef<int64_t>{*block}, builder.getI32Type());
+    auto map = mlir::AffineMap::get(
+        /*dimCount=*/1, /*symbolCount=*/0,
+        {mlir::getAffineDimExpr(0, builder.getContext())},
+        builder.getContext());
+    llvm::SmallVector<mlir::AffineMap> indexing_maps{map};
+    llvm::SmallVector<mlir::utils::IteratorType> iterator_types{
+        mlir::utils::IteratorType::parallel};
+    mlir::TypeRange range_result(&i32_tensor_type, 1);
+    auto body_builder = [&](mlir::OpBuilder &nested_builder,
+                            mlir::Location nested_loc,
+                            mlir::ValueRange block_args) {
+      (void)block_args;
+      mlir::Value index =
+          nested_builder.create<mlir::linalg::IndexOp>(nested_loc, 0);
+      mlir::Value index_i32 = nested_builder.create<mlir::arith::IndexCastOp>(
+          nested_loc, builder.getI32Type(), index);
+      nested_builder.create<mlir::linalg::YieldOp>(nested_loc, index_i32);
+    };
+    auto range_op = builder.create<mlir::linalg::GenericOp>(
+        loc, range_result, mlir::ValueRange{},
+        mlir::ValueRange{lane_empty.getResult()},
+        indexing_maps, iterator_types, body_builder);
+    range_op->setAttr("tt.from_make_range", builder.getUnitAttr());
+    range_op->setAttr(
+        "tt.make_range_offset",
+        mlir::IntegerAttr::get(builder.getIndexType(), 0));
+    range_op->setAttr(
+        "tt.make_range_size",
+        mlir::IntegerAttr::get(builder.getIndexType(), *block));
+    return range_op->getResult(0);
+  };
+
+  mlir::Value lanes = make_range_tensor();
+  mlir::Value valid = MakeValue(npuirop.valid_extent);
+  if (valid.getType().isIndex()) {
+    valid = builder.create<mlir::arith::IndexCastOp>(
+        loc, builder.getI32Type(), valid);
+  } else if (auto int_type = mlir::dyn_cast<mlir::IntegerType>(
+                 valid.getType())) {
+    if (int_type.getWidth() < 32) {
+      valid = builder.create<mlir::arith::ExtSIOp>(
+          loc, builder.getI32Type(), valid);
+    } else if (int_type.getWidth() > 32) {
+      valid = builder.create<mlir::arith::TruncIOp>(
+          loc, builder.getI32Type(), valid);
+    }
+  } else {
+    ICHECK(false) << kFeature << ": valid extent must lower to integer/index";
+  }
+
+  auto valid_empty = builder.create<mlir::tensor::EmptyOp>(
+      loc, llvm::ArrayRef<int64_t>{*block}, builder.getI32Type());
+  mlir::Value valid_tensor =
+      builder.create<mlir::linalg::FillOp>(loc, valid, valid_empty.getResult())
+          ->getResult(0);
+  mlir::Value mask = builder.create<mlir::arith::CmpIOp>(
+      loc, mlir::arith::CmpIPredicate::slt, lanes, valid_tensor);
+
+  auto elem_type = dst_type.getElementType();
+  mlir::Value zero = builder.create<mlir::arith::ConstantOp>(
+      loc, mlir::FloatAttr::get(elem_type, 0.0));
+  auto other_empty = builder.create<mlir::tensor::EmptyOp>(
+      loc, llvm::ArrayRef<int64_t>{*block}, elem_type);
+  mlir::Value other =
+      builder.create<mlir::linalg::FillOp>(loc, zero, other_empty.getResult())
+          ->getResult(0);
+
+  EnsureTritonIndirectLoadDecl(src.getType(), i64_tensor_type, mask_type,
+                               dst_type, dst_type);
+  llvm::SmallVector<mlir::Value> operands = {src, idx_i64, mask, other};
+  mlir::TypeRange result_types(&dst_type, 1);
+  auto call_op = builder.create<mlir::func::CallOp>(
+      loc, "triton_indirect_load", result_types, operands);
+  SetVarValue(npuirop.dst_ub, call_op.getResult(0));
+}
+
 void CodeGenTileLangNPUIRDEV::VtransposeCodegen(const CallNode *op) {
   tvm::tl::NpuirTranspose npuirop(op->args, this->vmap);
   Value src = GenExtractSliceFromRegion(npuirop.src, npuirop.src_range);
@@ -3652,6 +3908,8 @@ mlir::Value CodeGenTileLangNPUIRDEV::VisitExpr_(const CallNode *op) {
     VcumsumCodegen(op);
   } else if (op->op.same_as(Op::Get("tl.npuir_gather"))) {
     VgatherCodegen(op);
+  } else if (op->op.same_as(Op::Get("tl.npuir_indirect_load"))) {
+    VIndirectLoadCodegen(op);
   } else if (op->op.same_as(Op::Get("tl.npuir_transpose"))) {
     VtransposeCodegen(op);
   } else if (op->op.same_as(Op::Get("tl.npuir_interleave"))) {

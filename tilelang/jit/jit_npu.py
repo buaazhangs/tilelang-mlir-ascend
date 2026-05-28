@@ -253,7 +253,17 @@ def extract_device_print_code_from_cann():
 
 
 def generate_npu_wrapper_src(
-    constants, signature, workspace_size, mix_mode, lock_num, lock_ini_val, need_debug
+    constants,
+    signature,
+    workspace_size,
+    mix_mode,
+    lock_num,
+    lock_ini_val,
+    need_debug,
+    force_simt_only=False,
+    shared_mem_dynamic_size=0,
+    compile_on_910_95=False,
+    target_support_ffts=True,
 ):
     def _ty_to_cpp(ty):
         if ty[0] == "*":
@@ -536,11 +546,8 @@ static void _launch(const char* kernelName, const void* func, rtStream_t stream,
         else ""
     }
     rtError_t ret;
-    void *ffts_addr = NULL;
-    uint32_t ffts_len; ret = rtGetC2cCtrlAddr((uint64_t*)&ffts_addr, &ffts_len);
-    if (ret != RT_ERROR_NONE) {{
-      return {"ret" if enable_taskqueue else ""};
-    }}
+    {"void *ffts_addr = NULL; uint32_t ffts_len; ret = rtGetC2cCtrlAddr((uint64_t*)&ffts_addr, &ffts_len);" if target_support_ffts else ""}
+    {"if (ret != RT_ERROR_NONE) { return ret; }" if (target_support_ffts and enable_taskqueue) else "if (ret != RT_ERROR_NONE) return;" if (target_support_ffts and (not enable_taskqueue)) else ""}
     // stub argument for workspace
     void *syncBlockLock = NULL;
 
@@ -576,9 +583,9 @@ static void _launch(const char* kernelName, const void* func, rtStream_t stream,
         else ""
     }
     struct __attribute__((packed)) {{
-      void* ffts_addr __attribute__((aligned(8)));
-      void* syncBlockLock __attribute__((aligned(8)));
-      void* workspace_addr __attribute__((aligned(8)));
+      {"void* ffts_addr __attribute__((aligned(8)));" if target_support_ffts else ""}
+      {"void* syncBlockLock __attribute__((aligned(8)));" if not force_simt_only else ""}
+      {"void* workspace_addr __attribute__((aligned(8)));" if not force_simt_only else ""}
       {
         " ".join(
             f"{_ty_to_cpp(ty)} arg{i} __attribute__((aligned({4 if ty[0] != '*' and ty[-2:] != '64' else 8})));"
@@ -594,9 +601,9 @@ static void _launch(const char* kernelName, const void* func, rtStream_t stream,
     }
       {"void* DTData __attribute__((aligned(8)));" if need_debug else ""}
     }} args = {{
-      static_cast<void*>(ffts_addr),
-      static_cast<void*>(syncBlockLock),
-      static_cast<void*>(workspace_addr),
+      {"static_cast<void*>(ffts_addr)," if target_support_ffts else ""}
+      {("static_cast<void*>(syncBlockLock)," if lock_num > 0 else "nullptr,") if not force_simt_only else ""}
+      {("static_cast<void*>(workspace_addr)," if workspace_size > 0 else "nullptr,") if not force_simt_only else ""}
       {
         ", ".join(
             f"static_cast<{_ty_to_cpp(ty)}>(arg{i})"
@@ -613,7 +620,14 @@ static void _launch(const char* kernelName, const void* func, rtStream_t stream,
       {", static_cast<void*>(DTData)" if need_debug else ""}
     }};
     {cpp_msprof_call_before_launch}
-    ret = rtKernelLaunch(func, blockNum, static_cast<void*>(&args), sizeof(args), NULL, stream);
+    {f'''
+    rtArgsEx_t argsInfo = {{}};
+    argsInfo.args = static_cast<void*>(&args);
+    argsInfo.argsSize = sizeof(args);
+    rtTaskCfgInfo_t cfgInfo = {{}};
+    cfgInfo.localMemorySize = {shared_mem_dynamic_size};
+    ret = rtKernelLaunchWithFlagV2(func, blockNum, &argsInfo, NULL, stream, 0, &cfgInfo);
+    ''' if compile_on_910_95 else 'ret = rtKernelLaunch(func, blockNum, static_cast<void*>(&args), sizeof(args), NULL, stream);'}
     {"void *&stream_ref = const_cast<void*&>(stream);" if need_debug else ""}
     {"cce::internal::DebugTunnel::Close(DTData, stream_ref);" if need_debug else ""}
     {cpp_msprof_call_after_launch}
@@ -1193,6 +1207,7 @@ class compiler_npu:
         self._parse_npuir_metadata()
         self.metadata["kernel_src"] = self._npuir_to_bin_enable_npu_compile()
         self.header_path = get_npu_launcher_header()
+        shared_mem_dynamic_size = self.metadata.get("shared_mem_dynamic_size", 221184)
         self.wrapper_src = generate_npu_wrapper_src(
             self.constants,
             self.signature,
@@ -1201,6 +1216,13 @@ class compiler_npu:
             self.lock_num,
             self.lock_ini_val,
             self.need_debug,
+            self.metadata.get("force_simt_only", False),
+            shared_mem_dynamic_size,
+            self.metadata.get("compile_on_910_95", True),
+            self.metadata.get(
+                "target_support_ffts",
+                not self.metadata.get("compile_on_910_95", True),
+            ),
         )
         self.so_launcher_path = self.make_npu_launcher_stub(
             self.metadata["kernel_name"], self.header_path, self.wrapper_src
