@@ -48,7 +48,8 @@ def adc_lut2d_indirect_kernel(block_M, num_subspaces=64,
             CODES_UB = T.alloc_ub((num_subspaces, block_M), code_dtype)
             LUT_VAL_UB = T.alloc_ub((block_M,), dtype)
 
-            T.npuir_brc(0, LUT_VAL_UB)
+            value_zero = 0
+            T.npuir_brc(value_zero, LUT_VAL_UB)
 
             T.copy(
                 codes[start:start + valid, 0:num_subspaces],
