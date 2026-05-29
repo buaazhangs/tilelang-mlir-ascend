@@ -2843,8 +2843,7 @@ void CodeGenTileLangNPUIRDEV::VgatherCodegen(const CallNode *op) {
     if (base.getType().isa<mlir::RankedTensorType>()) {
       return GenExtractSliceFromRegion(buffer, range);
     }
-    ICHECK(false) << "tl.npuir_gather: expected tensor or memref buffer, got "
-                  << base.getType();
+    ICHECK(false) << "tl.npuir_gather: expected tensor or memref buffer";
     return mlir::Value();
   };
 
@@ -2858,8 +2857,7 @@ void CodeGenTileLangNPUIRDEV::VgatherCodegen(const CallNode *op) {
   bool dstIsTensor = dstBase.getType().isa<mlir::RankedTensorType>();
   bool dstIsMemref = dstBase.getType().isa<mlir::MemRefType>();
   ICHECK(dstIsTensor || dstIsMemref)
-      << "tl.npuir_gather: expected tensor or memref dst, got "
-      << dstBase.getType();
+      << "tl.npuir_gather: expected tensor or memref dst";
 
   Value gatherInit = dst;
   bool needInsertSlice = false;
