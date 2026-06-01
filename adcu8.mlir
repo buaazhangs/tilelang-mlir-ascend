@@ -75,7 +75,7 @@ module attributes {hivm.module_core_type = #hivm.module_core_type<AIV>, memref.m
           %inserted_slice_14 = tensor.insert_slice %expanded_13 into %arg14[0, 0] [%44, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
           %transposed = linalg.transpose ins(%inserted_slice_14 : tensor<832x8xi8>) outs(%35 : tensor<8x832xi8>) permutation = [1, 0] 
           %48 = tensor.empty() : tensor<8x832xi8>
-          %49 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%36 : tensor<8x832xi32>) -> tensor<8x832xi32>
+          %49 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%36 : tensor<8x832xi32>) -> tensor<8x832xi32>
           %c0_i32_15 = arith.constant 0 : i32
           %c1_i32_16 = arith.constant 1 : i32
           %50 = scf.for %arg16 = %c0_i32_15 to %c8_i32_9 step %c1_i32_16 iter_args(%arg17 = %arg15) -> (tensor<1x832xf32>)  : i32 {
@@ -194,7 +194,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
           %inserted_slice_14 = tensor.insert_slice %expanded_13 into %arg14[0, 0] [%44, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
           %transposed = linalg.transpose ins(%inserted_slice_14 : tensor<832x8xi8>) outs(%35 : tensor<8x832xi8>) permutation = [1, 0] 
           %48 = tensor.empty() : tensor<8x832xi8>
-          %49 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%36 : tensor<8x832xi32>) -> tensor<8x832xi32>
+          %49 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%36 : tensor<8x832xi32>) -> tensor<8x832xi32>
           %c0_i32_15 = arith.constant 0 : i32
           %c1_i32_16 = arith.constant 1 : i32
           %50 = scf.for %arg16 = %c0_i32_15 to %c8_i32_9 step %c1_i32_16 iter_args(%arg17 = %arg15) -> (tensor<1x832xf32>)  : i32 {
@@ -313,7 +313,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
           %inserted_slice_14 = tensor.insert_slice %expanded_13 into %arg14[0, 0] [%44, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
           %transposed = linalg.transpose ins(%inserted_slice_14 : tensor<832x8xi8>) outs(%35 : tensor<8x832xi8>) permutation = [1, 0] 
           %48 = tensor.empty() : tensor<8x832xi8>
-          %49 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%36 : tensor<8x832xi32>) -> tensor<8x832xi32>
+          %49 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%36 : tensor<8x832xi32>) -> tensor<8x832xi32>
           %c0_i32_15 = arith.constant 0 : i32
           %c1_i32_16 = arith.constant 1 : i32
           %50 = scf.for %arg16 = %c0_i32_15 to %c8_i32_9 step %c1_i32_16 iter_args(%arg17 = %arg15) -> (tensor<1x832xf32>)  : i32 {
@@ -414,7 +414,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
           %39 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
           %inserted_slice = tensor.insert_slice %39 into %arg14[0, 0] [%36, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
           %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%27 : tensor<8x832xi8>) permutation = [1, 0] 
-          %40 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%28 : tensor<8x832xi32>) -> tensor<8x832xi32>
+          %40 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%28 : tensor<8x832xi32>) -> tensor<8x832xi32>
           %41 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<1x832xf32>)  : i32 {
             %42 = tensor.empty() : tensor<1x832xf32>
             %43 = arith.muli %arg13, %c8_i32 : i32
@@ -510,7 +510,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
           %39 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
           %inserted_slice = tensor.insert_slice %39 into %arg14[0, 0] [%36, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
           %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%27 : tensor<8x832xi8>) permutation = [1, 0] 
-          %40 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%28 : tensor<8x832xi32>) -> tensor<8x832xi32>
+          %40 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%28 : tensor<8x832xi32>) -> tensor<8x832xi32>
           %41 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<1x832xf32>)  : i32 {
             %42 = tensor.empty() : tensor<1x832xf32>
             %43 = arith.muli %arg13, %c8_i32 : i32
@@ -606,7 +606,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
           %39 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
           %inserted_slice = tensor.insert_slice %39 into %arg14[0, 0] [%36, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
           %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%27 : tensor<8x832xi8>) permutation = [1, 0] 
-          %40 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%28 : tensor<8x832xi32>) -> tensor<8x832xi32>
+          %40 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%28 : tensor<8x832xi32>) -> tensor<8x832xi32>
           %41 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<1x832xf32>)  : i32 {
             %42 = tensor.empty() : tensor<1x832xf32>
             %43 = arith.muli %arg13, %c8_i32 : i32
@@ -701,7 +701,7 @@ func.func @adc_func(%arg0: memref<?xi8> {hacc.arg_type = #hacc.arg_type<sync_blo
         %39 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
         %inserted_slice = tensor.insert_slice %39 into %arg14[0, 0] [%36, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
         %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%27 : tensor<8x832xi8>) permutation = [1, 0] 
-        %40 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%28 : tensor<8x832xi32>) -> tensor<8x832xi32>
+        %40 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%28 : tensor<8x832xi32>) -> tensor<8x832xi32>
         %41 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<1x832xf32>)  : i32 {
           %42 = tensor.empty() : tensor<1x832xf32>
           %43 = arith.muli %arg13, %c8_i32 : i32
@@ -794,7 +794,7 @@ func.func @adc_func(%arg0: memref<?xi8> {hacc.arg_type = #hacc.arg_type<sync_blo
         %39 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
         %inserted_slice = tensor.insert_slice %39 into %arg14[0, 0] [%36, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
         %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%27 : tensor<8x832xi8>) permutation = [1, 0] 
-        %40 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%28 : tensor<8x832xi32>) -> tensor<8x832xi32>
+        %40 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%28 : tensor<8x832xi32>) -> tensor<8x832xi32>
         %41 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<1x832xf32>)  : i32 {
           %42 = tensor.empty() : tensor<1x832xf32>
           %43 = arith.muli %arg13, %c8_i32 : i32
@@ -887,7 +887,7 @@ func.func @adc_func(%arg0: memref<?xi8> {hacc.arg_type = #hacc.arg_type<sync_blo
         %39 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
         %inserted_slice = tensor.insert_slice %39 into %arg14[0, 0] [%36, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
         %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%27 : tensor<8x832xi8>) permutation = [1, 0] 
-        %40 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%28 : tensor<8x832xi32>) -> tensor<8x832xi32>
+        %40 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%28 : tensor<8x832xi32>) -> tensor<8x832xi32>
         %41 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<1x832xf32>)  : i32 {
           %42 = tensor.empty() : tensor<1x832xf32>
           %43 = arith.muli %arg13, %c8_i32 : i32
@@ -980,7 +980,7 @@ func.func @adc_func(%arg0: memref<?xi8> {hacc.arg_type = #hacc.arg_type<sync_blo
         %39 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
         %inserted_slice = tensor.insert_slice %39 into %arg14[0, 0] [%36, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
         %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%27 : tensor<8x832xi8>) permutation = [1, 0] 
-        %40 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%28 : tensor<8x832xi32>) -> tensor<8x832xi32>
+        %40 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%28 : tensor<8x832xi32>) -> tensor<8x832xi32>
         %41 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<1x832xf32>)  : i32 {
           %42 = tensor.empty() : tensor<1x832xf32>
           %43 = arith.muli %arg13, %c8_i32 : i32
@@ -1074,7 +1074,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
           %39 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
           %inserted_slice = tensor.insert_slice %39 into %arg14[0, 0] [%36, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
           %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%27 : tensor<8x832xi8>) permutation = [1, 0] 
-          %40 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%28 : tensor<8x832xi32>) -> tensor<8x832xi32>
+          %40 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%28 : tensor<8x832xi32>) -> tensor<8x832xi32>
           %41 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<1x832xf32>)  : i32 {
             %42 = tensor.empty() : tensor<1x832xf32>
             %43 = arith.muli %arg13, %c8_i32 : i32
@@ -1170,7 +1170,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
           %39 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
           %inserted_slice = tensor.insert_slice %39 into %arg14[0, 0] [%36, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
           %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%27 : tensor<8x832xi8>) permutation = [1, 0] 
-          %40 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%28 : tensor<8x832xi32>) -> tensor<8x832xi32>
+          %40 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%28 : tensor<8x832xi32>) -> tensor<8x832xi32>
           %41 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<1x832xf32>)  : i32 {
             %42 = tensor.empty() : tensor<1x832xf32>
             %43 = arith.muli %arg13, %c8_i32 : i32
@@ -1266,7 +1266,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
           %39 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
           %inserted_slice = tensor.insert_slice %39 into %arg14[0, 0] [%36, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
           %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%27 : tensor<8x832xi8>) permutation = [1, 0] 
-          %40 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%28 : tensor<8x832xi32>) -> tensor<8x832xi32>
+          %40 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%28 : tensor<8x832xi32>) -> tensor<8x832xi32>
           %41 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<1x832xf32>)  : i32 {
             %42 = tensor.empty() : tensor<1x832xf32>
             %43 = arith.muli %arg13, %c8_i32 : i32
@@ -1362,7 +1362,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
           %39 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
           %inserted_slice = tensor.insert_slice %39 into %arg14[0, 0] [%36, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
           %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%27 : tensor<8x832xi8>) permutation = [1, 0] 
-          %40 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%28 : tensor<8x832xi32>) -> tensor<8x832xi32>
+          %40 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%28 : tensor<8x832xi32>) -> tensor<8x832xi32>
           %41 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<1x832xf32>)  : i32 {
             %42 = tensor.empty() : tensor<1x832xf32>
             %43 = arith.muli %arg13, %c8_i32 : i32
@@ -1458,7 +1458,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
           %39 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
           %inserted_slice = tensor.insert_slice %39 into %arg14[0, 0] [%36, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
           %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%27 : tensor<8x832xi8>) permutation = [1, 0] 
-          %40 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%28 : tensor<8x832xi32>) -> tensor<8x832xi32>
+          %40 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%28 : tensor<8x832xi32>) -> tensor<8x832xi32>
           %41 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<1x832xf32>)  : i32 {
             %42 = tensor.empty() : tensor<1x832xf32>
             %43 = arith.muli %arg13, %c8_i32 : i32
@@ -1554,7 +1554,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
           %39 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
           %inserted_slice = tensor.insert_slice %39 into %arg14[0, 0] [%36, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
           %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%27 : tensor<8x832xi8>) permutation = [1, 0] 
-          %40 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%28 : tensor<8x832xi32>) -> tensor<8x832xi32>
+          %40 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%28 : tensor<8x832xi32>) -> tensor<8x832xi32>
           %41 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<1x832xf32>)  : i32 {
             %42 = tensor.empty() : tensor<1x832xf32>
             %43 = arith.muli %arg13, %c8_i32 : i32
@@ -1650,7 +1650,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
           %39 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
           %inserted_slice = tensor.insert_slice %39 into %arg14[0, 0] [%36, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
           %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%27 : tensor<8x832xi8>) permutation = [1, 0] 
-          %40 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%28 : tensor<8x832xi32>) -> tensor<8x832xi32>
+          %40 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%28 : tensor<8x832xi32>) -> tensor<8x832xi32>
           %41 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<1x832xf32>)  : i32 {
             %42 = tensor.empty() : tensor<1x832xf32>
             %43 = arith.muli %arg13, %c8_i32 : i32
@@ -1746,7 +1746,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
           %39 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
           %inserted_slice = tensor.insert_slice %39 into %arg14[0, 0] [%36, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
           %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%27 : tensor<8x832xi8>) permutation = [1, 0] 
-          %40 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%28 : tensor<8x832xi32>) -> tensor<8x832xi32>
+          %40 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%28 : tensor<8x832xi32>) -> tensor<8x832xi32>
           %41 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<1x832xf32>)  : i32 {
             %42 = tensor.empty() : tensor<1x832xf32>
             %43 = arith.muli %arg13, %c8_i32 : i32
@@ -1842,7 +1842,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
           %39 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
           %inserted_slice = tensor.insert_slice %39 into %arg14[0, 0] [%36, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
           %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%27 : tensor<8x832xi8>) permutation = [1, 0] 
-          %40 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%28 : tensor<8x832xi32>) -> tensor<8x832xi32>
+          %40 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%28 : tensor<8x832xi32>) -> tensor<8x832xi32>
           %41 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<1x832xf32>)  : i32 {
             %42 = tensor.empty() : tensor<1x832xf32>
             %43 = arith.muli %arg13, %c8_i32 : i32
@@ -1938,7 +1938,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
           %39 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
           %inserted_slice = tensor.insert_slice %39 into %arg14[0, 0] [%36, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
           %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%27 : tensor<8x832xi8>) permutation = [1, 0] 
-          %40 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%28 : tensor<8x832xi32>) -> tensor<8x832xi32>
+          %40 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%28 : tensor<8x832xi32>) -> tensor<8x832xi32>
           %41 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<1x832xf32>)  : i32 {
             %42 = tensor.empty() : tensor<1x832xf32>
             %43 = arith.muli %arg13, %c8_i32 : i32
@@ -2034,7 +2034,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
           %39 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
           %inserted_slice = tensor.insert_slice %39 into %arg14[0, 0] [%36, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
           %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%27 : tensor<8x832xi8>) permutation = [1, 0] 
-          %40 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%28 : tensor<8x832xi32>) -> tensor<8x832xi32>
+          %40 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%28 : tensor<8x832xi32>) -> tensor<8x832xi32>
           %41 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<1x832xf32>)  : i32 {
             %42 = tensor.empty() : tensor<1x832xf32>
             %43 = arith.muli %arg13, %c8_i32 : i32
@@ -2130,7 +2130,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
           %39 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
           %inserted_slice = tensor.insert_slice %39 into %arg14[0, 0] [%36, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
           %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%27 : tensor<8x832xi8>) permutation = [1, 0] 
-          %40 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%28 : tensor<8x832xi32>) -> tensor<8x832xi32>
+          %40 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%28 : tensor<8x832xi32>) -> tensor<8x832xi32>
           %41 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<1x832xf32>)  : i32 {
             %42 = tensor.empty() : tensor<1x832xf32>
             %43 = arith.muli %arg13, %c8_i32 : i32
@@ -2225,7 +2225,7 @@ func.func @adc_func(%arg0: memref<?xi8> {hacc.arg_type = #hacc.arg_type<sync_blo
         %39 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
         %inserted_slice = tensor.insert_slice %39 into %arg14[0, 0] [%36, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
         %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%27 : tensor<8x832xi8>) permutation = [1, 0] 
-        %40 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%28 : tensor<8x832xi32>) -> tensor<8x832xi32>
+        %40 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%28 : tensor<8x832xi32>) -> tensor<8x832xi32>
         %41 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<1x832xf32>)  : i32 {
           %42 = tensor.empty() : tensor<1x832xf32>
           %43 = arith.muli %arg13, %c8_i32 : i32
@@ -2318,7 +2318,7 @@ func.func @adc_func(%arg0: memref<?xi8> {hacc.arg_type = #hacc.arg_type<sync_blo
         %39 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
         %inserted_slice = tensor.insert_slice %39 into %arg14[0, 0] [%36, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
         %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%27 : tensor<8x832xi8>) permutation = [1, 0] 
-        %40 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%28 : tensor<8x832xi32>) -> tensor<8x832xi32>
+        %40 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%28 : tensor<8x832xi32>) -> tensor<8x832xi32>
         %41 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<1x832xf32>)  : i32 {
           %42 = tensor.empty() : tensor<1x832xf32>
           %43 = arith.muli %arg13, %c8_i32 : i32
@@ -2412,7 +2412,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
           %39 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
           %inserted_slice = tensor.insert_slice %39 into %arg14[0, 0] [%36, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
           %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%27 : tensor<8x832xi8>) permutation = [1, 0] 
-          %40 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%28 : tensor<8x832xi32>) -> tensor<8x832xi32>
+          %40 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%28 : tensor<8x832xi32>) -> tensor<8x832xi32>
           %41 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<1x832xf32>)  : i32 {
             %42 = tensor.empty() : tensor<1x832xf32>
             %43 = arith.muli %arg13, %c8_i32 : i32
@@ -2507,7 +2507,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
           %38 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
           %inserted_slice = tensor.insert_slice %38 into %arg14[0, 0] [%35, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
           %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%26 : tensor<8x832xi8>) permutation = [1, 0] 
-          %39 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%27 : tensor<8x832xi32>) -> tensor<8x832xi32>
+          %39 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%27 : tensor<8x832xi32>) -> tensor<8x832xi32>
           %40 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<1x832xf32>)  : i32 {
             %41 = arith.addi %36, %arg16 : i32
             %42 = arith.index_cast %41 : i32 to index
@@ -2600,7 +2600,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
           %38 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
           %inserted_slice = tensor.insert_slice %38 into %arg14[0, 0] [%35, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
           %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%26 : tensor<8x832xi8>) permutation = [1, 0] 
-          %39 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%27 : tensor<8x832xi32>) -> tensor<8x832xi32>
+          %39 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%27 : tensor<8x832xi32>) -> tensor<8x832xi32>
           %40 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<1x832xf32>)  : i32 {
             %41 = arith.addi %36, %arg16 : i32
             %42 = arith.index_cast %41 : i32 to index
@@ -2690,7 +2690,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
           %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
           %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
           %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
           %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<1x832xf32>)  : i32 {
             %40 = arith.addi %35, %arg16 : i32
             %41 = arith.index_cast %40 : i32 to index
@@ -2777,7 +2777,7 @@ func.func @adc_func(%arg0: memref<?xi8> {hacc.arg_type = #hacc.arg_type<sync_blo
         %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
         %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
         %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
         %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<1x832xf32>)  : i32 {
           %40 = arith.addi %35, %arg16 : i32
           %41 = arith.index_cast %40 : i32 to index
@@ -2862,7 +2862,7 @@ func.func @adc_func(%arg0: memref<?xi8> {hacc.arg_type = #hacc.arg_type<sync_blo
         %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
         %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
         %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
         %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<1x832xf32>)  : i32 {
           %40 = arith.addi %35, %arg16 : i32
           %41 = arith.index_cast %40 : i32 to index
@@ -2948,7 +2948,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
           %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
           %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
           %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
           %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<1x832xf32>)  : i32 {
             %40 = arith.addi %35, %arg16 : i32
             %41 = arith.index_cast %40 : i32 to index
@@ -3036,7 +3036,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
           %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
           %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
           %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
           %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<1x832xf32>)  : i32 {
             %40 = arith.addi %35, %arg16 : i32
             %41 = arith.index_cast %40 : i32 to index
@@ -3123,7 +3123,7 @@ func.func @adc_func(%arg0: memref<?xi8> {hacc.arg_type = #hacc.arg_type<sync_blo
         %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
         %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
         %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
         %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<1x832xf32>)  : i32 {
           %40 = arith.addi %35, %arg16 : i32
           %41 = arith.index_cast %40 : i32 to index
@@ -3208,7 +3208,7 @@ func.func @adc_func(%arg0: memref<?xi8> {hacc.arg_type = #hacc.arg_type<sync_blo
         %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
         %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
         %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
         %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<1x832xf32>)  : i32 {
           %40 = arith.addi %35, %arg16 : i32
           %41 = arith.index_cast %40 : i32 to index
@@ -3300,7 +3300,7 @@ func.func @adc_func(%arg0: memref<?xi8> {hacc.arg_type = #hacc.arg_type<sync_blo
         %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
         %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
         %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
         %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<1x832xf32>)  : i32 {
           %40 = arith.addi %35, %arg16 : i32
           %41 = arith.index_cast %40 : i32 to index
@@ -3392,7 +3392,7 @@ func.func @adc_func(%arg0: memref<?xi8> {hacc.arg_type = #hacc.arg_type<sync_blo
         %38 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
         %inserted_slice = tensor.insert_slice %38 into %arg14[0, 0] [%35, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
         %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%26 : tensor<8x832xi8>) permutation = [1, 0] 
-        %39 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%27 : tensor<8x832xi32>) -> tensor<8x832xi32>
+        %39 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%27 : tensor<8x832xi32>) -> tensor<8x832xi32>
         %40 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
           %41 = arith.addi %36, %arg16 : i32
           %42 = arith.index_cast %41 : i32 to index
@@ -3490,7 +3490,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
           %38 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
           %inserted_slice = tensor.insert_slice %38 into %arg14[0, 0] [%35, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
           %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%26 : tensor<8x832xi8>) permutation = [1, 0] 
-          %39 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%27 : tensor<8x832xi32>) -> tensor<8x832xi32>
+          %39 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%27 : tensor<8x832xi32>) -> tensor<8x832xi32>
           %40 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
             %41 = arith.addi %36, %arg16 : i32
             %42 = arith.index_cast %41 : i32 to index
@@ -3590,7 +3590,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
           %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
           %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
           %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
           %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
             %40 = arith.addi %35, %arg16 : i32
             %41 = arith.index_cast %40 : i32 to index
@@ -3688,7 +3688,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
           %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
           %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
           %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
           %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
             %40 = arith.addi %35, %arg16 : i32
             %41 = arith.index_cast %40 : i32 to index
@@ -3786,7 +3786,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
           %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
           %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
           %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
           %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
             %40 = arith.addi %35, %arg16 : i32
             %41 = arith.index_cast %40 : i32 to index
@@ -3881,7 +3881,7 @@ func.func @adc_func(%arg0: memref<?xi8> {hacc.arg_type = #hacc.arg_type<sync_blo
         %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
         %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
         %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
         %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
           %40 = arith.addi %35, %arg16 : i32
           %41 = arith.index_cast %40 : i32 to index
@@ -3974,7 +3974,7 @@ func.func @adc_func(%arg0: memref<?xi8> {hacc.arg_type = #hacc.arg_type<sync_blo
         %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
         %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
         %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
         %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
           %40 = arith.addi %35, %arg16 : i32
           %41 = arith.index_cast %40 : i32 to index
@@ -4070,7 +4070,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
           %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
           %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
           %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
           %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
             %40 = arith.addi %35, %arg16 : i32
             %41 = arith.index_cast %40 : i32 to index
@@ -4168,7 +4168,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
           %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
           %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
           %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
           %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
             %40 = arith.addi %35, %arg16 : i32
             %41 = arith.index_cast %40 : i32 to index
@@ -4266,7 +4266,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
           %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
           %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
           %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
           %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
             %40 = arith.addi %35, %arg16 : i32
             %41 = arith.index_cast %40 : i32 to index
@@ -4364,7 +4364,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
           %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
           %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
           %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
           %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
             %40 = arith.addi %35, %arg16 : i32
             %41 = arith.index_cast %40 : i32 to index
@@ -4462,7 +4462,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
           %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
           %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
           %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
           %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
             %40 = arith.addi %35, %arg16 : i32
             %41 = arith.index_cast %40 : i32 to index
@@ -4558,7 +4558,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
           %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
           %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
           %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
           %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
             %40 = arith.addi %35, %arg16 : i32
             %41 = arith.index_cast %40 : i32 to index
@@ -4647,7 +4647,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
           %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
           %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
           %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
           %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
             %40 = arith.addi %35, %arg16 : i32
             %41 = arith.index_cast %40 : i32 to index
@@ -4736,7 +4736,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
           %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
           %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
           %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
           %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
             %40 = arith.addi %35, %arg16 : i32
             %41 = arith.index_cast %40 : i32 to index
@@ -4825,7 +4825,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
           %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
           %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
           %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
           %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
             %40 = arith.addi %35, %arg16 : i32
             %41 = arith.index_cast %40 : i32 to index
@@ -4914,7 +4914,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
           %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
           %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
           %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
           %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
             %40 = arith.addi %35, %arg16 : i32
             %41 = arith.index_cast %40 : i32 to index
@@ -5003,7 +5003,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
           %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
           %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
           %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
           %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
             %40 = arith.addi %35, %arg16 : i32
             %41 = arith.index_cast %40 : i32 to index
@@ -5092,7 +5092,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
           %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
           %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
           %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
           %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
             %40 = arith.addi %35, %arg16 : i32
             %41 = arith.index_cast %40 : i32 to index
@@ -5181,7 +5181,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
           %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
           %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
           %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
           %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
             %40 = arith.addi %35, %arg16 : i32
             %41 = arith.index_cast %40 : i32 to index
@@ -5270,7 +5270,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
           %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
           %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
           %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
           %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
             %40 = arith.addi %35, %arg16 : i32
             %41 = arith.index_cast %40 : i32 to index
@@ -5358,7 +5358,7 @@ func.func @adc_func(%arg0: memref<?xi8> {hacc.arg_type = #hacc.arg_type<sync_blo
         %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
         %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
         %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
         %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
           %40 = arith.addi %35, %arg16 : i32
           %41 = arith.index_cast %40 : i32 to index
@@ -5444,7 +5444,7 @@ func.func @adc_func(%arg0: memref<?xi8> {hacc.arg_type = #hacc.arg_type<sync_blo
         %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
         %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
         %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
         %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
           %40 = arith.addi %35, %arg16 : i32
           %41 = arith.index_cast %40 : i32 to index
@@ -5531,7 +5531,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
           %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
           %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
           %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
           %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
             %40 = arith.addi %35, %arg16 : i32
             %41 = arith.index_cast %40 : i32 to index
@@ -5620,7 +5620,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
           %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
           %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
           %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
           %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
             %40 = arith.addi %35, %arg16 : i32
             %41 = arith.index_cast %40 : i32 to index
@@ -5709,7 +5709,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
           %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
           %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
           %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
           %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
             %40 = arith.addi %35, %arg16 : i32
             %41 = arith.index_cast %40 : i32 to index
@@ -5798,7 +5798,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
           %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
           %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
           %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
           %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
             %40 = arith.addi %35, %arg16 : i32
             %41 = arith.index_cast %40 : i32 to index
@@ -5886,7 +5886,7 @@ func.func @adc_func(%arg0: memref<?xi8> {hacc.arg_type = #hacc.arg_type<sync_blo
         %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
         %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
         %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
         %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
           %40 = arith.addi %35, %arg16 : i32
           %41 = arith.index_cast %40 : i32 to index
@@ -5972,7 +5972,7 @@ func.func @adc_func(%arg0: memref<?xi8> {hacc.arg_type = #hacc.arg_type<sync_blo
         %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
         %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
         %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
         %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
           %40 = arith.addi %35, %arg16 : i32
           %41 = arith.index_cast %40 : i32 to index
@@ -6059,7 +6059,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
           %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
           %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
           %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
           %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
             %40 = arith.addi %35, %arg16 : i32
             %41 = arith.index_cast %40 : i32 to index
@@ -6148,7 +6148,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
           %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
           %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
           %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
           %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
             %40 = arith.addi %35, %arg16 : i32
             %41 = arith.index_cast %40 : i32 to index
@@ -6236,7 +6236,7 @@ func.func @adc_func(%arg0: memref<?xi8> {hacc.arg_type = #hacc.arg_type<sync_blo
         %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
         %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
         %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
         %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
           %40 = arith.addi %35, %arg16 : i32
           %41 = arith.index_cast %40 : i32 to index
@@ -6322,7 +6322,7 @@ func.func @adc_func(%arg0: memref<?xi8> {hacc.arg_type = #hacc.arg_type<sync_blo
         %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
         %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
         %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
         %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
           %40 = arith.addi %35, %arg16 : i32
           %41 = arith.index_cast %40 : i32 to index
@@ -6408,7 +6408,7 @@ func.func @adc_func(%arg0: memref<?xi8> {hacc.arg_type = #hacc.arg_type<sync_blo
         %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
         %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
         %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
         %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
           %40 = arith.addi %35, %arg16 : i32
           %41 = arith.index_cast %40 : i32 to index
@@ -6494,7 +6494,7 @@ func.func @adc_func(%arg0: memref<?xi8> {hacc.arg_type = #hacc.arg_type<sync_blo
         %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
         %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
         %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
         %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
           %40 = arith.addi %35, %arg16 : i32
           %41 = arith.index_cast %40 : i32 to index
@@ -6580,7 +6580,7 @@ func.func @adc_func(%arg0: memref<?xi8> {hacc.arg_type = #hacc.arg_type<sync_blo
         %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
         %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
         %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
         %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
           %40 = arith.addi %35, %arg16 : i32
           %41 = arith.index_cast %40 : i32 to index
@@ -6666,7 +6666,7 @@ func.func @adc_func(%arg0: memref<?xi8> {hacc.arg_type = #hacc.arg_type<sync_blo
         %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
         %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
         %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
         %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
           %40 = arith.addi %35, %arg16 : i32
           %41 = arith.index_cast %40 : i32 to index
@@ -6752,7 +6752,7 @@ func.func @adc_func(%arg0: memref<?xi8> {hacc.arg_type = #hacc.arg_type<sync_blo
         %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
         %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
         %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
         %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
           %40 = arith.addi %35, %arg16 : i32
           %41 = arith.index_cast %40 : i32 to index
@@ -6838,7 +6838,7 @@ func.func @adc_func(%arg0: memref<?xi8> {hacc.arg_type = #hacc.arg_type<sync_blo
         %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
         %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
         %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
         %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
           %40 = arith.addi %35, %arg16 : i32
           %41 = arith.index_cast %40 : i32 to index
@@ -6924,7 +6924,7 @@ func.func @adc_func(%arg0: memref<?xi8> {hacc.arg_type = #hacc.arg_type<sync_blo
         %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
         %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
         %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
         %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
           %40 = arith.addi %35, %arg16 : i32
           %41 = arith.index_cast %40 : i32 to index
@@ -7010,7 +7010,7 @@ func.func @adc_func(%arg0: memref<?xi8> {hacc.arg_type = #hacc.arg_type<sync_blo
         %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
         %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
         %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
         %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
           %40 = arith.addi %35, %arg16 : i32
           %41 = arith.index_cast %40 : i32 to index
@@ -7096,7 +7096,7 @@ func.func @adc_func(%arg0: memref<?xi8> {hacc.arg_type = #hacc.arg_type<sync_blo
         %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
         %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
         %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
         %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
           %40 = arith.addi %35, %arg16 : i32
           %41 = arith.index_cast %40 : i32 to index
@@ -7182,7 +7182,7 @@ func.func @adc_func(%arg0: memref<?xi8> {hacc.arg_type = #hacc.arg_type<sync_blo
         %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
         %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
         %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
         %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
           %40 = arith.addi %35, %arg16 : i32
           %41 = arith.index_cast %40 : i32 to index
@@ -7268,7 +7268,7 @@ func.func @adc_func(%arg0: memref<?xi8> {hacc.arg_type = #hacc.arg_type<sync_blo
         %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
         %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
         %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
         %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
           %40 = arith.addi %35, %arg16 : i32
           %41 = arith.index_cast %40 : i32 to index
@@ -7354,7 +7354,7 @@ func.func @adc_func(%arg0: memref<?xi8> {hacc.arg_type = #hacc.arg_type<sync_blo
         %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
         %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
         %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
         %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
           %40 = arith.addi %35, %arg16 : i32
           %41 = arith.index_cast %40 : i32 to index
@@ -7441,7 +7441,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
           %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
           %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
           %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
           %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
             %40 = arith.addi %35, %arg16 : i32
             %41 = arith.index_cast %40 : i32 to index
@@ -7530,7 +7530,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
           %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
           %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
           %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
           %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
             %40 = arith.addi %35, %arg16 : i32
             %41 = arith.index_cast %40 : i32 to index
@@ -7618,7 +7618,7 @@ func.func @adc_func(%arg0: memref<?xi8> {hacc.arg_type = #hacc.arg_type<sync_blo
         %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
         %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
         %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
         %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
           %40 = arith.addi %35, %arg16 : i32
           %41 = arith.index_cast %40 : i32 to index
@@ -7704,7 +7704,7 @@ func.func @adc_func(%arg0: memref<?xi8> {hacc.arg_type = #hacc.arg_type<sync_blo
         %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
         %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
         %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
         %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
           %40 = arith.addi %35, %arg16 : i32
           %41 = arith.index_cast %40 : i32 to index
@@ -7790,7 +7790,7 @@ func.func @adc_func(%arg0: memref<?xi8> {hacc.arg_type = #hacc.arg_type<sync_blo
         %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
         %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
         %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
         %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
           %40 = arith.addi %35, %arg16 : i32
           %41 = arith.index_cast %40 : i32 to index
@@ -7876,7 +7876,7 @@ func.func @adc_func(%arg0: memref<?xi8> {hacc.arg_type = #hacc.arg_type<sync_blo
         %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
         %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
         %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
         %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
           %40 = arith.addi %35, %arg16 : i32
           %41 = arith.index_cast %40 : i32 to index
@@ -7962,7 +7962,7 @@ func.func @adc_func(%arg0: memref<?xi8> {hacc.arg_type = #hacc.arg_type<sync_blo
         %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
         %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
         %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
         %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
           %40 = arith.addi %35, %arg16 : i32
           %41 = arith.index_cast %40 : i32 to index
@@ -8048,7 +8048,7 @@ func.func @adc_func(%arg0: memref<?xi8> {hacc.arg_type = #hacc.arg_type<sync_blo
         %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
         %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
         %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
         %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
           %40 = arith.addi %35, %arg16 : i32
           %41 = arith.index_cast %40 : i32 to index
@@ -8135,7 +8135,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
           %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
           %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
           %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
           %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
             %40 = arith.addi %35, %arg16 : i32
             %41 = arith.index_cast %40 : i32 to index
@@ -8224,7 +8224,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
           %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
           %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
           %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
           %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
             %40 = arith.addi %35, %arg16 : i32
             %41 = arith.index_cast %40 : i32 to index
@@ -8313,7 +8313,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
           %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
           %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
           %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
           %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
             %40 = arith.addi %35, %arg16 : i32
             %41 = arith.index_cast %40 : i32 to index
@@ -8402,7 +8402,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
           %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
           %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
           %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
           %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
             %40 = arith.addi %35, %arg16 : i32
             %41 = arith.index_cast %40 : i32 to index
@@ -8490,7 +8490,7 @@ func.func @adc_func(%arg0: memref<?xi8> {hacc.arg_type = #hacc.arg_type<sync_blo
         %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
         %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
         %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
         %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
           %40 = arith.addi %35, %arg16 : i32
           %41 = arith.index_cast %40 : i32 to index
@@ -8576,7 +8576,7 @@ func.func @adc_func(%arg0: memref<?xi8> {hacc.arg_type = #hacc.arg_type<sync_blo
         %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
         %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
         %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
         %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
           %40 = arith.addi %35, %arg16 : i32
           %41 = arith.index_cast %40 : i32 to index
@@ -8662,7 +8662,7 @@ func.func @adc_func(%arg0: memref<?xi8> {hacc.arg_type = #hacc.arg_type<sync_blo
         %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
         %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
         %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
         %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
           %40 = arith.addi %35, %arg16 : i32
           %41 = arith.index_cast %40 : i32 to index
@@ -8750,7 +8750,7 @@ func.func @adc_func(%arg0: memref<?xi8> {hacc.arg_type = #hacc.arg_type<sync_blo
         %37 = bufferization.to_tensor %subview_5 restrict : memref<?x8xi8, strided<[8, 1]>>
         %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
         %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
         %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<1x832xf32>)  : i32 {
           %40 = arith.addi %35, %arg16 : i32
           %41 = arith.index_cast %40 : i32 to index
@@ -8838,7 +8838,7 @@ func.func @adc_func(%arg0: memref<?xi8> {hacc.arg_type = #hacc.arg_type<sync_blo
         %37 = bufferization.to_tensor %subview_5 restrict : memref<?x8xi8, strided<[8, 1]>>
         %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
         %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
         %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<1x832xf32>)  : i32 {
           %40 = arith.addi %35, %arg16 : i32
           %41 = arith.index_cast %40 : i32 to index
@@ -8926,7 +8926,7 @@ func.func @adc_func(%arg0: memref<?xi8> {hacc.arg_type = #hacc.arg_type<sync_blo
         %39 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
         %inserted_slice = tensor.insert_slice %39 into %arg14[0, 0] [%36, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
         %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%27 : tensor<8x832xi8>) permutation = [1, 0] 
-        %40 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%28 : tensor<8x832xi32>) -> tensor<8x832xi32>
+        %40 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%28 : tensor<8x832xi32>) -> tensor<8x832xi32>
         %41 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<1x832xf32>)  : i32 {
           %42 = arith.addi %37, %arg16 : i32
           %43 = arith.index_cast %42 : i32 to index
@@ -9014,7 +9014,7 @@ func.func @adc_func(%arg0: memref<?xi8> {hacc.arg_type = #hacc.arg_type<sync_blo
         %39 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
         %inserted_slice = tensor.insert_slice %39 into %arg14[0, 0] [%36, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
         %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%27 : tensor<8x832xi8>) permutation = [1, 0] 
-        %40 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%28 : tensor<8x832xi32>) -> tensor<8x832xi32>
+        %40 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%28 : tensor<8x832xi32>) -> tensor<8x832xi32>
         %41 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<1x832xf32>)  : i32 {
           %42 = arith.addi %37, %arg16 : i32
           %43 = arith.index_cast %42 : i32 to index
@@ -9102,7 +9102,7 @@ func.func @adc_func(%arg0: memref<?xi8> {hacc.arg_type = #hacc.arg_type<sync_blo
         %39 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
         %inserted_slice = tensor.insert_slice %39 into %arg14[0, 0] [%36, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
         %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%27 : tensor<8x832xi8>) permutation = [1, 0] 
-        %40 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%28 : tensor<8x832xi32>) -> tensor<8x832xi32>
+        %40 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%28 : tensor<8x832xi32>) -> tensor<8x832xi32>
         %41 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<1x832xf32>)  : i32 {
           %42 = arith.addi %37, %arg16 : i32
           %43 = arith.index_cast %42 : i32 to index
@@ -9191,7 +9191,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
           %39 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
           %inserted_slice = tensor.insert_slice %39 into %arg14[0, 0] [%36, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
           %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%27 : tensor<8x832xi8>) permutation = [1, 0] 
-          %40 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%28 : tensor<8x832xi32>) -> tensor<8x832xi32>
+          %40 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%28 : tensor<8x832xi32>) -> tensor<8x832xi32>
           %41 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<1x832xf32>)  : i32 {
             %42 = arith.addi %37, %arg16 : i32
             %43 = arith.index_cast %42 : i32 to index
@@ -9281,7 +9281,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
           %38 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
           %inserted_slice = tensor.insert_slice %38 into %arg14[0, 0] [%35, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
           %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%26 : tensor<8x832xi8>) permutation = [1, 0] 
-          %39 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%27 : tensor<8x832xi32>) -> tensor<8x832xi32>
+          %39 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%27 : tensor<8x832xi32>) -> tensor<8x832xi32>
           %40 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<1x832xf32>)  : i32 {
             %41 = arith.addi %36, %arg16 : i32
             %42 = arith.index_cast %41 : i32 to index
@@ -9371,7 +9371,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
           %38 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
           %inserted_slice = tensor.insert_slice %38 into %arg14[0, 0] [%35, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
           %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%26 : tensor<8x832xi8>) permutation = [1, 0] 
-          %39 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%27 : tensor<8x832xi32>) -> tensor<8x832xi32>
+          %39 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%27 : tensor<8x832xi32>) -> tensor<8x832xi32>
           %40 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<1x832xf32>)  : i32 {
             %41 = arith.addi %36, %arg16 : i32
             %42 = arith.index_cast %41 : i32 to index
@@ -9461,7 +9461,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
           %38 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
           %inserted_slice = tensor.insert_slice %38 into %arg14[0, 0] [%35, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
           %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%26 : tensor<8x832xi8>) permutation = [1, 0] 
-          %39 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%27 : tensor<8x832xi32>) -> tensor<8x832xi32>
+          %39 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%27 : tensor<8x832xi32>) -> tensor<8x832xi32>
           %40 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<1x832xf32>)  : i32 {
             %41 = arith.addi %36, %arg16 : i32
             %42 = arith.index_cast %41 : i32 to index
@@ -9550,7 +9550,7 @@ func.func @adc_func(%arg0: memref<?xi8> {hacc.arg_type = #hacc.arg_type<sync_blo
         %38 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
         %inserted_slice = tensor.insert_slice %38 into %arg14[0, 0] [%35, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
         %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%26 : tensor<8x832xi8>) permutation = [1, 0] 
-        %39 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%27 : tensor<8x832xi32>) -> tensor<8x832xi32>
+        %39 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%27 : tensor<8x832xi32>) -> tensor<8x832xi32>
         %40 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<1x832xf32>)  : i32 {
           %41 = arith.addi %36, %arg16 : i32
           %42 = arith.index_cast %41 : i32 to index
@@ -9637,7 +9637,7 @@ func.func @adc_func(%arg0: memref<?xi8> {hacc.arg_type = #hacc.arg_type<sync_blo
         %38 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
         %inserted_slice = tensor.insert_slice %38 into %arg14[0, 0] [%35, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
         %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%26 : tensor<8x832xi8>) permutation = [1, 0] 
-        %39 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%27 : tensor<8x832xi32>) -> tensor<8x832xi32>
+        %39 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%27 : tensor<8x832xi32>) -> tensor<8x832xi32>
         %40 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<1x832xf32>)  : i32 {
           %41 = arith.addi %36, %arg16 : i32
           %42 = arith.index_cast %41 : i32 to index
@@ -9724,7 +9724,7 @@ func.func @adc_func(%arg0: memref<?xi8> {hacc.arg_type = #hacc.arg_type<sync_blo
         %38 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
         %inserted_slice = tensor.insert_slice %38 into %arg14[0, 0] [%35, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
         %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%26 : tensor<8x832xi8>) permutation = [1, 0] 
-        %39 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%27 : tensor<8x832xi32>) -> tensor<8x832xi32>
+        %39 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%27 : tensor<8x832xi32>) -> tensor<8x832xi32>
         %40 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<1x832xf32>)  : i32 {
           %41 = arith.addi %36, %arg16 : i32
           %42 = arith.index_cast %41 : i32 to index
@@ -9818,7 +9818,7 @@ func.func @adc_func(%arg0: memref<?xi8> {hacc.arg_type = #hacc.arg_type<sync_blo
         %44 = bufferization.to_tensor %subview_8 restrict : memref<?x8xi8, strided<[8, 1]>>
         %inserted_slice = tensor.insert_slice %44 into %arg14[0, 0] [%39, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
         %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%30 : tensor<8x832xi8>) permutation = [1, 0] 
-        %45 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%31 : tensor<8x832xi32>) -> tensor<8x832xi32>
+        %45 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%31 : tensor<8x832xi32>) -> tensor<8x832xi32>
         %46 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
           %47 = arith.addi %40, %arg16 : i32
           %48 = arith.index_cast %47 : i32 to index
@@ -9928,7 +9928,7 @@ func.func @adc_func(%arg0: memref<?xi8> {hacc.arg_type = #hacc.arg_type<sync_blo
         %44 = bufferization.to_tensor %subview_8 restrict : memref<?x8xi8, strided<[8, 1]>>
         %inserted_slice = tensor.insert_slice %44 into %arg14[0, 0] [%39, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
         %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%30 : tensor<8x832xi8>) permutation = [1, 0] 
-        %45 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%31 : tensor<8x832xi32>) -> tensor<8x832xi32>
+        %45 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%31 : tensor<8x832xi32>) -> tensor<8x832xi32>
         %46 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
           %47 = arith.addi %40, %arg16 : i32
           %48 = arith.index_cast %47 : i32 to index
@@ -10032,7 +10032,7 @@ func.func @adc_func(%arg0: memref<?xi8> {hacc.arg_type = #hacc.arg_type<sync_blo
         %38 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
         %inserted_slice = tensor.insert_slice %38 into %arg14[0, 0] [%35, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
         %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%26 : tensor<8x832xi8>) permutation = [1, 0] 
-        %39 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%27 : tensor<8x832xi32>) -> tensor<8x832xi32>
+        %39 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%27 : tensor<8x832xi32>) -> tensor<8x832xi32>
         %40 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
           %41 = arith.addi %36, %arg16 : i32
           %42 = arith.index_cast %41 : i32 to index
@@ -10119,7 +10119,7 @@ func.func @adc_func(%arg0: memref<?xi8> {hacc.arg_type = #hacc.arg_type<sync_blo
         %38 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
         %inserted_slice = tensor.insert_slice %38 into %arg14[0, 0] [%35, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
         %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%26 : tensor<8x832xi8>) permutation = [1, 0] 
-        %39 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%27 : tensor<8x832xi32>) -> tensor<8x832xi32>
+        %39 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%27 : tensor<8x832xi32>) -> tensor<8x832xi32>
         %40 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
           %41 = arith.addi %36, %arg16 : i32
           %42 = arith.index_cast %41 : i32 to index
@@ -10206,7 +10206,7 @@ func.func @adc_func(%arg0: memref<?xi8> {hacc.arg_type = #hacc.arg_type<sync_blo
         %38 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
         %inserted_slice = tensor.insert_slice %38 into %arg14[0, 0] [%35, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
         %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%26 : tensor<8x832xi8>) permutation = [1, 0] 
-        %39 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%27 : tensor<8x832xi32>) -> tensor<8x832xi32>
+        %39 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%27 : tensor<8x832xi32>) -> tensor<8x832xi32>
         %40 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
           %41 = arith.addi %36, %arg16 : i32
           %42 = arith.index_cast %41 : i32 to index
@@ -10294,7 +10294,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
           %38 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
           %inserted_slice = tensor.insert_slice %38 into %arg14[0, 0] [%35, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
           %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%26 : tensor<8x832xi8>) permutation = [1, 0] 
-          %39 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%27 : tensor<8x832xi32>) -> tensor<8x832xi32>
+          %39 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%27 : tensor<8x832xi32>) -> tensor<8x832xi32>
           %40 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
             %41 = arith.addi %36, %arg16 : i32
             %42 = arith.index_cast %41 : i32 to index
@@ -10384,7 +10384,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
           %38 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
           %inserted_slice = tensor.insert_slice %38 into %arg14[0, 0] [%35, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
           %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%26 : tensor<8x832xi8>) permutation = [1, 0] 
-          %39 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%27 : tensor<8x832xi32>) -> tensor<8x832xi32>
+          %39 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%27 : tensor<8x832xi32>) -> tensor<8x832xi32>
           %40 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
             %41 = arith.addi %36, %arg16 : i32
             %42 = arith.index_cast %41 : i32 to index
@@ -10474,7 +10474,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
           %38 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
           %inserted_slice = tensor.insert_slice %38 into %arg14[0, 0] [%35, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
           %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%26 : tensor<8x832xi8>) permutation = [1, 0] 
-          %39 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%27 : tensor<8x832xi32>) -> tensor<8x832xi32>
+          %39 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%27 : tensor<8x832xi32>) -> tensor<8x832xi32>
           %40 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
             %41 = arith.addi %36, %arg16 : i32
             %42 = arith.index_cast %41 : i32 to index
@@ -10564,7 +10564,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
           %38 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
           %inserted_slice = tensor.insert_slice %38 into %arg14[0, 0] [%35, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
           %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%26 : tensor<8x832xi8>) permutation = [1, 0] 
-          %39 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%27 : tensor<8x832xi32>) -> tensor<8x832xi32>
+          %39 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%27 : tensor<8x832xi32>) -> tensor<8x832xi32>
           %40 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
             %41 = arith.addi %36, %arg16 : i32
             %42 = arith.index_cast %41 : i32 to index
@@ -10653,7 +10653,7 @@ func.func @adc_func(%arg0: memref<?xi8> {hacc.arg_type = #hacc.arg_type<sync_blo
         %38 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
         %inserted_slice = tensor.insert_slice %38 into %arg14[0, 0] [%35, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
         %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%26 : tensor<8x832xi8>) permutation = [1, 0] 
-        %39 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%27 : tensor<8x832xi32>) -> tensor<8x832xi32>
+        %39 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%27 : tensor<8x832xi32>) -> tensor<8x832xi32>
         %40 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
           %41 = arith.addi %36, %arg16 : i32
           %42 = arith.index_cast %41 : i32 to index
@@ -10740,7 +10740,7 @@ func.func @adc_func(%arg0: memref<?xi8> {hacc.arg_type = #hacc.arg_type<sync_blo
         %38 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
         %inserted_slice = tensor.insert_slice %38 into %arg14[0, 0] [%35, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
         %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%26 : tensor<8x832xi8>) permutation = [1, 0] 
-        %39 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%27 : tensor<8x832xi32>) -> tensor<8x832xi32>
+        %39 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%27 : tensor<8x832xi32>) -> tensor<8x832xi32>
         %40 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
           %41 = arith.addi %36, %arg16 : i32
           %42 = arith.index_cast %41 : i32 to index
@@ -10827,7 +10827,7 @@ func.func @adc_func(%arg0: memref<?xi8> {hacc.arg_type = #hacc.arg_type<sync_blo
         %38 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
         %inserted_slice = tensor.insert_slice %38 into %arg14[0, 0] [%35, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
         %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%26 : tensor<8x832xi8>) permutation = [1, 0] 
-        %39 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%27 : tensor<8x832xi32>) -> tensor<8x832xi32>
+        %39 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%27 : tensor<8x832xi32>) -> tensor<8x832xi32>
         %40 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
           %41 = arith.addi %36, %arg16 : i32
           %42 = arith.index_cast %41 : i32 to index
@@ -10913,7 +10913,7 @@ func.func @adc_func(%arg0: memref<?xi8> {hacc.arg_type = #hacc.arg_type<sync_blo
         %38 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
         %inserted_slice = tensor.insert_slice %38 into %arg14[0, 0] [%35, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
         %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%26 : tensor<8x832xi8>) permutation = [1, 0] 
-        %39 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%27 : tensor<8x832xi32>) -> tensor<8x832xi32>
+        %39 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%27 : tensor<8x832xi32>) -> tensor<8x832xi32>
         %40 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
           %41 = arith.addi %36, %arg16 : i32
           %42 = arith.index_cast %41 : i32 to index
@@ -11000,7 +11000,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
           %38 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
           %inserted_slice = tensor.insert_slice %38 into %arg14[0, 0] [%35, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
           %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%26 : tensor<8x832xi8>) permutation = [1, 0] 
-          %39 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%27 : tensor<8x832xi32>) -> tensor<8x832xi32>
+          %39 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%27 : tensor<8x832xi32>) -> tensor<8x832xi32>
           %40 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
             %41 = arith.addi %36, %arg16 : i32
             %42 = arith.index_cast %41 : i32 to index
@@ -11088,7 +11088,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
           %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
           %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
           %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
           %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
             %40 = arith.addi %35, %arg16 : i32
             %41 = arith.index_cast %40 : i32 to index
@@ -11176,7 +11176,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
           %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
           %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
           %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
           %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
             %40 = arith.addi %35, %arg16 : i32
             %41 = arith.index_cast %40 : i32 to index
@@ -11264,7 +11264,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
           %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
           %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
           %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
           %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
             %40 = arith.addi %35, %arg16 : i32
             %41 = arith.index_cast %40 : i32 to index
@@ -11351,7 +11351,7 @@ func.func @adc_func(%arg0: memref<?xi8> {hacc.arg_type = #hacc.arg_type<sync_blo
         %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
         %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
         %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
         %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
           %40 = arith.addi %35, %arg16 : i32
           %41 = arith.index_cast %40 : i32 to index
@@ -11436,7 +11436,7 @@ func.func @adc_func(%arg0: memref<?xi8> {hacc.arg_type = #hacc.arg_type<sync_blo
         %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
         %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
         %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
         %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
           %40 = arith.addi %35, %arg16 : i32
           %41 = arith.index_cast %40 : i32 to index
@@ -11521,7 +11521,7 @@ func.func @adc_func(%arg0: memref<?xi8> {hacc.arg_type = #hacc.arg_type<sync_blo
         %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
         %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
         %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
         %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
           %40 = arith.addi %35, %arg16 : i32
           %41 = arith.index_cast %40 : i32 to index
@@ -11606,7 +11606,7 @@ func.func @adc_func(%arg0: memref<?xi8> {hacc.arg_type = #hacc.arg_type<sync_blo
         %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
         %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
         %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
         %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
           %40 = arith.addi %35, %arg16 : i32
           %41 = arith.index_cast %40 : i32 to index
@@ -11691,7 +11691,7 @@ func.func @adc_func(%arg0: memref<?xi8> {hacc.arg_type = #hacc.arg_type<sync_blo
         %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
         %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
         %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
         %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
           %40 = arith.addi %35, %arg16 : i32
           %41 = arith.index_cast %40 : i32 to index
@@ -11776,7 +11776,7 @@ func.func @adc_func(%arg0: memref<?xi8> {hacc.arg_type = #hacc.arg_type<sync_blo
         %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
         %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
         %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
         %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
           %40 = arith.addi %35, %arg16 : i32
           %41 = arith.index_cast %40 : i32 to index
@@ -11862,7 +11862,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
           %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
           %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
           %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
           %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
             %40 = arith.addi %35, %arg16 : i32
             %41 = arith.index_cast %40 : i32 to index
@@ -11950,7 +11950,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
           %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
           %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
           %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
           %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
             %40 = arith.addi %35, %arg16 : i32
             %41 = arith.index_cast %40 : i32 to index
@@ -12038,7 +12038,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
           %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
           %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
           %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
           %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
             %40 = arith.addi %35, %arg16 : i32
             %41 = arith.index_cast %40 : i32 to index
@@ -12126,7 +12126,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
           %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
           %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
           %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
           %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
             %40 = arith.addi %35, %arg16 : i32
             %41 = arith.index_cast %40 : i32 to index
@@ -12213,7 +12213,7 @@ func.func @adc_func(%arg0: memref<?xi8> {hacc.arg_type = #hacc.arg_type<sync_blo
         %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
         %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
         %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
         %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
           %40 = arith.addi %35, %arg16 : i32
           %41 = arith.index_cast %40 : i32 to index
@@ -12298,7 +12298,7 @@ func.func @adc_func(%arg0: memref<?xi8> {hacc.arg_type = #hacc.arg_type<sync_blo
         %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
         %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
         %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
         %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
           %40 = arith.addi %35, %arg16 : i32
           %41 = arith.index_cast %40 : i32 to index
@@ -12384,7 +12384,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
           %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
           %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
           %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
           %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
             %40 = arith.addi %35, %arg16 : i32
             %41 = arith.index_cast %40 : i32 to index
@@ -12472,7 +12472,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
           %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
           %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
           %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
           %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
             %40 = arith.addi %35, %arg16 : i32
             %41 = arith.index_cast %40 : i32 to index
@@ -12560,7 +12560,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
           %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
           %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
           %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
           %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
             %40 = arith.addi %35, %arg16 : i32
             %41 = arith.index_cast %40 : i32 to index
@@ -12648,7 +12648,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
           %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
           %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
           %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
           %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
             %40 = arith.addi %35, %arg16 : i32
             %41 = arith.index_cast %40 : i32 to index
@@ -12735,7 +12735,7 @@ func.func @adc_func(%arg0: memref<?xi8> {hacc.arg_type = #hacc.arg_type<sync_blo
         %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
         %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
         %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
         %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
           %40 = arith.addi %35, %arg16 : i32
           %41 = arith.index_cast %40 : i32 to index
@@ -12820,7 +12820,7 @@ func.func @adc_func(%arg0: memref<?xi8> {hacc.arg_type = #hacc.arg_type<sync_blo
         %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
         %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
         %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
         %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
           %40 = arith.addi %35, %arg16 : i32
           %41 = arith.index_cast %40 : i32 to index
@@ -12905,7 +12905,7 @@ func.func @adc_func(%arg0: memref<?xi8> {hacc.arg_type = #hacc.arg_type<sync_blo
         %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
         %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
         %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
         %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
           %40 = arith.addi %35, %arg16 : i32
           %41 = arith.index_cast %40 : i32 to index
@@ -12990,7 +12990,7 @@ func.func @adc_func(%arg0: memref<?xi8> {hacc.arg_type = #hacc.arg_type<sync_blo
         %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
         %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
         %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
         %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
           %40 = arith.addi %35, %arg16 : i32
           %41 = arith.index_cast %40 : i32 to index
@@ -13075,7 +13075,7 @@ func.func @adc_func(%arg0: memref<?xi8> {hacc.arg_type = #hacc.arg_type<sync_blo
         %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
         %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
         %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
         %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
           %40 = arith.addi %35, %arg16 : i32
           %41 = arith.index_cast %40 : i32 to index
@@ -13160,7 +13160,7 @@ func.func @adc_func(%arg0: memref<?xi8> {hacc.arg_type = #hacc.arg_type<sync_blo
         %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
         %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
         %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
         %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
           %40 = arith.addi %35, %arg16 : i32
           %41 = arith.index_cast %40 : i32 to index
@@ -13246,7 +13246,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
           %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
           %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
           %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
           %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
             %40 = arith.addi %35, %arg16 : i32
             %41 = arith.index_cast %40 : i32 to index
@@ -13334,7 +13334,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
           %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
           %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
           %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
           %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
             %40 = arith.addi %35, %arg16 : i32
             %41 = arith.index_cast %40 : i32 to index
@@ -13422,7 +13422,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
           %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
           %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
           %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
           %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
             %40 = arith.addi %35, %arg16 : i32
             %41 = arith.index_cast %40 : i32 to index
@@ -13510,7 +13510,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
           %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
           %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
           %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
           %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
             %40 = arith.addi %35, %arg16 : i32
             %41 = arith.index_cast %40 : i32 to index
@@ -13597,7 +13597,7 @@ func.func @adc_func(%arg0: memref<?xi8> {hacc.arg_type = #hacc.arg_type<sync_blo
         %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
         %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
         %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
         %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
           %40 = arith.addi %35, %arg16 : i32
           %41 = arith.index_cast %40 : i32 to index
@@ -13682,7 +13682,7 @@ func.func @adc_func(%arg0: memref<?xi8> {hacc.arg_type = #hacc.arg_type<sync_blo
         %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
         %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
         %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
         %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
           %40 = arith.addi %35, %arg16 : i32
           %41 = arith.index_cast %40 : i32 to index
@@ -13768,7 +13768,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
           %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
           %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
           %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
           %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
             %40 = arith.addi %35, %arg16 : i32
             %41 = arith.index_cast %40 : i32 to index
@@ -13856,7 +13856,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
           %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
           %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
           %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
           %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
             %40 = arith.addi %35, %arg16 : i32
             %41 = arith.index_cast %40 : i32 to index
@@ -13944,7 +13944,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
           %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
           %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
           %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
           %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
             %40 = arith.addi %35, %arg16 : i32
             %41 = arith.index_cast %40 : i32 to index
@@ -14032,7 +14032,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
           %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
           %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
           %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
           %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
             %40 = arith.addi %35, %arg16 : i32
             %41 = arith.index_cast %40 : i32 to index
@@ -14120,7 +14120,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
           %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
           %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
           %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
           %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
             %40 = arith.addi %35, %arg16 : i32
             %41 = arith.index_cast %40 : i32 to index
@@ -14208,7 +14208,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
           %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
           %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
           %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+          %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
           %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
             %40 = arith.addi %35, %arg16 : i32
             %41 = arith.index_cast %40 : i32 to index
@@ -14295,7 +14295,7 @@ func.func @adc_func(%arg0: memref<?xi8> {hacc.arg_type = #hacc.arg_type<sync_blo
         %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
         %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
         %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
         %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
           %40 = arith.addi %35, %arg16 : i32
           %41 = arith.index_cast %40 : i32 to index
@@ -14380,7 +14380,7 @@ func.func @adc_func(%arg0: memref<?xi8> {hacc.arg_type = #hacc.arg_type<sync_blo
         %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
         %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
         %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
         %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
           %40 = arith.addi %35, %arg16 : i32
           %41 = arith.index_cast %40 : i32 to index
@@ -14465,7 +14465,7 @@ func.func @adc_func(%arg0: memref<?xi8> {hacc.arg_type = #hacc.arg_type<sync_blo
         %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
         %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
         %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
         %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
           %40 = arith.addi %35, %arg16 : i32
           %41 = arith.index_cast %40 : i32 to index
@@ -14550,7 +14550,7 @@ func.func @adc_func(%arg0: memref<?xi8> {hacc.arg_type = #hacc.arg_type<sync_blo
         %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
         %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
         %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
         %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
           %40 = arith.addi %35, %arg16 : i32
           %41 = arith.index_cast %40 : i32 to index
@@ -14635,7 +14635,7 @@ func.func @adc_func(%arg0: memref<?xi8> {hacc.arg_type = #hacc.arg_type<sync_blo
         %37 = bufferization.to_tensor %subview_4 restrict : memref<?x8xi8, strided<[8, 1]>>
         %inserted_slice = tensor.insert_slice %37 into %arg14[0, 0] [%34, 8] [1, 1] : tensor<?x8xi8> into tensor<832x8xi8>
         %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
-        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
+        %38 = hfusion.cast {enable_overflow = true, round_mode = #hfusion.round_mode<rint>, type_fn = #hfusion.type_fn<cast_unsigned>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) -> tensor<8x832xi32>
         %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
           %40 = arith.addi %35, %arg16 : i32
           %41 = arith.index_cast %40 : i32 to index
@@ -14728,7 +14728,7 @@ func.func @adc_func(%arg0: memref<?xi8> {hacc.arg_type = #hacc.arg_type<sync_blo
         %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
         %38 = linalg.generic {indexing_maps = [affine_map<(d0, d1) -> (d0, d1)>, affine_map<(d0, d1) -> (d0, d1)>], iterator_types = ["parallel", "parallel"]} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) {
         ^bb0(%in: i8, %out: i32):
-          %40 = arith.extsi %in {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : i8 to i32
+          %40 = arith.extsi %in {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : i8 to i32
           linalg.yield %40 : i32
         } -> tensor<8x832xi32>
         %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
@@ -14836,7 +14836,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
           %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
           %38 = linalg.generic {indexing_maps = [#map, #map], iterator_types = ["parallel", "parallel"]} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) {
           ^bb0(%in: i8, %out: i32):
-            %40 = arith.extsi %in {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : i8 to i32
+            %40 = arith.extsi %in {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : i8 to i32
             linalg.yield %40 : i32
           } -> tensor<8x832xi32>
           %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
@@ -14946,7 +14946,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
           %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
           %38 = linalg.generic {indexing_maps = [#map, #map], iterator_types = ["parallel", "parallel"]} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) {
           ^bb0(%in: i8, %out: i32):
-            %40 = arith.extsi %in {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : i8 to i32
+            %40 = arith.extsi %in {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : i8 to i32
             linalg.yield %40 : i32
           } -> tensor<8x832xi32>
           %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
@@ -15055,7 +15055,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
           %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
           %38 = linalg.generic {indexing_maps = [#map, #map], iterator_types = ["parallel", "parallel"]} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) {
           ^bb0(%in: i8, %out: i32):
-            %40 = arith.extsi %in {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : i8 to i32
+            %40 = arith.extsi %in {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : i8 to i32
             linalg.yield %40 : i32
           } -> tensor<8x832xi32>
           %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
@@ -15164,7 +15164,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
           %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
           %38 = linalg.generic {indexing_maps = [#map, #map], iterator_types = ["parallel", "parallel"]} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) {
           ^bb0(%in: i8, %out: i32):
-            %40 = arith.extsi %in {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : i8 to i32
+            %40 = arith.extsi %in {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : i8 to i32
             linalg.yield %40 : i32
           } -> tensor<8x832xi32>
           %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
@@ -15270,7 +15270,7 @@ func.func @adc_func(%arg0: memref<?xi8> {hacc.arg_type = #hacc.arg_type<sync_blo
         %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
         %38 = linalg.generic {indexing_maps = [affine_map<(d0, d1) -> (d0, d1)>, affine_map<(d0, d1) -> (d0, d1)>], iterator_types = ["parallel", "parallel"]} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) {
         ^bb0(%in: i8, %out: i32):
-          %40 = arith.extsi %in {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : i8 to i32
+          %40 = arith.extsi %in {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : i8 to i32
           linalg.yield %40 : i32
         } -> tensor<8x832xi32>
         %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
@@ -15374,7 +15374,7 @@ func.func @adc_func(%arg0: memref<?xi8> {hacc.arg_type = #hacc.arg_type<sync_blo
         %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
         %38 = linalg.generic {indexing_maps = [affine_map<(d0, d1) -> (d0, d1)>, affine_map<(d0, d1) -> (d0, d1)>], iterator_types = ["parallel", "parallel"]} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) {
         ^bb0(%in: i8, %out: i32):
-          %40 = arith.extsi %in {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : i8 to i32
+          %40 = arith.extsi %in {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : i8 to i32
           linalg.yield %40 : i32
         } -> tensor<8x832xi32>
         %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
@@ -15481,7 +15481,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
           %transposed = linalg.transpose ins(%inserted_slice : tensor<832x8xi8>) outs(%25 : tensor<8x832xi8>) permutation = [1, 0] 
           %38 = linalg.generic {indexing_maps = [#map, #map], iterator_types = ["parallel", "parallel"]} ins(%transposed : tensor<8x832xi8>) outs(%26 : tensor<8x832xi32>) {
           ^bb0(%in: i8, %out: i32):
-            %40 = arith.extsi %in {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : i8 to i32
+            %40 = arith.extsi %in {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : i8 to i32
             linalg.yield %40 : i32
           } -> tensor<8x832xi32>
           %39 = scf.for %arg16 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg17 = %arg15) -> (tensor<832xf32>)  : i32 {
@@ -15637,7 +15637,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
               %36 = vector.transfer_read %35[%c0_16, %c0_16], %c0_i8_17 : tensor<1x64xi8>, vector<1x64xi8>
               %c0_i32_18 = arith.constant 0 : i32
               %37 = vector.transfer_read %extracted_slice_13[%c0_16, %c0_16], %c0_i32_18 : tensor<1x64xi32>, vector<1x64xi32>
-              %38 = arith.extsi %36 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+              %38 = arith.extsi %36 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
               %c0_19 = arith.constant 0 : index
               %39 = vector.transfer_write %38, %extracted_slice_13[%c0_19, %c0_19] : vector<1x64xi32>, tensor<1x64xi32>
               %inserted_slice_20 = tensor.insert_slice %39 into %arg19[%arg16, %arg18] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
@@ -15815,7 +15815,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
               %36 = vector.transfer_read %35[%c0_16, %c0_16], %c0_i8_17 : tensor<1x64xi8>, vector<1x64xi8>
               %c0_i32_18 = arith.constant 0 : i32
               %37 = vector.transfer_read %extracted_slice_13[%c0_16, %c0_16], %c0_i32_18 : tensor<1x64xi32>, vector<1x64xi32>
-              %38 = arith.extsi %36 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+              %38 = arith.extsi %36 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
               %c0_19 = arith.constant 0 : index
               %39 = vector.transfer_write %38, %extracted_slice_13[%c0_19, %c0_19] : vector<1x64xi32>, tensor<1x64xi32>
               %inserted_slice_20 = tensor.insert_slice %39 into %arg19[%arg16, %arg18] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
@@ -15941,7 +15941,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %5 = vector.transfer_read %4[%c0_9, %c0_9], %c0_i8_10 : tensor<1x64xi8>, vector<1x64xi8>
         %c0_i32 = arith.constant 0 : i32
         %6 = vector.transfer_read %extracted_slice_6[%c0_9, %c0_9], %c0_i32 : tensor<1x64xi32>, vector<1x64xi32>
-        %7 = arith.extsi %5 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %7 = arith.extsi %5 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         %c0_11 = arith.constant 0 : index
         %8 = vector.transfer_write %7, %extracted_slice_6[%c0_11, %c0_11] : vector<1x64xi32>, tensor<1x64xi32>
         %inserted_slice = tensor.insert_slice %8 into %arg11[%arg8, %arg10] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
@@ -16173,7 +16173,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %5 = vector.transfer_read %4[%c0_9, %c0_9], %c0_i8_10 : tensor<1x64xi8>, vector<1x64xi8>
         %c0_i32 = arith.constant 0 : i32
         %6 = vector.transfer_read %extracted_slice_6[%c0_9, %c0_9], %c0_i32 : tensor<1x64xi32>, vector<1x64xi32>
-        %7 = arith.extsi %5 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %7 = arith.extsi %5 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         %c0_11 = arith.constant 0 : index
         %8 = vector.transfer_write %7, %extracted_slice_6[%c0_11, %c0_11] : vector<1x64xi32>, tensor<1x64xi32>
         %inserted_slice = tensor.insert_slice %8 into %arg11[%arg8, %arg10] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
@@ -16385,7 +16385,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %extracted_slice = tensor.extract_slice %arg0[%arg10, %arg8] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
         %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : tensor<64x1xi8>, vector<1x64xi8>
         %extracted_slice_0 = tensor.extract_slice %arg11[%arg8, %arg10] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
         %inserted_slice = tensor.insert_slice %4 into %arg11[%arg8, %arg10] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
         scf.yield %inserted_slice : tensor<8x832xi32>
@@ -16705,7 +16705,7 @@ func.func @adc_func_outlined_vf_1(%arg0: tensor<832x8xi8>, %arg1: tensor<8x832xi
       %extracted_slice = tensor.extract_slice %arg0[%arg10, %arg8] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
       %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : tensor<64x1xi8>, vector<1x64xi8>
       %extracted_slice_0 = tensor.extract_slice %arg11[%arg8, %arg10] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
       %inserted_slice = tensor.insert_slice %4 into %arg11[%arg8, %arg10] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
       scf.yield %inserted_slice : tensor<8x832xi32>
@@ -16728,7 +16728,7 @@ func.func @adc_func_outlined_vf_1(%arg0: tensor<832x8xi8>, %arg1: tensor<8x832xi
       %extracted_slice = tensor.extract_slice %arg0[%arg10, %arg8] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
       %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : tensor<64x1xi8>, vector<1x64xi8>
       %extracted_slice_0 = tensor.extract_slice %arg11[%arg8, %arg10] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
       %inserted_slice = tensor.insert_slice %4 into %arg11[%arg8, %arg10] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
       scf.yield %inserted_slice : tensor<8x832xi32>
@@ -16751,7 +16751,7 @@ func.func @adc_func_outlined_vf_1(%arg0: tensor<832x8xi8>, %arg1: tensor<8x832xi
       %extracted_slice = tensor.extract_slice %arg0[%arg10, %arg8] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
       %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : tensor<64x1xi8>, vector<1x64xi8>
       %extracted_slice_0 = tensor.extract_slice %arg11[%arg8, %arg10] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
       %inserted_slice = tensor.insert_slice %4 into %arg11[%arg8, %arg10] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
       scf.yield %inserted_slice : tensor<8x832xi32>
@@ -16774,7 +16774,7 @@ func.func @adc_func_outlined_vf_1(%arg0: tensor<832x8xi8>, %arg1: tensor<8x832xi
       %extracted_slice = tensor.extract_slice %arg0[%arg10, %arg8] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
       %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : tensor<64x1xi8>, vector<1x64xi8>
       %extracted_slice_0 = tensor.extract_slice %arg11[%arg8, %arg10] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
       %inserted_slice = tensor.insert_slice %4 into %arg11[%arg8, %arg10] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
       scf.yield %inserted_slice : tensor<8x832xi32>
@@ -16797,7 +16797,7 @@ func.func @adc_func_outlined_vf_1(%arg0: tensor<832x8xi8>, %arg1: tensor<8x832xi
       %extracted_slice = tensor.extract_slice %arg0[%arg10, %arg8] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
       %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : tensor<64x1xi8>, vector<1x64xi8>
       %extracted_slice_0 = tensor.extract_slice %arg11[%arg8, %arg10] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
       %inserted_slice = tensor.insert_slice %4 into %arg11[%arg8, %arg10] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
       scf.yield %inserted_slice : tensor<8x832xi32>
@@ -16820,7 +16820,7 @@ func.func @adc_func_outlined_vf_1(%arg0: tensor<832x8xi8>, %arg1: tensor<8x832xi
       %extracted_slice = tensor.extract_slice %arg0[%arg10, %arg8] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
       %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : tensor<64x1xi8>, vector<1x64xi8>
       %extracted_slice_0 = tensor.extract_slice %arg11[%arg8, %arg10] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
       %inserted_slice = tensor.insert_slice %4 into %arg11[%arg8, %arg10] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
       scf.yield %inserted_slice : tensor<8x832xi32>
@@ -17752,7 +17752,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %extracted_slice = tensor.extract_slice %arg0[%arg10, %arg8] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
         %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : tensor<64x1xi8>, vector<1x64xi8>
         %extracted_slice_0 = tensor.extract_slice %arg11[%arg8, %arg10] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
         %inserted_slice = tensor.insert_slice %4 into %arg11[%arg8, %arg10] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
         scf.yield %inserted_slice : tensor<8x832xi32>
@@ -17943,7 +17943,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
         %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : tensor<64x1xi8>, vector<1x64xi8>
         %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
         %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
         scf.yield %inserted_slice : tensor<8x832xi32>
@@ -18134,7 +18134,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
         %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : tensor<64x1xi8>, vector<1x64xi8>
         %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
         %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
         scf.yield %inserted_slice : tensor<8x832xi32>
@@ -18325,7 +18325,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
         %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : tensor<64x1xi8>, vector<1x64xi8>
         %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
         %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
         scf.yield %inserted_slice : tensor<8x832xi32>
@@ -18516,7 +18516,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
         %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : tensor<64x1xi8>, vector<1x64xi8>
         %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
         %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
         scf.yield %inserted_slice : tensor<8x832xi32>
@@ -18707,7 +18707,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
         %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : tensor<64x1xi8>, vector<1x64xi8>
         %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
         %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
         scf.yield %inserted_slice : tensor<8x832xi32>
@@ -18891,7 +18891,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
         %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : tensor<64x1xi8>, vector<1x64xi8>
         %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
         %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
         scf.yield %inserted_slice : tensor<8x832xi32>
@@ -19074,7 +19074,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
         %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : tensor<64x1xi8>, vector<1x64xi8>
         %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
         %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
         scf.yield %inserted_slice : tensor<8x832xi32>
@@ -19262,7 +19262,7 @@ func.func @adc_func_outlined_vf_1(%arg0: tensor<832x8xi8>, %arg1: tensor<8x832xi
       %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
       %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : tensor<64x1xi8>, vector<1x64xi8>
       %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
       %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
       scf.yield %inserted_slice : tensor<8x832xi32>
@@ -19285,7 +19285,7 @@ func.func @adc_func_outlined_vf_1(%arg0: tensor<832x8xi8>, %arg1: tensor<8x832xi
       %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
       %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : tensor<64x1xi8>, vector<1x64xi8>
       %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
       %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
       scf.yield %inserted_slice : tensor<8x832xi32>
@@ -19572,7 +19572,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
         %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : tensor<64x1xi8>, vector<1x64xi8>
         %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
         %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
         scf.yield %inserted_slice : tensor<8x832xi32>
@@ -19734,7 +19734,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
         %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : tensor<64x1xi8>, vector<1x64xi8>
         %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
         %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
         scf.yield %inserted_slice : tensor<8x832xi32>
@@ -19896,7 +19896,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
         %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : tensor<64x1xi8>, vector<1x64xi8>
         %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
         %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
         scf.yield %inserted_slice : tensor<8x832xi32>
@@ -20058,7 +20058,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
         %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : tensor<64x1xi8>, vector<1x64xi8>
         %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
         %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
         scf.yield %inserted_slice : tensor<8x832xi32>
@@ -20220,7 +20220,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
         %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : tensor<64x1xi8>, vector<1x64xi8>
         %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
         %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
         scf.yield %inserted_slice : tensor<8x832xi32>
@@ -20382,7 +20382,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
         %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : tensor<64x1xi8>, vector<1x64xi8>
         %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
         %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
         scf.yield %inserted_slice : tensor<8x832xi32>
@@ -20622,7 +20622,7 @@ func.func @adc_func_outlined_vf_1(%arg0: tensor<832x8xi8>, %arg1: tensor<8x832xi
       %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
       %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : tensor<64x1xi8>, vector<1x64xi8>
       %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
       %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
       scf.yield %inserted_slice : tensor<8x832xi32>
@@ -20645,7 +20645,7 @@ func.func @adc_func_outlined_vf_1(%arg0: tensor<832x8xi8>, %arg1: tensor<8x832xi
       %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
       %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : tensor<64x1xi8>, vector<1x64xi8>
       %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
       %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
       scf.yield %inserted_slice : tensor<8x832xi32>
@@ -20668,7 +20668,7 @@ func.func @adc_func_outlined_vf_1(%arg0: tensor<832x8xi8>, %arg1: tensor<8x832xi
       %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
       %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : tensor<64x1xi8>, vector<1x64xi8>
       %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
       %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
       scf.yield %inserted_slice : tensor<8x832xi32>
@@ -20691,7 +20691,7 @@ func.func @adc_func_outlined_vf_1(%arg0: tensor<832x8xi8>, %arg1: tensor<8x832xi
       %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
       %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : tensor<64x1xi8>, vector<1x64xi8>
       %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
       %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
       scf.yield %inserted_slice : tensor<8x832xi32>
@@ -21216,7 +21216,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
         %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : tensor<64x1xi8>, vector<1x64xi8>
         %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
         %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
         scf.yield %inserted_slice : tensor<8x832xi32>
@@ -21378,7 +21378,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
         %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : tensor<64x1xi8>, vector<1x64xi8>
         %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
         %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
         scf.yield %inserted_slice : tensor<8x832xi32>
@@ -21566,7 +21566,7 @@ func.func @adc_func_outlined_vf_1(%arg0: tensor<832x8xi8>, %arg1: tensor<8x832xi
       %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
       %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : tensor<64x1xi8>, vector<1x64xi8>
       %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
       %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
       scf.yield %inserted_slice : tensor<8x832xi32>
@@ -21589,7 +21589,7 @@ func.func @adc_func_outlined_vf_1(%arg0: tensor<832x8xi8>, %arg1: tensor<8x832xi
       %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
       %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : tensor<64x1xi8>, vector<1x64xi8>
       %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
       %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
       scf.yield %inserted_slice : tensor<8x832xi32>
@@ -21890,7 +21890,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
         %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : tensor<64x1xi8>, vector<1x64xi8>
         %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
         %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
         scf.yield %inserted_slice : tensor<8x832xi32>
@@ -22066,7 +22066,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
         %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : tensor<64x1xi8>, vector<1x64xi8>
         %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
         %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
         scf.yield %inserted_slice : tensor<8x832xi32>
@@ -22242,7 +22242,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
         %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : tensor<64x1xi8>, vector<1x64xi8>
         %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
         %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
         scf.yield %inserted_slice : tensor<8x832xi32>
@@ -22418,7 +22418,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
         %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : tensor<64x1xi8>, vector<1x64xi8>
         %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
         %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
         scf.yield %inserted_slice : tensor<8x832xi32>
@@ -22661,7 +22661,7 @@ func.func @adc_func_outlined_vf_1(%arg0: tensor<832x8xi8>, %arg1: tensor<8x832xi
       %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
       %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : tensor<64x1xi8>, vector<1x64xi8>
       %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
       %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
       scf.yield %inserted_slice : tensor<8x832xi32>
@@ -22684,7 +22684,7 @@ func.func @adc_func_outlined_vf_1(%arg0: tensor<832x8xi8>, %arg1: tensor<8x832xi
       %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
       %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : tensor<64x1xi8>, vector<1x64xi8>
       %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
       %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
       scf.yield %inserted_slice : tensor<8x832xi32>
@@ -22707,7 +22707,7 @@ func.func @adc_func_outlined_vf_1(%arg0: tensor<832x8xi8>, %arg1: tensor<8x832xi
       %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
       %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : tensor<64x1xi8>, vector<1x64xi8>
       %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
       %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
       scf.yield %inserted_slice : tensor<8x832xi32>
@@ -22730,7 +22730,7 @@ func.func @adc_func_outlined_vf_1(%arg0: tensor<832x8xi8>, %arg1: tensor<8x832xi
       %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
       %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : tensor<64x1xi8>, vector<1x64xi8>
       %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
       %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
       scf.yield %inserted_slice : tensor<8x832xi32>
@@ -23273,7 +23273,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
         %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : tensor<64x1xi8>, vector<1x64xi8>
         %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
         %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
         scf.yield %inserted_slice : tensor<8x832xi32>
@@ -23440,7 +23440,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
         %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : tensor<64x1xi8>, vector<1x64xi8>
         %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
         %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
         scf.yield %inserted_slice : tensor<8x832xi32>
@@ -23607,7 +23607,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
         %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : tensor<64x1xi8>, vector<1x64xi8>
         %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
         %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
         scf.yield %inserted_slice : tensor<8x832xi32>
@@ -23774,7 +23774,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
         %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : tensor<64x1xi8>, vector<1x64xi8>
         %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
         %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
         scf.yield %inserted_slice : tensor<8x832xi32>
@@ -23941,7 +23941,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
         %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : tensor<64x1xi8>, vector<1x64xi8>
         %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
         %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
         scf.yield %inserted_slice : tensor<8x832xi32>
@@ -24108,7 +24108,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
         %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : tensor<64x1xi8>, vector<1x64xi8>
         %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
         %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
         scf.yield %inserted_slice : tensor<8x832xi32>
@@ -24405,7 +24405,7 @@ func.func @adc_func_outlined_vf_1(%arg0: tensor<832x8xi8>, %arg1: tensor<8x832xi
       %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
       %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : tensor<64x1xi8>, vector<1x64xi8>
       %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
       %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
       scf.yield %inserted_slice : tensor<8x832xi32>
@@ -24428,7 +24428,7 @@ func.func @adc_func_outlined_vf_1(%arg0: tensor<832x8xi8>, %arg1: tensor<8x832xi
       %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
       %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : tensor<64x1xi8>, vector<1x64xi8>
       %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
       %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
       scf.yield %inserted_slice : tensor<8x832xi32>
@@ -24451,7 +24451,7 @@ func.func @adc_func_outlined_vf_1(%arg0: tensor<832x8xi8>, %arg1: tensor<8x832xi
       %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
       %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : tensor<64x1xi8>, vector<1x64xi8>
       %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
       %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
       scf.yield %inserted_slice : tensor<8x832xi32>
@@ -24474,7 +24474,7 @@ func.func @adc_func_outlined_vf_1(%arg0: tensor<832x8xi8>, %arg1: tensor<8x832xi
       %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
       %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : tensor<64x1xi8>, vector<1x64xi8>
       %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
       %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
       scf.yield %inserted_slice : tensor<8x832xi32>
@@ -24497,7 +24497,7 @@ func.func @adc_func_outlined_vf_1(%arg0: tensor<832x8xi8>, %arg1: tensor<8x832xi
       %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
       %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : tensor<64x1xi8>, vector<1x64xi8>
       %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
       %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
       scf.yield %inserted_slice : tensor<8x832xi32>
@@ -24520,7 +24520,7 @@ func.func @adc_func_outlined_vf_1(%arg0: tensor<832x8xi8>, %arg1: tensor<8x832xi
       %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
       %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : tensor<64x1xi8>, vector<1x64xi8>
       %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
       %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
       scf.yield %inserted_slice : tensor<8x832xi32>
@@ -25313,7 +25313,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
         %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : tensor<64x1xi8>, vector<1x64xi8>
         %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
         %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
         scf.yield %inserted_slice : tensor<8x832xi32>
@@ -25480,7 +25480,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
         %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : tensor<64x1xi8>, vector<1x64xi8>
         %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
         %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
         scf.yield %inserted_slice : tensor<8x832xi32>
@@ -25647,7 +25647,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
         %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : tensor<64x1xi8>, vector<1x64xi8>
         %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
         %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
         scf.yield %inserted_slice : tensor<8x832xi32>
@@ -25814,7 +25814,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
         %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : tensor<64x1xi8>, vector<1x64xi8>
         %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
         %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
         scf.yield %inserted_slice : tensor<8x832xi32>
@@ -25981,7 +25981,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
         %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : tensor<64x1xi8>, vector<1x64xi8>
         %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
         %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
         scf.yield %inserted_slice : tensor<8x832xi32>
@@ -26148,7 +26148,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
         %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : tensor<64x1xi8>, vector<1x64xi8>
         %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
         %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
         scf.yield %inserted_slice : tensor<8x832xi32>
@@ -26445,7 +26445,7 @@ func.func @adc_func_outlined_vf_1(%arg0: tensor<832x8xi8>, %arg1: tensor<8x832xi
       %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
       %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : tensor<64x1xi8>, vector<1x64xi8>
       %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
       %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
       scf.yield %inserted_slice : tensor<8x832xi32>
@@ -26468,7 +26468,7 @@ func.func @adc_func_outlined_vf_1(%arg0: tensor<832x8xi8>, %arg1: tensor<8x832xi
       %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
       %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : tensor<64x1xi8>, vector<1x64xi8>
       %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
       %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
       scf.yield %inserted_slice : tensor<8x832xi32>
@@ -26491,7 +26491,7 @@ func.func @adc_func_outlined_vf_1(%arg0: tensor<832x8xi8>, %arg1: tensor<8x832xi
       %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
       %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : tensor<64x1xi8>, vector<1x64xi8>
       %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
       %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
       scf.yield %inserted_slice : tensor<8x832xi32>
@@ -26514,7 +26514,7 @@ func.func @adc_func_outlined_vf_1(%arg0: tensor<832x8xi8>, %arg1: tensor<8x832xi
       %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
       %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : tensor<64x1xi8>, vector<1x64xi8>
       %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
       %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
       scf.yield %inserted_slice : tensor<8x832xi32>
@@ -26537,7 +26537,7 @@ func.func @adc_func_outlined_vf_1(%arg0: tensor<832x8xi8>, %arg1: tensor<8x832xi
       %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
       %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : tensor<64x1xi8>, vector<1x64xi8>
       %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
       %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
       scf.yield %inserted_slice : tensor<8x832xi32>
@@ -26560,7 +26560,7 @@ func.func @adc_func_outlined_vf_1(%arg0: tensor<832x8xi8>, %arg1: tensor<8x832xi
       %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
       %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : tensor<64x1xi8>, vector<1x64xi8>
       %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
       %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
       scf.yield %inserted_slice : tensor<8x832xi32>
@@ -27353,7 +27353,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
         %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : tensor<64x1xi8>, vector<1x64xi8>
         %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
         %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
         scf.yield %inserted_slice : tensor<8x832xi32>
@@ -27520,7 +27520,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
         %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : tensor<64x1xi8>, vector<1x64xi8>
         %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
         %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
         scf.yield %inserted_slice : tensor<8x832xi32>
@@ -27713,7 +27713,7 @@ func.func @adc_func_outlined_vf_1(%arg0: tensor<832x8xi8>, %arg1: tensor<8x832xi
       %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
       %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : tensor<64x1xi8>, vector<1x64xi8>
       %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
       %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
       scf.yield %inserted_slice : tensor<8x832xi32>
@@ -27736,7 +27736,7 @@ func.func @adc_func_outlined_vf_1(%arg0: tensor<832x8xi8>, %arg1: tensor<8x832xi
       %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
       %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : tensor<64x1xi8>, vector<1x64xi8>
       %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
       %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
       scf.yield %inserted_slice : tensor<8x832xi32>
@@ -28033,7 +28033,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
         %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : tensor<64x1xi8>, vector<1x64xi8>
         %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
         %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
         scf.yield %inserted_slice : tensor<8x832xi32>
@@ -28200,7 +28200,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
         %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : tensor<64x1xi8>, vector<1x64xi8>
         %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
         %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
         scf.yield %inserted_slice : tensor<8x832xi32>
@@ -28445,7 +28445,7 @@ func.func @adc_func_outlined_vf_1(%arg0: tensor<832x8xi8>, %arg1: tensor<8x832xi
       %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
       %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : tensor<64x1xi8>, vector<1x64xi8>
       %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
       %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
       scf.yield %inserted_slice : tensor<8x832xi32>
@@ -28468,7 +28468,7 @@ func.func @adc_func_outlined_vf_1(%arg0: tensor<832x8xi8>, %arg1: tensor<8x832xi
       %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
       %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : tensor<64x1xi8>, vector<1x64xi8>
       %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
       %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
       scf.yield %inserted_slice : tensor<8x832xi32>
@@ -28491,7 +28491,7 @@ func.func @adc_func_outlined_vf_1(%arg0: tensor<832x8xi8>, %arg1: tensor<8x832xi
       %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
       %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : tensor<64x1xi8>, vector<1x64xi8>
       %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
       %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
       scf.yield %inserted_slice : tensor<8x832xi32>
@@ -28514,7 +28514,7 @@ func.func @adc_func_outlined_vf_1(%arg0: tensor<832x8xi8>, %arg1: tensor<8x832xi
       %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
       %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : tensor<64x1xi8>, vector<1x64xi8>
       %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
       %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
       scf.yield %inserted_slice : tensor<8x832xi32>
@@ -29059,7 +29059,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
         %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : tensor<64x1xi8>, vector<1x64xi8>
         %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
         %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
         scf.yield %inserted_slice : tensor<8x832xi32>
@@ -29226,7 +29226,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
         %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : tensor<64x1xi8>, vector<1x64xi8>
         %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
         %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
         scf.yield %inserted_slice : tensor<8x832xi32>
@@ -29393,7 +29393,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
         %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : tensor<64x1xi8>, vector<1x64xi8>
         %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
         %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
         scf.yield %inserted_slice : tensor<8x832xi32>
@@ -29560,7 +29560,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
         %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : tensor<64x1xi8>, vector<1x64xi8>
         %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
         %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
         scf.yield %inserted_slice : tensor<8x832xi32>
@@ -29753,7 +29753,7 @@ func.func @adc_func_outlined_vf_1(%arg0: tensor<832x8xi8>, %arg1: tensor<8x832xi
       %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
       %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : tensor<64x1xi8>, vector<1x64xi8>
       %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
       %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
       scf.yield %inserted_slice : tensor<8x832xi32>
@@ -29776,7 +29776,7 @@ func.func @adc_func_outlined_vf_1(%arg0: tensor<832x8xi8>, %arg1: tensor<8x832xi
       %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
       %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : tensor<64x1xi8>, vector<1x64xi8>
       %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
       %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
       scf.yield %inserted_slice : tensor<8x832xi32>
@@ -30073,7 +30073,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
         %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : tensor<64x1xi8>, vector<1x64xi8>
         %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
         %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
         scf.yield %inserted_slice : tensor<8x832xi32>
@@ -30240,7 +30240,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
         %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : tensor<64x1xi8>, vector<1x64xi8>
         %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
         %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
         scf.yield %inserted_slice : tensor<8x832xi32>
@@ -30407,7 +30407,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
         %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : tensor<64x1xi8>, vector<1x64xi8>
         %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
         %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
         scf.yield %inserted_slice : tensor<8x832xi32>
@@ -30574,7 +30574,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
         %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : tensor<64x1xi8>, vector<1x64xi8>
         %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
         %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
         scf.yield %inserted_slice : tensor<8x832xi32>
@@ -30741,7 +30741,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
         %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : tensor<64x1xi8>, vector<1x64xi8>
         %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
         %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
         scf.yield %inserted_slice : tensor<8x832xi32>
@@ -30908,7 +30908,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
         %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : tensor<64x1xi8>, vector<1x64xi8>
         %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
         %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
         scf.yield %inserted_slice : tensor<8x832xi32>
@@ -31257,7 +31257,7 @@ func.func @adc_func_outlined_vf_1(%arg0: tensor<832x8xi8>, %arg1: tensor<8x832xi
       %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
       %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : tensor<64x1xi8>, vector<1x64xi8>
       %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
       %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
       scf.yield %inserted_slice : tensor<8x832xi32>
@@ -31280,7 +31280,7 @@ func.func @adc_func_outlined_vf_1(%arg0: tensor<832x8xi8>, %arg1: tensor<8x832xi
       %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
       %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : tensor<64x1xi8>, vector<1x64xi8>
       %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
       %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
       scf.yield %inserted_slice : tensor<8x832xi32>
@@ -31303,7 +31303,7 @@ func.func @adc_func_outlined_vf_1(%arg0: tensor<832x8xi8>, %arg1: tensor<8x832xi
       %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
       %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : tensor<64x1xi8>, vector<1x64xi8>
       %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
       %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
       scf.yield %inserted_slice : tensor<8x832xi32>
@@ -31326,7 +31326,7 @@ func.func @adc_func_outlined_vf_1(%arg0: tensor<832x8xi8>, %arg1: tensor<8x832xi
       %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
       %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : tensor<64x1xi8>, vector<1x64xi8>
       %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
       %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
       scf.yield %inserted_slice : tensor<8x832xi32>
@@ -31349,7 +31349,7 @@ func.func @adc_func_outlined_vf_1(%arg0: tensor<832x8xi8>, %arg1: tensor<8x832xi
       %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
       %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : tensor<64x1xi8>, vector<1x64xi8>
       %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
       %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
       scf.yield %inserted_slice : tensor<8x832xi32>
@@ -31372,7 +31372,7 @@ func.func @adc_func_outlined_vf_1(%arg0: tensor<832x8xi8>, %arg1: tensor<8x832xi
       %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
       %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : tensor<64x1xi8>, vector<1x64xi8>
       %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
       %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
       scf.yield %inserted_slice : tensor<8x832xi32>
@@ -31395,7 +31395,7 @@ func.func @adc_func_outlined_vf_1(%arg0: tensor<832x8xi8>, %arg1: tensor<8x832xi
       %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
       %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : tensor<64x1xi8>, vector<1x64xi8>
       %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
       %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
       scf.yield %inserted_slice : tensor<8x832xi32>
@@ -31418,7 +31418,7 @@ func.func @adc_func_outlined_vf_1(%arg0: tensor<832x8xi8>, %arg1: tensor<8x832xi
       %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
       %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : tensor<64x1xi8>, vector<1x64xi8>
       %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
       %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
       scf.yield %inserted_slice : tensor<8x832xi32>
@@ -32459,7 +32459,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
         %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : tensor<64x1xi8>, vector<1x64xi8>
         %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
         %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
         scf.yield %inserted_slice : tensor<8x832xi32>
@@ -32626,7 +32626,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] {hivm.tcore_type = #hivm.tcore_type<VECTOR>} : tensor<832x8xi8> to tensor<64x1xi8>
         %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : tensor<64x1xi8>, vector<1x64xi8>
         %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] {hivm.tcore_type = #hivm.tcore_type<VECTOR>} : tensor<8x832xi32> to tensor<1x64xi32>
-        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
         %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] {hivm.tcore_type = #hivm.tcore_type<VECTOR>} : tensor<1x64xi32> into tensor<8x832xi32>
         scf.yield %inserted_slice : tensor<8x832xi32>
@@ -32819,7 +32819,7 @@ func.func @adc_func_outlined_vf_1(%arg0: tensor<832x8xi8>, %arg1: tensor<8x832xi
       %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] {hivm.tcore_type = #hivm.tcore_type<VECTOR>} : tensor<832x8xi8> to tensor<64x1xi8>
       %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : tensor<64x1xi8>, vector<1x64xi8>
       %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] {hivm.tcore_type = #hivm.tcore_type<VECTOR>} : tensor<8x832xi32> to tensor<1x64xi32>
-      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
       %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] {hivm.tcore_type = #hivm.tcore_type<VECTOR>} : tensor<1x64xi32> into tensor<8x832xi32>
       scf.yield %inserted_slice : tensor<8x832xi32>
@@ -32842,7 +32842,7 @@ func.func @adc_func_outlined_vf_1(%arg0: tensor<832x8xi8>, %arg1: tensor<8x832xi
       %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] {hivm.tcore_type = #hivm.tcore_type<VECTOR>} : tensor<832x8xi8> to tensor<64x1xi8>
       %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : tensor<64x1xi8>, vector<1x64xi8>
       %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] {hivm.tcore_type = #hivm.tcore_type<VECTOR>} : tensor<8x832xi32> to tensor<1x64xi32>
-      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
       %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] {hivm.tcore_type = #hivm.tcore_type<VECTOR>} : tensor<1x64xi32> into tensor<8x832xi32>
       scf.yield %inserted_slice : tensor<8x832xi32>
@@ -33139,7 +33139,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] {hivm.tcore_type = #hivm.tcore_type<VECTOR>} : tensor<832x8xi8> to tensor<64x1xi8>
         %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : tensor<64x1xi8>, vector<1x64xi8>
         %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] {hivm.tcore_type = #hivm.tcore_type<VECTOR>} : tensor<8x832xi32> to tensor<1x64xi32>
-        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
         %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] {hivm.tcore_type = #hivm.tcore_type<VECTOR>} : tensor<1x64xi32> into tensor<8x832xi32>
         scf.yield %inserted_slice : tensor<8x832xi32>
@@ -33306,7 +33306,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
         %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : tensor<64x1xi8>, vector<1x64xi8>
         %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
         %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
         scf.yield %inserted_slice : tensor<8x832xi32>
@@ -33499,7 +33499,7 @@ func.func @adc_func_outlined_vf_1(%arg0: tensor<832x8xi8>, %arg1: tensor<8x832xi
       %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
       %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : tensor<64x1xi8>, vector<1x64xi8>
       %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
       %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
       scf.yield %inserted_slice : tensor<8x832xi32>
@@ -33522,7 +33522,7 @@ func.func @adc_func_outlined_vf_1(%arg0: tensor<832x8xi8>, %arg1: tensor<8x832xi
       %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
       %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : tensor<64x1xi8>, vector<1x64xi8>
       %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
       %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
       scf.yield %inserted_slice : tensor<8x832xi32>
@@ -33819,7 +33819,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
         %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : tensor<64x1xi8>, vector<1x64xi8>
         %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
         %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
         scf.yield %inserted_slice : tensor<8x832xi32>
@@ -33986,7 +33986,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
         %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : tensor<64x1xi8>, vector<1x64xi8>
         %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
         %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
         scf.yield %inserted_slice : tensor<8x832xi32>
@@ -34153,7 +34153,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
         %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : tensor<64x1xi8>, vector<1x64xi8>
         %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
         %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
         scf.yield %inserted_slice : tensor<8x832xi32>
@@ -34320,7 +34320,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
         %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : tensor<64x1xi8>, vector<1x64xi8>
         %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
         %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
         scf.yield %inserted_slice : tensor<8x832xi32>
@@ -34487,7 +34487,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
         %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : tensor<64x1xi8>, vector<1x64xi8>
         %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
         %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
         scf.yield %inserted_slice : tensor<8x832xi32>
@@ -34654,7 +34654,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
         %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : tensor<64x1xi8>, vector<1x64xi8>
         %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
         %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
         scf.yield %inserted_slice : tensor<8x832xi32>
@@ -34821,7 +34821,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
         %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : tensor<64x1xi8>, vector<1x64xi8>
         %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
         %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
         scf.yield %inserted_slice : tensor<8x832xi32>
@@ -34988,7 +34988,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
         %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : tensor<64x1xi8>, vector<1x64xi8>
         %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
         %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
         scf.yield %inserted_slice : tensor<8x832xi32>
@@ -35181,7 +35181,7 @@ func.func @adc_func_outlined_vf_1(%arg0: tensor<832x8xi8>, %arg1: tensor<8x832xi
       %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
       %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : tensor<64x1xi8>, vector<1x64xi8>
       %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
       %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
       scf.yield %inserted_slice : tensor<8x832xi32>
@@ -35204,7 +35204,7 @@ func.func @adc_func_outlined_vf_1(%arg0: tensor<832x8xi8>, %arg1: tensor<8x832xi
       %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
       %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : tensor<64x1xi8>, vector<1x64xi8>
       %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
       %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
       scf.yield %inserted_slice : tensor<8x832xi32>
@@ -35501,7 +35501,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
         %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : tensor<64x1xi8>, vector<1x64xi8>
         %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
         %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
         scf.yield %inserted_slice : tensor<8x832xi32>
@@ -35668,7 +35668,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
         %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : tensor<64x1xi8>, vector<1x64xi8>
         %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
         %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
         scf.yield %inserted_slice : tensor<8x832xi32>
@@ -35861,7 +35861,7 @@ func.func @adc_func_outlined_vf_1(%arg0: tensor<832x8xi8>, %arg1: tensor<8x832xi
       %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
       %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : tensor<64x1xi8>, vector<1x64xi8>
       %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
       %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
       scf.yield %inserted_slice : tensor<8x832xi32>
@@ -35884,7 +35884,7 @@ func.func @adc_func_outlined_vf_1(%arg0: tensor<832x8xi8>, %arg1: tensor<8x832xi
       %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
       %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : tensor<64x1xi8>, vector<1x64xi8>
       %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
       %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
       scf.yield %inserted_slice : tensor<8x832xi32>
@@ -36181,7 +36181,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
         %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : tensor<64x1xi8>, vector<1x64xi8>
         %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
         %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
         scf.yield %inserted_slice : tensor<8x832xi32>
@@ -36348,7 +36348,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
         %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : tensor<64x1xi8>, vector<1x64xi8>
         %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
         %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
         scf.yield %inserted_slice : tensor<8x832xi32>
@@ -36515,7 +36515,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
         %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : tensor<64x1xi8>, vector<1x64xi8>
         %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
         %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
         scf.yield %inserted_slice : tensor<8x832xi32>
@@ -36682,7 +36682,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
         %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : tensor<64x1xi8>, vector<1x64xi8>
         %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
         %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
         scf.yield %inserted_slice : tensor<8x832xi32>
@@ -36849,7 +36849,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
         %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : tensor<64x1xi8>, vector<1x64xi8>
         %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
         %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
         scf.yield %inserted_slice : tensor<8x832xi32>
@@ -37016,7 +37016,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
         %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : tensor<64x1xi8>, vector<1x64xi8>
         %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
         %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
         scf.yield %inserted_slice : tensor<8x832xi32>
@@ -37365,7 +37365,7 @@ func.func @adc_func_outlined_vf_1(%arg0: tensor<832x8xi8>, %arg1: tensor<8x832xi
       %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
       %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : tensor<64x1xi8>, vector<1x64xi8>
       %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
       %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
       scf.yield %inserted_slice : tensor<8x832xi32>
@@ -37388,7 +37388,7 @@ func.func @adc_func_outlined_vf_1(%arg0: tensor<832x8xi8>, %arg1: tensor<8x832xi
       %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
       %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : tensor<64x1xi8>, vector<1x64xi8>
       %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
       %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
       scf.yield %inserted_slice : tensor<8x832xi32>
@@ -37411,7 +37411,7 @@ func.func @adc_func_outlined_vf_1(%arg0: tensor<832x8xi8>, %arg1: tensor<8x832xi
       %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
       %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : tensor<64x1xi8>, vector<1x64xi8>
       %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
       %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
       scf.yield %inserted_slice : tensor<8x832xi32>
@@ -37434,7 +37434,7 @@ func.func @adc_func_outlined_vf_1(%arg0: tensor<832x8xi8>, %arg1: tensor<8x832xi
       %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
       %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : tensor<64x1xi8>, vector<1x64xi8>
       %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
       %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
       scf.yield %inserted_slice : tensor<8x832xi32>
@@ -37457,7 +37457,7 @@ func.func @adc_func_outlined_vf_1(%arg0: tensor<832x8xi8>, %arg1: tensor<8x832xi
       %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
       %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : tensor<64x1xi8>, vector<1x64xi8>
       %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
       %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
       scf.yield %inserted_slice : tensor<8x832xi32>
@@ -37480,7 +37480,7 @@ func.func @adc_func_outlined_vf_1(%arg0: tensor<832x8xi8>, %arg1: tensor<8x832xi
       %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
       %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : tensor<64x1xi8>, vector<1x64xi8>
       %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
       %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
       scf.yield %inserted_slice : tensor<8x832xi32>
@@ -37503,7 +37503,7 @@ func.func @adc_func_outlined_vf_1(%arg0: tensor<832x8xi8>, %arg1: tensor<8x832xi
       %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
       %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : tensor<64x1xi8>, vector<1x64xi8>
       %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
       %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
       scf.yield %inserted_slice : tensor<8x832xi32>
@@ -37526,7 +37526,7 @@ func.func @adc_func_outlined_vf_1(%arg0: tensor<832x8xi8>, %arg1: tensor<8x832xi
       %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
       %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : tensor<64x1xi8>, vector<1x64xi8>
       %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
       %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
       scf.yield %inserted_slice : tensor<8x832xi32>
@@ -38567,7 +38567,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
         %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : tensor<64x1xi8>, vector<1x64xi8>
         %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
         %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
         scf.yield %inserted_slice : tensor<8x832xi32>
@@ -38734,7 +38734,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
         %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : tensor<64x1xi8>, vector<1x64xi8>
         %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
         %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
         scf.yield %inserted_slice : tensor<8x832xi32>
@@ -38901,7 +38901,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
         %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : tensor<64x1xi8>, vector<1x64xi8>
         %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
         %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
         scf.yield %inserted_slice : tensor<8x832xi32>
@@ -39068,7 +39068,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
         %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : tensor<64x1xi8>, vector<1x64xi8>
         %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
         %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
         scf.yield %inserted_slice : tensor<8x832xi32>
@@ -39235,7 +39235,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
         %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : tensor<64x1xi8>, vector<1x64xi8>
         %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
         %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
         scf.yield %inserted_slice : tensor<8x832xi32>
@@ -39402,7 +39402,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
         %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : tensor<64x1xi8>, vector<1x64xi8>
         %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
         %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
         scf.yield %inserted_slice : tensor<8x832xi32>
@@ -39595,7 +39595,7 @@ func.func @adc_func_outlined_vf_1(%arg0: tensor<832x8xi8>, %arg1: tensor<8x832xi
       %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
       %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : tensor<64x1xi8>, vector<1x64xi8>
       %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
       %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
       scf.yield %inserted_slice : tensor<8x832xi32>
@@ -39618,7 +39618,7 @@ func.func @adc_func_outlined_vf_1(%arg0: tensor<832x8xi8>, %arg1: tensor<8x832xi
       %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
       %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : tensor<64x1xi8>, vector<1x64xi8>
       %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
       %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
       scf.yield %inserted_slice : tensor<8x832xi32>
@@ -39915,7 +39915,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
         %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : tensor<64x1xi8>, vector<1x64xi8>
         %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
         %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
         scf.yield %inserted_slice : tensor<8x832xi32>
@@ -40082,7 +40082,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
         %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : tensor<64x1xi8>, vector<1x64xi8>
         %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
         %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
         scf.yield %inserted_slice : tensor<8x832xi32>
@@ -40249,7 +40249,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
         %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : tensor<64x1xi8>, vector<1x64xi8>
         %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
         %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
         scf.yield %inserted_slice : tensor<8x832xi32>
@@ -40416,7 +40416,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
         %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : tensor<64x1xi8>, vector<1x64xi8>
         %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
         %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
         scf.yield %inserted_slice : tensor<8x832xi32>
@@ -40583,7 +40583,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
         %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : tensor<64x1xi8>, vector<1x64xi8>
         %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
         %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
         scf.yield %inserted_slice : tensor<8x832xi32>
@@ -40750,7 +40750,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
         %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : tensor<64x1xi8>, vector<1x64xi8>
         %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
         %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
         scf.yield %inserted_slice : tensor<8x832xi32>
@@ -41099,7 +41099,7 @@ func.func @adc_func_outlined_vf_1(%arg0: tensor<832x8xi8>, %arg1: tensor<8x832xi
       %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
       %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : tensor<64x1xi8>, vector<1x64xi8>
       %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
       %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
       scf.yield %inserted_slice : tensor<8x832xi32>
@@ -41122,7 +41122,7 @@ func.func @adc_func_outlined_vf_1(%arg0: tensor<832x8xi8>, %arg1: tensor<8x832xi
       %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
       %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : tensor<64x1xi8>, vector<1x64xi8>
       %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
       %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
       scf.yield %inserted_slice : tensor<8x832xi32>
@@ -41145,7 +41145,7 @@ func.func @adc_func_outlined_vf_1(%arg0: tensor<832x8xi8>, %arg1: tensor<8x832xi
       %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
       %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : tensor<64x1xi8>, vector<1x64xi8>
       %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
       %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
       scf.yield %inserted_slice : tensor<8x832xi32>
@@ -41168,7 +41168,7 @@ func.func @adc_func_outlined_vf_1(%arg0: tensor<832x8xi8>, %arg1: tensor<8x832xi
       %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
       %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : tensor<64x1xi8>, vector<1x64xi8>
       %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
       %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
       scf.yield %inserted_slice : tensor<8x832xi32>
@@ -41191,7 +41191,7 @@ func.func @adc_func_outlined_vf_1(%arg0: tensor<832x8xi8>, %arg1: tensor<8x832xi
       %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
       %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : tensor<64x1xi8>, vector<1x64xi8>
       %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
       %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
       scf.yield %inserted_slice : tensor<8x832xi32>
@@ -41214,7 +41214,7 @@ func.func @adc_func_outlined_vf_1(%arg0: tensor<832x8xi8>, %arg1: tensor<8x832xi
       %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
       %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : tensor<64x1xi8>, vector<1x64xi8>
       %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
       %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
       scf.yield %inserted_slice : tensor<8x832xi32>
@@ -41237,7 +41237,7 @@ func.func @adc_func_outlined_vf_1(%arg0: tensor<832x8xi8>, %arg1: tensor<8x832xi
       %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
       %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : tensor<64x1xi8>, vector<1x64xi8>
       %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
       %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
       scf.yield %inserted_slice : tensor<8x832xi32>
@@ -41260,7 +41260,7 @@ func.func @adc_func_outlined_vf_1(%arg0: tensor<832x8xi8>, %arg1: tensor<8x832xi
       %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
       %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : tensor<64x1xi8>, vector<1x64xi8>
       %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
       %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
       scf.yield %inserted_slice : tensor<8x832xi32>
@@ -42301,7 +42301,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
         %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : tensor<64x1xi8>, vector<1x64xi8>
         %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
         %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
         scf.yield %inserted_slice : tensor<8x832xi32>
@@ -42468,7 +42468,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
         %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : tensor<64x1xi8>, vector<1x64xi8>
         %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
         %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
         scf.yield %inserted_slice : tensor<8x832xi32>
@@ -42713,7 +42713,7 @@ func.func @adc_func_outlined_vf_1(%arg0: tensor<832x8xi8>, %arg1: tensor<8x832xi
       %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
       %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : tensor<64x1xi8>, vector<1x64xi8>
       %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
       %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
       scf.yield %inserted_slice : tensor<8x832xi32>
@@ -42736,7 +42736,7 @@ func.func @adc_func_outlined_vf_1(%arg0: tensor<832x8xi8>, %arg1: tensor<8x832xi
       %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
       %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : tensor<64x1xi8>, vector<1x64xi8>
       %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
       %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
       scf.yield %inserted_slice : tensor<8x832xi32>
@@ -42759,7 +42759,7 @@ func.func @adc_func_outlined_vf_1(%arg0: tensor<832x8xi8>, %arg1: tensor<8x832xi
       %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
       %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : tensor<64x1xi8>, vector<1x64xi8>
       %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
       %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
       scf.yield %inserted_slice : tensor<8x832xi32>
@@ -42782,7 +42782,7 @@ func.func @adc_func_outlined_vf_1(%arg0: tensor<832x8xi8>, %arg1: tensor<8x832xi
       %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
       %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : tensor<64x1xi8>, vector<1x64xi8>
       %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
       %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
       scf.yield %inserted_slice : tensor<8x832xi32>
@@ -43463,7 +43463,7 @@ func.func @adc_func_outlined_vf_1(%arg0: tensor<832x8xi8>, %arg1: tensor<8x832xi
       %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
       %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : tensor<64x1xi8>, vector<1x64xi8>
       %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
       %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
       scf.yield %inserted_slice : tensor<8x832xi32>
@@ -43486,7 +43486,7 @@ func.func @adc_func_outlined_vf_1(%arg0: tensor<832x8xi8>, %arg1: tensor<8x832xi
       %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
       %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : tensor<64x1xi8>, vector<1x64xi8>
       %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
       %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
       scf.yield %inserted_slice : tensor<8x832xi32>
@@ -43509,7 +43509,7 @@ func.func @adc_func_outlined_vf_1(%arg0: tensor<832x8xi8>, %arg1: tensor<8x832xi
       %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
       %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : tensor<64x1xi8>, vector<1x64xi8>
       %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
       %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
       scf.yield %inserted_slice : tensor<8x832xi32>
@@ -43532,7 +43532,7 @@ func.func @adc_func_outlined_vf_1(%arg0: tensor<832x8xi8>, %arg1: tensor<8x832xi
       %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
       %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : tensor<64x1xi8>, vector<1x64xi8>
       %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
       %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
       scf.yield %inserted_slice : tensor<8x832xi32>
@@ -43555,7 +43555,7 @@ func.func @adc_func_outlined_vf_1(%arg0: tensor<832x8xi8>, %arg1: tensor<8x832xi
       %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
       %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : tensor<64x1xi8>, vector<1x64xi8>
       %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
       %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
       scf.yield %inserted_slice : tensor<8x832xi32>
@@ -43578,7 +43578,7 @@ func.func @adc_func_outlined_vf_1(%arg0: tensor<832x8xi8>, %arg1: tensor<8x832xi
       %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
       %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : tensor<64x1xi8>, vector<1x64xi8>
       %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
       %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
       scf.yield %inserted_slice : tensor<8x832xi32>
@@ -44383,7 +44383,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
         %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : tensor<64x1xi8>, vector<1x64xi8>
         %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
         %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
         scf.yield %inserted_slice : tensor<8x832xi32>
@@ -44552,7 +44552,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
         %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : tensor<64x1xi8>, vector<1x64xi8>
         %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
         %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
         scf.yield %inserted_slice : tensor<8x832xi32>
@@ -44721,7 +44721,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
         %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : tensor<64x1xi8>, vector<1x64xi8>
         %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
         %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
         scf.yield %inserted_slice : tensor<8x832xi32>
@@ -44890,7 +44890,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
         %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : tensor<64x1xi8>, vector<1x64xi8>
         %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
         %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
         scf.yield %inserted_slice : tensor<8x832xi32>
@@ -45059,7 +45059,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %extracted_slice = tensor.extract_slice %arg0[%arg4, %arg2] [64, 1] [1, 1] : tensor<832x8xi8> to tensor<64x1xi8>
         %2 = vector.transfer_read %extracted_slice[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : tensor<64x1xi8>, vector<1x64xi8>
         %extracted_slice_0 = tensor.extract_slice %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<8x832xi32> to tensor<1x64xi32>
-        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         %4 = vector.transfer_write %3, %extracted_slice_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, tensor<1x64xi32>
         %inserted_slice = tensor.insert_slice %4 into %arg5[%arg2, %arg4] [1, 64] [1, 1] : tensor<1x64xi32> into tensor<8x832xi32>
         scf.yield %inserted_slice : tensor<8x832xi32>
@@ -45229,7 +45229,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %subview = memref.subview %arg0[%arg4, %arg2] [64, 1] [1, 1] : memref<832x8xi8> to memref<64x1xi8, strided<[8, 1], offset: ?>>
         %2 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : memref<64x1xi8, strided<[8, 1], offset: ?>>, vector<1x64xi8>
         %subview_0 = memref.subview %arg5[%arg2, %arg4] [1, 64] [1, 1] : memref<8x832xi32> to memref<1x64xi32, strided<[832, 1], offset: ?>>
-        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         vector.transfer_write %3, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>>
         %subview_1 = memref.subview %arg5[%arg2, %arg4] [1, 64] [1, 1] : memref<8x832xi32> to memref<1x64xi32, strided<[832, 1], offset: ?>>
         memref.copy %subview_0, %subview_1 : memref<1x64xi32, strided<[832, 1], offset: ?>> to memref<1x64xi32, strided<[832, 1], offset: ?>>
@@ -45402,7 +45402,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %subview = memref.subview %arg0[%arg4, %arg2] [64, 1] [1, 1] : memref<832x8xi8> to memref<64x1xi8, strided<[8, 1], offset: ?>>
         %2 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : memref<64x1xi8, strided<[8, 1], offset: ?>>, vector<1x64xi8>
         %subview_0 = memref.subview %arg5[%arg2, %arg4] [1, 64] [1, 1] : memref<8x832xi32> to memref<1x64xi32, strided<[832, 1], offset: ?>>
-        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         vector.transfer_write %3, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>>
         %subview_1 = memref.subview %arg5[%arg2, %arg4] [1, 64] [1, 1] : memref<8x832xi32> to memref<1x64xi32, strided<[832, 1], offset: ?>>
         memref.copy %subview_0, %subview_1 : memref<1x64xi32, strided<[832, 1], offset: ?>> to memref<1x64xi32, strided<[832, 1], offset: ?>>
@@ -45575,7 +45575,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %subview = memref.subview %arg0[%arg4, %arg2] [64, 1] [1, 1] : memref<832x8xi8> to memref<64x1xi8, strided<[8, 1], offset: ?>>
         %2 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : memref<64x1xi8, strided<[8, 1], offset: ?>>, vector<1x64xi8>
         %subview_0 = memref.subview %arg5[%arg2, %arg4] [1, 64] [1, 1] : memref<8x832xi32> to memref<1x64xi32, strided<[832, 1], offset: ?>>
-        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         vector.transfer_write %3, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>>
         %subview_1 = memref.subview %arg5[%arg2, %arg4] [1, 64] [1, 1] : memref<8x832xi32> to memref<1x64xi32, strided<[832, 1], offset: ?>>
         memref.copy %subview_0, %subview_1 : memref<1x64xi32, strided<[832, 1], offset: ?>> to memref<1x64xi32, strided<[832, 1], offset: ?>>
@@ -45774,7 +45774,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8>, %arg1: memref<8x832xi
       %subview = memref.subview %arg0[%arg4, %arg2] [64, 1] [1, 1] : memref<832x8xi8> to memref<64x1xi8, strided<[8, 1], offset: ?>>
       %2 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg5[%arg2, %arg4] [1, 64] [1, 1] : memref<8x832xi32> to memref<1x64xi32, strided<[832, 1], offset: ?>>
-      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %3, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>>
       %subview_1 = memref.subview %arg5[%arg2, %arg4] [1, 64] [1, 1] : memref<8x832xi32> to memref<1x64xi32, strided<[832, 1], offset: ?>>
       memref.copy %subview_0, %subview_1 : memref<1x64xi32, strided<[832, 1], offset: ?>> to memref<1x64xi32, strided<[832, 1], offset: ?>>
@@ -45798,7 +45798,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8>, %arg1: memref<8x832xi
       %subview = memref.subview %arg0[%arg4, %arg2] [64, 1] [1, 1] : memref<832x8xi8> to memref<64x1xi8, strided<[8, 1], offset: ?>>
       %2 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg4] [1, 64] [1, 1] : memref<8x832xi32> to memref<1x64xi32, strided<[832, 1], offset: ?>>
-      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %3, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>>
       memref.copy %subview_0, %subview_0 : memref<1x64xi32, strided<[832, 1], offset: ?>> to memref<1x64xi32, strided<[832, 1], offset: ?>>
       scf.yield %arg1 : memref<8x832xi32>
@@ -46100,7 +46100,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %subview = memref.subview %arg0[%arg4, %arg2] [64, 1] [1, 1] : memref<832x8xi8> to memref<64x1xi8, strided<[8, 1], offset: ?>>
         %2 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : memref<64x1xi8, strided<[8, 1], offset: ?>>, vector<1x64xi8>
         %subview_0 = memref.subview %arg1[%arg2, %arg4] [1, 64] [1, 1] : memref<8x832xi32> to memref<1x64xi32, strided<[832, 1], offset: ?>>
-        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %3 = arith.extsi %2 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         vector.transfer_write %3, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>>
         memref.copy %subview_0, %subview_0 : memref<1x64xi32, strided<[832, 1], offset: ?>> to memref<1x64xi32, strided<[832, 1], offset: ?>>
         scf.yield %arg1 : memref<8x832xi32>
@@ -46266,7 +46266,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8> to memref<64x1xi8, strided<[8, 1], offset: ?>>
         %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : memref<64x1xi8, strided<[8, 1], offset: ?>>, vector<1x64xi8>
         %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32> to memref<1x64xi32, strided<[832, 1], offset: ?>>
-        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>>
       }
     }
@@ -46423,7 +46423,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8> to memref<64x1xi8, strided<[8, 1], offset: ?>>
         %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : memref<64x1xi8, strided<[8, 1], offset: ?>>, vector<1x64xi8>
         %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32> to memref<1x64xi32, strided<[832, 1], offset: ?>>
-        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>>
       }
     }
@@ -46580,7 +46580,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8> to memref<64x1xi8, strided<[8, 1], offset: ?>>
         %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : memref<64x1xi8, strided<[8, 1], offset: ?>>, vector<1x64xi8>
         %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32> to memref<1x64xi32, strided<[832, 1], offset: ?>>
-        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>>
       }
     }
@@ -46737,7 +46737,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8> to memref<64x1xi8, strided<[8, 1], offset: ?>>
         %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : memref<64x1xi8, strided<[8, 1], offset: ?>>, vector<1x64xi8>
         %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32> to memref<1x64xi32, strided<[832, 1], offset: ?>>
-        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>>
       }
     }
@@ -46894,7 +46894,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8> to memref<64x1xi8, strided<[8, 1], offset: ?>>
         %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : memref<64x1xi8, strided<[8, 1], offset: ?>>, vector<1x64xi8>
         %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32> to memref<1x64xi32, strided<[832, 1], offset: ?>>
-        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>>
       }
     }
@@ -47219,7 +47219,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8>, %arg1: memref<8x832xi
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8> to memref<64x1xi8, strided<[8, 1], offset: ?>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32> to memref<1x64xi32, strided<[832, 1], offset: ?>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>>
     }
   }
@@ -47239,7 +47239,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8>, %arg1: memref<8x832xi
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8> to memref<64x1xi8, strided<[8, 1], offset: ?>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32> to memref<1x64xi32, strided<[832, 1], offset: ?>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>>
     }
   }
@@ -47259,7 +47259,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8>, %arg1: memref<8x832xi
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8> to memref<64x1xi8, strided<[8, 1], offset: ?>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32> to memref<1x64xi32, strided<[832, 1], offset: ?>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>>
     }
   }
@@ -47279,7 +47279,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8>, %arg1: memref<8x832xi
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8> to memref<64x1xi8, strided<[8, 1], offset: ?>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32> to memref<1x64xi32, strided<[832, 1], offset: ?>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>>
     }
   }
@@ -47299,7 +47299,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8>, %arg1: memref<8x832xi
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8> to memref<64x1xi8, strided<[8, 1], offset: ?>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32> to memref<1x64xi32, strided<[832, 1], offset: ?>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>>
     }
   }
@@ -47319,7 +47319,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8>, %arg1: memref<8x832xi
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8> to memref<64x1xi8, strided<[8, 1], offset: ?>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32> to memref<1x64xi32, strided<[832, 1], offset: ?>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>>
     }
   }
@@ -47339,7 +47339,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8>, %arg1: memref<8x832xi
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8> to memref<64x1xi8, strided<[8, 1], offset: ?>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32> to memref<1x64xi32, strided<[832, 1], offset: ?>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>>
     }
   }
@@ -47359,7 +47359,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8>, %arg1: memref<8x832xi
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8> to memref<64x1xi8, strided<[8, 1], offset: ?>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32> to memref<1x64xi32, strided<[832, 1], offset: ?>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>>
     }
   }
@@ -48355,7 +48355,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8> to memref<64x1xi8, strided<[8, 1], offset: ?>>
         %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : memref<64x1xi8, strided<[8, 1], offset: ?>>, vector<1x64xi8>
         %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32> to memref<1x64xi32, strided<[832, 1], offset: ?>>
-        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>>
       }
     }
@@ -48512,7 +48512,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8> to memref<64x1xi8, strided<[8, 1], offset: ?>>
         %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : memref<64x1xi8, strided<[8, 1], offset: ?>>, vector<1x64xi8>
         %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32> to memref<1x64xi32, strided<[832, 1], offset: ?>>
-        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>>
       }
     }
@@ -48669,7 +48669,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8> to memref<64x1xi8, strided<[8, 1], offset: ?>>
         %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : memref<64x1xi8, strided<[8, 1], offset: ?>>, vector<1x64xi8>
         %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32> to memref<1x64xi32, strided<[832, 1], offset: ?>>
-        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>>
       }
     }
@@ -48826,7 +48826,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8> to memref<64x1xi8, strided<[8, 1], offset: ?>>
         %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : memref<64x1xi8, strided<[8, 1], offset: ?>>, vector<1x64xi8>
         %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32> to memref<1x64xi32, strided<[832, 1], offset: ?>>
-        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>>
       }
     }
@@ -48983,7 +48983,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8> to memref<64x1xi8, strided<[8, 1], offset: ?>>
         %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : memref<64x1xi8, strided<[8, 1], offset: ?>>, vector<1x64xi8>
         %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32> to memref<1x64xi32, strided<[832, 1], offset: ?>>
-        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>>
       }
     }
@@ -49140,7 +49140,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8> to memref<64x1xi8, strided<[8, 1], offset: ?>>
         %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : memref<64x1xi8, strided<[8, 1], offset: ?>>, vector<1x64xi8>
         %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32> to memref<1x64xi32, strided<[832, 1], offset: ?>>
-        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>>
       }
     }
@@ -49321,7 +49321,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8>, %arg1: memref<8x832xi
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8> to memref<64x1xi8, strided<[8, 1], offset: ?>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32> to memref<1x64xi32, strided<[832, 1], offset: ?>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>>
     }
   }
@@ -49341,7 +49341,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8>, %arg1: memref<8x832xi
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8> to memref<64x1xi8, strided<[8, 1], offset: ?>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32> to memref<1x64xi32, strided<[832, 1], offset: ?>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>>
     }
   }
@@ -49623,7 +49623,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8> to memref<64x1xi8, strided<[8, 1], offset: ?>>
         %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : memref<64x1xi8, strided<[8, 1], offset: ?>>, vector<1x64xi8>
         %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32> to memref<1x64xi32, strided<[832, 1], offset: ?>>
-        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>>
       }
     }
@@ -49780,7 +49780,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8> to memref<64x1xi8, strided<[8, 1], offset: ?>>
         %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : memref<64x1xi8, strided<[8, 1], offset: ?>>, vector<1x64xi8>
         %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32> to memref<1x64xi32, strided<[832, 1], offset: ?>>
-        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>>
       }
     }
@@ -49937,7 +49937,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8> to memref<64x1xi8, strided<[8, 1], offset: ?>>
         %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : memref<64x1xi8, strided<[8, 1], offset: ?>>, vector<1x64xi8>
         %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32> to memref<1x64xi32, strided<[832, 1], offset: ?>>
-        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>>
       }
     }
@@ -50094,7 +50094,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8> to memref<64x1xi8, strided<[8, 1], offset: ?>>
         %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : memref<64x1xi8, strided<[8, 1], offset: ?>>, vector<1x64xi8>
         %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32> to memref<1x64xi32, strided<[832, 1], offset: ?>>
-        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>>
       }
     }
@@ -50251,7 +50251,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8> to memref<64x1xi8, strided<[8, 1], offset: ?>>
         %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : memref<64x1xi8, strided<[8, 1], offset: ?>>, vector<1x64xi8>
         %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32> to memref<1x64xi32, strided<[832, 1], offset: ?>>
-        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>>
       }
     }
@@ -50408,7 +50408,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8> to memref<64x1xi8, strided<[8, 1], offset: ?>>
         %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : memref<64x1xi8, strided<[8, 1], offset: ?>>, vector<1x64xi8>
         %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32> to memref<1x64xi32, strided<[832, 1], offset: ?>>
-        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>>
       }
     }
@@ -50733,7 +50733,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8>, %arg1: memref<8x832xi
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8> to memref<64x1xi8, strided<[8, 1], offset: ?>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32> to memref<1x64xi32, strided<[832, 1], offset: ?>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>>
     }
   }
@@ -50753,7 +50753,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8>, %arg1: memref<8x832xi
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8> to memref<64x1xi8, strided<[8, 1], offset: ?>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32> to memref<1x64xi32, strided<[832, 1], offset: ?>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>>
     }
   }
@@ -50773,7 +50773,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8>, %arg1: memref<8x832xi
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8> to memref<64x1xi8, strided<[8, 1], offset: ?>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32> to memref<1x64xi32, strided<[832, 1], offset: ?>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>>
     }
   }
@@ -50793,7 +50793,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8>, %arg1: memref<8x832xi
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8> to memref<64x1xi8, strided<[8, 1], offset: ?>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32> to memref<1x64xi32, strided<[832, 1], offset: ?>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>>
     }
   }
@@ -50813,7 +50813,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8>, %arg1: memref<8x832xi
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8> to memref<64x1xi8, strided<[8, 1], offset: ?>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32> to memref<1x64xi32, strided<[832, 1], offset: ?>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>>
     }
   }
@@ -50833,7 +50833,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8>, %arg1: memref<8x832xi
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8> to memref<64x1xi8, strided<[8, 1], offset: ?>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32> to memref<1x64xi32, strided<[832, 1], offset: ?>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>>
     }
   }
@@ -50853,7 +50853,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8>, %arg1: memref<8x832xi
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8> to memref<64x1xi8, strided<[8, 1], offset: ?>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32> to memref<1x64xi32, strided<[832, 1], offset: ?>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>>
     }
   }
@@ -50873,7 +50873,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8>, %arg1: memref<8x832xi
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8> to memref<64x1xi8, strided<[8, 1], offset: ?>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32> to memref<1x64xi32, strided<[832, 1], offset: ?>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>>
     }
   }
@@ -51869,7 +51869,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8> to memref<64x1xi8, strided<[8, 1], offset: ?>>
         %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : memref<64x1xi8, strided<[8, 1], offset: ?>>, vector<1x64xi8>
         %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32> to memref<1x64xi32, strided<[832, 1], offset: ?>>
-        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>>
       }
     }
@@ -52026,7 +52026,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8> to memref<64x1xi8, strided<[8, 1], offset: ?>>
         %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : memref<64x1xi8, strided<[8, 1], offset: ?>>, vector<1x64xi8>
         %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32> to memref<1x64xi32, strided<[832, 1], offset: ?>>
-        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>>
       }
     }
@@ -52543,7 +52543,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8>, %arg1: memref<8x832xi
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8> to memref<64x1xi8, strided<[8, 1], offset: ?>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32> to memref<1x64xi32, strided<[832, 1], offset: ?>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>>
     }
   }
@@ -52563,7 +52563,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8>, %arg1: memref<8x832xi
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8> to memref<64x1xi8, strided<[8, 1], offset: ?>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32> to memref<1x64xi32, strided<[832, 1], offset: ?>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>>
     }
   }
@@ -52583,7 +52583,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8>, %arg1: memref<8x832xi
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8> to memref<64x1xi8, strided<[8, 1], offset: ?>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32> to memref<1x64xi32, strided<[832, 1], offset: ?>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>>
     }
   }
@@ -52603,7 +52603,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8>, %arg1: memref<8x832xi
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8> to memref<64x1xi8, strided<[8, 1], offset: ?>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32> to memref<1x64xi32, strided<[832, 1], offset: ?>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>>
     }
   }
@@ -52623,7 +52623,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8>, %arg1: memref<8x832xi
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8> to memref<64x1xi8, strided<[8, 1], offset: ?>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32> to memref<1x64xi32, strided<[832, 1], offset: ?>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>>
     }
   }
@@ -52643,7 +52643,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8>, %arg1: memref<8x832xi
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8> to memref<64x1xi8, strided<[8, 1], offset: ?>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32> to memref<1x64xi32, strided<[832, 1], offset: ?>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>>
     }
   }
@@ -52663,7 +52663,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8>, %arg1: memref<8x832xi
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8> to memref<64x1xi8, strided<[8, 1], offset: ?>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32> to memref<1x64xi32, strided<[832, 1], offset: ?>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>>
     }
   }
@@ -52683,7 +52683,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8>, %arg1: memref<8x832xi
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8> to memref<64x1xi8, strided<[8, 1], offset: ?>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32> to memref<1x64xi32, strided<[832, 1], offset: ?>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>>
     }
   }
@@ -52703,7 +52703,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8>, %arg1: memref<8x832xi
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8> to memref<64x1xi8, strided<[8, 1], offset: ?>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32> to memref<1x64xi32, strided<[832, 1], offset: ?>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>>
     }
   }
@@ -52723,7 +52723,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8>, %arg1: memref<8x832xi
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8> to memref<64x1xi8, strided<[8, 1], offset: ?>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32> to memref<1x64xi32, strided<[832, 1], offset: ?>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>>
     }
   }
@@ -52743,7 +52743,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8>, %arg1: memref<8x832xi
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8> to memref<64x1xi8, strided<[8, 1], offset: ?>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32> to memref<1x64xi32, strided<[832, 1], offset: ?>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>>
     }
   }
@@ -52763,7 +52763,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8>, %arg1: memref<8x832xi
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8> to memref<64x1xi8, strided<[8, 1], offset: ?>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32> to memref<1x64xi32, strided<[832, 1], offset: ?>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>>
     }
   }
@@ -52783,7 +52783,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8>, %arg1: memref<8x832xi
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8> to memref<64x1xi8, strided<[8, 1], offset: ?>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32> to memref<1x64xi32, strided<[832, 1], offset: ?>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>>
     }
   }
@@ -52803,7 +52803,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8>, %arg1: memref<8x832xi
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8> to memref<64x1xi8, strided<[8, 1], offset: ?>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32> to memref<1x64xi32, strided<[832, 1], offset: ?>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>>
     }
   }
@@ -52823,7 +52823,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8>, %arg1: memref<8x832xi
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8> to memref<64x1xi8, strided<[8, 1], offset: ?>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32> to memref<1x64xi32, strided<[832, 1], offset: ?>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>>
     }
   }
@@ -52843,7 +52843,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8>, %arg1: memref<8x832xi
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8> to memref<64x1xi8, strided<[8, 1], offset: ?>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32> to memref<1x64xi32, strided<[832, 1], offset: ?>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>>
     }
   }
@@ -54791,7 +54791,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8> to memref<64x1xi8, strided<[8, 1], offset: ?>>
         %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : memref<64x1xi8, strided<[8, 1], offset: ?>>, vector<1x64xi8>
         %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32> to memref<1x64xi32, strided<[832, 1], offset: ?>>
-        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>>
       }
     }
@@ -54948,7 +54948,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8> to memref<64x1xi8, strided<[8, 1], offset: ?>>
         %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : memref<64x1xi8, strided<[8, 1], offset: ?>>, vector<1x64xi8>
         %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32> to memref<1x64xi32, strided<[832, 1], offset: ?>>
-        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>>
       }
     }
@@ -55105,7 +55105,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8> to memref<64x1xi8, strided<[8, 1], offset: ?>>
         %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : memref<64x1xi8, strided<[8, 1], offset: ?>>, vector<1x64xi8>
         %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32> to memref<1x64xi32, strided<[832, 1], offset: ?>>
-        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>>
       }
     }
@@ -55262,7 +55262,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8> to memref<64x1xi8, strided<[8, 1], offset: ?>>
         %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : memref<64x1xi8, strided<[8, 1], offset: ?>>, vector<1x64xi8>
         %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32> to memref<1x64xi32, strided<[832, 1], offset: ?>>
-        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>>
       }
     }
@@ -55419,7 +55419,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8> to memref<64x1xi8, strided<[8, 1], offset: ?>>
         %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : memref<64x1xi8, strided<[8, 1], offset: ?>>, vector<1x64xi8>
         %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32> to memref<1x64xi32, strided<[832, 1], offset: ?>>
-        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>>
       }
     }
@@ -55576,7 +55576,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8> to memref<64x1xi8, strided<[8, 1], offset: ?>>
         %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : memref<64x1xi8, strided<[8, 1], offset: ?>>, vector<1x64xi8>
         %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32> to memref<1x64xi32, strided<[832, 1], offset: ?>>
-        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>>
       }
     }
@@ -55733,7 +55733,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8> to memref<64x1xi8, strided<[8, 1], offset: ?>>
         %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : memref<64x1xi8, strided<[8, 1], offset: ?>>, vector<1x64xi8>
         %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32> to memref<1x64xi32, strided<[832, 1], offset: ?>>
-        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>>
       }
     }
@@ -55890,7 +55890,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8> to memref<64x1xi8, strided<[8, 1], offset: ?>>
         %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : memref<64x1xi8, strided<[8, 1], offset: ?>>, vector<1x64xi8>
         %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32> to memref<1x64xi32, strided<[832, 1], offset: ?>>
-        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>>
       }
     }
@@ -56071,7 +56071,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8>, %arg1: memref<8x832xi
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8> to memref<64x1xi8, strided<[8, 1], offset: ?>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32> to memref<1x64xi32, strided<[832, 1], offset: ?>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>>
     }
   }
@@ -56091,7 +56091,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8>, %arg1: memref<8x832xi
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8> to memref<64x1xi8, strided<[8, 1], offset: ?>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32> to memref<1x64xi32, strided<[832, 1], offset: ?>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>>
     }
   }
@@ -56373,7 +56373,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8> to memref<64x1xi8, strided<[8, 1], offset: ?>>
         %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : memref<64x1xi8, strided<[8, 1], offset: ?>>, vector<1x64xi8>
         %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32> to memref<1x64xi32, strided<[832, 1], offset: ?>>
-        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>>
       }
     }
@@ -56530,7 +56530,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
         %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
         %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
       }
     }
@@ -56855,7 +56855,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
     }
   }
@@ -56875,7 +56875,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
     }
   }
@@ -56895,7 +56895,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
     }
   }
@@ -56915,7 +56915,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
     }
   }
@@ -56935,7 +56935,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
     }
   }
@@ -56955,7 +56955,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
     }
   }
@@ -56975,7 +56975,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
     }
   }
@@ -56995,7 +56995,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
     }
   }
@@ -57991,7 +57991,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
         %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
         %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
       }
     }
@@ -58148,7 +58148,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
         %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
         %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
       }
     }
@@ -58377,7 +58377,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
     }
   }
@@ -58397,7 +58397,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
     }
   }
@@ -58417,7 +58417,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
     }
   }
@@ -58437,7 +58437,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
     }
   }
@@ -58957,7 +58957,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
         %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
         %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
       }
     }
@@ -59114,7 +59114,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
         %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
         %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
       }
     }
@@ -59295,7 +59295,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
     }
   }
@@ -59315,7 +59315,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
     }
   }
@@ -59597,7 +59597,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
         %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
         %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
       }
     }
@@ -59754,7 +59754,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
         %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
         %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
       }
     }
@@ -60415,7 +60415,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
     }
   }
@@ -60435,7 +60435,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
     }
   }
@@ -60455,7 +60455,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
     }
   }
@@ -60475,7 +60475,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
     }
   }
@@ -60495,7 +60495,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
     }
   }
@@ -60515,7 +60515,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
     }
   }
@@ -60535,7 +60535,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
     }
   }
@@ -60555,7 +60555,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
     }
   }
@@ -60575,7 +60575,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
     }
   }
@@ -60595,7 +60595,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
     }
   }
@@ -60615,7 +60615,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
     }
   }
@@ -60635,7 +60635,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
     }
   }
@@ -60655,7 +60655,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
     }
   }
@@ -60675,7 +60675,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
     }
   }
@@ -60695,7 +60695,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
     }
   }
@@ -60715,7 +60715,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
     }
   }
@@ -60735,7 +60735,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
     }
   }
@@ -60755,7 +60755,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
     }
   }
@@ -60775,7 +60775,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
     }
   }
@@ -60795,7 +60795,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
     }
   }
@@ -60815,7 +60815,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
     }
   }
@@ -60835,7 +60835,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
     }
   }
@@ -63533,7 +63533,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
         %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
         %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
       }
     }
@@ -63694,7 +63694,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
         %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
         %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
       }
     }
@@ -63855,7 +63855,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
         %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
         %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
       }
     }
@@ -64016,7 +64016,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
         %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
         %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
       }
     }
@@ -64177,7 +64177,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
         %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
         %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
       }
     }
@@ -64338,7 +64338,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
         %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
         %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
       }
     }
@@ -64499,7 +64499,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
         %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
         %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
       }
     }
@@ -64660,7 +64660,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
         %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
         %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
       }
     }
@@ -64821,7 +64821,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
         %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
         %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
       }
     }
@@ -64982,7 +64982,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
         %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
         %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
       }
     }
@@ -65167,7 +65167,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
     }
   }
@@ -65187,7 +65187,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
     }
   }
@@ -65477,7 +65477,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
         %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
         %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
       }
     }
@@ -65638,7 +65638,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
         %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
         %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
       }
     }
@@ -65799,7 +65799,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
         %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
         %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
       }
     }
@@ -65960,7 +65960,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
         %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
         %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
       }
     }
@@ -66121,7 +66121,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
         %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
         %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
       }
     }
@@ -66282,7 +66282,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
         %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
         %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
       }
     }
@@ -66659,7 +66659,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
     }
   }
@@ -66679,7 +66679,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
     }
   }
@@ -66699,7 +66699,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
     }
   }
@@ -66719,7 +66719,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
     }
   }
@@ -66739,7 +66739,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
     }
   }
@@ -66759,7 +66759,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
     }
   }
@@ -66779,7 +66779,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
     }
   }
@@ -66799,7 +66799,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
     }
   }
@@ -66819,7 +66819,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
     }
   }
@@ -66839,7 +66839,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
     }
   }
@@ -68115,7 +68115,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
         %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
         %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
       }
     }
@@ -68278,7 +68278,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
         %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
         %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
       }
     }
@@ -68665,7 +68665,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
     }
   }
@@ -68685,7 +68685,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
     }
   }
@@ -68705,7 +68705,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
     }
   }
@@ -68725,7 +68725,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
     }
   }
@@ -68745,7 +68745,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
     }
   }
@@ -68765,7 +68765,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
     }
   }
@@ -68785,7 +68785,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
     }
   }
@@ -68805,7 +68805,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
     }
   }
@@ -68825,7 +68825,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
     }
   }
@@ -68845,7 +68845,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
     }
   }
@@ -70450,7 +70450,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
         %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
         %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
       }
     }
@@ -70670,7 +70670,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
         %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
         %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
       }
     }
@@ -70912,7 +70912,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
     }
   }
@@ -70932,7 +70932,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
     }
   }
@@ -71328,7 +71328,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
         %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
         %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
       }
     }
@@ -71537,7 +71537,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
         %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
         %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
       }
     }
@@ -71744,7 +71744,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
         %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
         %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
       }
     }
@@ -71951,7 +71951,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
         %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
         %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
       }
     }
@@ -72158,7 +72158,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
         %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
         %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
       }
     }
@@ -72365,7 +72365,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
         %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
         %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
       }
     }
@@ -72878,7 +72878,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
     }
   }
@@ -72898,7 +72898,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
     }
   }
@@ -72918,7 +72918,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
     }
   }
@@ -72938,7 +72938,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
     }
   }
@@ -72958,7 +72958,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
     }
   }
@@ -72978,7 +72978,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
     }
   }
@@ -72998,7 +72998,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
     }
   }
@@ -73018,7 +73018,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
     }
   }
@@ -73038,7 +73038,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
     }
   }
@@ -73058,7 +73058,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
     }
   }
@@ -73078,7 +73078,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
     }
   }
@@ -73098,7 +73098,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
     }
   }
@@ -73118,7 +73118,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
     }
   }
@@ -73138,7 +73138,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
     }
   }
@@ -75534,7 +75534,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
         %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
         %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
       }
     }
@@ -75740,7 +75740,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
         %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
         %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+        %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
         vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
       }
     }
@@ -76060,7 +76060,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub
       %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
-      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<1x64xi8> to vector<1x64xi32>
+      %1 = arith.extsi %0 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<1x64xi8> to vector<1x64xi32>
       vector.transfer_write %1, %subview_0[%c0, %c0] {in_bounds = [true, true]} : vector<1x64xi32>, memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
     }
   }
@@ -76081,7 +76081,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
       %1 = vector.shape_cast %0 : vector<1x64xi8> to vector<64xi8>
-      %2 = arith.extsi %1 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<64xi8> to vector<64xi32>
+      %2 = arith.extsi %1 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<64xi8> to vector<64xi32>
       %subview_1 = memref.subview %subview_0[0, 0] [1, 64] [1, 1] : memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>> to memref<64xi32, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>
       vector.transfer_write %2, %subview_1[%c0] {in_bounds = [true]} : vector<64xi32>, memref<64xi32, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>
     }
@@ -76103,7 +76103,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
       %1 = vector.shape_cast %0 : vector<1x64xi8> to vector<64xi8>
-      %2 = arith.extsi %1 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<64xi8> to vector<64xi32>
+      %2 = arith.extsi %1 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<64xi8> to vector<64xi32>
       %subview_1 = memref.subview %subview_0[0, 0] [1, 64] [1, 1] : memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>> to memref<64xi32, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>
       vector.transfer_write %2, %subview_1[%c0] {in_bounds = [true]} : vector<64xi32>, memref<64xi32, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>
     }
@@ -76125,7 +76125,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
       %1 = vector.shape_cast %0 : vector<1x64xi8> to vector<64xi8>
-      %2 = arith.extsi %1 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<64xi8> to vector<64xi32>
+      %2 = arith.extsi %1 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<64xi8> to vector<64xi32>
       %subview_1 = memref.subview %subview_0[0, 0] [1, 64] [1, 1] : memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>> to memref<64xi32, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>
       vector.transfer_write %2, %subview_1[%c0] {in_bounds = [true]} : vector<64xi32>, memref<64xi32, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>
     }
@@ -76147,7 +76147,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
       %1 = vector.shape_cast %0 : vector<1x64xi8> to vector<64xi8>
-      %2 = arith.extsi %1 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<64xi8> to vector<64xi32>
+      %2 = arith.extsi %1 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<64xi8> to vector<64xi32>
       %subview_1 = memref.subview %subview_0[0, 0] [1, 64] [1, 1] : memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>> to memref<64xi32, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>
       vector.transfer_write %2, %subview_1[%c0] {in_bounds = [true]} : vector<64xi32>, memref<64xi32, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>
     }
@@ -76169,7 +76169,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub
       %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = affine_map<(d0, d1) -> (d1, d0)>} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
       %1 = vector.shape_cast %0 : vector<1x64xi8> to vector<64xi8>
-      %2 = arith.extsi %1 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<64xi8> to vector<64xi32>
+      %2 = arith.extsi %1 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<64xi8> to vector<64xi32>
       %subview_1 = memref.subview %subview_0[0, 0] [1, 64] [1, 1] : memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>> to memref<64xi32, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>
       vector.transfer_write %2, %subview_1[%c0] {in_bounds = [true]} : vector<64xi32>, memref<64xi32, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>
     }
@@ -77230,7 +77230,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
         %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
         %1 = vector.shape_cast %0 : vector<1x64xi8> to vector<64xi8>
-        %2 = arith.extsi %1 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<64xi8> to vector<64xi32>
+        %2 = arith.extsi %1 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<64xi8> to vector<64xi32>
         %subview_1 = memref.subview %subview_0[0, 0] [1, 64] [1, 1] : memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>> to memref<64xi32, #map1, #hivm.address_space<ub>>
         vector.transfer_write %2, %subview_1[%c0] {in_bounds = [true]} : vector<64xi32>, memref<64xi32, #map1, #hivm.address_space<ub>>
       }
@@ -77441,7 +77441,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
         %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
         %1 = vector.shape_cast %0 : vector<1x64xi8> to vector<64xi8>
-        %2 = arith.extsi %1 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<64xi8> to vector<64xi32>
+        %2 = arith.extsi %1 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<64xi8> to vector<64xi32>
         %subview_1 = memref.subview %subview_0[0, 0] [1, 64] [1, 1] : memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>> to memref<64xi32, #map1, #hivm.address_space<ub>>
         vector.transfer_write %2, %subview_1[%c0] {in_bounds = [true]} : vector<64xi32>, memref<64xi32, #map1, #hivm.address_space<ub>>
       }
@@ -77652,7 +77652,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
         %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
         %1 = vector.shape_cast %0 : vector<1x64xi8> to vector<64xi8>
-        %2 = arith.extsi %1 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<64xi8> to vector<64xi32>
+        %2 = arith.extsi %1 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<64xi8> to vector<64xi32>
         %subview_1 = memref.subview %subview_0[0, 0] [1, 64] [1, 1] : memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>> to memref<64xi32, #map1, #hivm.address_space<ub>>
         vector.transfer_write %2, %subview_1[%c0] {in_bounds = [true]} : vector<64xi32>, memref<64xi32, #map1, #hivm.address_space<ub>>
       }
@@ -77863,7 +77863,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
         %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
         %1 = vector.shape_cast %0 : vector<1x64xi8> to vector<64xi8>
-        %2 = arith.extsi %1 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<64xi8> to vector<64xi32>
+        %2 = arith.extsi %1 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<64xi8> to vector<64xi32>
         %subview_1 = memref.subview %subview_0[0, 0] [1, 64] [1, 1] : memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>> to memref<64xi32, #map1, #hivm.address_space<ub>>
         vector.transfer_write %2, %subview_1[%c0] {in_bounds = [true]} : vector<64xi32>, memref<64xi32, #map1, #hivm.address_space<ub>>
       }
@@ -78074,7 +78074,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %0 = vector.transfer_read %subview[%c0, %c0], %c0_i8 {in_bounds = [true, true], permutation_map = #map} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>, vector<1x64xi8>
         %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
         %1 = vector.shape_cast %0 : vector<1x64xi8> to vector<64xi8>
-        %2 = arith.extsi %1 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<64xi8> to vector<64xi32>
+        %2 = arith.extsi %1 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<64xi8> to vector<64xi32>
         %subview_1 = memref.subview %subview_0[0, 0] [1, 64] [1, 1] : memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>> to memref<64xi32, #map1, #hivm.address_space<ub>>
         vector.transfer_write %2, %subview_1[%c0] {in_bounds = [true]} : vector<64xi32>, memref<64xi32, #map1, #hivm.address_space<ub>>
       }
@@ -78286,7 +78286,7 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
         %0 = builtin.unrealized_conversion_cast %res : vector<64xi8> to vector<1x64xi8>
         %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
         %1 = builtin.unrealized_conversion_cast %0 : vector<1x64xi8> to vector<64xi8>
-        %2 = arith.extsi %1 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<64xi8> to vector<64xi32>
+        %2 = arith.extsi %1 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<64xi8> to vector<64xi32>
         %subview_1 = memref.subview %subview_0[0, 0] [1, 64] [1, 1] : memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>> to memref<64xi32, #map, #hivm.address_space<ub>>
         %3 = ave.hir.pge <ALL> : vector<64xi1>
         ave.hir.masked_store <NORM_B32> %subview_1[%c0], %3, %2 {hivm.is_continuous} : memref<64xi32, #map, #hivm.address_space<ub>>, vector<64xi1>, vector<64xi32>
@@ -78620,7 +78620,7 @@ func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub
       %0 = builtin.unrealized_conversion_cast %res : vector<64xi8> to vector<1x64xi8>
       %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
       %1 = builtin.unrealized_conversion_cast %0 : vector<1x64xi8> to vector<64xi8>
-      %2 = arith.extsi %1 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<si2si>} : vector<64xi8> to vector<64xi32>
+      %2 = arith.extsi %1 {enable_saturate = false, round_mode = #hfusion.round_mode<rint>, unsigned_mode = #hfusion.unsigned_mode<ui2si>} : vector<64xi8> to vector<64xi32>
       %subview_1 = memref.subview %subview_0[0, 0] [1, 64] [1, 1] : memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>> to memref<64xi32, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>
       %3 = ave.hir.pge <ALL> : vector<64xi1>
       ave.hir.masked_store <NORM_B32> %subview_1[%c0], %3, %2 {hivm.is_continuous} : memref<64xi32, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>, vector<64xi1>, vector<64xi32>
