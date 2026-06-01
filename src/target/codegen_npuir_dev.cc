@@ -264,6 +264,22 @@ static mlir::hfusion::TypeFn SelectHFusionCastTypeFn(DataType src_dtype,
   return mlir::hfusion::TypeFn::cast_signed;
 }
 
+static mlir::hfusion::UnsignedMode SelectHFusionUnsignedMode(DataType src_dtype,
+                                                             DataType dst_dtype) {
+  const bool src_unsigned = src_dtype.is_uint();
+  const bool dst_unsigned = dst_dtype.is_uint();
+  if (src_unsigned && dst_unsigned) {
+    return mlir::hfusion::UnsignedMode::UI2UI;
+  }
+  if (src_unsigned) {
+    return mlir::hfusion::UnsignedMode::UI2SI;
+  }
+  if (dst_unsigned) {
+    return mlir::hfusion::UnsignedMode::SI2UI;
+  }
+  return mlir::hfusion::UnsignedMode::SI2SI;
+}
+
 static std::map<std::string, mlir::hivm::ReduceOperation> NPUIR_STR_REDUCEOP{
     {"sum", mlir::hivm::ReduceOperation::sum},
     {"prod", mlir::hivm::ReduceOperation::prod},
@@ -2532,6 +2548,8 @@ void CodeGenTileLangNPUIRDEV::VcastCodegen(const CallNode *op) {
   auto enableOverflowAttr = builder.getBoolAttr(true);
   auto castAttr = builder.getAttr<mlir::hfusion::TypeFnAttr>(
       SelectHFusionCastTypeFn(npuirop.src->dtype, npuirop.dst->dtype));
+  auto unsignedModeAttr = builder.getAttr<mlir::hfusion::UnsignedModeAttr>(
+      SelectHFusionUnsignedMode(npuirop.src->dtype, npuirop.dst->dtype));
   
   SmallVector<mlir::NamedAttribute> attrs;
   attrs.push_back(builder.getNamedAttr(
@@ -2539,6 +2557,8 @@ void CodeGenTileLangNPUIRDEV::VcastCodegen(const CallNode *op) {
   attrs.push_back(builder.getNamedAttr("enable_overflow", enableOverflowAttr));
   attrs.push_back(builder.getNamedAttr(
       mlir::hfusion::TypeFnAttr::getMnemonic(), castAttr));
+  attrs.push_back(builder.getNamedAttr(
+      mlir::hfusion::UnsignedModeAttr::getMnemonic(), unsignedModeAttr));
   
   auto newCastOp = builder.create<mlir::hfusion::CastOp>(
       loc, mlir::ValueRange(srcAfterBroadcast), mlir::ValueRange(dst), attrs);
