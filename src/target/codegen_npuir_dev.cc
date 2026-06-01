@@ -1179,8 +1179,7 @@ mlir::Value CodeGenTileLangNPUIRDEV::CreateCastIfTypeMismatch(mlir::Value src, m
   attrs.push_back(builder.getNamedAttr(
       mlir::hfusion::RoundModeAttr::getMnemonic(), roundingAttr));
   attrs.push_back(builder.getNamedAttr("enable_overflow", enableOverflowAttr));
-  attrs.push_back(builder.getNamedAttr(
-      mlir::hfusion::TypeFnAttr::getMnemonic(), castAttr));
+  attrs.push_back(builder.getNamedAttr("cast", castAttr));
   auto newCastOp = builder.create<mlir::hfusion::CastOp>(
       loc, mlir::ValueRange(srcAfterBroadcast), mlir::ValueRange(castDstTensor), attrs);
       
@@ -2555,8 +2554,7 @@ void CodeGenTileLangNPUIRDEV::VcastCodegen(const CallNode *op) {
   attrs.push_back(builder.getNamedAttr(
       mlir::hfusion::RoundModeAttr::getMnemonic(), roundingAttr));
   attrs.push_back(builder.getNamedAttr("enable_overflow", enableOverflowAttr));
-  attrs.push_back(builder.getNamedAttr(
-      mlir::hfusion::TypeFnAttr::getMnemonic(), castAttr));
+  attrs.push_back(builder.getNamedAttr("cast", castAttr));
   attrs.push_back(builder.getNamedAttr(
       mlir::hfusion::UnsignedModeAttr::getMnemonic(), unsignedModeAttr));
   
