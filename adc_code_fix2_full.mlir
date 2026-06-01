@@ -90204,4 +90204,5136 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
     %22 = llvm.mlir.constant(7 : i32) : i32
     %23 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%22, %21) {mask_bit_width = 32 : i32, mask_op_idx = 0 : i32} : (i32, i32) -> vector<256xi1>
     %24 = llvm.extractvalue %18[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
-    %25 = "hivm_regbaseintrins.intr.hivm.vldsx1.v64f32"(%24, %21, %21, %21) : (!llvm.ptr<6>, i32, i32, i32) -> vect
+    %25 = "hivm_regbaseintrins.intr.hivm.vldsx1.v64f32"(%24, %21, %21, %21) : (!llvm.ptr<6>, i32, i32, i32) -> vector<64xf32>
+    %26 = "hivm_regbaseintrins.intr.hivm.vsqrt.x"(%25, %23) : (vector<64xf32>, vector<256xi1>) -> vector<64xf32>
+    %27 = llvm.extractvalue %8[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    "hivm_regbaseintrins.intr.hivm.vstsx1.v64f32"(%26, %27, %21, %20, %21, %23) : (vector<64xf32>, !llvm.ptr<6>, i32, i32, i32, vector<256xi1>) -> ()
+    llvm.return
+  }
+  llvm.func private @load_gm_to_ubuf_1d_float(%arg0: !llvm.ptr<1>, %arg1: !llvm.ptr<1>, %arg2: i64, %arg3: i64, %arg4: i64, %arg5: !llvm.ptr<6>, %arg6: !llvm.ptr<6>, %arg7: i64, %arg8: i64, %arg9: i64, %arg10: i32, %arg11: f32, %arg12: i64, %arg13: i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface, sym_visibility = "private"} {
+    %0 = llvm.mlir.undef : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)>
+    %1 = llvm.insertvalue %arg0, %0[0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %2 = llvm.insertvalue %arg1, %1[1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %3 = llvm.insertvalue %arg2, %2[2] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %4 = llvm.insertvalue %arg3, %3[3, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %5 = llvm.insertvalue %arg4, %4[4, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %6 = llvm.mlir.constant(1 : index) : i64
+    %7 = llvm.alloca %6 x !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> : (i64) -> !llvm.ptr
+    llvm.store %5, %7 : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)>, !llvm.ptr
+    %8 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %9 = llvm.insertvalue %arg5, %8[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %10 = llvm.insertvalue %arg6, %9[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %11 = llvm.insertvalue %arg7, %10[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %12 = llvm.insertvalue %arg8, %11[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %13 = llvm.insertvalue %arg9, %12[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %14 = llvm.mlir.constant(1 : index) : i64
+    %15 = llvm.alloca %14 x !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> : (i64) -> !llvm.ptr
+    llvm.store %13, %15 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>, !llvm.ptr
+    llvm.call @_mlir_ciface_load_gm_to_ubuf_1d_float(%7, %15, %arg10, %arg11, %arg12, %arg13) : (!llvm.ptr, !llvm.ptr, i32, f32, i64, i32) -> ()
+    llvm.return
+  }
+  llvm.func @_mlir_ciface_load_gm_to_ubuf_1d_float(!llvm.ptr, !llvm.ptr, i32, f32, i64, i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface, sym_visibility = "private"}
+  llvm.func private @load_gm_to_ubuf_2d_int8_t(%arg0: !llvm.ptr<1>, %arg1: !llvm.ptr<1>, %arg2: i64, %arg3: i64, %arg4: i64, %arg5: i64, %arg6: i64, %arg7: !llvm.ptr<6>, %arg8: !llvm.ptr<6>, %arg9: i64, %arg10: i64, %arg11: i64, %arg12: i64, %arg13: i64, %arg14: i32, %arg15: i8, %arg16: i64, %arg17: i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface, sym_visibility = "private"} {
+    %0 = llvm.mlir.undef : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)>
+    %1 = llvm.insertvalue %arg0, %0[0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %2 = llvm.insertvalue %arg1, %1[1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %3 = llvm.insertvalue %arg2, %2[2] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %4 = llvm.insertvalue %arg3, %3[3, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %5 = llvm.insertvalue %arg5, %4[4, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %6 = llvm.insertvalue %arg4, %5[3, 1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %7 = llvm.insertvalue %arg6, %6[4, 1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %8 = llvm.mlir.constant(1 : index) : i64
+    %9 = llvm.alloca %8 x !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> : (i64) -> !llvm.ptr
+    llvm.store %7, %9 : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)>, !llvm.ptr
+    %10 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %11 = llvm.insertvalue %arg7, %10[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %12 = llvm.insertvalue %arg8, %11[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %13 = llvm.insertvalue %arg9, %12[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %14 = llvm.insertvalue %arg10, %13[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %15 = llvm.insertvalue %arg12, %14[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %16 = llvm.insertvalue %arg11, %15[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %17 = llvm.insertvalue %arg13, %16[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %18 = llvm.mlir.constant(1 : index) : i64
+    %19 = llvm.alloca %18 x !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> : (i64) -> !llvm.ptr
+    llvm.store %17, %19 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>, !llvm.ptr
+    llvm.call @_mlir_ciface_load_gm_to_ubuf_2d_int8_t(%9, %19, %arg14, %arg15, %arg16, %arg17) : (!llvm.ptr, !llvm.ptr, i32, i8, i64, i32) -> ()
+    llvm.return
+  }
+  llvm.func @_mlir_ciface_load_gm_to_ubuf_2d_int8_t(!llvm.ptr, !llvm.ptr, i32, i8, i64, i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface, sym_visibility = "private"}
+  llvm.func private @copy_ubuf_to_ubuf_1d_int8_t(%arg0: !llvm.ptr<6>, %arg1: !llvm.ptr<6>, %arg2: i64, %arg3: i64, %arg4: i64, %arg5: !llvm.ptr<6>, %arg6: !llvm.ptr<6>, %arg7: i64, %arg8: i64, %arg9: i64) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface, sym_visibility = "private"} {
+    %0 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %1 = llvm.insertvalue %arg0, %0[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %2 = llvm.insertvalue %arg1, %1[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %3 = llvm.insertvalue %arg2, %2[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %4 = llvm.insertvalue %arg3, %3[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %5 = llvm.insertvalue %arg4, %4[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %6 = llvm.mlir.constant(1 : index) : i64
+    %7 = llvm.alloca %6 x !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> : (i64) -> !llvm.ptr
+    llvm.store %5, %7 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>, !llvm.ptr
+    %8 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %9 = llvm.insertvalue %arg5, %8[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %10 = llvm.insertvalue %arg6, %9[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %11 = llvm.insertvalue %arg7, %10[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %12 = llvm.insertvalue %arg8, %11[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %13 = llvm.insertvalue %arg9, %12[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %14 = llvm.mlir.constant(1 : index) : i64
+    %15 = llvm.alloca %14 x !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> : (i64) -> !llvm.ptr
+    llvm.store %13, %15 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>, !llvm.ptr
+    llvm.call @_mlir_ciface_copy_ubuf_to_ubuf_1d_int8_t(%7, %15) : (!llvm.ptr, !llvm.ptr) -> ()
+    llvm.return
+  }
+  llvm.func @_mlir_ciface_copy_ubuf_to_ubuf_1d_int8_t(!llvm.ptr, !llvm.ptr) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface, sym_visibility = "private"}
+  llvm.func private @store_ubuf_to_gm_1d_float(%arg0: !llvm.ptr<6>, %arg1: !llvm.ptr<6>, %arg2: i64, %arg3: i64, %arg4: i64, %arg5: !llvm.ptr<1>, %arg6: !llvm.ptr<1>, %arg7: i64, %arg8: i64, %arg9: i64, %arg10: i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface, sym_visibility = "private"} {
+    %0 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %1 = llvm.insertvalue %arg0, %0[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %2 = llvm.insertvalue %arg1, %1[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %3 = llvm.insertvalue %arg2, %2[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %4 = llvm.insertvalue %arg3, %3[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %5 = llvm.insertvalue %arg4, %4[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %6 = llvm.mlir.constant(1 : index) : i64
+    %7 = llvm.alloca %6 x !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> : (i64) -> !llvm.ptr
+    llvm.store %5, %7 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>, !llvm.ptr
+    %8 = llvm.mlir.undef : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)>
+    %9 = llvm.insertvalue %arg5, %8[0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %10 = llvm.insertvalue %arg6, %9[1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %11 = llvm.insertvalue %arg7, %10[2] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %12 = llvm.insertvalue %arg8, %11[3, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %13 = llvm.insertvalue %arg9, %12[4, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %14 = llvm.mlir.constant(1 : index) : i64
+    %15 = llvm.alloca %14 x !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> : (i64) -> !llvm.ptr
+    llvm.store %13, %15 : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)>, !llvm.ptr
+    llvm.call @_mlir_ciface_store_ubuf_to_gm_1d_float(%7, %15, %arg10) : (!llvm.ptr, !llvm.ptr, i32) -> ()
+    llvm.return
+  }
+  llvm.func @_mlir_ciface_store_ubuf_to_gm_1d_float(!llvm.ptr, !llvm.ptr, i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface, sym_visibility = "private"}
+  llvm.func @adc_func(%arg0: !llvm.ptr<1> {hacc.arg_type = #hacc.arg_type<sync_block_lock>}, %arg1: !llvm.ptr<1>, %arg2: i64, %arg3: i64, %arg4: i64, %arg5: !llvm.ptr<1> {hacc.arg_type = #hacc.arg_type<workspace>}, %arg6: !llvm.ptr<1>, %arg7: i64, %arg8: i64, %arg9: i64, %arg10: !llvm.ptr<1>, %arg11: !llvm.ptr<1>, %arg12: i64, %arg13: i64, %arg14: i64, %arg15: !llvm.ptr<1>, %arg16: !llvm.ptr<1>, %arg17: i64, %arg18: i64, %arg19: i64, %arg20: !llvm.ptr<1>, %arg21: !llvm.ptr<1>, %arg22: i64, %arg23: i64, %arg24: i64, %arg25: i32, %arg26: i32, %arg27: i32, %arg28: i32) attributes {SyncBlockLockArgIdx = 0 : i64, WorkspaceArgIdx = 1 : i64, func_dyn_memref_args = dense<[true, true, true, true, true, false, false, false, false]> : vector<9xi1>, hacc.entry, hacc.function_kind = #hacc.function_kind<DEVICE>, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vf_mode = #hivm.vf_mode<SIMD>, hivm_regbaseintrins.target = #hivm_regbaseintrins.target<"dav-c310">, mix_mode = "aiv", parallel_mode = "simd"} {
+    %0 = llvm.mlir.undef : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)>
+    %1 = llvm.insertvalue %arg20, %0[0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %2 = llvm.insertvalue %arg21, %1[1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %3 = llvm.insertvalue %arg22, %2[2] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %4 = llvm.insertvalue %arg23, %3[3, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %5 = llvm.insertvalue %arg24, %4[4, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %6 = builtin.unrealized_conversion_cast %5 : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> to memref<?xf32, #hivm.address_space<gm>>
+    %7 = llvm.mlir.undef : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)>
+    %8 = llvm.insertvalue %arg15, %7[0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %9 = llvm.insertvalue %arg16, %8[1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %10 = llvm.insertvalue %arg17, %9[2] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %11 = llvm.insertvalue %arg18, %10[3, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %12 = llvm.insertvalue %arg19, %11[4, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %13 = builtin.unrealized_conversion_cast %12 : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> to memref<?xi8, #hivm.address_space<gm>>
+    %14 = llvm.mlir.undef : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)>
+    %15 = llvm.insertvalue %arg10, %14[0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %16 = llvm.insertvalue %arg11, %15[1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %17 = llvm.insertvalue %arg12, %16[2] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %18 = llvm.insertvalue %arg13, %17[3, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %19 = llvm.insertvalue %arg14, %18[4, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %20 = builtin.unrealized_conversion_cast %19 : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> to memref<?xf32, #hivm.address_space<gm>>
+    %21 = llvm.mlir.constant(69376 : i64) : i64
+    %22 = llvm.mlir.constant(68736 : i64) : i64
+    %23 = llvm.mlir.constant(66048 : i64) : i64
+    %24 = llvm.mlir.constant(68864 : i64) : i64
+    %25 = llvm.mlir.constant(1 : i64) : i64
+    %26 = llvm.mlir.constant(66560 : i64) : i64
+    %27 = llvm.mlir.constant(68608 : i64) : i64
+    %28 = llvm.mlir.constant(65536 : i64) : i64
+    %29 = llvm.mlir.constant(0 : i64) : i64
+    %30 = llvm.mlir.constant(1 : i32) : i32
+    %31 = llvm.mlir.constant(16 : i32) : i32
+    %32 = llvm.mlir.constant(4 : i32) : i32
+    %33 = llvm.mlir.constant(32 : i32) : i32
+    %34 = llvm.mlir.constant(31 : i32) : i32
+    %35 = llvm.mlir.constant(56 : i32) : i32
+    %36 = llvm.mlir.constant(1792 : i32) : i32
+    %37 = llvm.mlir.constant(1791 : i32) : i32
+    %38 = llvm.mlir.constant(0 : i32) : i32
+    %39 = llvm.mlir.constant(0 : i8) : i8
+    %40 = llvm.mlir.constant(0.000000e+00 : f32) : f32
+    %41 = llvm.mlir.constant(0 : index) : i64
+    %42 = llvm.inttoptr %22 : i64 to !llvm.ptr<6>
+    %43 = llvm.mlir.constant(32 : index) : i64
+    %44 = llvm.mlir.constant(1 : index) : i64
+    %45 = llvm.mlir.zero : !llvm.ptr
+    %46 = llvm.getelementptr %45[32] : (!llvm.ptr) -> !llvm.ptr, f32
+    %47 = llvm.ptrtoint %46 : !llvm.ptr to i64
+    %48 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %49 = llvm.insertvalue %42, %48[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %50 = llvm.insertvalue %42, %49[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %51 = llvm.mlir.constant(0 : index) : i64
+    %52 = llvm.insertvalue %51, %50[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %53 = llvm.insertvalue %43, %52[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %54 = llvm.insertvalue %44, %53[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %55 = builtin.unrealized_conversion_cast %54 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> to memref<32xf32, #hivm.address_space<ub>>
+    %56 = llvm.inttoptr %21 : i64 to !llvm.ptr<6>
+    %57 = llvm.mlir.constant(32 : index) : i64
+    %58 = llvm.mlir.constant(1 : index) : i64
+    %59 = llvm.mlir.zero : !llvm.ptr
+    %60 = llvm.getelementptr %59[32] : (!llvm.ptr) -> !llvm.ptr, f32
+    %61 = llvm.ptrtoint %60 : !llvm.ptr to i64
+    %62 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %63 = llvm.insertvalue %56, %62[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %64 = llvm.insertvalue %56, %63[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %65 = llvm.mlir.constant(0 : index) : i64
+    %66 = llvm.insertvalue %65, %64[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %67 = llvm.insertvalue %57, %66[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %68 = llvm.insertvalue %58, %67[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %69 = builtin.unrealized_conversion_cast %68 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> to memref<32xf32, #hivm.address_space<ub>>
+    %70 = llvm.inttoptr %23 : i64 to !llvm.ptr<6>
+    %71 = llvm.mlir.constant(32 : index) : i64
+    %72 = llvm.mlir.constant(16 : index) : i64
+    %73 = llvm.mlir.constant(1 : index) : i64
+    %74 = llvm.mlir.constant(512 : index) : i64
+    %75 = llvm.mlir.zero : !llvm.ptr
+    %76 = llvm.getelementptr %75[512] : (!llvm.ptr) -> !llvm.ptr, i8
+    %77 = llvm.ptrtoint %76 : !llvm.ptr to i64
+    %78 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %79 = llvm.insertvalue %70, %78[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %80 = llvm.insertvalue %70, %79[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %81 = llvm.mlir.constant(0 : index) : i64
+    %82 = llvm.insertvalue %81, %80[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %83 = llvm.insertvalue %71, %82[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %84 = llvm.insertvalue %72, %83[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %85 = llvm.insertvalue %72, %84[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %86 = llvm.insertvalue %73, %85[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %87 = builtin.unrealized_conversion_cast %86 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> to memref<32x16xi8, #hivm.address_space<ub>>
+    %88 = llvm.inttoptr %24 : i64 to !llvm.ptr<6>
+    %89 = llvm.mlir.constant(32 : index) : i64
+    %90 = llvm.mlir.constant(16 : index) : i64
+    %91 = llvm.mlir.constant(1 : index) : i64
+    %92 = llvm.mlir.constant(512 : index) : i64
+    %93 = llvm.mlir.zero : !llvm.ptr
+    %94 = llvm.getelementptr %93[512] : (!llvm.ptr) -> !llvm.ptr, i8
+    %95 = llvm.ptrtoint %94 : !llvm.ptr to i64
+    %96 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %97 = llvm.insertvalue %88, %96[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %98 = llvm.insertvalue %88, %97[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %99 = llvm.mlir.constant(0 : index) : i64
+    %100 = llvm.insertvalue %99, %98[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %101 = llvm.insertvalue %89, %100[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %102 = llvm.insertvalue %90, %101[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %103 = llvm.insertvalue %90, %102[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %104 = llvm.insertvalue %91, %103[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %105 = builtin.unrealized_conversion_cast %104 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> to memref<32x16xi8, #hivm.address_space<ub>>
+    %106 = "hivm.intr.hivm.GET.CTRL"() : () -> i64
+    %107 = llvm.mlir.constant(60 : i64) : i64
+    %108 = "hivm.intr.hivm.SBITSET0"(%106, %107) : (i64, i64) -> i64
+    "hivm.intr.hivm.SET.CTRL"(%108) : (i64) -> ()
+    %109 = "hivm.intr.hivm.GET.CTRL"() : () -> i64
+    %110 = llvm.mlir.constant(48 : i64) : i64
+    %111 = "hivm.intr.hivm.SBITSET1"(%109, %110) : (i64, i64) -> i64
+    "hivm.intr.hivm.SET.CTRL"(%111) : (i64) -> ()
+    %112 = llvm.extractvalue %19[0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %113 = llvm.extractvalue %19[1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %114 = llvm.mlir.undef : !llvm.struct<(ptr<1>, ptr<1>, i64)>
+    %115 = llvm.insertvalue %112, %114[0] : !llvm.struct<(ptr<1>, ptr<1>, i64)> 
+    %116 = llvm.insertvalue %113, %115[1] : !llvm.struct<(ptr<1>, ptr<1>, i64)> 
+    %117 = llvm.mlir.constant(0 : index) : i64
+    %118 = llvm.insertvalue %117, %116[2] : !llvm.struct<(ptr<1>, ptr<1>, i64)> 
+    %119 = llvm.extractvalue %19[2] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %120 = llvm.extractvalue %19[3, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %121 = llvm.extractvalue %19[4, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %122 = llvm.mlir.undef : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)>
+    %123 = llvm.insertvalue %112, %122[0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %124 = llvm.insertvalue %113, %123[1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %125 = llvm.mlir.constant(0 : index) : i64
+    %126 = llvm.insertvalue %125, %124[2] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %127 = llvm.mlir.constant(16384 : index) : i64
+    %128 = llvm.insertvalue %127, %126[3, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %129 = llvm.mlir.constant(1 : index) : i64
+    %130 = llvm.insertvalue %129, %128[4, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %131 = "hivm.intr.hivm.GET.BLOCK.IDX"() : () -> i64
+    %132 = llvm.trunc %131 : i64 to i32
+    %133 = llvm.inttoptr %29 : i64 to !llvm.ptr<6>
+    %134 = llvm.mlir.constant(16384 : index) : i64
+    %135 = llvm.mlir.constant(1 : index) : i64
+    %136 = llvm.mlir.zero : !llvm.ptr
+    %137 = llvm.getelementptr %136[16384] : (!llvm.ptr) -> !llvm.ptr, f32
+    %138 = llvm.ptrtoint %137 : !llvm.ptr to i64
+    %139 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %140 = llvm.insertvalue %133, %139[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %141 = llvm.insertvalue %133, %140[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %142 = llvm.mlir.constant(0 : index) : i64
+    %143 = llvm.insertvalue %142, %141[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %144 = llvm.insertvalue %134, %143[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %145 = llvm.insertvalue %135, %144[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    "hivm.intr.hivm.SET.FLAG.IMM"() <{event_id = 0 : i64, set_pipe = 1 : i64, wait_pipe = 4 : i64}> : () -> ()
+    "hivm.intr.hivm.SET.FLAG.IMM"() <{event_id = 1 : i64, set_pipe = 1 : i64, wait_pipe = 4 : i64}> : () -> ()
+    "hivm.intr.hivm.SET.FLAG.IMM"() <{event_id = 0 : i64, set_pipe = 5 : i64, wait_pipe = 1 : i64}> : () -> ()
+    "hivm.intr.hivm.SET.FLAG.IMM"() <{event_id = 1 : i64, set_pipe = 5 : i64, wait_pipe = 1 : i64}> : () -> ()
+    llvm.call @load_gm_to_ubuf_1d_float(%112, %113, %125, %127, %129, %133, %133, %142, %134, %135, %38, %40, %41, %38) : (!llvm.ptr<1>, !llvm.ptr<1>, i64, i64, i64, !llvm.ptr<6>, !llvm.ptr<6>, i64, i64, i64, i32, f32, i64, i32) -> ()
+    %146 = llvm.add %arg25, %37 : i32
+    %147 = llvm.sdiv %146, %36  : i32
+    %148 = llvm.add %arg25, %34 : i32
+    %149 = llvm.sdiv %148, %33  : i32
+    llvm.br ^bb1(%38 : i32)
+  ^bb1(%150: i32):  // 2 preds: ^bb0, ^bb10
+    %151 = llvm.icmp "slt" %150, %147 : i32
+    llvm.cond_br %151, ^bb2, ^bb11
+  ^bb2:  // pred: ^bb1
+    %152 = llvm.sext %150 : i32 to i64
+    %153 = llvm.mlir.constant(2 : index) : i64
+    %154 = llvm.srem %152, %153  : i64
+    %155 = llvm.mlir.constant(0 : index) : i64
+    %156 = llvm.icmp "slt" %154, %155 : i64
+    %157 = llvm.add %154, %153 : i64
+    %158 = llvm.select %156, %157, %154 : i1, i64
+    %159 = builtin.unrealized_conversion_cast %158 : i64 to index
+    %160 = llvm.icmp "eq" %158, %25 : i64
+    %161 = llvm.select %160, %68, %54 : i1, !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %162 = llvm.zext %160 : i1 to i64
+    %163 = llvm.mul %150, %35 : i32
+    %164 = llvm.add %163, %132 : i32
+    %165 = llvm.icmp "slt" %164, %149 : i32
+    llvm.cond_br %165, ^bb3, ^bb10
+  ^bb3:  // pred: ^bb2
+    %166 = llvm.inttoptr %28 : i64 to !llvm.ptr<6>
+    %167 = llvm.mlir.constant(32 : index) : i64
+    %168 = llvm.mlir.constant(16 : index) : i64
+    %169 = llvm.mlir.constant(1 : index) : i64
+    %170 = llvm.mlir.constant(512 : index) : i64
+    %171 = llvm.mlir.zero : !llvm.ptr
+    %172 = llvm.getelementptr %171[512] : (!llvm.ptr) -> !llvm.ptr, i8
+    %173 = llvm.ptrtoint %172 : !llvm.ptr to i64
+    %174 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %175 = llvm.insertvalue %166, %174[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %176 = llvm.insertvalue %166, %175[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %177 = llvm.mlir.constant(0 : index) : i64
+    %178 = llvm.insertvalue %177, %176[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %179 = llvm.insertvalue %167, %178[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %180 = llvm.insertvalue %168, %179[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %181 = llvm.insertvalue %168, %180[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %182 = llvm.insertvalue %169, %181[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    llvm.call @adc_func_outlined_vf_2(%166) {hivm.vector_function, no_inline} : (!llvm.ptr<6>) -> ()
+    %183 = llvm.inttoptr %27 : i64 to !llvm.ptr<6>
+    %184 = llvm.mlir.constant(32 : index) : i64
+    %185 = llvm.mlir.constant(1 : index) : i64
+    %186 = llvm.mlir.zero : !llvm.ptr
+    %187 = llvm.getelementptr %186[32] : (!llvm.ptr) -> !llvm.ptr, f32
+    %188 = llvm.ptrtoint %187 : !llvm.ptr to i64
+    %189 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %190 = llvm.insertvalue %183, %189[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %191 = llvm.insertvalue %183, %190[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %192 = llvm.mlir.constant(0 : index) : i64
+    %193 = llvm.insertvalue %192, %191[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %194 = llvm.insertvalue %184, %193[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %195 = llvm.insertvalue %185, %194[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    llvm.call @adc_func_outlined_vf_3(%183) {hivm.vector_function, no_inline} : (!llvm.ptr<6>) -> ()
+    %196 = llvm.mul %150, %36 : i32
+    %197 = llvm.mul %132, %33 : i32
+    %198 = llvm.add %196, %197 : i32
+    %199 = llvm.sext %198 : i32 to i64
+    %200 = llvm.sub %arg25, %197 : i32
+    %201 = llvm.sub %200, %196 : i32
+    %202 = llvm.intr.smin(%201, %33)  : (i32, i32) -> i32
+    %203 = llvm.sext %202 : i32 to i64
+    llvm.br ^bb4(%38, %195 : i32, !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>)
+  ^bb4(%204: i32, %205: !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>):  // 2 preds: ^bb3, ^bb8
+    %206 = llvm.icmp "slt" %204, %32 : i32
+    llvm.cond_br %206, ^bb5, ^bb9
+  ^bb5:  // pred: ^bb4
+    %207 = llvm.sext %204 : i32 to i64
+    %208 = llvm.mlir.constant(2 : index) : i64
+    %209 = llvm.srem %207, %208  : i64
+    %210 = llvm.mlir.constant(0 : index) : i64
+    %211 = llvm.icmp "slt" %209, %210 : i64
+    %212 = llvm.add %209, %208 : i64
+    %213 = llvm.select %211, %212, %209 : i1, i64
+    %214 = builtin.unrealized_conversion_cast %213 : i64 to index
+    %215 = llvm.icmp "eq" %213, %25 : i64
+    %216 = llvm.select %215, %104, %86 : i1, !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %217 = llvm.zext %215 : i1 to i64
+    %218 = llvm.mul %204, %31 : i32
+    %219 = llvm.sext %218 : i32 to i64
+    %220 = llvm.extractvalue %12[0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %221 = llvm.extractvalue %12[1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %222 = llvm.mlir.undef : !llvm.struct<(ptr<1>, ptr<1>, i64)>
+    %223 = llvm.insertvalue %220, %222[0] : !llvm.struct<(ptr<1>, ptr<1>, i64)> 
+    %224 = llvm.insertvalue %221, %223[1] : !llvm.struct<(ptr<1>, ptr<1>, i64)> 
+    %225 = llvm.mlir.constant(0 : index) : i64
+    %226 = llvm.insertvalue %225, %224[2] : !llvm.struct<(ptr<1>, ptr<1>, i64)> 
+    %227 = llvm.extractvalue %12[2] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %228 = llvm.extractvalue %12[3, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %229 = llvm.extractvalue %12[4, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %230 = llvm.mlir.constant(64 : index) : i64
+    %231 = llvm.mul %199, %230 : i64
+    %232 = llvm.add %231, %219 : i64
+    %233 = llvm.mlir.undef : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)>
+    %234 = llvm.insertvalue %220, %233[0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %235 = llvm.insertvalue %221, %234[1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %236 = llvm.insertvalue %232, %235[2] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %237 = llvm.insertvalue %203, %236[3, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %238 = llvm.mlir.constant(64 : index) : i64
+    %239 = llvm.insertvalue %238, %237[4, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %240 = llvm.mlir.constant(16 : index) : i64
+    %241 = llvm.insertvalue %240, %239[3, 1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %242 = llvm.mlir.constant(1 : index) : i64
+    %243 = llvm.insertvalue %242, %241[4, 1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %244 = llvm.extractvalue %216[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %245 = llvm.extractvalue %216[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %246 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64)>
+    %247 = llvm.insertvalue %244, %246[0] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %248 = llvm.insertvalue %245, %247[1] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %249 = llvm.mlir.constant(0 : index) : i64
+    %250 = llvm.insertvalue %249, %248[2] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %251 = llvm.extractvalue %216[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %252 = llvm.extractvalue %216[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %253 = llvm.extractvalue %216[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %254 = llvm.extractvalue %216[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %255 = llvm.extractvalue %216[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %256 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %257 = llvm.insertvalue %244, %256[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %258 = llvm.insertvalue %245, %257[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %259 = llvm.mlir.constant(0 : index) : i64
+    %260 = llvm.insertvalue %259, %258[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %261 = llvm.insertvalue %203, %260[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %262 = llvm.mlir.constant(16 : index) : i64
+    %263 = llvm.insertvalue %262, %261[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %264 = llvm.mlir.constant(16 : index) : i64
+    %265 = llvm.insertvalue %264, %263[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %266 = llvm.mlir.constant(1 : index) : i64
+    %267 = llvm.insertvalue %266, %265[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    "hivm.intr.hivm.WAIT.FLAG.REG"(%217) <{set_pipe = 1 : i64, wait_pipe = 4 : i64}> : (i64) -> ()
+    llvm.call @load_gm_to_ubuf_2d_int8_t(%220, %221, %232, %203, %240, %238, %242, %244, %245, %259, %203, %264, %262, %266, %38, %39, %41, %38) : (!llvm.ptr<1>, !llvm.ptr<1>, i64, i64, i64, i64, i64, !llvm.ptr<6>, !llvm.ptr<6>, i64, i64, i64, i64, i64, i32, i8, i64, i32) -> ()
+    "hivm.intr.hivm.SET.FLAG.IMM"() <{event_id = 0 : i64, set_pipe = 4 : i64, wait_pipe = 1 : i64}> : () -> ()
+    %268 = llvm.extractvalue %216[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %269 = llvm.extractvalue %216[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %270 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64)>
+    %271 = llvm.insertvalue %268, %270[0] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %272 = llvm.insertvalue %269, %271[1] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %273 = llvm.mlir.constant(0 : index) : i64
+    %274 = llvm.insertvalue %273, %272[2] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %275 = llvm.extractvalue %216[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %276 = llvm.extractvalue %216[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %277 = llvm.extractvalue %216[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %278 = llvm.extractvalue %216[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %279 = llvm.extractvalue %216[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %280 = llvm.mlir.constant(16 : index) : i64
+    %281 = llvm.mul %203, %280 : i64
+    %282 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %283 = llvm.insertvalue %268, %282[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %284 = llvm.insertvalue %269, %283[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %285 = llvm.mlir.constant(0 : index) : i64
+    %286 = llvm.insertvalue %285, %284[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %287 = llvm.insertvalue %281, %286[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %288 = llvm.mlir.constant(1 : index) : i64
+    %289 = llvm.insertvalue %288, %287[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %290 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64)>
+    %291 = llvm.insertvalue %166, %290[0] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %292 = llvm.insertvalue %166, %291[1] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %293 = llvm.mlir.constant(0 : index) : i64
+    %294 = llvm.insertvalue %293, %292[2] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %295 = llvm.mlir.constant(16 : index) : i64
+    %296 = llvm.mul %203, %295 : i64
+    %297 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %298 = llvm.insertvalue %166, %297[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %299 = llvm.insertvalue %166, %298[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %300 = llvm.mlir.constant(0 : index) : i64
+    %301 = llvm.insertvalue %300, %299[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %302 = llvm.insertvalue %296, %301[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %303 = llvm.mlir.constant(1 : index) : i64
+    %304 = llvm.insertvalue %303, %302[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    "hivm.intr.hivm.WAIT.FLAG.IMM"() <{event_id = 0 : i64, set_pipe = 4 : i64, wait_pipe = 1 : i64}> : () -> ()
+    llvm.call @copy_ubuf_to_ubuf_1d_int8_t(%268, %269, %285, %281, %288, %166, %166, %300, %296, %303) : (!llvm.ptr<6>, !llvm.ptr<6>, i64, i64, i64, !llvm.ptr<6>, !llvm.ptr<6>, i64, i64, i64) -> ()
+    "hivm.intr.hivm.SET.FLAG.REG"(%217) <{set_pipe = 1 : i64, wait_pipe = 4 : i64}> : (i64) -> ()
+    %305 = llvm.inttoptr %26 : i64 to !llvm.ptr<6>
+    %306 = llvm.mlir.constant(32 : index) : i64
+    %307 = llvm.mlir.constant(16 : index) : i64
+    %308 = llvm.mlir.constant(1 : index) : i64
+    %309 = llvm.mlir.constant(512 : index) : i64
+    %310 = llvm.mlir.zero : !llvm.ptr
+    %311 = llvm.getelementptr %310[512] : (!llvm.ptr) -> !llvm.ptr, i32
+    %312 = llvm.ptrtoint %311 : !llvm.ptr to i64
+    %313 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %314 = llvm.insertvalue %305, %313[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %315 = llvm.insertvalue %305, %314[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %316 = llvm.mlir.constant(0 : index) : i64
+    %317 = llvm.insertvalue %316, %315[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %318 = llvm.insertvalue %306, %317[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %319 = llvm.insertvalue %307, %318[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %320 = llvm.insertvalue %307, %319[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %321 = llvm.insertvalue %308, %320[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    llvm.call @adc_func_outlined_vf_1(%166, %305) {hivm.vector_function, no_inline} : (!llvm.ptr<6>, !llvm.ptr<6>) -> ()
+    llvm.br ^bb6(%38, %205 : i32, !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>)
+  ^bb6(%322: i32, %323: !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>):  // 2 preds: ^bb5, ^bb7
+    %324 = llvm.icmp "slt" %322, %31 : i32
+    llvm.cond_br %324, ^bb7, ^bb8
+  ^bb7:  // pred: ^bb6
+    %325 = llvm.sext %322 : i32 to i64
+    %326 = llvm.inttoptr %27 : i64 to !llvm.ptr<6>
+    %327 = llvm.mlir.constant(32 : index) : i64
+    %328 = llvm.mlir.constant(1 : index) : i64
+    %329 = llvm.mlir.zero : !llvm.ptr
+    %330 = llvm.getelementptr %329[32] : (!llvm.ptr) -> !llvm.ptr, f32
+    %331 = llvm.ptrtoint %330 : !llvm.ptr to i64
+    %332 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %333 = llvm.insertvalue %326, %332[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %334 = llvm.insertvalue %326, %333[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %335 = llvm.mlir.constant(0 : index) : i64
+    %336 = llvm.insertvalue %335, %334[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %337 = llvm.insertvalue %327, %336[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %338 = llvm.insertvalue %328, %337[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %339 = llvm.extractvalue %323[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    llvm.call @adc_func_outlined_vf_0(%339, %305, %325, %133, %326) {hivm.vector_function, no_inline} : (!llvm.ptr<6>, !llvm.ptr<6>, i64, !llvm.ptr<6>, !llvm.ptr<6>) -> ()
+    %340 = llvm.add %322, %30 overflow<nsw> : i32
+    llvm.br ^bb6(%340, %338 : i32, !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>)
+  ^bb8:  // pred: ^bb6
+    %341 = llvm.add %204, %30 overflow<nsw> : i32
+    llvm.br ^bb4(%341, %323 : i32, !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>)
+  ^bb9:  // pred: ^bb4
+    "hivm.intr.hivm.WAIT.FLAG.REG"(%162) <{set_pipe = 5 : i64, wait_pipe = 1 : i64}> : (i64) -> ()
+    %342 = llvm.extractvalue %205[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %343 = llvm.extractvalue %161[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    llvm.call @adc_func_outlined_vf_4(%342, %343) {hivm.vector_function, no_inline} : (!llvm.ptr<6>, !llvm.ptr<6>) -> ()
+    "hivm.intr.hivm.SET.FLAG.IMM"() <{event_id = 0 : i64, set_pipe = 1 : i64, wait_pipe = 5 : i64}> : () -> ()
+    %344 = llvm.extractvalue %161[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %345 = llvm.extractvalue %161[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %346 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64)>
+    %347 = llvm.insertvalue %344, %346[0] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %348 = llvm.insertvalue %345, %347[1] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %349 = llvm.mlir.constant(0 : index) : i64
+    %350 = llvm.insertvalue %349, %348[2] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %351 = llvm.extractvalue %161[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %352 = llvm.extractvalue %161[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %353 = llvm.extractvalue %161[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %354 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %355 = llvm.insertvalue %344, %354[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %356 = llvm.insertvalue %345, %355[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %357 = llvm.mlir.constant(0 : index) : i64
+    %358 = llvm.insertvalue %357, %356[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %359 = llvm.insertvalue %203, %358[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %360 = llvm.mlir.constant(1 : index) : i64
+    %361 = llvm.insertvalue %360, %359[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %362 = llvm.extractvalue %5[0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %363 = llvm.extractvalue %5[1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %364 = llvm.mlir.undef : !llvm.struct<(ptr<1>, ptr<1>, i64)>
+    %365 = llvm.insertvalue %362, %364[0] : !llvm.struct<(ptr<1>, ptr<1>, i64)> 
+    %366 = llvm.insertvalue %363, %365[1] : !llvm.struct<(ptr<1>, ptr<1>, i64)> 
+    %367 = llvm.mlir.constant(0 : index) : i64
+    %368 = llvm.insertvalue %367, %366[2] : !llvm.struct<(ptr<1>, ptr<1>, i64)> 
+    %369 = llvm.extractvalue %5[2] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %370 = llvm.extractvalue %5[3, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %371 = llvm.extractvalue %5[4, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %372 = llvm.mlir.undef : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)>
+    %373 = llvm.insertvalue %362, %372[0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %374 = llvm.insertvalue %363, %373[1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %375 = llvm.insertvalue %199, %374[2] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %376 = llvm.insertvalue %203, %375[3, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %377 = llvm.mlir.constant(1 : index) : i64
+    %378 = llvm.insertvalue %377, %376[4, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    "hivm.intr.hivm.WAIT.FLAG.IMM"() <{event_id = 0 : i64, set_pipe = 1 : i64, wait_pipe = 5 : i64}> : () -> ()
+    "hivm.intr.hivm.BARRIER"() <{pipe = 5 : i64}> : () -> ()
+    llvm.call @store_ubuf_to_gm_1d_float(%344, %345, %357, %203, %360, %362, %363, %199, %203, %377, %38) : (!llvm.ptr<6>, !llvm.ptr<6>, i64, i64, i64, !llvm.ptr<1>, !llvm.ptr<1>, i64, i64, i64, i32) -> ()
+    "hivm.intr.hivm.SET.FLAG.REG"(%162) <{set_pipe = 5 : i64, wait_pipe = 1 : i64}> : (i64) -> ()
+    llvm.br ^bb10
+  ^bb10:  // 2 preds: ^bb2, ^bb9
+    %379 = llvm.add %150, %30 overflow<nsw> : i32
+    llvm.br ^bb1(%379 : i32)
+  ^bb11:  // pred: ^bb1
+    "hivm.intr.hivm.BARRIER"() <{pipe = 6 : i64}> : () -> ()
+    "hivm.intr.hivm.WAIT.FLAG.IMM"() <{event_id = 0 : i64, set_pipe = 1 : i64, wait_pipe = 4 : i64}> : () -> ()
+    "hivm.intr.hivm.WAIT.FLAG.IMM"() <{event_id = 1 : i64, set_pipe = 1 : i64, wait_pipe = 4 : i64}> : () -> ()
+    "hivm.intr.hivm.WAIT.FLAG.IMM"() <{event_id = 0 : i64, set_pipe = 5 : i64, wait_pipe = 1 : i64}> : () -> ()
+    "hivm.intr.hivm.WAIT.FLAG.IMM"() <{event_id = 1 : i64, set_pipe = 5 : i64, wait_pipe = 1 : i64}> : () -> ()
+    llvm.return
+  }
+}
+
+
+// -----// IR Dump After ArithToLLVMConversionPass (convert-arith-to-llvm) //----- //
+#map = affine_map<(d0)[s0] -> (d0 + s0)>
+module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #hacc.target_device_spec<#dlti.dl_entry<"AI_CORE_COUNT", 28 : i32>, #dlti.dl_entry<"CUBE_CORE_COUNT", 28 : i32>, #dlti.dl_entry<"VECTOR_CORE_COUNT", 56 : i32>, #dlti.dl_entry<"UB_SIZE", 2031616 : i32>, #dlti.dl_entry<"L1_SIZE", 4194304 : i32>, #dlti.dl_entry<"L0A_SIZE", 524288 : i32>, #dlti.dl_entry<"L0B_SIZE", 524288 : i32>, #dlti.dl_entry<"L0C_SIZE", 2097152 : i32>, #dlti.dl_entry<"UB_ALIGN_SIZE", 256 : i32>, #dlti.dl_entry<"L1_ALIGN_SIZE", 256 : i32>, #dlti.dl_entry<"L0C_ALIGN_SIZE", 4096 : i32>, #dlti.dl_entry<"MINIMAL_D_CACHE_SIZE", 262144 : i32>, #dlti.dl_entry<"MAXIMUM_D_CACHE_SIZE", 983040 : i32>, #dlti.dl_entry<"ARCH", "dav-c310">>>, hacc.target = #hacc.target<"Ascend950PR_9579">, hivm.module_core_type = #hivm.module_core_type<AIV>, memref.memref_as_ptr} {
+  llvm.func @adc_func_outlined_vf_0(%arg0: !llvm.ptr<6>, %arg1: !llvm.ptr<6>, %arg2: i64, %arg3: !llvm.ptr<6>, %arg4: !llvm.ptr<6>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function} {
+    %0 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %1 = llvm.insertvalue %arg4, %0[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %2 = llvm.insertvalue %arg4, %1[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %3 = llvm.mlir.constant(0 : index) : i64
+    %4 = llvm.insertvalue %3, %2[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %5 = llvm.mlir.constant(32 : index) : i64
+    %6 = llvm.insertvalue %5, %4[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %7 = llvm.mlir.constant(1 : index) : i64
+    %8 = llvm.insertvalue %7, %6[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %9 = builtin.unrealized_conversion_cast %8 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> to memref<32xf32, #hivm.address_space<ub>>
+    %10 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %11 = llvm.insertvalue %arg3, %10[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %12 = llvm.insertvalue %arg3, %11[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %13 = llvm.mlir.constant(0 : index) : i64
+    %14 = llvm.insertvalue %13, %12[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %15 = llvm.mlir.constant(16384 : index) : i64
+    %16 = llvm.insertvalue %15, %14[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %17 = llvm.mlir.constant(1 : index) : i64
+    %18 = llvm.insertvalue %17, %16[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %19 = builtin.unrealized_conversion_cast %18 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> to memref<16384xf32, #hivm.address_space<ub>>
+    %20 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %21 = llvm.insertvalue %arg1, %20[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %22 = llvm.insertvalue %arg1, %21[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %23 = llvm.mlir.constant(0 : index) : i64
+    %24 = llvm.insertvalue %23, %22[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %25 = llvm.mlir.constant(32 : index) : i64
+    %26 = llvm.insertvalue %25, %24[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %27 = llvm.mlir.constant(16 : index) : i64
+    %28 = llvm.insertvalue %27, %26[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %29 = llvm.mlir.constant(16 : index) : i64
+    %30 = llvm.insertvalue %29, %28[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %31 = llvm.mlir.constant(1 : index) : i64
+    %32 = llvm.insertvalue %31, %30[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %33 = builtin.unrealized_conversion_cast %32 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> to memref<32x16xi32, #hivm.address_space<ub>>
+    %34 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %35 = llvm.insertvalue %arg0, %34[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %36 = llvm.insertvalue %arg0, %35[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %37 = llvm.mlir.constant(0 : index) : i64
+    %38 = llvm.insertvalue %37, %36[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %39 = llvm.mlir.constant(32 : index) : i64
+    %40 = llvm.insertvalue %39, %38[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %41 = llvm.mlir.constant(1 : index) : i64
+    %42 = llvm.insertvalue %41, %40[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %43 = builtin.unrealized_conversion_cast %42 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> to memref<32xf32, #hivm.address_space<ub>>
+    %44 = llvm.mlir.constant(2 : i32) : i32
+    %45 = llvm.mlir.constant(16 : index) : i64
+    %46 = llvm.mlir.constant(0 : i32) : i32
+    %47 = llvm.mlir.constant(7 : i32) : i32
+    %48 = llvm.mlir.constant(0 : index) : i64
+    %49 = llvm.extractvalue %18[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %50 = llvm.extractvalue %18[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %51 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64)>
+    %52 = llvm.insertvalue %49, %51[0] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %53 = llvm.insertvalue %50, %52[1] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %54 = llvm.mlir.constant(0 : index) : i64
+    %55 = llvm.insertvalue %54, %53[2] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %56 = llvm.extractvalue %18[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %57 = llvm.extractvalue %18[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %58 = llvm.extractvalue %18[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %59 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %60 = llvm.insertvalue %49, %59[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %61 = llvm.insertvalue %50, %60[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %62 = llvm.mlir.constant(0 : index) : i64
+    %63 = llvm.insertvalue %62, %61[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %64 = llvm.mlir.constant(256 : index) : i64
+    %65 = llvm.insertvalue %64, %63[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %66 = llvm.mlir.constant(1 : index) : i64
+    %67 = llvm.insertvalue %66, %65[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %68 = builtin.unrealized_conversion_cast %67 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> to memref<256xf32, strided<[1]>, #hivm.address_space<ub>>
+    %69 = llvm.extractvalue %32[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %70 = llvm.extractvalue %32[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %71 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64)>
+    %72 = llvm.insertvalue %69, %71[0] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %73 = llvm.insertvalue %70, %72[1] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %74 = llvm.mlir.constant(0 : index) : i64
+    %75 = llvm.insertvalue %74, %73[2] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %76 = llvm.extractvalue %32[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %77 = llvm.extractvalue %32[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %78 = llvm.extractvalue %32[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %79 = llvm.extractvalue %32[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %80 = llvm.extractvalue %32[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %81 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %82 = llvm.insertvalue %69, %81[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %83 = llvm.insertvalue %70, %82[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %84 = llvm.insertvalue %arg2, %83[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %85 = llvm.mlir.constant(32 : index) : i64
+    %86 = llvm.insertvalue %85, %84[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %87 = llvm.mlir.constant(16 : index) : i64
+    %88 = llvm.insertvalue %87, %86[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %89 = builtin.unrealized_conversion_cast %88 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> to memref<32xi32, strided<[16], offset: ?>, #hivm.address_space<ub>>
+    %90 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%47, %46) {mask_bit_width = 32 : i32, mask_op_idx = 0 : i32} : (i32, i32) -> vector<256xi1>
+    %91 = llvm.extractvalue %42[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %92 = "hivm_regbaseintrins.intr.hivm.vldsx1.v64f32"(%91, %46, %46, %46) : (!llvm.ptr<6>, i32, i32, i32) -> vector<64xf32>
+    %93 = llvm.extractvalue %88[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %94 = llvm.extractvalue %88[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %95 = llvm.getelementptr %93[%94] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i32
+    %96 = llvm.mul %48, %45 : i64
+    %97 = llvm.getelementptr %95[%96] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i32
+    %98 = "hivm_regbaseintrins.intr.hivm.vldas"(%97) : (!llvm.ptr<6>) -> vector<32xi8>
+    %99 = "hivm_regbaseintrins.intr.hivm.vldus.post.s32"(%97, %98, %46) : (!llvm.ptr<6>, vector<32xi8>, i32) -> !llvm.struct<(vector<64xi32>, vector<32xi8>, ptr<6>)>
+    %100 = llvm.extractvalue %99[0] : !llvm.struct<(vector<64xi32>, vector<32xi8>, ptr<6>)> 
+    %101 = llvm.extractvalue %67[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %102 = "hivm_regbaseintrins.intr.hivm.vgather2_v300.v64f32"(%101, %100, %90) : (!llvm.ptr<6>, vector<64xi32>, vector<256xi1>) -> vector<64xf32>
+    %103 = "hivm_regbaseintrins.intr.hivm.vadd.s.x"(%92, %102, %90) : (vector<64xf32>, vector<64xf32>, vector<256xi1>) -> vector<64xf32>
+    %104 = llvm.extractvalue %8[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    "hivm_regbaseintrins.intr.hivm.vstsx1.v64f32"(%103, %104, %46, %44, %46, %90) : (vector<64xf32>, !llvm.ptr<6>, i32, i32, i32, vector<256xi1>) -> ()
+    llvm.return
+  }
+  llvm.func @adc_func_outlined_vf_1(%arg0: !llvm.ptr<6>, %arg1: !llvm.ptr<6>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function} {
+    %0 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %1 = llvm.insertvalue %arg1, %0[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %2 = llvm.insertvalue %arg1, %1[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %3 = llvm.mlir.constant(0 : index) : i64
+    %4 = llvm.insertvalue %3, %2[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %5 = llvm.mlir.constant(32 : index) : i64
+    %6 = llvm.insertvalue %5, %4[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %7 = llvm.mlir.constant(16 : index) : i64
+    %8 = llvm.insertvalue %7, %6[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %9 = llvm.mlir.constant(16 : index) : i64
+    %10 = llvm.insertvalue %9, %8[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %11 = llvm.mlir.constant(1 : index) : i64
+    %12 = llvm.insertvalue %11, %10[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %13 = builtin.unrealized_conversion_cast %12 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> to memref<32x16xi32, #hivm.address_space<ub>>
+    %14 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %15 = llvm.insertvalue %arg0, %14[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %16 = llvm.insertvalue %arg0, %15[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %17 = llvm.mlir.constant(0 : index) : i64
+    %18 = llvm.insertvalue %17, %16[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %19 = llvm.mlir.constant(32 : index) : i64
+    %20 = llvm.insertvalue %19, %18[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %21 = llvm.mlir.constant(16 : index) : i64
+    %22 = llvm.insertvalue %21, %20[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %23 = llvm.mlir.constant(16 : index) : i64
+    %24 = llvm.insertvalue %23, %22[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %25 = llvm.mlir.constant(1 : index) : i64
+    %26 = llvm.insertvalue %25, %24[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %27 = builtin.unrealized_conversion_cast %26 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> to memref<32x16xi8, #hivm.address_space<ub>>
+    %28 = llvm.mlir.constant(2 : i32) : i32
+    %29 = llvm.mlir.constant(0 : i8) : i8
+    %30 = llvm.mlir.constant(6 : i32) : i32
+    %31 = llvm.mlir.constant(0 : i32) : i32
+    %32 = llvm.mlir.constant(32 : i32) : i32
+    %33 = llvm.mlir.constant(1 : i32) : i32
+    llvm.br ^bb1(%31 : i32)
+  ^bb1(%34: i32):  // 2 preds: ^bb0, ^bb2
+    %35 = llvm.icmp "slt" %34, %32 : i32
+    llvm.cond_br %35, ^bb2, ^bb3
+  ^bb2:  // pred: ^bb1
+    %36 = llvm.sext %34 : i32 to i64
+    %37 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%30, %31) {mask_bit_width = 32 : i32, mask_op_idx = 0 : i32} : (i32, i32) -> vector<256xi1>
+    %38 = llvm.extractvalue %26[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %39 = llvm.extractvalue %26[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %40 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64)>
+    %41 = llvm.insertvalue %38, %40[0] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %42 = llvm.insertvalue %39, %41[1] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %43 = llvm.mlir.constant(0 : index) : i64
+    %44 = llvm.insertvalue %43, %42[2] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %45 = llvm.extractvalue %26[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %46 = llvm.extractvalue %26[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %47 = llvm.extractvalue %26[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %48 = llvm.extractvalue %26[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %49 = llvm.extractvalue %26[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %50 = llvm.mlir.constant(16 : index) : i64
+    %51 = llvm.mul %36, %50 : i64
+    %52 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %53 = llvm.insertvalue %38, %52[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %54 = llvm.insertvalue %39, %53[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %55 = llvm.insertvalue %51, %54[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %56 = llvm.mlir.constant(16 : index) : i64
+    %57 = llvm.insertvalue %56, %55[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %58 = llvm.mlir.constant(1 : index) : i64
+    %59 = llvm.insertvalue %58, %57[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %60 = builtin.unrealized_conversion_cast %59 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> to memref<16xi8, #map, #hivm.address_space<ub>>
+    %61 = llvm.extractvalue %59[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %62 = llvm.extractvalue %59[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %63 = llvm.getelementptr %61[%62] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i8
+    %64 = "hivm_regbaseintrins.intr.hivm.vldas"(%63) : (!llvm.ptr<6>) -> vector<32xi8>
+    %65 = "hivm_regbaseintrins.intr.hivm.vldus.post.s8"(%63, %64, %31) : (!llvm.ptr<6>, vector<32xi8>, i32) -> !llvm.struct<(vector<256xi8>, vector<32xi8>, ptr<6>)>
+    %66 = llvm.extractvalue %65[0] : !llvm.struct<(vector<256xi8>, vector<32xi8>, ptr<6>)> 
+    %67 = "hivm_regbaseintrins.intr.hivm.vbr"(%29) : (i8) -> vector<256xi8>
+    %68 = "hivm_regbaseintrins.intr.hivm.vintlv"(%66, %67) : (vector<256xi8>, vector<256xi8>) -> !llvm.struct<(vector<256xi8>, vector<256xi8>)>
+    %69 = llvm.extractvalue %68[0] : !llvm.struct<(vector<256xi8>, vector<256xi8>)> 
+    %70 = "hivm_regbaseintrins.intr.hivm.vintlv"(%69, %67) : (vector<256xi8>, vector<256xi8>) -> !llvm.struct<(vector<256xi8>, vector<256xi8>)>
+    %71 = llvm.extractvalue %70[0] : !llvm.struct<(vector<256xi8>, vector<256xi8>)> 
+    %72 = "hivm_regbaseintrins.intr.hivm.vcvtii.u82u32.x"(%71, %37, %31) : (vector<256xi8>, vector<256xi1>, i32) -> vector<64xi32>
+    %73 = llvm.extractvalue %12[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %74 = llvm.extractvalue %12[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %75 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64)>
+    %76 = llvm.insertvalue %73, %75[0] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %77 = llvm.insertvalue %74, %76[1] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %78 = llvm.mlir.constant(0 : index) : i64
+    %79 = llvm.insertvalue %78, %77[2] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %80 = llvm.extractvalue %12[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %81 = llvm.extractvalue %12[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %82 = llvm.extractvalue %12[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %83 = llvm.extractvalue %12[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %84 = llvm.extractvalue %12[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %85 = llvm.mlir.constant(16 : index) : i64
+    %86 = llvm.mul %36, %85 : i64
+    %87 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %88 = llvm.insertvalue %73, %87[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %89 = llvm.insertvalue %74, %88[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %90 = llvm.insertvalue %86, %89[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %91 = llvm.mlir.constant(16 : index) : i64
+    %92 = llvm.insertvalue %91, %90[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %93 = llvm.mlir.constant(1 : index) : i64
+    %94 = llvm.insertvalue %93, %92[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %95 = builtin.unrealized_conversion_cast %94 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> to memref<16xi32, #map, #hivm.address_space<ub>>
+    %96 = llvm.extractvalue %94[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %97 = llvm.extractvalue %94[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %98 = llvm.getelementptr %96[%97] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i32
+    "hivm_regbaseintrins.intr.hivm.vstsx1.v64s32"(%72, %98, %31, %28, %31, %37) : (vector<64xi32>, !llvm.ptr<6>, i32, i32, i32, vector<256xi1>) -> ()
+    %99 = llvm.add %34, %33 overflow<nsw> : i32
+    llvm.br ^bb1(%99 : i32)
+  ^bb3:  // pred: ^bb1
+    llvm.return
+  }
+  llvm.func @adc_func_outlined_vf_2(%arg0: !llvm.ptr<6>) attributes {element_alignment_bit_width = 8 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function} {
+    %0 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %1 = llvm.insertvalue %arg0, %0[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %2 = llvm.insertvalue %arg0, %1[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %3 = llvm.mlir.constant(0 : index) : i64
+    %4 = llvm.insertvalue %3, %2[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %5 = llvm.mlir.constant(32 : index) : i64
+    %6 = llvm.insertvalue %5, %4[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %7 = llvm.mlir.constant(16 : index) : i64
+    %8 = llvm.insertvalue %7, %6[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %9 = llvm.mlir.constant(16 : index) : i64
+    %10 = llvm.insertvalue %9, %8[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %11 = llvm.mlir.constant(1 : index) : i64
+    %12 = llvm.insertvalue %11, %10[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %13 = builtin.unrealized_conversion_cast %12 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> to memref<32x16xi8, #hivm.address_space<ub>>
+    %14 = llvm.mlir.constant(16 : i32) : i32
+    %15 = llvm.mlir.constant(6 : i32) : i32
+    %16 = llvm.mlir.constant(0 : i8) : i8
+    %17 = llvm.mlir.constant(1 : i32) : i32
+    %18 = llvm.mlir.constant(32 : i32) : i32
+    %19 = llvm.mlir.constant(0 : i32) : i32
+    %20 = "hivm_regbaseintrins.intr.hivm.pge.b8"(%19, %19) {mask_bit_width = 8 : i32} : (i32, i32) -> vector<256xi1>
+    %21 = "hivm_regbaseintrins.intr.hivm.vdups.z"(%16, %20, %17) : (i8, vector<256xi1>, i32) -> vector<256xi8>
+    llvm.br ^bb1(%19 : i32)
+  ^bb1(%22: i32):  // 2 preds: ^bb0, ^bb2
+    %23 = llvm.icmp "slt" %22, %18 : i32
+    llvm.cond_br %23, ^bb2, ^bb3
+  ^bb2:  // pred: ^bb1
+    %24 = llvm.sext %22 : i32 to i64
+    %25 = "hivm_regbaseintrins.intr.hivm.pge.b8"(%15, %19) {mask_bit_width = 8 : i32, mask_op_idx = 0 : i32} : (i32, i32) -> vector<256xi1>
+    %26 = llvm.extractvalue %12[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %27 = llvm.extractvalue %12[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %28 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64)>
+    %29 = llvm.insertvalue %26, %28[0] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %30 = llvm.insertvalue %27, %29[1] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %31 = llvm.mlir.constant(0 : index) : i64
+    %32 = llvm.insertvalue %31, %30[2] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %33 = llvm.extractvalue %12[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %34 = llvm.extractvalue %12[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %35 = llvm.extractvalue %12[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %36 = llvm.extractvalue %12[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %37 = llvm.extractvalue %12[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %38 = llvm.mlir.constant(16 : index) : i64
+    %39 = llvm.mul %24, %38 : i64
+    %40 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %41 = llvm.insertvalue %26, %40[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %42 = llvm.insertvalue %27, %41[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %43 = llvm.insertvalue %39, %42[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %44 = llvm.mlir.constant(16 : index) : i64
+    %45 = llvm.insertvalue %44, %43[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %46 = llvm.mlir.constant(1 : index) : i64
+    %47 = llvm.insertvalue %46, %45[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %48 = builtin.unrealized_conversion_cast %47 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> to memref<16xi8, #map, #hivm.address_space<ub>>
+    %49 = llvm.extractvalue %47[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %50 = llvm.extractvalue %47[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %51 = llvm.getelementptr %49[%50] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i8
+    %52 = "hivm_regbaseintrins.intr.hivm.init.vector.align.data"() : () -> vector<32xi8>
+    %53 = "hivm_regbaseintrins.intr.hivm.vstus.post.s8"(%21, %51, %14, %52) : (vector<256xi8>, !llvm.ptr<6>, i32, vector<32xi8>) -> !llvm.struct<(vector<32xi8>, ptr<6>)>
+    %54 = llvm.extractvalue %53[0] : !llvm.struct<(vector<32xi8>, ptr<6>)> 
+    %55 = llvm.extractvalue %53[1] : !llvm.struct<(vector<32xi8>, ptr<6>)> 
+    "hivm_regbaseintrins.intr.hivm.vstas"(%54, %55, %19, %19) : (vector<32xi8>, !llvm.ptr<6>, i32, i32) -> ()
+    %56 = llvm.add %22, %17 overflow<nsw> : i32
+    llvm.br ^bb1(%56 : i32)
+  ^bb3:  // pred: ^bb1
+    llvm.return
+  }
+  llvm.func @adc_func_outlined_vf_3(%arg0: !llvm.ptr<6>) attributes {element_alignment_bit_width = -1 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function} {
+    %0 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %1 = llvm.insertvalue %arg0, %0[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %2 = llvm.insertvalue %arg0, %1[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %3 = llvm.mlir.constant(0 : index) : i64
+    %4 = llvm.insertvalue %3, %2[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %5 = llvm.mlir.constant(32 : index) : i64
+    %6 = llvm.insertvalue %5, %4[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %7 = llvm.mlir.constant(1 : index) : i64
+    %8 = llvm.insertvalue %7, %6[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %9 = builtin.unrealized_conversion_cast %8 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> to memref<32xf32, #hivm.address_space<ub>>
+    %10 = llvm.mlir.constant(2 : i32) : i32
+    %11 = llvm.mlir.constant(7 : i32) : i32
+    %12 = llvm.mlir.constant(1 : i32) : i32
+    %13 = llvm.mlir.constant(0 : i32) : i32
+    %14 = llvm.mlir.constant(8 : i32) : i32
+    %15 = llvm.mlir.constant(0.000000e+00 : f32) : f32
+    %16 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%14, %13) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+    %17 = "hivm_regbaseintrins.intr.hivm.vdups.z"(%15, %16, %12) : (f32, vector<256xi1>, i32) -> vector<64xf32>
+    %18 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%11, %13) {mask_bit_width = 32 : i32, mask_op_idx = 0 : i32} : (i32, i32) -> vector<256xi1>
+    %19 = llvm.extractvalue %8[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    "hivm_regbaseintrins.intr.hivm.vstsx1.v64f32"(%17, %19, %13, %10, %13, %18) : (vector<64xf32>, !llvm.ptr<6>, i32, i32, i32, vector<256xi1>) -> ()
+    llvm.return
+  }
+  llvm.func @adc_func_outlined_vf_4(%arg0: !llvm.ptr<6>, %arg1: !llvm.ptr<6>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function} {
+    %0 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %1 = llvm.insertvalue %arg1, %0[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %2 = llvm.insertvalue %arg1, %1[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %3 = llvm.mlir.constant(0 : index) : i64
+    %4 = llvm.insertvalue %3, %2[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %5 = llvm.mlir.constant(32 : index) : i64
+    %6 = llvm.insertvalue %5, %4[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %7 = llvm.mlir.constant(1 : index) : i64
+    %8 = llvm.insertvalue %7, %6[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %9 = builtin.unrealized_conversion_cast %8 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> to memref<32xf32, #hivm.address_space<ub>>
+    %10 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %11 = llvm.insertvalue %arg0, %10[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %12 = llvm.insertvalue %arg0, %11[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %13 = llvm.mlir.constant(0 : index) : i64
+    %14 = llvm.insertvalue %13, %12[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %15 = llvm.mlir.constant(32 : index) : i64
+    %16 = llvm.insertvalue %15, %14[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %17 = llvm.mlir.constant(1 : index) : i64
+    %18 = llvm.insertvalue %17, %16[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %19 = builtin.unrealized_conversion_cast %18 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> to memref<32xf32, #hivm.address_space<ub>>
+    %20 = llvm.mlir.constant(2 : i32) : i32
+    %21 = llvm.mlir.constant(0 : i32) : i32
+    %22 = llvm.mlir.constant(7 : i32) : i32
+    %23 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%22, %21) {mask_bit_width = 32 : i32, mask_op_idx = 0 : i32} : (i32, i32) -> vector<256xi1>
+    %24 = llvm.extractvalue %18[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %25 = "hivm_regbaseintrins.intr.hivm.vldsx1.v64f32"(%24, %21, %21, %21) : (!llvm.ptr<6>, i32, i32, i32) -> vector<64xf32>
+    %26 = "hivm_regbaseintrins.intr.hivm.vsqrt.x"(%25, %23) : (vector<64xf32>, vector<256xi1>) -> vector<64xf32>
+    %27 = llvm.extractvalue %8[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    "hivm_regbaseintrins.intr.hivm.vstsx1.v64f32"(%26, %27, %21, %20, %21, %23) : (vector<64xf32>, !llvm.ptr<6>, i32, i32, i32, vector<256xi1>) -> ()
+    llvm.return
+  }
+  llvm.func private @load_gm_to_ubuf_1d_float(%arg0: !llvm.ptr<1>, %arg1: !llvm.ptr<1>, %arg2: i64, %arg3: i64, %arg4: i64, %arg5: !llvm.ptr<6>, %arg6: !llvm.ptr<6>, %arg7: i64, %arg8: i64, %arg9: i64, %arg10: i32, %arg11: f32, %arg12: i64, %arg13: i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface, sym_visibility = "private"} {
+    %0 = llvm.mlir.undef : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)>
+    %1 = llvm.insertvalue %arg0, %0[0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %2 = llvm.insertvalue %arg1, %1[1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %3 = llvm.insertvalue %arg2, %2[2] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %4 = llvm.insertvalue %arg3, %3[3, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %5 = llvm.insertvalue %arg4, %4[4, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %6 = llvm.mlir.constant(1 : index) : i64
+    %7 = llvm.alloca %6 x !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> : (i64) -> !llvm.ptr
+    llvm.store %5, %7 : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)>, !llvm.ptr
+    %8 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %9 = llvm.insertvalue %arg5, %8[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %10 = llvm.insertvalue %arg6, %9[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %11 = llvm.insertvalue %arg7, %10[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %12 = llvm.insertvalue %arg8, %11[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %13 = llvm.insertvalue %arg9, %12[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %14 = llvm.mlir.constant(1 : index) : i64
+    %15 = llvm.alloca %14 x !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> : (i64) -> !llvm.ptr
+    llvm.store %13, %15 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>, !llvm.ptr
+    llvm.call @_mlir_ciface_load_gm_to_ubuf_1d_float(%7, %15, %arg10, %arg11, %arg12, %arg13) : (!llvm.ptr, !llvm.ptr, i32, f32, i64, i32) -> ()
+    llvm.return
+  }
+  llvm.func @_mlir_ciface_load_gm_to_ubuf_1d_float(!llvm.ptr, !llvm.ptr, i32, f32, i64, i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface, sym_visibility = "private"}
+  llvm.func private @load_gm_to_ubuf_2d_int8_t(%arg0: !llvm.ptr<1>, %arg1: !llvm.ptr<1>, %arg2: i64, %arg3: i64, %arg4: i64, %arg5: i64, %arg6: i64, %arg7: !llvm.ptr<6>, %arg8: !llvm.ptr<6>, %arg9: i64, %arg10: i64, %arg11: i64, %arg12: i64, %arg13: i64, %arg14: i32, %arg15: i8, %arg16: i64, %arg17: i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface, sym_visibility = "private"} {
+    %0 = llvm.mlir.undef : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)>
+    %1 = llvm.insertvalue %arg0, %0[0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %2 = llvm.insertvalue %arg1, %1[1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %3 = llvm.insertvalue %arg2, %2[2] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %4 = llvm.insertvalue %arg3, %3[3, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %5 = llvm.insertvalue %arg5, %4[4, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %6 = llvm.insertvalue %arg4, %5[3, 1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %7 = llvm.insertvalue %arg6, %6[4, 1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %8 = llvm.mlir.constant(1 : index) : i64
+    %9 = llvm.alloca %8 x !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> : (i64) -> !llvm.ptr
+    llvm.store %7, %9 : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)>, !llvm.ptr
+    %10 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %11 = llvm.insertvalue %arg7, %10[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %12 = llvm.insertvalue %arg8, %11[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %13 = llvm.insertvalue %arg9, %12[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %14 = llvm.insertvalue %arg10, %13[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %15 = llvm.insertvalue %arg12, %14[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %16 = llvm.insertvalue %arg11, %15[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %17 = llvm.insertvalue %arg13, %16[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %18 = llvm.mlir.constant(1 : index) : i64
+    %19 = llvm.alloca %18 x !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> : (i64) -> !llvm.ptr
+    llvm.store %17, %19 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>, !llvm.ptr
+    llvm.call @_mlir_ciface_load_gm_to_ubuf_2d_int8_t(%9, %19, %arg14, %arg15, %arg16, %arg17) : (!llvm.ptr, !llvm.ptr, i32, i8, i64, i32) -> ()
+    llvm.return
+  }
+  llvm.func @_mlir_ciface_load_gm_to_ubuf_2d_int8_t(!llvm.ptr, !llvm.ptr, i32, i8, i64, i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface, sym_visibility = "private"}
+  llvm.func private @copy_ubuf_to_ubuf_1d_int8_t(%arg0: !llvm.ptr<6>, %arg1: !llvm.ptr<6>, %arg2: i64, %arg3: i64, %arg4: i64, %arg5: !llvm.ptr<6>, %arg6: !llvm.ptr<6>, %arg7: i64, %arg8: i64, %arg9: i64) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface, sym_visibility = "private"} {
+    %0 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %1 = llvm.insertvalue %arg0, %0[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %2 = llvm.insertvalue %arg1, %1[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %3 = llvm.insertvalue %arg2, %2[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %4 = llvm.insertvalue %arg3, %3[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %5 = llvm.insertvalue %arg4, %4[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %6 = llvm.mlir.constant(1 : index) : i64
+    %7 = llvm.alloca %6 x !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> : (i64) -> !llvm.ptr
+    llvm.store %5, %7 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>, !llvm.ptr
+    %8 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %9 = llvm.insertvalue %arg5, %8[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %10 = llvm.insertvalue %arg6, %9[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %11 = llvm.insertvalue %arg7, %10[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %12 = llvm.insertvalue %arg8, %11[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %13 = llvm.insertvalue %arg9, %12[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %14 = llvm.mlir.constant(1 : index) : i64
+    %15 = llvm.alloca %14 x !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> : (i64) -> !llvm.ptr
+    llvm.store %13, %15 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>, !llvm.ptr
+    llvm.call @_mlir_ciface_copy_ubuf_to_ubuf_1d_int8_t(%7, %15) : (!llvm.ptr, !llvm.ptr) -> ()
+    llvm.return
+  }
+  llvm.func @_mlir_ciface_copy_ubuf_to_ubuf_1d_int8_t(!llvm.ptr, !llvm.ptr) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface, sym_visibility = "private"}
+  llvm.func private @store_ubuf_to_gm_1d_float(%arg0: !llvm.ptr<6>, %arg1: !llvm.ptr<6>, %arg2: i64, %arg3: i64, %arg4: i64, %arg5: !llvm.ptr<1>, %arg6: !llvm.ptr<1>, %arg7: i64, %arg8: i64, %arg9: i64, %arg10: i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface, sym_visibility = "private"} {
+    %0 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %1 = llvm.insertvalue %arg0, %0[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %2 = llvm.insertvalue %arg1, %1[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %3 = llvm.insertvalue %arg2, %2[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %4 = llvm.insertvalue %arg3, %3[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %5 = llvm.insertvalue %arg4, %4[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %6 = llvm.mlir.constant(1 : index) : i64
+    %7 = llvm.alloca %6 x !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> : (i64) -> !llvm.ptr
+    llvm.store %5, %7 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>, !llvm.ptr
+    %8 = llvm.mlir.undef : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)>
+    %9 = llvm.insertvalue %arg5, %8[0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %10 = llvm.insertvalue %arg6, %9[1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %11 = llvm.insertvalue %arg7, %10[2] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %12 = llvm.insertvalue %arg8, %11[3, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %13 = llvm.insertvalue %arg9, %12[4, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %14 = llvm.mlir.constant(1 : index) : i64
+    %15 = llvm.alloca %14 x !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> : (i64) -> !llvm.ptr
+    llvm.store %13, %15 : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)>, !llvm.ptr
+    llvm.call @_mlir_ciface_store_ubuf_to_gm_1d_float(%7, %15, %arg10) : (!llvm.ptr, !llvm.ptr, i32) -> ()
+    llvm.return
+  }
+  llvm.func @_mlir_ciface_store_ubuf_to_gm_1d_float(!llvm.ptr, !llvm.ptr, i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface, sym_visibility = "private"}
+  llvm.func @adc_func(%arg0: !llvm.ptr<1> {hacc.arg_type = #hacc.arg_type<sync_block_lock>}, %arg1: !llvm.ptr<1>, %arg2: i64, %arg3: i64, %arg4: i64, %arg5: !llvm.ptr<1> {hacc.arg_type = #hacc.arg_type<workspace>}, %arg6: !llvm.ptr<1>, %arg7: i64, %arg8: i64, %arg9: i64, %arg10: !llvm.ptr<1>, %arg11: !llvm.ptr<1>, %arg12: i64, %arg13: i64, %arg14: i64, %arg15: !llvm.ptr<1>, %arg16: !llvm.ptr<1>, %arg17: i64, %arg18: i64, %arg19: i64, %arg20: !llvm.ptr<1>, %arg21: !llvm.ptr<1>, %arg22: i64, %arg23: i64, %arg24: i64, %arg25: i32, %arg26: i32, %arg27: i32, %arg28: i32) attributes {SyncBlockLockArgIdx = 0 : i64, WorkspaceArgIdx = 1 : i64, func_dyn_memref_args = dense<[true, true, true, true, true, false, false, false, false]> : vector<9xi1>, hacc.entry, hacc.function_kind = #hacc.function_kind<DEVICE>, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vf_mode = #hivm.vf_mode<SIMD>, hivm_regbaseintrins.target = #hivm_regbaseintrins.target<"dav-c310">, mix_mode = "aiv", parallel_mode = "simd"} {
+    %0 = llvm.mlir.undef : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)>
+    %1 = llvm.insertvalue %arg20, %0[0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %2 = llvm.insertvalue %arg21, %1[1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %3 = llvm.insertvalue %arg22, %2[2] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %4 = llvm.insertvalue %arg23, %3[3, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %5 = llvm.insertvalue %arg24, %4[4, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %6 = builtin.unrealized_conversion_cast %5 : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> to memref<?xf32, #hivm.address_space<gm>>
+    %7 = llvm.mlir.undef : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)>
+    %8 = llvm.insertvalue %arg15, %7[0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %9 = llvm.insertvalue %arg16, %8[1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %10 = llvm.insertvalue %arg17, %9[2] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %11 = llvm.insertvalue %arg18, %10[3, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %12 = llvm.insertvalue %arg19, %11[4, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %13 = builtin.unrealized_conversion_cast %12 : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> to memref<?xi8, #hivm.address_space<gm>>
+    %14 = llvm.mlir.undef : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)>
+    %15 = llvm.insertvalue %arg10, %14[0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %16 = llvm.insertvalue %arg11, %15[1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %17 = llvm.insertvalue %arg12, %16[2] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %18 = llvm.insertvalue %arg13, %17[3, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %19 = llvm.insertvalue %arg14, %18[4, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %20 = builtin.unrealized_conversion_cast %19 : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> to memref<?xf32, #hivm.address_space<gm>>
+    %21 = llvm.mlir.constant(69376 : i64) : i64
+    %22 = llvm.mlir.constant(68736 : i64) : i64
+    %23 = llvm.mlir.constant(66048 : i64) : i64
+    %24 = llvm.mlir.constant(68864 : i64) : i64
+    %25 = llvm.mlir.constant(1 : i64) : i64
+    %26 = llvm.mlir.constant(66560 : i64) : i64
+    %27 = llvm.mlir.constant(68608 : i64) : i64
+    %28 = llvm.mlir.constant(65536 : i64) : i64
+    %29 = llvm.mlir.constant(0 : i64) : i64
+    %30 = llvm.mlir.constant(1 : i32) : i32
+    %31 = llvm.mlir.constant(16 : i32) : i32
+    %32 = llvm.mlir.constant(4 : i32) : i32
+    %33 = llvm.mlir.constant(32 : i32) : i32
+    %34 = llvm.mlir.constant(31 : i32) : i32
+    %35 = llvm.mlir.constant(56 : i32) : i32
+    %36 = llvm.mlir.constant(1792 : i32) : i32
+    %37 = llvm.mlir.constant(1791 : i32) : i32
+    %38 = llvm.mlir.constant(0 : i32) : i32
+    %39 = llvm.mlir.constant(0 : i8) : i8
+    %40 = llvm.mlir.constant(0.000000e+00 : f32) : f32
+    %41 = llvm.mlir.constant(0 : index) : i64
+    %42 = llvm.inttoptr %22 : i64 to !llvm.ptr<6>
+    %43 = llvm.mlir.constant(32 : index) : i64
+    %44 = llvm.mlir.constant(1 : index) : i64
+    %45 = llvm.mlir.zero : !llvm.ptr
+    %46 = llvm.getelementptr %45[32] : (!llvm.ptr) -> !llvm.ptr, f32
+    %47 = llvm.ptrtoint %46 : !llvm.ptr to i64
+    %48 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %49 = llvm.insertvalue %42, %48[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %50 = llvm.insertvalue %42, %49[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %51 = llvm.mlir.constant(0 : index) : i64
+    %52 = llvm.insertvalue %51, %50[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %53 = llvm.insertvalue %43, %52[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %54 = llvm.insertvalue %44, %53[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %55 = builtin.unrealized_conversion_cast %54 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> to memref<32xf32, #hivm.address_space<ub>>
+    %56 = llvm.inttoptr %21 : i64 to !llvm.ptr<6>
+    %57 = llvm.mlir.constant(32 : index) : i64
+    %58 = llvm.mlir.constant(1 : index) : i64
+    %59 = llvm.mlir.zero : !llvm.ptr
+    %60 = llvm.getelementptr %59[32] : (!llvm.ptr) -> !llvm.ptr, f32
+    %61 = llvm.ptrtoint %60 : !llvm.ptr to i64
+    %62 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %63 = llvm.insertvalue %56, %62[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %64 = llvm.insertvalue %56, %63[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %65 = llvm.mlir.constant(0 : index) : i64
+    %66 = llvm.insertvalue %65, %64[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %67 = llvm.insertvalue %57, %66[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %68 = llvm.insertvalue %58, %67[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %69 = builtin.unrealized_conversion_cast %68 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> to memref<32xf32, #hivm.address_space<ub>>
+    %70 = llvm.inttoptr %23 : i64 to !llvm.ptr<6>
+    %71 = llvm.mlir.constant(32 : index) : i64
+    %72 = llvm.mlir.constant(16 : index) : i64
+    %73 = llvm.mlir.constant(1 : index) : i64
+    %74 = llvm.mlir.constant(512 : index) : i64
+    %75 = llvm.mlir.zero : !llvm.ptr
+    %76 = llvm.getelementptr %75[512] : (!llvm.ptr) -> !llvm.ptr, i8
+    %77 = llvm.ptrtoint %76 : !llvm.ptr to i64
+    %78 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %79 = llvm.insertvalue %70, %78[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %80 = llvm.insertvalue %70, %79[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %81 = llvm.mlir.constant(0 : index) : i64
+    %82 = llvm.insertvalue %81, %80[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %83 = llvm.insertvalue %71, %82[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %84 = llvm.insertvalue %72, %83[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %85 = llvm.insertvalue %72, %84[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %86 = llvm.insertvalue %73, %85[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %87 = builtin.unrealized_conversion_cast %86 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> to memref<32x16xi8, #hivm.address_space<ub>>
+    %88 = llvm.inttoptr %24 : i64 to !llvm.ptr<6>
+    %89 = llvm.mlir.constant(32 : index) : i64
+    %90 = llvm.mlir.constant(16 : index) : i64
+    %91 = llvm.mlir.constant(1 : index) : i64
+    %92 = llvm.mlir.constant(512 : index) : i64
+    %93 = llvm.mlir.zero : !llvm.ptr
+    %94 = llvm.getelementptr %93[512] : (!llvm.ptr) -> !llvm.ptr, i8
+    %95 = llvm.ptrtoint %94 : !llvm.ptr to i64
+    %96 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %97 = llvm.insertvalue %88, %96[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %98 = llvm.insertvalue %88, %97[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %99 = llvm.mlir.constant(0 : index) : i64
+    %100 = llvm.insertvalue %99, %98[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %101 = llvm.insertvalue %89, %100[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %102 = llvm.insertvalue %90, %101[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %103 = llvm.insertvalue %90, %102[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %104 = llvm.insertvalue %91, %103[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %105 = builtin.unrealized_conversion_cast %104 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> to memref<32x16xi8, #hivm.address_space<ub>>
+    %106 = "hivm.intr.hivm.GET.CTRL"() : () -> i64
+    %107 = llvm.mlir.constant(60 : i64) : i64
+    %108 = "hivm.intr.hivm.SBITSET0"(%106, %107) : (i64, i64) -> i64
+    "hivm.intr.hivm.SET.CTRL"(%108) : (i64) -> ()
+    %109 = "hivm.intr.hivm.GET.CTRL"() : () -> i64
+    %110 = llvm.mlir.constant(48 : i64) : i64
+    %111 = "hivm.intr.hivm.SBITSET1"(%109, %110) : (i64, i64) -> i64
+    "hivm.intr.hivm.SET.CTRL"(%111) : (i64) -> ()
+    %112 = llvm.extractvalue %19[0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %113 = llvm.extractvalue %19[1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %114 = llvm.mlir.undef : !llvm.struct<(ptr<1>, ptr<1>, i64)>
+    %115 = llvm.insertvalue %112, %114[0] : !llvm.struct<(ptr<1>, ptr<1>, i64)> 
+    %116 = llvm.insertvalue %113, %115[1] : !llvm.struct<(ptr<1>, ptr<1>, i64)> 
+    %117 = llvm.mlir.constant(0 : index) : i64
+    %118 = llvm.insertvalue %117, %116[2] : !llvm.struct<(ptr<1>, ptr<1>, i64)> 
+    %119 = llvm.extractvalue %19[2] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %120 = llvm.extractvalue %19[3, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %121 = llvm.extractvalue %19[4, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %122 = llvm.mlir.undef : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)>
+    %123 = llvm.insertvalue %112, %122[0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %124 = llvm.insertvalue %113, %123[1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %125 = llvm.mlir.constant(0 : index) : i64
+    %126 = llvm.insertvalue %125, %124[2] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %127 = llvm.mlir.constant(16384 : index) : i64
+    %128 = llvm.insertvalue %127, %126[3, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %129 = llvm.mlir.constant(1 : index) : i64
+    %130 = llvm.insertvalue %129, %128[4, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %131 = "hivm.intr.hivm.GET.BLOCK.IDX"() : () -> i64
+    %132 = llvm.trunc %131 : i64 to i32
+    %133 = llvm.inttoptr %29 : i64 to !llvm.ptr<6>
+    %134 = llvm.mlir.constant(16384 : index) : i64
+    %135 = llvm.mlir.constant(1 : index) : i64
+    %136 = llvm.mlir.zero : !llvm.ptr
+    %137 = llvm.getelementptr %136[16384] : (!llvm.ptr) -> !llvm.ptr, f32
+    %138 = llvm.ptrtoint %137 : !llvm.ptr to i64
+    %139 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %140 = llvm.insertvalue %133, %139[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %141 = llvm.insertvalue %133, %140[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %142 = llvm.mlir.constant(0 : index) : i64
+    %143 = llvm.insertvalue %142, %141[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %144 = llvm.insertvalue %134, %143[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %145 = llvm.insertvalue %135, %144[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    "hivm.intr.hivm.SET.FLAG.IMM"() <{event_id = 0 : i64, set_pipe = 1 : i64, wait_pipe = 4 : i64}> : () -> ()
+    "hivm.intr.hivm.SET.FLAG.IMM"() <{event_id = 1 : i64, set_pipe = 1 : i64, wait_pipe = 4 : i64}> : () -> ()
+    "hivm.intr.hivm.SET.FLAG.IMM"() <{event_id = 0 : i64, set_pipe = 5 : i64, wait_pipe = 1 : i64}> : () -> ()
+    "hivm.intr.hivm.SET.FLAG.IMM"() <{event_id = 1 : i64, set_pipe = 5 : i64, wait_pipe = 1 : i64}> : () -> ()
+    llvm.call @load_gm_to_ubuf_1d_float(%112, %113, %125, %127, %129, %133, %133, %142, %134, %135, %38, %40, %41, %38) : (!llvm.ptr<1>, !llvm.ptr<1>, i64, i64, i64, !llvm.ptr<6>, !llvm.ptr<6>, i64, i64, i64, i32, f32, i64, i32) -> ()
+    %146 = llvm.add %arg25, %37 : i32
+    %147 = llvm.sdiv %146, %36  : i32
+    %148 = llvm.add %arg25, %34 : i32
+    %149 = llvm.sdiv %148, %33  : i32
+    llvm.br ^bb1(%38 : i32)
+  ^bb1(%150: i32):  // 2 preds: ^bb0, ^bb10
+    %151 = llvm.icmp "slt" %150, %147 : i32
+    llvm.cond_br %151, ^bb2, ^bb11
+  ^bb2:  // pred: ^bb1
+    %152 = llvm.sext %150 : i32 to i64
+    %153 = llvm.mlir.constant(2 : index) : i64
+    %154 = llvm.srem %152, %153  : i64
+    %155 = llvm.mlir.constant(0 : index) : i64
+    %156 = llvm.icmp "slt" %154, %155 : i64
+    %157 = llvm.add %154, %153 : i64
+    %158 = llvm.select %156, %157, %154 : i1, i64
+    %159 = builtin.unrealized_conversion_cast %158 : i64 to index
+    %160 = llvm.icmp "eq" %158, %25 : i64
+    %161 = llvm.select %160, %68, %54 : i1, !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %162 = llvm.zext %160 : i1 to i64
+    %163 = llvm.mul %150, %35 : i32
+    %164 = llvm.add %163, %132 : i32
+    %165 = llvm.icmp "slt" %164, %149 : i32
+    llvm.cond_br %165, ^bb3, ^bb10
+  ^bb3:  // pred: ^bb2
+    %166 = llvm.inttoptr %28 : i64 to !llvm.ptr<6>
+    %167 = llvm.mlir.constant(32 : index) : i64
+    %168 = llvm.mlir.constant(16 : index) : i64
+    %169 = llvm.mlir.constant(1 : index) : i64
+    %170 = llvm.mlir.constant(512 : index) : i64
+    %171 = llvm.mlir.zero : !llvm.ptr
+    %172 = llvm.getelementptr %171[512] : (!llvm.ptr) -> !llvm.ptr, i8
+    %173 = llvm.ptrtoint %172 : !llvm.ptr to i64
+    %174 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %175 = llvm.insertvalue %166, %174[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %176 = llvm.insertvalue %166, %175[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %177 = llvm.mlir.constant(0 : index) : i64
+    %178 = llvm.insertvalue %177, %176[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %179 = llvm.insertvalue %167, %178[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %180 = llvm.insertvalue %168, %179[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %181 = llvm.insertvalue %168, %180[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %182 = llvm.insertvalue %169, %181[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    llvm.call @adc_func_outlined_vf_2(%166) {hivm.vector_function, no_inline} : (!llvm.ptr<6>) -> ()
+    %183 = llvm.inttoptr %27 : i64 to !llvm.ptr<6>
+    %184 = llvm.mlir.constant(32 : index) : i64
+    %185 = llvm.mlir.constant(1 : index) : i64
+    %186 = llvm.mlir.zero : !llvm.ptr
+    %187 = llvm.getelementptr %186[32] : (!llvm.ptr) -> !llvm.ptr, f32
+    %188 = llvm.ptrtoint %187 : !llvm.ptr to i64
+    %189 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %190 = llvm.insertvalue %183, %189[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %191 = llvm.insertvalue %183, %190[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %192 = llvm.mlir.constant(0 : index) : i64
+    %193 = llvm.insertvalue %192, %191[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %194 = llvm.insertvalue %184, %193[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %195 = llvm.insertvalue %185, %194[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    llvm.call @adc_func_outlined_vf_3(%183) {hivm.vector_function, no_inline} : (!llvm.ptr<6>) -> ()
+    %196 = llvm.mul %150, %36 : i32
+    %197 = llvm.mul %132, %33 : i32
+    %198 = llvm.add %196, %197 : i32
+    %199 = llvm.sext %198 : i32 to i64
+    %200 = llvm.sub %arg25, %197 : i32
+    %201 = llvm.sub %200, %196 : i32
+    %202 = llvm.intr.smin(%201, %33)  : (i32, i32) -> i32
+    %203 = llvm.sext %202 : i32 to i64
+    llvm.br ^bb4(%38, %195 : i32, !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>)
+  ^bb4(%204: i32, %205: !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>):  // 2 preds: ^bb3, ^bb8
+    %206 = llvm.icmp "slt" %204, %32 : i32
+    llvm.cond_br %206, ^bb5, ^bb9
+  ^bb5:  // pred: ^bb4
+    %207 = llvm.sext %204 : i32 to i64
+    %208 = llvm.mlir.constant(2 : index) : i64
+    %209 = llvm.srem %207, %208  : i64
+    %210 = llvm.mlir.constant(0 : index) : i64
+    %211 = llvm.icmp "slt" %209, %210 : i64
+    %212 = llvm.add %209, %208 : i64
+    %213 = llvm.select %211, %212, %209 : i1, i64
+    %214 = builtin.unrealized_conversion_cast %213 : i64 to index
+    %215 = llvm.icmp "eq" %213, %25 : i64
+    %216 = llvm.select %215, %104, %86 : i1, !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %217 = llvm.zext %215 : i1 to i64
+    %218 = llvm.mul %204, %31 : i32
+    %219 = llvm.sext %218 : i32 to i64
+    %220 = llvm.extractvalue %12[0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %221 = llvm.extractvalue %12[1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %222 = llvm.mlir.undef : !llvm.struct<(ptr<1>, ptr<1>, i64)>
+    %223 = llvm.insertvalue %220, %222[0] : !llvm.struct<(ptr<1>, ptr<1>, i64)> 
+    %224 = llvm.insertvalue %221, %223[1] : !llvm.struct<(ptr<1>, ptr<1>, i64)> 
+    %225 = llvm.mlir.constant(0 : index) : i64
+    %226 = llvm.insertvalue %225, %224[2] : !llvm.struct<(ptr<1>, ptr<1>, i64)> 
+    %227 = llvm.extractvalue %12[2] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %228 = llvm.extractvalue %12[3, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %229 = llvm.extractvalue %12[4, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %230 = llvm.mlir.constant(64 : index) : i64
+    %231 = llvm.mul %199, %230 : i64
+    %232 = llvm.add %231, %219 : i64
+    %233 = llvm.mlir.undef : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)>
+    %234 = llvm.insertvalue %220, %233[0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %235 = llvm.insertvalue %221, %234[1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %236 = llvm.insertvalue %232, %235[2] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %237 = llvm.insertvalue %203, %236[3, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %238 = llvm.mlir.constant(64 : index) : i64
+    %239 = llvm.insertvalue %238, %237[4, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %240 = llvm.mlir.constant(16 : index) : i64
+    %241 = llvm.insertvalue %240, %239[3, 1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %242 = llvm.mlir.constant(1 : index) : i64
+    %243 = llvm.insertvalue %242, %241[4, 1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %244 = llvm.extractvalue %216[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %245 = llvm.extractvalue %216[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %246 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64)>
+    %247 = llvm.insertvalue %244, %246[0] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %248 = llvm.insertvalue %245, %247[1] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %249 = llvm.mlir.constant(0 : index) : i64
+    %250 = llvm.insertvalue %249, %248[2] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %251 = llvm.extractvalue %216[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %252 = llvm.extractvalue %216[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %253 = llvm.extractvalue %216[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %254 = llvm.extractvalue %216[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %255 = llvm.extractvalue %216[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %256 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %257 = llvm.insertvalue %244, %256[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %258 = llvm.insertvalue %245, %257[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %259 = llvm.mlir.constant(0 : index) : i64
+    %260 = llvm.insertvalue %259, %258[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %261 = llvm.insertvalue %203, %260[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %262 = llvm.mlir.constant(16 : index) : i64
+    %263 = llvm.insertvalue %262, %261[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %264 = llvm.mlir.constant(16 : index) : i64
+    %265 = llvm.insertvalue %264, %263[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %266 = llvm.mlir.constant(1 : index) : i64
+    %267 = llvm.insertvalue %266, %265[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    "hivm.intr.hivm.WAIT.FLAG.REG"(%217) <{set_pipe = 1 : i64, wait_pipe = 4 : i64}> : (i64) -> ()
+    llvm.call @load_gm_to_ubuf_2d_int8_t(%220, %221, %232, %203, %240, %238, %242, %244, %245, %259, %203, %264, %262, %266, %38, %39, %41, %38) : (!llvm.ptr<1>, !llvm.ptr<1>, i64, i64, i64, i64, i64, !llvm.ptr<6>, !llvm.ptr<6>, i64, i64, i64, i64, i64, i32, i8, i64, i32) -> ()
+    "hivm.intr.hivm.SET.FLAG.IMM"() <{event_id = 0 : i64, set_pipe = 4 : i64, wait_pipe = 1 : i64}> : () -> ()
+    %268 = llvm.extractvalue %216[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %269 = llvm.extractvalue %216[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %270 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64)>
+    %271 = llvm.insertvalue %268, %270[0] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %272 = llvm.insertvalue %269, %271[1] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %273 = llvm.mlir.constant(0 : index) : i64
+    %274 = llvm.insertvalue %273, %272[2] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %275 = llvm.extractvalue %216[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %276 = llvm.extractvalue %216[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %277 = llvm.extractvalue %216[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %278 = llvm.extractvalue %216[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %279 = llvm.extractvalue %216[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %280 = llvm.mlir.constant(16 : index) : i64
+    %281 = llvm.mul %203, %280 : i64
+    %282 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %283 = llvm.insertvalue %268, %282[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %284 = llvm.insertvalue %269, %283[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %285 = llvm.mlir.constant(0 : index) : i64
+    %286 = llvm.insertvalue %285, %284[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %287 = llvm.insertvalue %281, %286[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %288 = llvm.mlir.constant(1 : index) : i64
+    %289 = llvm.insertvalue %288, %287[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %290 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64)>
+    %291 = llvm.insertvalue %166, %290[0] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %292 = llvm.insertvalue %166, %291[1] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %293 = llvm.mlir.constant(0 : index) : i64
+    %294 = llvm.insertvalue %293, %292[2] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %295 = llvm.mlir.constant(16 : index) : i64
+    %296 = llvm.mul %203, %295 : i64
+    %297 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %298 = llvm.insertvalue %166, %297[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %299 = llvm.insertvalue %166, %298[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %300 = llvm.mlir.constant(0 : index) : i64
+    %301 = llvm.insertvalue %300, %299[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %302 = llvm.insertvalue %296, %301[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %303 = llvm.mlir.constant(1 : index) : i64
+    %304 = llvm.insertvalue %303, %302[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    "hivm.intr.hivm.WAIT.FLAG.IMM"() <{event_id = 0 : i64, set_pipe = 4 : i64, wait_pipe = 1 : i64}> : () -> ()
+    llvm.call @copy_ubuf_to_ubuf_1d_int8_t(%268, %269, %285, %281, %288, %166, %166, %300, %296, %303) : (!llvm.ptr<6>, !llvm.ptr<6>, i64, i64, i64, !llvm.ptr<6>, !llvm.ptr<6>, i64, i64, i64) -> ()
+    "hivm.intr.hivm.SET.FLAG.REG"(%217) <{set_pipe = 1 : i64, wait_pipe = 4 : i64}> : (i64) -> ()
+    %305 = llvm.inttoptr %26 : i64 to !llvm.ptr<6>
+    %306 = llvm.mlir.constant(32 : index) : i64
+    %307 = llvm.mlir.constant(16 : index) : i64
+    %308 = llvm.mlir.constant(1 : index) : i64
+    %309 = llvm.mlir.constant(512 : index) : i64
+    %310 = llvm.mlir.zero : !llvm.ptr
+    %311 = llvm.getelementptr %310[512] : (!llvm.ptr) -> !llvm.ptr, i32
+    %312 = llvm.ptrtoint %311 : !llvm.ptr to i64
+    %313 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %314 = llvm.insertvalue %305, %313[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %315 = llvm.insertvalue %305, %314[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %316 = llvm.mlir.constant(0 : index) : i64
+    %317 = llvm.insertvalue %316, %315[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %318 = llvm.insertvalue %306, %317[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %319 = llvm.insertvalue %307, %318[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %320 = llvm.insertvalue %307, %319[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %321 = llvm.insertvalue %308, %320[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    llvm.call @adc_func_outlined_vf_1(%166, %305) {hivm.vector_function, no_inline} : (!llvm.ptr<6>, !llvm.ptr<6>) -> ()
+    llvm.br ^bb6(%38, %205 : i32, !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>)
+  ^bb6(%322: i32, %323: !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>):  // 2 preds: ^bb5, ^bb7
+    %324 = llvm.icmp "slt" %322, %31 : i32
+    llvm.cond_br %324, ^bb7, ^bb8
+  ^bb7:  // pred: ^bb6
+    %325 = llvm.sext %322 : i32 to i64
+    %326 = llvm.inttoptr %27 : i64 to !llvm.ptr<6>
+    %327 = llvm.mlir.constant(32 : index) : i64
+    %328 = llvm.mlir.constant(1 : index) : i64
+    %329 = llvm.mlir.zero : !llvm.ptr
+    %330 = llvm.getelementptr %329[32] : (!llvm.ptr) -> !llvm.ptr, f32
+    %331 = llvm.ptrtoint %330 : !llvm.ptr to i64
+    %332 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %333 = llvm.insertvalue %326, %332[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %334 = llvm.insertvalue %326, %333[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %335 = llvm.mlir.constant(0 : index) : i64
+    %336 = llvm.insertvalue %335, %334[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %337 = llvm.insertvalue %327, %336[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %338 = llvm.insertvalue %328, %337[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %339 = llvm.extractvalue %323[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    llvm.call @adc_func_outlined_vf_0(%339, %305, %325, %133, %326) {hivm.vector_function, no_inline} : (!llvm.ptr<6>, !llvm.ptr<6>, i64, !llvm.ptr<6>, !llvm.ptr<6>) -> ()
+    %340 = llvm.add %322, %30 overflow<nsw> : i32
+    llvm.br ^bb6(%340, %338 : i32, !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>)
+  ^bb8:  // pred: ^bb6
+    %341 = llvm.add %204, %30 overflow<nsw> : i32
+    llvm.br ^bb4(%341, %323 : i32, !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>)
+  ^bb9:  // pred: ^bb4
+    "hivm.intr.hivm.WAIT.FLAG.REG"(%162) <{set_pipe = 5 : i64, wait_pipe = 1 : i64}> : (i64) -> ()
+    %342 = llvm.extractvalue %205[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %343 = llvm.extractvalue %161[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    llvm.call @adc_func_outlined_vf_4(%342, %343) {hivm.vector_function, no_inline} : (!llvm.ptr<6>, !llvm.ptr<6>) -> ()
+    "hivm.intr.hivm.SET.FLAG.IMM"() <{event_id = 0 : i64, set_pipe = 1 : i64, wait_pipe = 5 : i64}> : () -> ()
+    %344 = llvm.extractvalue %161[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %345 = llvm.extractvalue %161[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %346 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64)>
+    %347 = llvm.insertvalue %344, %346[0] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %348 = llvm.insertvalue %345, %347[1] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %349 = llvm.mlir.constant(0 : index) : i64
+    %350 = llvm.insertvalue %349, %348[2] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %351 = llvm.extractvalue %161[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %352 = llvm.extractvalue %161[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %353 = llvm.extractvalue %161[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %354 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %355 = llvm.insertvalue %344, %354[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %356 = llvm.insertvalue %345, %355[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %357 = llvm.mlir.constant(0 : index) : i64
+    %358 = llvm.insertvalue %357, %356[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %359 = llvm.insertvalue %203, %358[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %360 = llvm.mlir.constant(1 : index) : i64
+    %361 = llvm.insertvalue %360, %359[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %362 = llvm.extractvalue %5[0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %363 = llvm.extractvalue %5[1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %364 = llvm.mlir.undef : !llvm.struct<(ptr<1>, ptr<1>, i64)>
+    %365 = llvm.insertvalue %362, %364[0] : !llvm.struct<(ptr<1>, ptr<1>, i64)> 
+    %366 = llvm.insertvalue %363, %365[1] : !llvm.struct<(ptr<1>, ptr<1>, i64)> 
+    %367 = llvm.mlir.constant(0 : index) : i64
+    %368 = llvm.insertvalue %367, %366[2] : !llvm.struct<(ptr<1>, ptr<1>, i64)> 
+    %369 = llvm.extractvalue %5[2] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %370 = llvm.extractvalue %5[3, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %371 = llvm.extractvalue %5[4, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %372 = llvm.mlir.undef : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)>
+    %373 = llvm.insertvalue %362, %372[0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %374 = llvm.insertvalue %363, %373[1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %375 = llvm.insertvalue %199, %374[2] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %376 = llvm.insertvalue %203, %375[3, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %377 = llvm.mlir.constant(1 : index) : i64
+    %378 = llvm.insertvalue %377, %376[4, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    "hivm.intr.hivm.WAIT.FLAG.IMM"() <{event_id = 0 : i64, set_pipe = 1 : i64, wait_pipe = 5 : i64}> : () -> ()
+    "hivm.intr.hivm.BARRIER"() <{pipe = 5 : i64}> : () -> ()
+    llvm.call @store_ubuf_to_gm_1d_float(%344, %345, %357, %203, %360, %362, %363, %199, %203, %377, %38) : (!llvm.ptr<6>, !llvm.ptr<6>, i64, i64, i64, !llvm.ptr<1>, !llvm.ptr<1>, i64, i64, i64, i32) -> ()
+    "hivm.intr.hivm.SET.FLAG.REG"(%162) <{set_pipe = 5 : i64, wait_pipe = 1 : i64}> : (i64) -> ()
+    llvm.br ^bb10
+  ^bb10:  // 2 preds: ^bb2, ^bb9
+    %379 = llvm.add %150, %30 overflow<nsw> : i32
+    llvm.br ^bb1(%379 : i32)
+  ^bb11:  // pred: ^bb1
+    "hivm.intr.hivm.BARRIER"() <{pipe = 6 : i64}> : () -> ()
+    "hivm.intr.hivm.WAIT.FLAG.IMM"() <{event_id = 0 : i64, set_pipe = 1 : i64, wait_pipe = 4 : i64}> : () -> ()
+    "hivm.intr.hivm.WAIT.FLAG.IMM"() <{event_id = 1 : i64, set_pipe = 1 : i64, wait_pipe = 4 : i64}> : () -> ()
+    "hivm.intr.hivm.WAIT.FLAG.IMM"() <{event_id = 0 : i64, set_pipe = 5 : i64, wait_pipe = 1 : i64}> : () -> ()
+    "hivm.intr.hivm.WAIT.FLAG.IMM"() <{event_id = 1 : i64, set_pipe = 5 : i64, wait_pipe = 1 : i64}> : () -> ()
+    llvm.return
+  }
+}
+
+
+// -----// IR Dump Before ReconcileUnrealizedCasts (reconcile-unrealized-casts) //----- //
+#map = affine_map<(d0)[s0] -> (d0 + s0)>
+module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #hacc.target_device_spec<#dlti.dl_entry<"AI_CORE_COUNT", 28 : i32>, #dlti.dl_entry<"CUBE_CORE_COUNT", 28 : i32>, #dlti.dl_entry<"VECTOR_CORE_COUNT", 56 : i32>, #dlti.dl_entry<"UB_SIZE", 2031616 : i32>, #dlti.dl_entry<"L1_SIZE", 4194304 : i32>, #dlti.dl_entry<"L0A_SIZE", 524288 : i32>, #dlti.dl_entry<"L0B_SIZE", 524288 : i32>, #dlti.dl_entry<"L0C_SIZE", 2097152 : i32>, #dlti.dl_entry<"UB_ALIGN_SIZE", 256 : i32>, #dlti.dl_entry<"L1_ALIGN_SIZE", 256 : i32>, #dlti.dl_entry<"L0C_ALIGN_SIZE", 4096 : i32>, #dlti.dl_entry<"MINIMAL_D_CACHE_SIZE", 262144 : i32>, #dlti.dl_entry<"MAXIMUM_D_CACHE_SIZE", 983040 : i32>, #dlti.dl_entry<"ARCH", "dav-c310">>>, hacc.target = #hacc.target<"Ascend950PR_9579">, hivm.module_core_type = #hivm.module_core_type<AIV>, memref.memref_as_ptr} {
+  llvm.func @adc_func_outlined_vf_0(%arg0: !llvm.ptr<6>, %arg1: !llvm.ptr<6>, %arg2: i64, %arg3: !llvm.ptr<6>, %arg4: !llvm.ptr<6>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function} {
+    %0 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %1 = llvm.insertvalue %arg4, %0[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %2 = llvm.insertvalue %arg4, %1[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %3 = llvm.mlir.constant(0 : index) : i64
+    %4 = llvm.insertvalue %3, %2[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %5 = llvm.mlir.constant(32 : index) : i64
+    %6 = llvm.insertvalue %5, %4[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %7 = llvm.mlir.constant(1 : index) : i64
+    %8 = llvm.insertvalue %7, %6[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %9 = builtin.unrealized_conversion_cast %8 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> to memref<32xf32, #hivm.address_space<ub>>
+    %10 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %11 = llvm.insertvalue %arg3, %10[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %12 = llvm.insertvalue %arg3, %11[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %13 = llvm.mlir.constant(0 : index) : i64
+    %14 = llvm.insertvalue %13, %12[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %15 = llvm.mlir.constant(16384 : index) : i64
+    %16 = llvm.insertvalue %15, %14[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %17 = llvm.mlir.constant(1 : index) : i64
+    %18 = llvm.insertvalue %17, %16[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %19 = builtin.unrealized_conversion_cast %18 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> to memref<16384xf32, #hivm.address_space<ub>>
+    %20 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %21 = llvm.insertvalue %arg1, %20[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %22 = llvm.insertvalue %arg1, %21[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %23 = llvm.mlir.constant(0 : index) : i64
+    %24 = llvm.insertvalue %23, %22[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %25 = llvm.mlir.constant(32 : index) : i64
+    %26 = llvm.insertvalue %25, %24[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %27 = llvm.mlir.constant(16 : index) : i64
+    %28 = llvm.insertvalue %27, %26[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %29 = llvm.mlir.constant(16 : index) : i64
+    %30 = llvm.insertvalue %29, %28[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %31 = llvm.mlir.constant(1 : index) : i64
+    %32 = llvm.insertvalue %31, %30[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %33 = builtin.unrealized_conversion_cast %32 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> to memref<32x16xi32, #hivm.address_space<ub>>
+    %34 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %35 = llvm.insertvalue %arg0, %34[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %36 = llvm.insertvalue %arg0, %35[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %37 = llvm.mlir.constant(0 : index) : i64
+    %38 = llvm.insertvalue %37, %36[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %39 = llvm.mlir.constant(32 : index) : i64
+    %40 = llvm.insertvalue %39, %38[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %41 = llvm.mlir.constant(1 : index) : i64
+    %42 = llvm.insertvalue %41, %40[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %43 = builtin.unrealized_conversion_cast %42 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> to memref<32xf32, #hivm.address_space<ub>>
+    %44 = llvm.mlir.constant(2 : i32) : i32
+    %45 = llvm.mlir.constant(16 : index) : i64
+    %46 = llvm.mlir.constant(0 : i32) : i32
+    %47 = llvm.mlir.constant(7 : i32) : i32
+    %48 = llvm.mlir.constant(0 : index) : i64
+    %49 = llvm.extractvalue %18[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %50 = llvm.extractvalue %18[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %51 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64)>
+    %52 = llvm.insertvalue %49, %51[0] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %53 = llvm.insertvalue %50, %52[1] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %54 = llvm.mlir.constant(0 : index) : i64
+    %55 = llvm.insertvalue %54, %53[2] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %56 = llvm.extractvalue %18[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %57 = llvm.extractvalue %18[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %58 = llvm.extractvalue %18[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %59 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %60 = llvm.insertvalue %49, %59[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %61 = llvm.insertvalue %50, %60[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %62 = llvm.mlir.constant(0 : index) : i64
+    %63 = llvm.insertvalue %62, %61[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %64 = llvm.mlir.constant(256 : index) : i64
+    %65 = llvm.insertvalue %64, %63[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %66 = llvm.mlir.constant(1 : index) : i64
+    %67 = llvm.insertvalue %66, %65[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %68 = builtin.unrealized_conversion_cast %67 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> to memref<256xf32, strided<[1]>, #hivm.address_space<ub>>
+    %69 = llvm.extractvalue %32[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %70 = llvm.extractvalue %32[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %71 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64)>
+    %72 = llvm.insertvalue %69, %71[0] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %73 = llvm.insertvalue %70, %72[1] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %74 = llvm.mlir.constant(0 : index) : i64
+    %75 = llvm.insertvalue %74, %73[2] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %76 = llvm.extractvalue %32[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %77 = llvm.extractvalue %32[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %78 = llvm.extractvalue %32[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %79 = llvm.extractvalue %32[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %80 = llvm.extractvalue %32[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %81 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %82 = llvm.insertvalue %69, %81[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %83 = llvm.insertvalue %70, %82[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %84 = llvm.insertvalue %arg2, %83[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %85 = llvm.mlir.constant(32 : index) : i64
+    %86 = llvm.insertvalue %85, %84[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %87 = llvm.mlir.constant(16 : index) : i64
+    %88 = llvm.insertvalue %87, %86[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %89 = builtin.unrealized_conversion_cast %88 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> to memref<32xi32, strided<[16], offset: ?>, #hivm.address_space<ub>>
+    %90 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%47, %46) {mask_bit_width = 32 : i32, mask_op_idx = 0 : i32} : (i32, i32) -> vector<256xi1>
+    %91 = llvm.extractvalue %42[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %92 = "hivm_regbaseintrins.intr.hivm.vldsx1.v64f32"(%91, %46, %46, %46) : (!llvm.ptr<6>, i32, i32, i32) -> vector<64xf32>
+    %93 = llvm.extractvalue %88[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %94 = llvm.extractvalue %88[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %95 = llvm.getelementptr %93[%94] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i32
+    %96 = llvm.mul %48, %45 : i64
+    %97 = llvm.getelementptr %95[%96] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i32
+    %98 = "hivm_regbaseintrins.intr.hivm.vldas"(%97) : (!llvm.ptr<6>) -> vector<32xi8>
+    %99 = "hivm_regbaseintrins.intr.hivm.vldus.post.s32"(%97, %98, %46) : (!llvm.ptr<6>, vector<32xi8>, i32) -> !llvm.struct<(vector<64xi32>, vector<32xi8>, ptr<6>)>
+    %100 = llvm.extractvalue %99[0] : !llvm.struct<(vector<64xi32>, vector<32xi8>, ptr<6>)> 
+    %101 = llvm.extractvalue %67[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %102 = "hivm_regbaseintrins.intr.hivm.vgather2_v300.v64f32"(%101, %100, %90) : (!llvm.ptr<6>, vector<64xi32>, vector<256xi1>) -> vector<64xf32>
+    %103 = "hivm_regbaseintrins.intr.hivm.vadd.s.x"(%92, %102, %90) : (vector<64xf32>, vector<64xf32>, vector<256xi1>) -> vector<64xf32>
+    %104 = llvm.extractvalue %8[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    "hivm_regbaseintrins.intr.hivm.vstsx1.v64f32"(%103, %104, %46, %44, %46, %90) : (vector<64xf32>, !llvm.ptr<6>, i32, i32, i32, vector<256xi1>) -> ()
+    llvm.return
+  }
+  llvm.func @adc_func_outlined_vf_1(%arg0: !llvm.ptr<6>, %arg1: !llvm.ptr<6>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function} {
+    %0 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %1 = llvm.insertvalue %arg1, %0[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %2 = llvm.insertvalue %arg1, %1[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %3 = llvm.mlir.constant(0 : index) : i64
+    %4 = llvm.insertvalue %3, %2[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %5 = llvm.mlir.constant(32 : index) : i64
+    %6 = llvm.insertvalue %5, %4[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %7 = llvm.mlir.constant(16 : index) : i64
+    %8 = llvm.insertvalue %7, %6[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %9 = llvm.mlir.constant(16 : index) : i64
+    %10 = llvm.insertvalue %9, %8[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %11 = llvm.mlir.constant(1 : index) : i64
+    %12 = llvm.insertvalue %11, %10[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %13 = builtin.unrealized_conversion_cast %12 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> to memref<32x16xi32, #hivm.address_space<ub>>
+    %14 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %15 = llvm.insertvalue %arg0, %14[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %16 = llvm.insertvalue %arg0, %15[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %17 = llvm.mlir.constant(0 : index) : i64
+    %18 = llvm.insertvalue %17, %16[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %19 = llvm.mlir.constant(32 : index) : i64
+    %20 = llvm.insertvalue %19, %18[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %21 = llvm.mlir.constant(16 : index) : i64
+    %22 = llvm.insertvalue %21, %20[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %23 = llvm.mlir.constant(16 : index) : i64
+    %24 = llvm.insertvalue %23, %22[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %25 = llvm.mlir.constant(1 : index) : i64
+    %26 = llvm.insertvalue %25, %24[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %27 = builtin.unrealized_conversion_cast %26 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> to memref<32x16xi8, #hivm.address_space<ub>>
+    %28 = llvm.mlir.constant(2 : i32) : i32
+    %29 = llvm.mlir.constant(0 : i8) : i8
+    %30 = llvm.mlir.constant(6 : i32) : i32
+    %31 = llvm.mlir.constant(0 : i32) : i32
+    %32 = llvm.mlir.constant(32 : i32) : i32
+    %33 = llvm.mlir.constant(1 : i32) : i32
+    llvm.br ^bb1(%31 : i32)
+  ^bb1(%34: i32):  // 2 preds: ^bb0, ^bb2
+    %35 = llvm.icmp "slt" %34, %32 : i32
+    llvm.cond_br %35, ^bb2, ^bb3
+  ^bb2:  // pred: ^bb1
+    %36 = llvm.sext %34 : i32 to i64
+    %37 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%30, %31) {mask_bit_width = 32 : i32, mask_op_idx = 0 : i32} : (i32, i32) -> vector<256xi1>
+    %38 = llvm.extractvalue %26[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %39 = llvm.extractvalue %26[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %40 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64)>
+    %41 = llvm.insertvalue %38, %40[0] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %42 = llvm.insertvalue %39, %41[1] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %43 = llvm.mlir.constant(0 : index) : i64
+    %44 = llvm.insertvalue %43, %42[2] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %45 = llvm.extractvalue %26[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %46 = llvm.extractvalue %26[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %47 = llvm.extractvalue %26[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %48 = llvm.extractvalue %26[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %49 = llvm.extractvalue %26[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %50 = llvm.mlir.constant(16 : index) : i64
+    %51 = llvm.mul %36, %50 : i64
+    %52 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %53 = llvm.insertvalue %38, %52[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %54 = llvm.insertvalue %39, %53[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %55 = llvm.insertvalue %51, %54[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %56 = llvm.mlir.constant(16 : index) : i64
+    %57 = llvm.insertvalue %56, %55[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %58 = llvm.mlir.constant(1 : index) : i64
+    %59 = llvm.insertvalue %58, %57[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %60 = builtin.unrealized_conversion_cast %59 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> to memref<16xi8, #map, #hivm.address_space<ub>>
+    %61 = llvm.extractvalue %59[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %62 = llvm.extractvalue %59[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %63 = llvm.getelementptr %61[%62] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i8
+    %64 = "hivm_regbaseintrins.intr.hivm.vldas"(%63) : (!llvm.ptr<6>) -> vector<32xi8>
+    %65 = "hivm_regbaseintrins.intr.hivm.vldus.post.s8"(%63, %64, %31) : (!llvm.ptr<6>, vector<32xi8>, i32) -> !llvm.struct<(vector<256xi8>, vector<32xi8>, ptr<6>)>
+    %66 = llvm.extractvalue %65[0] : !llvm.struct<(vector<256xi8>, vector<32xi8>, ptr<6>)> 
+    %67 = "hivm_regbaseintrins.intr.hivm.vbr"(%29) : (i8) -> vector<256xi8>
+    %68 = "hivm_regbaseintrins.intr.hivm.vintlv"(%66, %67) : (vector<256xi8>, vector<256xi8>) -> !llvm.struct<(vector<256xi8>, vector<256xi8>)>
+    %69 = llvm.extractvalue %68[0] : !llvm.struct<(vector<256xi8>, vector<256xi8>)> 
+    %70 = "hivm_regbaseintrins.intr.hivm.vintlv"(%69, %67) : (vector<256xi8>, vector<256xi8>) -> !llvm.struct<(vector<256xi8>, vector<256xi8>)>
+    %71 = llvm.extractvalue %70[0] : !llvm.struct<(vector<256xi8>, vector<256xi8>)> 
+    %72 = "hivm_regbaseintrins.intr.hivm.vcvtii.u82u32.x"(%71, %37, %31) : (vector<256xi8>, vector<256xi1>, i32) -> vector<64xi32>
+    %73 = llvm.extractvalue %12[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %74 = llvm.extractvalue %12[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %75 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64)>
+    %76 = llvm.insertvalue %73, %75[0] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %77 = llvm.insertvalue %74, %76[1] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %78 = llvm.mlir.constant(0 : index) : i64
+    %79 = llvm.insertvalue %78, %77[2] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %80 = llvm.extractvalue %12[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %81 = llvm.extractvalue %12[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %82 = llvm.extractvalue %12[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %83 = llvm.extractvalue %12[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %84 = llvm.extractvalue %12[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %85 = llvm.mlir.constant(16 : index) : i64
+    %86 = llvm.mul %36, %85 : i64
+    %87 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %88 = llvm.insertvalue %73, %87[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %89 = llvm.insertvalue %74, %88[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %90 = llvm.insertvalue %86, %89[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %91 = llvm.mlir.constant(16 : index) : i64
+    %92 = llvm.insertvalue %91, %90[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %93 = llvm.mlir.constant(1 : index) : i64
+    %94 = llvm.insertvalue %93, %92[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %95 = builtin.unrealized_conversion_cast %94 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> to memref<16xi32, #map, #hivm.address_space<ub>>
+    %96 = llvm.extractvalue %94[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %97 = llvm.extractvalue %94[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %98 = llvm.getelementptr %96[%97] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i32
+    "hivm_regbaseintrins.intr.hivm.vstsx1.v64s32"(%72, %98, %31, %28, %31, %37) : (vector<64xi32>, !llvm.ptr<6>, i32, i32, i32, vector<256xi1>) -> ()
+    %99 = llvm.add %34, %33 overflow<nsw> : i32
+    llvm.br ^bb1(%99 : i32)
+  ^bb3:  // pred: ^bb1
+    llvm.return
+  }
+  llvm.func @adc_func_outlined_vf_2(%arg0: !llvm.ptr<6>) attributes {element_alignment_bit_width = 8 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function} {
+    %0 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %1 = llvm.insertvalue %arg0, %0[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %2 = llvm.insertvalue %arg0, %1[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %3 = llvm.mlir.constant(0 : index) : i64
+    %4 = llvm.insertvalue %3, %2[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %5 = llvm.mlir.constant(32 : index) : i64
+    %6 = llvm.insertvalue %5, %4[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %7 = llvm.mlir.constant(16 : index) : i64
+    %8 = llvm.insertvalue %7, %6[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %9 = llvm.mlir.constant(16 : index) : i64
+    %10 = llvm.insertvalue %9, %8[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %11 = llvm.mlir.constant(1 : index) : i64
+    %12 = llvm.insertvalue %11, %10[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %13 = builtin.unrealized_conversion_cast %12 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> to memref<32x16xi8, #hivm.address_space<ub>>
+    %14 = llvm.mlir.constant(16 : i32) : i32
+    %15 = llvm.mlir.constant(6 : i32) : i32
+    %16 = llvm.mlir.constant(0 : i8) : i8
+    %17 = llvm.mlir.constant(1 : i32) : i32
+    %18 = llvm.mlir.constant(32 : i32) : i32
+    %19 = llvm.mlir.constant(0 : i32) : i32
+    %20 = "hivm_regbaseintrins.intr.hivm.pge.b8"(%19, %19) {mask_bit_width = 8 : i32} : (i32, i32) -> vector<256xi1>
+    %21 = "hivm_regbaseintrins.intr.hivm.vdups.z"(%16, %20, %17) : (i8, vector<256xi1>, i32) -> vector<256xi8>
+    llvm.br ^bb1(%19 : i32)
+  ^bb1(%22: i32):  // 2 preds: ^bb0, ^bb2
+    %23 = llvm.icmp "slt" %22, %18 : i32
+    llvm.cond_br %23, ^bb2, ^bb3
+  ^bb2:  // pred: ^bb1
+    %24 = llvm.sext %22 : i32 to i64
+    %25 = "hivm_regbaseintrins.intr.hivm.pge.b8"(%15, %19) {mask_bit_width = 8 : i32, mask_op_idx = 0 : i32} : (i32, i32) -> vector<256xi1>
+    %26 = llvm.extractvalue %12[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %27 = llvm.extractvalue %12[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %28 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64)>
+    %29 = llvm.insertvalue %26, %28[0] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %30 = llvm.insertvalue %27, %29[1] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %31 = llvm.mlir.constant(0 : index) : i64
+    %32 = llvm.insertvalue %31, %30[2] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %33 = llvm.extractvalue %12[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %34 = llvm.extractvalue %12[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %35 = llvm.extractvalue %12[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %36 = llvm.extractvalue %12[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %37 = llvm.extractvalue %12[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %38 = llvm.mlir.constant(16 : index) : i64
+    %39 = llvm.mul %24, %38 : i64
+    %40 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %41 = llvm.insertvalue %26, %40[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %42 = llvm.insertvalue %27, %41[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %43 = llvm.insertvalue %39, %42[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %44 = llvm.mlir.constant(16 : index) : i64
+    %45 = llvm.insertvalue %44, %43[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %46 = llvm.mlir.constant(1 : index) : i64
+    %47 = llvm.insertvalue %46, %45[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %48 = builtin.unrealized_conversion_cast %47 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> to memref<16xi8, #map, #hivm.address_space<ub>>
+    %49 = llvm.extractvalue %47[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %50 = llvm.extractvalue %47[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %51 = llvm.getelementptr %49[%50] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i8
+    %52 = "hivm_regbaseintrins.intr.hivm.init.vector.align.data"() : () -> vector<32xi8>
+    %53 = "hivm_regbaseintrins.intr.hivm.vstus.post.s8"(%21, %51, %14, %52) : (vector<256xi8>, !llvm.ptr<6>, i32, vector<32xi8>) -> !llvm.struct<(vector<32xi8>, ptr<6>)>
+    %54 = llvm.extractvalue %53[0] : !llvm.struct<(vector<32xi8>, ptr<6>)> 
+    %55 = llvm.extractvalue %53[1] : !llvm.struct<(vector<32xi8>, ptr<6>)> 
+    "hivm_regbaseintrins.intr.hivm.vstas"(%54, %55, %19, %19) : (vector<32xi8>, !llvm.ptr<6>, i32, i32) -> ()
+    %56 = llvm.add %22, %17 overflow<nsw> : i32
+    llvm.br ^bb1(%56 : i32)
+  ^bb3:  // pred: ^bb1
+    llvm.return
+  }
+  llvm.func @adc_func_outlined_vf_3(%arg0: !llvm.ptr<6>) attributes {element_alignment_bit_width = -1 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function} {
+    %0 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %1 = llvm.insertvalue %arg0, %0[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %2 = llvm.insertvalue %arg0, %1[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %3 = llvm.mlir.constant(0 : index) : i64
+    %4 = llvm.insertvalue %3, %2[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %5 = llvm.mlir.constant(32 : index) : i64
+    %6 = llvm.insertvalue %5, %4[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %7 = llvm.mlir.constant(1 : index) : i64
+    %8 = llvm.insertvalue %7, %6[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %9 = builtin.unrealized_conversion_cast %8 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> to memref<32xf32, #hivm.address_space<ub>>
+    %10 = llvm.mlir.constant(2 : i32) : i32
+    %11 = llvm.mlir.constant(7 : i32) : i32
+    %12 = llvm.mlir.constant(1 : i32) : i32
+    %13 = llvm.mlir.constant(0 : i32) : i32
+    %14 = llvm.mlir.constant(8 : i32) : i32
+    %15 = llvm.mlir.constant(0.000000e+00 : f32) : f32
+    %16 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%14, %13) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+    %17 = "hivm_regbaseintrins.intr.hivm.vdups.z"(%15, %16, %12) : (f32, vector<256xi1>, i32) -> vector<64xf32>
+    %18 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%11, %13) {mask_bit_width = 32 : i32, mask_op_idx = 0 : i32} : (i32, i32) -> vector<256xi1>
+    %19 = llvm.extractvalue %8[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    "hivm_regbaseintrins.intr.hivm.vstsx1.v64f32"(%17, %19, %13, %10, %13, %18) : (vector<64xf32>, !llvm.ptr<6>, i32, i32, i32, vector<256xi1>) -> ()
+    llvm.return
+  }
+  llvm.func @adc_func_outlined_vf_4(%arg0: !llvm.ptr<6>, %arg1: !llvm.ptr<6>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function} {
+    %0 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %1 = llvm.insertvalue %arg1, %0[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %2 = llvm.insertvalue %arg1, %1[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %3 = llvm.mlir.constant(0 : index) : i64
+    %4 = llvm.insertvalue %3, %2[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %5 = llvm.mlir.constant(32 : index) : i64
+    %6 = llvm.insertvalue %5, %4[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %7 = llvm.mlir.constant(1 : index) : i64
+    %8 = llvm.insertvalue %7, %6[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %9 = builtin.unrealized_conversion_cast %8 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> to memref<32xf32, #hivm.address_space<ub>>
+    %10 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %11 = llvm.insertvalue %arg0, %10[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %12 = llvm.insertvalue %arg0, %11[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %13 = llvm.mlir.constant(0 : index) : i64
+    %14 = llvm.insertvalue %13, %12[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %15 = llvm.mlir.constant(32 : index) : i64
+    %16 = llvm.insertvalue %15, %14[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %17 = llvm.mlir.constant(1 : index) : i64
+    %18 = llvm.insertvalue %17, %16[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %19 = builtin.unrealized_conversion_cast %18 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> to memref<32xf32, #hivm.address_space<ub>>
+    %20 = llvm.mlir.constant(2 : i32) : i32
+    %21 = llvm.mlir.constant(0 : i32) : i32
+    %22 = llvm.mlir.constant(7 : i32) : i32
+    %23 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%22, %21) {mask_bit_width = 32 : i32, mask_op_idx = 0 : i32} : (i32, i32) -> vector<256xi1>
+    %24 = llvm.extractvalue %18[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %25 = "hivm_regbaseintrins.intr.hivm.vldsx1.v64f32"(%24, %21, %21, %21) : (!llvm.ptr<6>, i32, i32, i32) -> vector<64xf32>
+    %26 = "hivm_regbaseintrins.intr.hivm.vsqrt.x"(%25, %23) : (vector<64xf32>, vector<256xi1>) -> vector<64xf32>
+    %27 = llvm.extractvalue %8[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    "hivm_regbaseintrins.intr.hivm.vstsx1.v64f32"(%26, %27, %21, %20, %21, %23) : (vector<64xf32>, !llvm.ptr<6>, i32, i32, i32, vector<256xi1>) -> ()
+    llvm.return
+  }
+  llvm.func private @load_gm_to_ubuf_1d_float(%arg0: !llvm.ptr<1>, %arg1: !llvm.ptr<1>, %arg2: i64, %arg3: i64, %arg4: i64, %arg5: !llvm.ptr<6>, %arg6: !llvm.ptr<6>, %arg7: i64, %arg8: i64, %arg9: i64, %arg10: i32, %arg11: f32, %arg12: i64, %arg13: i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface, sym_visibility = "private"} {
+    %0 = llvm.mlir.undef : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)>
+    %1 = llvm.insertvalue %arg0, %0[0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %2 = llvm.insertvalue %arg1, %1[1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %3 = llvm.insertvalue %arg2, %2[2] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %4 = llvm.insertvalue %arg3, %3[3, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %5 = llvm.insertvalue %arg4, %4[4, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %6 = llvm.mlir.constant(1 : index) : i64
+    %7 = llvm.alloca %6 x !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> : (i64) -> !llvm.ptr
+    llvm.store %5, %7 : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)>, !llvm.ptr
+    %8 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %9 = llvm.insertvalue %arg5, %8[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %10 = llvm.insertvalue %arg6, %9[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %11 = llvm.insertvalue %arg7, %10[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %12 = llvm.insertvalue %arg8, %11[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %13 = llvm.insertvalue %arg9, %12[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %14 = llvm.mlir.constant(1 : index) : i64
+    %15 = llvm.alloca %14 x !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> : (i64) -> !llvm.ptr
+    llvm.store %13, %15 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>, !llvm.ptr
+    llvm.call @_mlir_ciface_load_gm_to_ubuf_1d_float(%7, %15, %arg10, %arg11, %arg12, %arg13) : (!llvm.ptr, !llvm.ptr, i32, f32, i64, i32) -> ()
+    llvm.return
+  }
+  llvm.func @_mlir_ciface_load_gm_to_ubuf_1d_float(!llvm.ptr, !llvm.ptr, i32, f32, i64, i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface, sym_visibility = "private"}
+  llvm.func private @load_gm_to_ubuf_2d_int8_t(%arg0: !llvm.ptr<1>, %arg1: !llvm.ptr<1>, %arg2: i64, %arg3: i64, %arg4: i64, %arg5: i64, %arg6: i64, %arg7: !llvm.ptr<6>, %arg8: !llvm.ptr<6>, %arg9: i64, %arg10: i64, %arg11: i64, %arg12: i64, %arg13: i64, %arg14: i32, %arg15: i8, %arg16: i64, %arg17: i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface, sym_visibility = "private"} {
+    %0 = llvm.mlir.undef : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)>
+    %1 = llvm.insertvalue %arg0, %0[0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %2 = llvm.insertvalue %arg1, %1[1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %3 = llvm.insertvalue %arg2, %2[2] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %4 = llvm.insertvalue %arg3, %3[3, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %5 = llvm.insertvalue %arg5, %4[4, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %6 = llvm.insertvalue %arg4, %5[3, 1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %7 = llvm.insertvalue %arg6, %6[4, 1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %8 = llvm.mlir.constant(1 : index) : i64
+    %9 = llvm.alloca %8 x !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> : (i64) -> !llvm.ptr
+    llvm.store %7, %9 : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)>, !llvm.ptr
+    %10 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %11 = llvm.insertvalue %arg7, %10[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %12 = llvm.insertvalue %arg8, %11[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %13 = llvm.insertvalue %arg9, %12[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %14 = llvm.insertvalue %arg10, %13[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %15 = llvm.insertvalue %arg12, %14[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %16 = llvm.insertvalue %arg11, %15[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %17 = llvm.insertvalue %arg13, %16[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %18 = llvm.mlir.constant(1 : index) : i64
+    %19 = llvm.alloca %18 x !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> : (i64) -> !llvm.ptr
+    llvm.store %17, %19 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>, !llvm.ptr
+    llvm.call @_mlir_ciface_load_gm_to_ubuf_2d_int8_t(%9, %19, %arg14, %arg15, %arg16, %arg17) : (!llvm.ptr, !llvm.ptr, i32, i8, i64, i32) -> ()
+    llvm.return
+  }
+  llvm.func @_mlir_ciface_load_gm_to_ubuf_2d_int8_t(!llvm.ptr, !llvm.ptr, i32, i8, i64, i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface, sym_visibility = "private"}
+  llvm.func private @copy_ubuf_to_ubuf_1d_int8_t(%arg0: !llvm.ptr<6>, %arg1: !llvm.ptr<6>, %arg2: i64, %arg3: i64, %arg4: i64, %arg5: !llvm.ptr<6>, %arg6: !llvm.ptr<6>, %arg7: i64, %arg8: i64, %arg9: i64) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface, sym_visibility = "private"} {
+    %0 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %1 = llvm.insertvalue %arg0, %0[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %2 = llvm.insertvalue %arg1, %1[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %3 = llvm.insertvalue %arg2, %2[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %4 = llvm.insertvalue %arg3, %3[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %5 = llvm.insertvalue %arg4, %4[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %6 = llvm.mlir.constant(1 : index) : i64
+    %7 = llvm.alloca %6 x !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> : (i64) -> !llvm.ptr
+    llvm.store %5, %7 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>, !llvm.ptr
+    %8 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %9 = llvm.insertvalue %arg5, %8[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %10 = llvm.insertvalue %arg6, %9[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %11 = llvm.insertvalue %arg7, %10[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %12 = llvm.insertvalue %arg8, %11[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %13 = llvm.insertvalue %arg9, %12[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %14 = llvm.mlir.constant(1 : index) : i64
+    %15 = llvm.alloca %14 x !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> : (i64) -> !llvm.ptr
+    llvm.store %13, %15 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>, !llvm.ptr
+    llvm.call @_mlir_ciface_copy_ubuf_to_ubuf_1d_int8_t(%7, %15) : (!llvm.ptr, !llvm.ptr) -> ()
+    llvm.return
+  }
+  llvm.func @_mlir_ciface_copy_ubuf_to_ubuf_1d_int8_t(!llvm.ptr, !llvm.ptr) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface, sym_visibility = "private"}
+  llvm.func private @store_ubuf_to_gm_1d_float(%arg0: !llvm.ptr<6>, %arg1: !llvm.ptr<6>, %arg2: i64, %arg3: i64, %arg4: i64, %arg5: !llvm.ptr<1>, %arg6: !llvm.ptr<1>, %arg7: i64, %arg8: i64, %arg9: i64, %arg10: i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface, sym_visibility = "private"} {
+    %0 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %1 = llvm.insertvalue %arg0, %0[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %2 = llvm.insertvalue %arg1, %1[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %3 = llvm.insertvalue %arg2, %2[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %4 = llvm.insertvalue %arg3, %3[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %5 = llvm.insertvalue %arg4, %4[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %6 = llvm.mlir.constant(1 : index) : i64
+    %7 = llvm.alloca %6 x !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> : (i64) -> !llvm.ptr
+    llvm.store %5, %7 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>, !llvm.ptr
+    %8 = llvm.mlir.undef : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)>
+    %9 = llvm.insertvalue %arg5, %8[0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %10 = llvm.insertvalue %arg6, %9[1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %11 = llvm.insertvalue %arg7, %10[2] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %12 = llvm.insertvalue %arg8, %11[3, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %13 = llvm.insertvalue %arg9, %12[4, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %14 = llvm.mlir.constant(1 : index) : i64
+    %15 = llvm.alloca %14 x !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> : (i64) -> !llvm.ptr
+    llvm.store %13, %15 : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)>, !llvm.ptr
+    llvm.call @_mlir_ciface_store_ubuf_to_gm_1d_float(%7, %15, %arg10) : (!llvm.ptr, !llvm.ptr, i32) -> ()
+    llvm.return
+  }
+  llvm.func @_mlir_ciface_store_ubuf_to_gm_1d_float(!llvm.ptr, !llvm.ptr, i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface, sym_visibility = "private"}
+  llvm.func @adc_func(%arg0: !llvm.ptr<1> {hacc.arg_type = #hacc.arg_type<sync_block_lock>}, %arg1: !llvm.ptr<1>, %arg2: i64, %arg3: i64, %arg4: i64, %arg5: !llvm.ptr<1> {hacc.arg_type = #hacc.arg_type<workspace>}, %arg6: !llvm.ptr<1>, %arg7: i64, %arg8: i64, %arg9: i64, %arg10: !llvm.ptr<1>, %arg11: !llvm.ptr<1>, %arg12: i64, %arg13: i64, %arg14: i64, %arg15: !llvm.ptr<1>, %arg16: !llvm.ptr<1>, %arg17: i64, %arg18: i64, %arg19: i64, %arg20: !llvm.ptr<1>, %arg21: !llvm.ptr<1>, %arg22: i64, %arg23: i64, %arg24: i64, %arg25: i32, %arg26: i32, %arg27: i32, %arg28: i32) attributes {SyncBlockLockArgIdx = 0 : i64, WorkspaceArgIdx = 1 : i64, func_dyn_memref_args = dense<[true, true, true, true, true, false, false, false, false]> : vector<9xi1>, hacc.entry, hacc.function_kind = #hacc.function_kind<DEVICE>, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vf_mode = #hivm.vf_mode<SIMD>, hivm_regbaseintrins.target = #hivm_regbaseintrins.target<"dav-c310">, mix_mode = "aiv", parallel_mode = "simd"} {
+    %0 = llvm.mlir.undef : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)>
+    %1 = llvm.insertvalue %arg20, %0[0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %2 = llvm.insertvalue %arg21, %1[1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %3 = llvm.insertvalue %arg22, %2[2] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %4 = llvm.insertvalue %arg23, %3[3, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %5 = llvm.insertvalue %arg24, %4[4, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %6 = builtin.unrealized_conversion_cast %5 : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> to memref<?xf32, #hivm.address_space<gm>>
+    %7 = llvm.mlir.undef : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)>
+    %8 = llvm.insertvalue %arg15, %7[0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %9 = llvm.insertvalue %arg16, %8[1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %10 = llvm.insertvalue %arg17, %9[2] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %11 = llvm.insertvalue %arg18, %10[3, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %12 = llvm.insertvalue %arg19, %11[4, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %13 = builtin.unrealized_conversion_cast %12 : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> to memref<?xi8, #hivm.address_space<gm>>
+    %14 = llvm.mlir.undef : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)>
+    %15 = llvm.insertvalue %arg10, %14[0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %16 = llvm.insertvalue %arg11, %15[1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %17 = llvm.insertvalue %arg12, %16[2] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %18 = llvm.insertvalue %arg13, %17[3, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %19 = llvm.insertvalue %arg14, %18[4, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %20 = builtin.unrealized_conversion_cast %19 : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> to memref<?xf32, #hivm.address_space<gm>>
+    %21 = llvm.mlir.constant(69376 : i64) : i64
+    %22 = llvm.mlir.constant(68736 : i64) : i64
+    %23 = llvm.mlir.constant(66048 : i64) : i64
+    %24 = llvm.mlir.constant(68864 : i64) : i64
+    %25 = llvm.mlir.constant(1 : i64) : i64
+    %26 = llvm.mlir.constant(66560 : i64) : i64
+    %27 = llvm.mlir.constant(68608 : i64) : i64
+    %28 = llvm.mlir.constant(65536 : i64) : i64
+    %29 = llvm.mlir.constant(0 : i64) : i64
+    %30 = llvm.mlir.constant(1 : i32) : i32
+    %31 = llvm.mlir.constant(16 : i32) : i32
+    %32 = llvm.mlir.constant(4 : i32) : i32
+    %33 = llvm.mlir.constant(32 : i32) : i32
+    %34 = llvm.mlir.constant(31 : i32) : i32
+    %35 = llvm.mlir.constant(56 : i32) : i32
+    %36 = llvm.mlir.constant(1792 : i32) : i32
+    %37 = llvm.mlir.constant(1791 : i32) : i32
+    %38 = llvm.mlir.constant(0 : i32) : i32
+    %39 = llvm.mlir.constant(0 : i8) : i8
+    %40 = llvm.mlir.constant(0.000000e+00 : f32) : f32
+    %41 = llvm.mlir.constant(0 : index) : i64
+    %42 = llvm.inttoptr %22 : i64 to !llvm.ptr<6>
+    %43 = llvm.mlir.constant(32 : index) : i64
+    %44 = llvm.mlir.constant(1 : index) : i64
+    %45 = llvm.mlir.zero : !llvm.ptr
+    %46 = llvm.getelementptr %45[32] : (!llvm.ptr) -> !llvm.ptr, f32
+    %47 = llvm.ptrtoint %46 : !llvm.ptr to i64
+    %48 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %49 = llvm.insertvalue %42, %48[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %50 = llvm.insertvalue %42, %49[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %51 = llvm.mlir.constant(0 : index) : i64
+    %52 = llvm.insertvalue %51, %50[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %53 = llvm.insertvalue %43, %52[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %54 = llvm.insertvalue %44, %53[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %55 = builtin.unrealized_conversion_cast %54 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> to memref<32xf32, #hivm.address_space<ub>>
+    %56 = llvm.inttoptr %21 : i64 to !llvm.ptr<6>
+    %57 = llvm.mlir.constant(32 : index) : i64
+    %58 = llvm.mlir.constant(1 : index) : i64
+    %59 = llvm.mlir.zero : !llvm.ptr
+    %60 = llvm.getelementptr %59[32] : (!llvm.ptr) -> !llvm.ptr, f32
+    %61 = llvm.ptrtoint %60 : !llvm.ptr to i64
+    %62 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %63 = llvm.insertvalue %56, %62[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %64 = llvm.insertvalue %56, %63[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %65 = llvm.mlir.constant(0 : index) : i64
+    %66 = llvm.insertvalue %65, %64[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %67 = llvm.insertvalue %57, %66[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %68 = llvm.insertvalue %58, %67[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %69 = builtin.unrealized_conversion_cast %68 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> to memref<32xf32, #hivm.address_space<ub>>
+    %70 = llvm.inttoptr %23 : i64 to !llvm.ptr<6>
+    %71 = llvm.mlir.constant(32 : index) : i64
+    %72 = llvm.mlir.constant(16 : index) : i64
+    %73 = llvm.mlir.constant(1 : index) : i64
+    %74 = llvm.mlir.constant(512 : index) : i64
+    %75 = llvm.mlir.zero : !llvm.ptr
+    %76 = llvm.getelementptr %75[512] : (!llvm.ptr) -> !llvm.ptr, i8
+    %77 = llvm.ptrtoint %76 : !llvm.ptr to i64
+    %78 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %79 = llvm.insertvalue %70, %78[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %80 = llvm.insertvalue %70, %79[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %81 = llvm.mlir.constant(0 : index) : i64
+    %82 = llvm.insertvalue %81, %80[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %83 = llvm.insertvalue %71, %82[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %84 = llvm.insertvalue %72, %83[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %85 = llvm.insertvalue %72, %84[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %86 = llvm.insertvalue %73, %85[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %87 = builtin.unrealized_conversion_cast %86 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> to memref<32x16xi8, #hivm.address_space<ub>>
+    %88 = llvm.inttoptr %24 : i64 to !llvm.ptr<6>
+    %89 = llvm.mlir.constant(32 : index) : i64
+    %90 = llvm.mlir.constant(16 : index) : i64
+    %91 = llvm.mlir.constant(1 : index) : i64
+    %92 = llvm.mlir.constant(512 : index) : i64
+    %93 = llvm.mlir.zero : !llvm.ptr
+    %94 = llvm.getelementptr %93[512] : (!llvm.ptr) -> !llvm.ptr, i8
+    %95 = llvm.ptrtoint %94 : !llvm.ptr to i64
+    %96 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %97 = llvm.insertvalue %88, %96[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %98 = llvm.insertvalue %88, %97[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %99 = llvm.mlir.constant(0 : index) : i64
+    %100 = llvm.insertvalue %99, %98[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %101 = llvm.insertvalue %89, %100[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %102 = llvm.insertvalue %90, %101[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %103 = llvm.insertvalue %90, %102[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %104 = llvm.insertvalue %91, %103[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %105 = builtin.unrealized_conversion_cast %104 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> to memref<32x16xi8, #hivm.address_space<ub>>
+    %106 = "hivm.intr.hivm.GET.CTRL"() : () -> i64
+    %107 = llvm.mlir.constant(60 : i64) : i64
+    %108 = "hivm.intr.hivm.SBITSET0"(%106, %107) : (i64, i64) -> i64
+    "hivm.intr.hivm.SET.CTRL"(%108) : (i64) -> ()
+    %109 = "hivm.intr.hivm.GET.CTRL"() : () -> i64
+    %110 = llvm.mlir.constant(48 : i64) : i64
+    %111 = "hivm.intr.hivm.SBITSET1"(%109, %110) : (i64, i64) -> i64
+    "hivm.intr.hivm.SET.CTRL"(%111) : (i64) -> ()
+    %112 = llvm.extractvalue %19[0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %113 = llvm.extractvalue %19[1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %114 = llvm.mlir.undef : !llvm.struct<(ptr<1>, ptr<1>, i64)>
+    %115 = llvm.insertvalue %112, %114[0] : !llvm.struct<(ptr<1>, ptr<1>, i64)> 
+    %116 = llvm.insertvalue %113, %115[1] : !llvm.struct<(ptr<1>, ptr<1>, i64)> 
+    %117 = llvm.mlir.constant(0 : index) : i64
+    %118 = llvm.insertvalue %117, %116[2] : !llvm.struct<(ptr<1>, ptr<1>, i64)> 
+    %119 = llvm.extractvalue %19[2] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %120 = llvm.extractvalue %19[3, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %121 = llvm.extractvalue %19[4, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %122 = llvm.mlir.undef : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)>
+    %123 = llvm.insertvalue %112, %122[0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %124 = llvm.insertvalue %113, %123[1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %125 = llvm.mlir.constant(0 : index) : i64
+    %126 = llvm.insertvalue %125, %124[2] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %127 = llvm.mlir.constant(16384 : index) : i64
+    %128 = llvm.insertvalue %127, %126[3, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %129 = llvm.mlir.constant(1 : index) : i64
+    %130 = llvm.insertvalue %129, %128[4, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %131 = "hivm.intr.hivm.GET.BLOCK.IDX"() : () -> i64
+    %132 = llvm.trunc %131 : i64 to i32
+    %133 = llvm.inttoptr %29 : i64 to !llvm.ptr<6>
+    %134 = llvm.mlir.constant(16384 : index) : i64
+    %135 = llvm.mlir.constant(1 : index) : i64
+    %136 = llvm.mlir.zero : !llvm.ptr
+    %137 = llvm.getelementptr %136[16384] : (!llvm.ptr) -> !llvm.ptr, f32
+    %138 = llvm.ptrtoint %137 : !llvm.ptr to i64
+    %139 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %140 = llvm.insertvalue %133, %139[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %141 = llvm.insertvalue %133, %140[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %142 = llvm.mlir.constant(0 : index) : i64
+    %143 = llvm.insertvalue %142, %141[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %144 = llvm.insertvalue %134, %143[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %145 = llvm.insertvalue %135, %144[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    "hivm.intr.hivm.SET.FLAG.IMM"() <{event_id = 0 : i64, set_pipe = 1 : i64, wait_pipe = 4 : i64}> : () -> ()
+    "hivm.intr.hivm.SET.FLAG.IMM"() <{event_id = 1 : i64, set_pipe = 1 : i64, wait_pipe = 4 : i64}> : () -> ()
+    "hivm.intr.hivm.SET.FLAG.IMM"() <{event_id = 0 : i64, set_pipe = 5 : i64, wait_pipe = 1 : i64}> : () -> ()
+    "hivm.intr.hivm.SET.FLAG.IMM"() <{event_id = 1 : i64, set_pipe = 5 : i64, wait_pipe = 1 : i64}> : () -> ()
+    llvm.call @load_gm_to_ubuf_1d_float(%112, %113, %125, %127, %129, %133, %133, %142, %134, %135, %38, %40, %41, %38) : (!llvm.ptr<1>, !llvm.ptr<1>, i64, i64, i64, !llvm.ptr<6>, !llvm.ptr<6>, i64, i64, i64, i32, f32, i64, i32) -> ()
+    %146 = llvm.add %arg25, %37 : i32
+    %147 = llvm.sdiv %146, %36  : i32
+    %148 = llvm.add %arg25, %34 : i32
+    %149 = llvm.sdiv %148, %33  : i32
+    llvm.br ^bb1(%38 : i32)
+  ^bb1(%150: i32):  // 2 preds: ^bb0, ^bb10
+    %151 = llvm.icmp "slt" %150, %147 : i32
+    llvm.cond_br %151, ^bb2, ^bb11
+  ^bb2:  // pred: ^bb1
+    %152 = llvm.sext %150 : i32 to i64
+    %153 = llvm.mlir.constant(2 : index) : i64
+    %154 = llvm.srem %152, %153  : i64
+    %155 = llvm.mlir.constant(0 : index) : i64
+    %156 = llvm.icmp "slt" %154, %155 : i64
+    %157 = llvm.add %154, %153 : i64
+    %158 = llvm.select %156, %157, %154 : i1, i64
+    %159 = builtin.unrealized_conversion_cast %158 : i64 to index
+    %160 = llvm.icmp "eq" %158, %25 : i64
+    %161 = llvm.select %160, %68, %54 : i1, !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %162 = llvm.zext %160 : i1 to i64
+    %163 = llvm.mul %150, %35 : i32
+    %164 = llvm.add %163, %132 : i32
+    %165 = llvm.icmp "slt" %164, %149 : i32
+    llvm.cond_br %165, ^bb3, ^bb10
+  ^bb3:  // pred: ^bb2
+    %166 = llvm.inttoptr %28 : i64 to !llvm.ptr<6>
+    %167 = llvm.mlir.constant(32 : index) : i64
+    %168 = llvm.mlir.constant(16 : index) : i64
+    %169 = llvm.mlir.constant(1 : index) : i64
+    %170 = llvm.mlir.constant(512 : index) : i64
+    %171 = llvm.mlir.zero : !llvm.ptr
+    %172 = llvm.getelementptr %171[512] : (!llvm.ptr) -> !llvm.ptr, i8
+    %173 = llvm.ptrtoint %172 : !llvm.ptr to i64
+    %174 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %175 = llvm.insertvalue %166, %174[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %176 = llvm.insertvalue %166, %175[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %177 = llvm.mlir.constant(0 : index) : i64
+    %178 = llvm.insertvalue %177, %176[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %179 = llvm.insertvalue %167, %178[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %180 = llvm.insertvalue %168, %179[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %181 = llvm.insertvalue %168, %180[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %182 = llvm.insertvalue %169, %181[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    llvm.call @adc_func_outlined_vf_2(%166) {hivm.vector_function, no_inline} : (!llvm.ptr<6>) -> ()
+    %183 = llvm.inttoptr %27 : i64 to !llvm.ptr<6>
+    %184 = llvm.mlir.constant(32 : index) : i64
+    %185 = llvm.mlir.constant(1 : index) : i64
+    %186 = llvm.mlir.zero : !llvm.ptr
+    %187 = llvm.getelementptr %186[32] : (!llvm.ptr) -> !llvm.ptr, f32
+    %188 = llvm.ptrtoint %187 : !llvm.ptr to i64
+    %189 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %190 = llvm.insertvalue %183, %189[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %191 = llvm.insertvalue %183, %190[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %192 = llvm.mlir.constant(0 : index) : i64
+    %193 = llvm.insertvalue %192, %191[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %194 = llvm.insertvalue %184, %193[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %195 = llvm.insertvalue %185, %194[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    llvm.call @adc_func_outlined_vf_3(%183) {hivm.vector_function, no_inline} : (!llvm.ptr<6>) -> ()
+    %196 = llvm.mul %150, %36 : i32
+    %197 = llvm.mul %132, %33 : i32
+    %198 = llvm.add %196, %197 : i32
+    %199 = llvm.sext %198 : i32 to i64
+    %200 = llvm.sub %arg25, %197 : i32
+    %201 = llvm.sub %200, %196 : i32
+    %202 = llvm.intr.smin(%201, %33)  : (i32, i32) -> i32
+    %203 = llvm.sext %202 : i32 to i64
+    llvm.br ^bb4(%38, %195 : i32, !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>)
+  ^bb4(%204: i32, %205: !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>):  // 2 preds: ^bb3, ^bb8
+    %206 = llvm.icmp "slt" %204, %32 : i32
+    llvm.cond_br %206, ^bb5, ^bb9
+  ^bb5:  // pred: ^bb4
+    %207 = llvm.sext %204 : i32 to i64
+    %208 = llvm.mlir.constant(2 : index) : i64
+    %209 = llvm.srem %207, %208  : i64
+    %210 = llvm.mlir.constant(0 : index) : i64
+    %211 = llvm.icmp "slt" %209, %210 : i64
+    %212 = llvm.add %209, %208 : i64
+    %213 = llvm.select %211, %212, %209 : i1, i64
+    %214 = builtin.unrealized_conversion_cast %213 : i64 to index
+    %215 = llvm.icmp "eq" %213, %25 : i64
+    %216 = llvm.select %215, %104, %86 : i1, !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %217 = llvm.zext %215 : i1 to i64
+    %218 = llvm.mul %204, %31 : i32
+    %219 = llvm.sext %218 : i32 to i64
+    %220 = llvm.extractvalue %12[0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %221 = llvm.extractvalue %12[1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %222 = llvm.mlir.undef : !llvm.struct<(ptr<1>, ptr<1>, i64)>
+    %223 = llvm.insertvalue %220, %222[0] : !llvm.struct<(ptr<1>, ptr<1>, i64)> 
+    %224 = llvm.insertvalue %221, %223[1] : !llvm.struct<(ptr<1>, ptr<1>, i64)> 
+    %225 = llvm.mlir.constant(0 : index) : i64
+    %226 = llvm.insertvalue %225, %224[2] : !llvm.struct<(ptr<1>, ptr<1>, i64)> 
+    %227 = llvm.extractvalue %12[2] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %228 = llvm.extractvalue %12[3, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %229 = llvm.extractvalue %12[4, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %230 = llvm.mlir.constant(64 : index) : i64
+    %231 = llvm.mul %199, %230 : i64
+    %232 = llvm.add %231, %219 : i64
+    %233 = llvm.mlir.undef : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)>
+    %234 = llvm.insertvalue %220, %233[0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %235 = llvm.insertvalue %221, %234[1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %236 = llvm.insertvalue %232, %235[2] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %237 = llvm.insertvalue %203, %236[3, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %238 = llvm.mlir.constant(64 : index) : i64
+    %239 = llvm.insertvalue %238, %237[4, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %240 = llvm.mlir.constant(16 : index) : i64
+    %241 = llvm.insertvalue %240, %239[3, 1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %242 = llvm.mlir.constant(1 : index) : i64
+    %243 = llvm.insertvalue %242, %241[4, 1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %244 = llvm.extractvalue %216[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %245 = llvm.extractvalue %216[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %246 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64)>
+    %247 = llvm.insertvalue %244, %246[0] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %248 = llvm.insertvalue %245, %247[1] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %249 = llvm.mlir.constant(0 : index) : i64
+    %250 = llvm.insertvalue %249, %248[2] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %251 = llvm.extractvalue %216[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %252 = llvm.extractvalue %216[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %253 = llvm.extractvalue %216[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %254 = llvm.extractvalue %216[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %255 = llvm.extractvalue %216[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %256 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %257 = llvm.insertvalue %244, %256[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %258 = llvm.insertvalue %245, %257[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %259 = llvm.mlir.constant(0 : index) : i64
+    %260 = llvm.insertvalue %259, %258[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %261 = llvm.insertvalue %203, %260[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %262 = llvm.mlir.constant(16 : index) : i64
+    %263 = llvm.insertvalue %262, %261[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %264 = llvm.mlir.constant(16 : index) : i64
+    %265 = llvm.insertvalue %264, %263[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %266 = llvm.mlir.constant(1 : index) : i64
+    %267 = llvm.insertvalue %266, %265[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    "hivm.intr.hivm.WAIT.FLAG.REG"(%217) <{set_pipe = 1 : i64, wait_pipe = 4 : i64}> : (i64) -> ()
+    llvm.call @load_gm_to_ubuf_2d_int8_t(%220, %221, %232, %203, %240, %238, %242, %244, %245, %259, %203, %264, %262, %266, %38, %39, %41, %38) : (!llvm.ptr<1>, !llvm.ptr<1>, i64, i64, i64, i64, i64, !llvm.ptr<6>, !llvm.ptr<6>, i64, i64, i64, i64, i64, i32, i8, i64, i32) -> ()
+    "hivm.intr.hivm.SET.FLAG.IMM"() <{event_id = 0 : i64, set_pipe = 4 : i64, wait_pipe = 1 : i64}> : () -> ()
+    %268 = llvm.extractvalue %216[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %269 = llvm.extractvalue %216[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %270 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64)>
+    %271 = llvm.insertvalue %268, %270[0] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %272 = llvm.insertvalue %269, %271[1] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %273 = llvm.mlir.constant(0 : index) : i64
+    %274 = llvm.insertvalue %273, %272[2] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %275 = llvm.extractvalue %216[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %276 = llvm.extractvalue %216[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %277 = llvm.extractvalue %216[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %278 = llvm.extractvalue %216[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %279 = llvm.extractvalue %216[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %280 = llvm.mlir.constant(16 : index) : i64
+    %281 = llvm.mul %203, %280 : i64
+    %282 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %283 = llvm.insertvalue %268, %282[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %284 = llvm.insertvalue %269, %283[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %285 = llvm.mlir.constant(0 : index) : i64
+    %286 = llvm.insertvalue %285, %284[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %287 = llvm.insertvalue %281, %286[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %288 = llvm.mlir.constant(1 : index) : i64
+    %289 = llvm.insertvalue %288, %287[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %290 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64)>
+    %291 = llvm.insertvalue %166, %290[0] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %292 = llvm.insertvalue %166, %291[1] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %293 = llvm.mlir.constant(0 : index) : i64
+    %294 = llvm.insertvalue %293, %292[2] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %295 = llvm.mlir.constant(16 : index) : i64
+    %296 = llvm.mul %203, %295 : i64
+    %297 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %298 = llvm.insertvalue %166, %297[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %299 = llvm.insertvalue %166, %298[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %300 = llvm.mlir.constant(0 : index) : i64
+    %301 = llvm.insertvalue %300, %299[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %302 = llvm.insertvalue %296, %301[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %303 = llvm.mlir.constant(1 : index) : i64
+    %304 = llvm.insertvalue %303, %302[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    "hivm.intr.hivm.WAIT.FLAG.IMM"() <{event_id = 0 : i64, set_pipe = 4 : i64, wait_pipe = 1 : i64}> : () -> ()
+    llvm.call @copy_ubuf_to_ubuf_1d_int8_t(%268, %269, %285, %281, %288, %166, %166, %300, %296, %303) : (!llvm.ptr<6>, !llvm.ptr<6>, i64, i64, i64, !llvm.ptr<6>, !llvm.ptr<6>, i64, i64, i64) -> ()
+    "hivm.intr.hivm.SET.FLAG.REG"(%217) <{set_pipe = 1 : i64, wait_pipe = 4 : i64}> : (i64) -> ()
+    %305 = llvm.inttoptr %26 : i64 to !llvm.ptr<6>
+    %306 = llvm.mlir.constant(32 : index) : i64
+    %307 = llvm.mlir.constant(16 : index) : i64
+    %308 = llvm.mlir.constant(1 : index) : i64
+    %309 = llvm.mlir.constant(512 : index) : i64
+    %310 = llvm.mlir.zero : !llvm.ptr
+    %311 = llvm.getelementptr %310[512] : (!llvm.ptr) -> !llvm.ptr, i32
+    %312 = llvm.ptrtoint %311 : !llvm.ptr to i64
+    %313 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %314 = llvm.insertvalue %305, %313[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %315 = llvm.insertvalue %305, %314[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %316 = llvm.mlir.constant(0 : index) : i64
+    %317 = llvm.insertvalue %316, %315[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %318 = llvm.insertvalue %306, %317[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %319 = llvm.insertvalue %307, %318[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %320 = llvm.insertvalue %307, %319[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %321 = llvm.insertvalue %308, %320[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    llvm.call @adc_func_outlined_vf_1(%166, %305) {hivm.vector_function, no_inline} : (!llvm.ptr<6>, !llvm.ptr<6>) -> ()
+    llvm.br ^bb6(%38, %205 : i32, !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>)
+  ^bb6(%322: i32, %323: !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>):  // 2 preds: ^bb5, ^bb7
+    %324 = llvm.icmp "slt" %322, %31 : i32
+    llvm.cond_br %324, ^bb7, ^bb8
+  ^bb7:  // pred: ^bb6
+    %325 = llvm.sext %322 : i32 to i64
+    %326 = llvm.inttoptr %27 : i64 to !llvm.ptr<6>
+    %327 = llvm.mlir.constant(32 : index) : i64
+    %328 = llvm.mlir.constant(1 : index) : i64
+    %329 = llvm.mlir.zero : !llvm.ptr
+    %330 = llvm.getelementptr %329[32] : (!llvm.ptr) -> !llvm.ptr, f32
+    %331 = llvm.ptrtoint %330 : !llvm.ptr to i64
+    %332 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %333 = llvm.insertvalue %326, %332[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %334 = llvm.insertvalue %326, %333[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %335 = llvm.mlir.constant(0 : index) : i64
+    %336 = llvm.insertvalue %335, %334[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %337 = llvm.insertvalue %327, %336[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %338 = llvm.insertvalue %328, %337[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %339 = llvm.extractvalue %323[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    llvm.call @adc_func_outlined_vf_0(%339, %305, %325, %133, %326) {hivm.vector_function, no_inline} : (!llvm.ptr<6>, !llvm.ptr<6>, i64, !llvm.ptr<6>, !llvm.ptr<6>) -> ()
+    %340 = llvm.add %322, %30 overflow<nsw> : i32
+    llvm.br ^bb6(%340, %338 : i32, !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>)
+  ^bb8:  // pred: ^bb6
+    %341 = llvm.add %204, %30 overflow<nsw> : i32
+    llvm.br ^bb4(%341, %323 : i32, !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>)
+  ^bb9:  // pred: ^bb4
+    "hivm.intr.hivm.WAIT.FLAG.REG"(%162) <{set_pipe = 5 : i64, wait_pipe = 1 : i64}> : (i64) -> ()
+    %342 = llvm.extractvalue %205[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %343 = llvm.extractvalue %161[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    llvm.call @adc_func_outlined_vf_4(%342, %343) {hivm.vector_function, no_inline} : (!llvm.ptr<6>, !llvm.ptr<6>) -> ()
+    "hivm.intr.hivm.SET.FLAG.IMM"() <{event_id = 0 : i64, set_pipe = 1 : i64, wait_pipe = 5 : i64}> : () -> ()
+    %344 = llvm.extractvalue %161[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %345 = llvm.extractvalue %161[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %346 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64)>
+    %347 = llvm.insertvalue %344, %346[0] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %348 = llvm.insertvalue %345, %347[1] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %349 = llvm.mlir.constant(0 : index) : i64
+    %350 = llvm.insertvalue %349, %348[2] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %351 = llvm.extractvalue %161[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %352 = llvm.extractvalue %161[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %353 = llvm.extractvalue %161[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %354 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %355 = llvm.insertvalue %344, %354[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %356 = llvm.insertvalue %345, %355[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %357 = llvm.mlir.constant(0 : index) : i64
+    %358 = llvm.insertvalue %357, %356[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %359 = llvm.insertvalue %203, %358[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %360 = llvm.mlir.constant(1 : index) : i64
+    %361 = llvm.insertvalue %360, %359[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %362 = llvm.extractvalue %5[0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %363 = llvm.extractvalue %5[1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %364 = llvm.mlir.undef : !llvm.struct<(ptr<1>, ptr<1>, i64)>
+    %365 = llvm.insertvalue %362, %364[0] : !llvm.struct<(ptr<1>, ptr<1>, i64)> 
+    %366 = llvm.insertvalue %363, %365[1] : !llvm.struct<(ptr<1>, ptr<1>, i64)> 
+    %367 = llvm.mlir.constant(0 : index) : i64
+    %368 = llvm.insertvalue %367, %366[2] : !llvm.struct<(ptr<1>, ptr<1>, i64)> 
+    %369 = llvm.extractvalue %5[2] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %370 = llvm.extractvalue %5[3, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %371 = llvm.extractvalue %5[4, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %372 = llvm.mlir.undef : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)>
+    %373 = llvm.insertvalue %362, %372[0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %374 = llvm.insertvalue %363, %373[1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %375 = llvm.insertvalue %199, %374[2] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %376 = llvm.insertvalue %203, %375[3, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %377 = llvm.mlir.constant(1 : index) : i64
+    %378 = llvm.insertvalue %377, %376[4, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    "hivm.intr.hivm.WAIT.FLAG.IMM"() <{event_id = 0 : i64, set_pipe = 1 : i64, wait_pipe = 5 : i64}> : () -> ()
+    "hivm.intr.hivm.BARRIER"() <{pipe = 5 : i64}> : () -> ()
+    llvm.call @store_ubuf_to_gm_1d_float(%344, %345, %357, %203, %360, %362, %363, %199, %203, %377, %38) : (!llvm.ptr<6>, !llvm.ptr<6>, i64, i64, i64, !llvm.ptr<1>, !llvm.ptr<1>, i64, i64, i64, i32) -> ()
+    "hivm.intr.hivm.SET.FLAG.REG"(%162) <{set_pipe = 5 : i64, wait_pipe = 1 : i64}> : (i64) -> ()
+    llvm.br ^bb10
+  ^bb10:  // 2 preds: ^bb2, ^bb9
+    %379 = llvm.add %150, %30 overflow<nsw> : i32
+    llvm.br ^bb1(%379 : i32)
+  ^bb11:  // pred: ^bb1
+    "hivm.intr.hivm.BARRIER"() <{pipe = 6 : i64}> : () -> ()
+    "hivm.intr.hivm.WAIT.FLAG.IMM"() <{event_id = 0 : i64, set_pipe = 1 : i64, wait_pipe = 4 : i64}> : () -> ()
+    "hivm.intr.hivm.WAIT.FLAG.IMM"() <{event_id = 1 : i64, set_pipe = 1 : i64, wait_pipe = 4 : i64}> : () -> ()
+    "hivm.intr.hivm.WAIT.FLAG.IMM"() <{event_id = 0 : i64, set_pipe = 5 : i64, wait_pipe = 1 : i64}> : () -> ()
+    "hivm.intr.hivm.WAIT.FLAG.IMM"() <{event_id = 1 : i64, set_pipe = 5 : i64, wait_pipe = 1 : i64}> : () -> ()
+    llvm.return
+  }
+}
+
+
+// -----// IR Dump After ReconcileUnrealizedCasts (reconcile-unrealized-casts) //----- //
+module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #hacc.target_device_spec<#dlti.dl_entry<"AI_CORE_COUNT", 28 : i32>, #dlti.dl_entry<"CUBE_CORE_COUNT", 28 : i32>, #dlti.dl_entry<"VECTOR_CORE_COUNT", 56 : i32>, #dlti.dl_entry<"UB_SIZE", 2031616 : i32>, #dlti.dl_entry<"L1_SIZE", 4194304 : i32>, #dlti.dl_entry<"L0A_SIZE", 524288 : i32>, #dlti.dl_entry<"L0B_SIZE", 524288 : i32>, #dlti.dl_entry<"L0C_SIZE", 2097152 : i32>, #dlti.dl_entry<"UB_ALIGN_SIZE", 256 : i32>, #dlti.dl_entry<"L1_ALIGN_SIZE", 256 : i32>, #dlti.dl_entry<"L0C_ALIGN_SIZE", 4096 : i32>, #dlti.dl_entry<"MINIMAL_D_CACHE_SIZE", 262144 : i32>, #dlti.dl_entry<"MAXIMUM_D_CACHE_SIZE", 983040 : i32>, #dlti.dl_entry<"ARCH", "dav-c310">>>, hacc.target = #hacc.target<"Ascend950PR_9579">, hivm.module_core_type = #hivm.module_core_type<AIV>, memref.memref_as_ptr} {
+  llvm.func @adc_func_outlined_vf_0(%arg0: !llvm.ptr<6>, %arg1: !llvm.ptr<6>, %arg2: i64, %arg3: !llvm.ptr<6>, %arg4: !llvm.ptr<6>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function} {
+    %0 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %1 = llvm.insertvalue %arg4, %0[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %2 = llvm.insertvalue %arg4, %1[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %3 = llvm.mlir.constant(0 : index) : i64
+    %4 = llvm.insertvalue %3, %2[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %5 = llvm.mlir.constant(32 : index) : i64
+    %6 = llvm.insertvalue %5, %4[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %7 = llvm.mlir.constant(1 : index) : i64
+    %8 = llvm.insertvalue %7, %6[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %9 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %10 = llvm.insertvalue %arg3, %9[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %11 = llvm.insertvalue %arg3, %10[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %12 = llvm.mlir.constant(0 : index) : i64
+    %13 = llvm.insertvalue %12, %11[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %14 = llvm.mlir.constant(16384 : index) : i64
+    %15 = llvm.insertvalue %14, %13[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %16 = llvm.mlir.constant(1 : index) : i64
+    %17 = llvm.insertvalue %16, %15[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %18 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %19 = llvm.insertvalue %arg1, %18[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %20 = llvm.insertvalue %arg1, %19[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %21 = llvm.mlir.constant(0 : index) : i64
+    %22 = llvm.insertvalue %21, %20[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %23 = llvm.mlir.constant(32 : index) : i64
+    %24 = llvm.insertvalue %23, %22[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %25 = llvm.mlir.constant(16 : index) : i64
+    %26 = llvm.insertvalue %25, %24[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %27 = llvm.mlir.constant(16 : index) : i64
+    %28 = llvm.insertvalue %27, %26[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %29 = llvm.mlir.constant(1 : index) : i64
+    %30 = llvm.insertvalue %29, %28[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %31 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %32 = llvm.insertvalue %arg0, %31[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %33 = llvm.insertvalue %arg0, %32[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %34 = llvm.mlir.constant(0 : index) : i64
+    %35 = llvm.insertvalue %34, %33[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %36 = llvm.mlir.constant(32 : index) : i64
+    %37 = llvm.insertvalue %36, %35[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %38 = llvm.mlir.constant(1 : index) : i64
+    %39 = llvm.insertvalue %38, %37[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %40 = llvm.mlir.constant(2 : i32) : i32
+    %41 = llvm.mlir.constant(16 : index) : i64
+    %42 = llvm.mlir.constant(0 : i32) : i32
+    %43 = llvm.mlir.constant(7 : i32) : i32
+    %44 = llvm.mlir.constant(0 : index) : i64
+    %45 = llvm.extractvalue %17[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %46 = llvm.extractvalue %17[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %47 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64)>
+    %48 = llvm.insertvalue %45, %47[0] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %49 = llvm.insertvalue %46, %48[1] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %50 = llvm.mlir.constant(0 : index) : i64
+    %51 = llvm.insertvalue %50, %49[2] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %52 = llvm.extractvalue %17[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %53 = llvm.extractvalue %17[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %54 = llvm.extractvalue %17[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %55 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %56 = llvm.insertvalue %45, %55[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %57 = llvm.insertvalue %46, %56[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %58 = llvm.mlir.constant(0 : index) : i64
+    %59 = llvm.insertvalue %58, %57[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %60 = llvm.mlir.constant(256 : index) : i64
+    %61 = llvm.insertvalue %60, %59[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %62 = llvm.mlir.constant(1 : index) : i64
+    %63 = llvm.insertvalue %62, %61[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %64 = llvm.extractvalue %30[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %65 = llvm.extractvalue %30[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %66 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64)>
+    %67 = llvm.insertvalue %64, %66[0] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %68 = llvm.insertvalue %65, %67[1] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %69 = llvm.mlir.constant(0 : index) : i64
+    %70 = llvm.insertvalue %69, %68[2] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %71 = llvm.extractvalue %30[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %72 = llvm.extractvalue %30[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %73 = llvm.extractvalue %30[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %74 = llvm.extractvalue %30[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %75 = llvm.extractvalue %30[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %76 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %77 = llvm.insertvalue %64, %76[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %78 = llvm.insertvalue %65, %77[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %79 = llvm.insertvalue %arg2, %78[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %80 = llvm.mlir.constant(32 : index) : i64
+    %81 = llvm.insertvalue %80, %79[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %82 = llvm.mlir.constant(16 : index) : i64
+    %83 = llvm.insertvalue %82, %81[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %84 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%43, %42) {mask_bit_width = 32 : i32, mask_op_idx = 0 : i32} : (i32, i32) -> vector<256xi1>
+    %85 = llvm.extractvalue %39[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %86 = "hivm_regbaseintrins.intr.hivm.vldsx1.v64f32"(%85, %42, %42, %42) : (!llvm.ptr<6>, i32, i32, i32) -> vector<64xf32>
+    %87 = llvm.extractvalue %83[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %88 = llvm.extractvalue %83[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %89 = llvm.getelementptr %87[%88] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i32
+    %90 = llvm.mul %44, %41 : i64
+    %91 = llvm.getelementptr %89[%90] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i32
+    %92 = "hivm_regbaseintrins.intr.hivm.vldas"(%91) : (!llvm.ptr<6>) -> vector<32xi8>
+    %93 = "hivm_regbaseintrins.intr.hivm.vldus.post.s32"(%91, %92, %42) : (!llvm.ptr<6>, vector<32xi8>, i32) -> !llvm.struct<(vector<64xi32>, vector<32xi8>, ptr<6>)>
+    %94 = llvm.extractvalue %93[0] : !llvm.struct<(vector<64xi32>, vector<32xi8>, ptr<6>)> 
+    %95 = llvm.extractvalue %63[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %96 = "hivm_regbaseintrins.intr.hivm.vgather2_v300.v64f32"(%95, %94, %84) : (!llvm.ptr<6>, vector<64xi32>, vector<256xi1>) -> vector<64xf32>
+    %97 = "hivm_regbaseintrins.intr.hivm.vadd.s.x"(%86, %96, %84) : (vector<64xf32>, vector<64xf32>, vector<256xi1>) -> vector<64xf32>
+    %98 = llvm.extractvalue %8[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    "hivm_regbaseintrins.intr.hivm.vstsx1.v64f32"(%97, %98, %42, %40, %42, %84) : (vector<64xf32>, !llvm.ptr<6>, i32, i32, i32, vector<256xi1>) -> ()
+    llvm.return
+  }
+  llvm.func @adc_func_outlined_vf_1(%arg0: !llvm.ptr<6>, %arg1: !llvm.ptr<6>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function} {
+    %0 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %1 = llvm.insertvalue %arg1, %0[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %2 = llvm.insertvalue %arg1, %1[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %3 = llvm.mlir.constant(0 : index) : i64
+    %4 = llvm.insertvalue %3, %2[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %5 = llvm.mlir.constant(32 : index) : i64
+    %6 = llvm.insertvalue %5, %4[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %7 = llvm.mlir.constant(16 : index) : i64
+    %8 = llvm.insertvalue %7, %6[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %9 = llvm.mlir.constant(16 : index) : i64
+    %10 = llvm.insertvalue %9, %8[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %11 = llvm.mlir.constant(1 : index) : i64
+    %12 = llvm.insertvalue %11, %10[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %13 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %14 = llvm.insertvalue %arg0, %13[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %15 = llvm.insertvalue %arg0, %14[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %16 = llvm.mlir.constant(0 : index) : i64
+    %17 = llvm.insertvalue %16, %15[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %18 = llvm.mlir.constant(32 : index) : i64
+    %19 = llvm.insertvalue %18, %17[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %20 = llvm.mlir.constant(16 : index) : i64
+    %21 = llvm.insertvalue %20, %19[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %22 = llvm.mlir.constant(16 : index) : i64
+    %23 = llvm.insertvalue %22, %21[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %24 = llvm.mlir.constant(1 : index) : i64
+    %25 = llvm.insertvalue %24, %23[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %26 = llvm.mlir.constant(2 : i32) : i32
+    %27 = llvm.mlir.constant(0 : i8) : i8
+    %28 = llvm.mlir.constant(6 : i32) : i32
+    %29 = llvm.mlir.constant(0 : i32) : i32
+    %30 = llvm.mlir.constant(32 : i32) : i32
+    %31 = llvm.mlir.constant(1 : i32) : i32
+    llvm.br ^bb1(%29 : i32)
+  ^bb1(%32: i32):  // 2 preds: ^bb0, ^bb2
+    %33 = llvm.icmp "slt" %32, %30 : i32
+    llvm.cond_br %33, ^bb2, ^bb3
+  ^bb2:  // pred: ^bb1
+    %34 = llvm.sext %32 : i32 to i64
+    %35 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%28, %29) {mask_bit_width = 32 : i32, mask_op_idx = 0 : i32} : (i32, i32) -> vector<256xi1>
+    %36 = llvm.extractvalue %25[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %37 = llvm.extractvalue %25[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %38 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64)>
+    %39 = llvm.insertvalue %36, %38[0] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %40 = llvm.insertvalue %37, %39[1] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %41 = llvm.mlir.constant(0 : index) : i64
+    %42 = llvm.insertvalue %41, %40[2] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %43 = llvm.extractvalue %25[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %44 = llvm.extractvalue %25[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %45 = llvm.extractvalue %25[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %46 = llvm.extractvalue %25[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %47 = llvm.extractvalue %25[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %48 = llvm.mlir.constant(16 : index) : i64
+    %49 = llvm.mul %34, %48 : i64
+    %50 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %51 = llvm.insertvalue %36, %50[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %52 = llvm.insertvalue %37, %51[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %53 = llvm.insertvalue %49, %52[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %54 = llvm.mlir.constant(16 : index) : i64
+    %55 = llvm.insertvalue %54, %53[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %56 = llvm.mlir.constant(1 : index) : i64
+    %57 = llvm.insertvalue %56, %55[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %58 = llvm.extractvalue %57[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %59 = llvm.extractvalue %57[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %60 = llvm.getelementptr %58[%59] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i8
+    %61 = "hivm_regbaseintrins.intr.hivm.vldas"(%60) : (!llvm.ptr<6>) -> vector<32xi8>
+    %62 = "hivm_regbaseintrins.intr.hivm.vldus.post.s8"(%60, %61, %29) : (!llvm.ptr<6>, vector<32xi8>, i32) -> !llvm.struct<(vector<256xi8>, vector<32xi8>, ptr<6>)>
+    %63 = llvm.extractvalue %62[0] : !llvm.struct<(vector<256xi8>, vector<32xi8>, ptr<6>)> 
+    %64 = "hivm_regbaseintrins.intr.hivm.vbr"(%27) : (i8) -> vector<256xi8>
+    %65 = "hivm_regbaseintrins.intr.hivm.vintlv"(%63, %64) : (vector<256xi8>, vector<256xi8>) -> !llvm.struct<(vector<256xi8>, vector<256xi8>)>
+    %66 = llvm.extractvalue %65[0] : !llvm.struct<(vector<256xi8>, vector<256xi8>)> 
+    %67 = "hivm_regbaseintrins.intr.hivm.vintlv"(%66, %64) : (vector<256xi8>, vector<256xi8>) -> !llvm.struct<(vector<256xi8>, vector<256xi8>)>
+    %68 = llvm.extractvalue %67[0] : !llvm.struct<(vector<256xi8>, vector<256xi8>)> 
+    %69 = "hivm_regbaseintrins.intr.hivm.vcvtii.u82u32.x"(%68, %35, %29) : (vector<256xi8>, vector<256xi1>, i32) -> vector<64xi32>
+    %70 = llvm.extractvalue %12[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %71 = llvm.extractvalue %12[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %72 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64)>
+    %73 = llvm.insertvalue %70, %72[0] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %74 = llvm.insertvalue %71, %73[1] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %75 = llvm.mlir.constant(0 : index) : i64
+    %76 = llvm.insertvalue %75, %74[2] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %77 = llvm.extractvalue %12[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %78 = llvm.extractvalue %12[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %79 = llvm.extractvalue %12[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %80 = llvm.extractvalue %12[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %81 = llvm.extractvalue %12[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %82 = llvm.mlir.constant(16 : index) : i64
+    %83 = llvm.mul %34, %82 : i64
+    %84 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %85 = llvm.insertvalue %70, %84[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %86 = llvm.insertvalue %71, %85[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %87 = llvm.insertvalue %83, %86[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %88 = llvm.mlir.constant(16 : index) : i64
+    %89 = llvm.insertvalue %88, %87[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %90 = llvm.mlir.constant(1 : index) : i64
+    %91 = llvm.insertvalue %90, %89[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %92 = llvm.extractvalue %91[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %93 = llvm.extractvalue %91[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %94 = llvm.getelementptr %92[%93] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i32
+    "hivm_regbaseintrins.intr.hivm.vstsx1.v64s32"(%69, %94, %29, %26, %29, %35) : (vector<64xi32>, !llvm.ptr<6>, i32, i32, i32, vector<256xi1>) -> ()
+    %95 = llvm.add %32, %31 overflow<nsw> : i32
+    llvm.br ^bb1(%95 : i32)
+  ^bb3:  // pred: ^bb1
+    llvm.return
+  }
+  llvm.func @adc_func_outlined_vf_2(%arg0: !llvm.ptr<6>) attributes {element_alignment_bit_width = 8 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function} {
+    %0 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %1 = llvm.insertvalue %arg0, %0[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %2 = llvm.insertvalue %arg0, %1[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %3 = llvm.mlir.constant(0 : index) : i64
+    %4 = llvm.insertvalue %3, %2[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %5 = llvm.mlir.constant(32 : index) : i64
+    %6 = llvm.insertvalue %5, %4[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %7 = llvm.mlir.constant(16 : index) : i64
+    %8 = llvm.insertvalue %7, %6[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %9 = llvm.mlir.constant(16 : index) : i64
+    %10 = llvm.insertvalue %9, %8[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %11 = llvm.mlir.constant(1 : index) : i64
+    %12 = llvm.insertvalue %11, %10[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %13 = llvm.mlir.constant(16 : i32) : i32
+    %14 = llvm.mlir.constant(6 : i32) : i32
+    %15 = llvm.mlir.constant(0 : i8) : i8
+    %16 = llvm.mlir.constant(1 : i32) : i32
+    %17 = llvm.mlir.constant(32 : i32) : i32
+    %18 = llvm.mlir.constant(0 : i32) : i32
+    %19 = "hivm_regbaseintrins.intr.hivm.pge.b8"(%18, %18) {mask_bit_width = 8 : i32} : (i32, i32) -> vector<256xi1>
+    %20 = "hivm_regbaseintrins.intr.hivm.vdups.z"(%15, %19, %16) : (i8, vector<256xi1>, i32) -> vector<256xi8>
+    llvm.br ^bb1(%18 : i32)
+  ^bb1(%21: i32):  // 2 preds: ^bb0, ^bb2
+    %22 = llvm.icmp "slt" %21, %17 : i32
+    llvm.cond_br %22, ^bb2, ^bb3
+  ^bb2:  // pred: ^bb1
+    %23 = llvm.sext %21 : i32 to i64
+    %24 = "hivm_regbaseintrins.intr.hivm.pge.b8"(%14, %18) {mask_bit_width = 8 : i32, mask_op_idx = 0 : i32} : (i32, i32) -> vector<256xi1>
+    %25 = llvm.extractvalue %12[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %26 = llvm.extractvalue %12[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %27 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64)>
+    %28 = llvm.insertvalue %25, %27[0] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %29 = llvm.insertvalue %26, %28[1] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %30 = llvm.mlir.constant(0 : index) : i64
+    %31 = llvm.insertvalue %30, %29[2] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %32 = llvm.extractvalue %12[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %33 = llvm.extractvalue %12[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %34 = llvm.extractvalue %12[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %35 = llvm.extractvalue %12[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %36 = llvm.extractvalue %12[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %37 = llvm.mlir.constant(16 : index) : i64
+    %38 = llvm.mul %23, %37 : i64
+    %39 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %40 = llvm.insertvalue %25, %39[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %41 = llvm.insertvalue %26, %40[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %42 = llvm.insertvalue %38, %41[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %43 = llvm.mlir.constant(16 : index) : i64
+    %44 = llvm.insertvalue %43, %42[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %45 = llvm.mlir.constant(1 : index) : i64
+    %46 = llvm.insertvalue %45, %44[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %47 = llvm.extractvalue %46[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %48 = llvm.extractvalue %46[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %49 = llvm.getelementptr %47[%48] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i8
+    %50 = "hivm_regbaseintrins.intr.hivm.init.vector.align.data"() : () -> vector<32xi8>
+    %51 = "hivm_regbaseintrins.intr.hivm.vstus.post.s8"(%20, %49, %13, %50) : (vector<256xi8>, !llvm.ptr<6>, i32, vector<32xi8>) -> !llvm.struct<(vector<32xi8>, ptr<6>)>
+    %52 = llvm.extractvalue %51[0] : !llvm.struct<(vector<32xi8>, ptr<6>)> 
+    %53 = llvm.extractvalue %51[1] : !llvm.struct<(vector<32xi8>, ptr<6>)> 
+    "hivm_regbaseintrins.intr.hivm.vstas"(%52, %53, %18, %18) : (vector<32xi8>, !llvm.ptr<6>, i32, i32) -> ()
+    %54 = llvm.add %21, %16 overflow<nsw> : i32
+    llvm.br ^bb1(%54 : i32)
+  ^bb3:  // pred: ^bb1
+    llvm.return
+  }
+  llvm.func @adc_func_outlined_vf_3(%arg0: !llvm.ptr<6>) attributes {element_alignment_bit_width = -1 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function} {
+    %0 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %1 = llvm.insertvalue %arg0, %0[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %2 = llvm.insertvalue %arg0, %1[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %3 = llvm.mlir.constant(0 : index) : i64
+    %4 = llvm.insertvalue %3, %2[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %5 = llvm.mlir.constant(32 : index) : i64
+    %6 = llvm.insertvalue %5, %4[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %7 = llvm.mlir.constant(1 : index) : i64
+    %8 = llvm.insertvalue %7, %6[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %9 = llvm.mlir.constant(2 : i32) : i32
+    %10 = llvm.mlir.constant(7 : i32) : i32
+    %11 = llvm.mlir.constant(1 : i32) : i32
+    %12 = llvm.mlir.constant(0 : i32) : i32
+    %13 = llvm.mlir.constant(8 : i32) : i32
+    %14 = llvm.mlir.constant(0.000000e+00 : f32) : f32
+    %15 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%13, %12) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+    %16 = "hivm_regbaseintrins.intr.hivm.vdups.z"(%14, %15, %11) : (f32, vector<256xi1>, i32) -> vector<64xf32>
+    %17 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%10, %12) {mask_bit_width = 32 : i32, mask_op_idx = 0 : i32} : (i32, i32) -> vector<256xi1>
+    %18 = llvm.extractvalue %8[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    "hivm_regbaseintrins.intr.hivm.vstsx1.v64f32"(%16, %18, %12, %9, %12, %17) : (vector<64xf32>, !llvm.ptr<6>, i32, i32, i32, vector<256xi1>) -> ()
+    llvm.return
+  }
+  llvm.func @adc_func_outlined_vf_4(%arg0: !llvm.ptr<6>, %arg1: !llvm.ptr<6>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function} {
+    %0 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %1 = llvm.insertvalue %arg1, %0[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %2 = llvm.insertvalue %arg1, %1[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %3 = llvm.mlir.constant(0 : index) : i64
+    %4 = llvm.insertvalue %3, %2[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %5 = llvm.mlir.constant(32 : index) : i64
+    %6 = llvm.insertvalue %5, %4[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %7 = llvm.mlir.constant(1 : index) : i64
+    %8 = llvm.insertvalue %7, %6[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %9 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %10 = llvm.insertvalue %arg0, %9[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %11 = llvm.insertvalue %arg0, %10[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %12 = llvm.mlir.constant(0 : index) : i64
+    %13 = llvm.insertvalue %12, %11[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %14 = llvm.mlir.constant(32 : index) : i64
+    %15 = llvm.insertvalue %14, %13[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %16 = llvm.mlir.constant(1 : index) : i64
+    %17 = llvm.insertvalue %16, %15[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %18 = llvm.mlir.constant(2 : i32) : i32
+    %19 = llvm.mlir.constant(0 : i32) : i32
+    %20 = llvm.mlir.constant(7 : i32) : i32
+    %21 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%20, %19) {mask_bit_width = 32 : i32, mask_op_idx = 0 : i32} : (i32, i32) -> vector<256xi1>
+    %22 = llvm.extractvalue %17[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %23 = "hivm_regbaseintrins.intr.hivm.vldsx1.v64f32"(%22, %19, %19, %19) : (!llvm.ptr<6>, i32, i32, i32) -> vector<64xf32>
+    %24 = "hivm_regbaseintrins.intr.hivm.vsqrt.x"(%23, %21) : (vector<64xf32>, vector<256xi1>) -> vector<64xf32>
+    %25 = llvm.extractvalue %8[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    "hivm_regbaseintrins.intr.hivm.vstsx1.v64f32"(%24, %25, %19, %18, %19, %21) : (vector<64xf32>, !llvm.ptr<6>, i32, i32, i32, vector<256xi1>) -> ()
+    llvm.return
+  }
+  llvm.func private @load_gm_to_ubuf_1d_float(%arg0: !llvm.ptr<1>, %arg1: !llvm.ptr<1>, %arg2: i64, %arg3: i64, %arg4: i64, %arg5: !llvm.ptr<6>, %arg6: !llvm.ptr<6>, %arg7: i64, %arg8: i64, %arg9: i64, %arg10: i32, %arg11: f32, %arg12: i64, %arg13: i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface, sym_visibility = "private"} {
+    %0 = llvm.mlir.undef : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)>
+    %1 = llvm.insertvalue %arg0, %0[0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %2 = llvm.insertvalue %arg1, %1[1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %3 = llvm.insertvalue %arg2, %2[2] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %4 = llvm.insertvalue %arg3, %3[3, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %5 = llvm.insertvalue %arg4, %4[4, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %6 = llvm.mlir.constant(1 : index) : i64
+    %7 = llvm.alloca %6 x !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> : (i64) -> !llvm.ptr
+    llvm.store %5, %7 : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)>, !llvm.ptr
+    %8 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %9 = llvm.insertvalue %arg5, %8[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %10 = llvm.insertvalue %arg6, %9[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %11 = llvm.insertvalue %arg7, %10[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %12 = llvm.insertvalue %arg8, %11[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %13 = llvm.insertvalue %arg9, %12[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %14 = llvm.mlir.constant(1 : index) : i64
+    %15 = llvm.alloca %14 x !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> : (i64) -> !llvm.ptr
+    llvm.store %13, %15 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>, !llvm.ptr
+    llvm.call @_mlir_ciface_load_gm_to_ubuf_1d_float(%7, %15, %arg10, %arg11, %arg12, %arg13) : (!llvm.ptr, !llvm.ptr, i32, f32, i64, i32) -> ()
+    llvm.return
+  }
+  llvm.func @_mlir_ciface_load_gm_to_ubuf_1d_float(!llvm.ptr, !llvm.ptr, i32, f32, i64, i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface, sym_visibility = "private"}
+  llvm.func private @load_gm_to_ubuf_2d_int8_t(%arg0: !llvm.ptr<1>, %arg1: !llvm.ptr<1>, %arg2: i64, %arg3: i64, %arg4: i64, %arg5: i64, %arg6: i64, %arg7: !llvm.ptr<6>, %arg8: !llvm.ptr<6>, %arg9: i64, %arg10: i64, %arg11: i64, %arg12: i64, %arg13: i64, %arg14: i32, %arg15: i8, %arg16: i64, %arg17: i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface, sym_visibility = "private"} {
+    %0 = llvm.mlir.undef : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)>
+    %1 = llvm.insertvalue %arg0, %0[0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %2 = llvm.insertvalue %arg1, %1[1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %3 = llvm.insertvalue %arg2, %2[2] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %4 = llvm.insertvalue %arg3, %3[3, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %5 = llvm.insertvalue %arg5, %4[4, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %6 = llvm.insertvalue %arg4, %5[3, 1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %7 = llvm.insertvalue %arg6, %6[4, 1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %8 = llvm.mlir.constant(1 : index) : i64
+    %9 = llvm.alloca %8 x !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> : (i64) -> !llvm.ptr
+    llvm.store %7, %9 : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)>, !llvm.ptr
+    %10 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %11 = llvm.insertvalue %arg7, %10[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %12 = llvm.insertvalue %arg8, %11[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %13 = llvm.insertvalue %arg9, %12[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %14 = llvm.insertvalue %arg10, %13[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %15 = llvm.insertvalue %arg12, %14[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %16 = llvm.insertvalue %arg11, %15[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %17 = llvm.insertvalue %arg13, %16[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %18 = llvm.mlir.constant(1 : index) : i64
+    %19 = llvm.alloca %18 x !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> : (i64) -> !llvm.ptr
+    llvm.store %17, %19 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>, !llvm.ptr
+    llvm.call @_mlir_ciface_load_gm_to_ubuf_2d_int8_t(%9, %19, %arg14, %arg15, %arg16, %arg17) : (!llvm.ptr, !llvm.ptr, i32, i8, i64, i32) -> ()
+    llvm.return
+  }
+  llvm.func @_mlir_ciface_load_gm_to_ubuf_2d_int8_t(!llvm.ptr, !llvm.ptr, i32, i8, i64, i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface, sym_visibility = "private"}
+  llvm.func private @copy_ubuf_to_ubuf_1d_int8_t(%arg0: !llvm.ptr<6>, %arg1: !llvm.ptr<6>, %arg2: i64, %arg3: i64, %arg4: i64, %arg5: !llvm.ptr<6>, %arg6: !llvm.ptr<6>, %arg7: i64, %arg8: i64, %arg9: i64) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface, sym_visibility = "private"} {
+    %0 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %1 = llvm.insertvalue %arg0, %0[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %2 = llvm.insertvalue %arg1, %1[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %3 = llvm.insertvalue %arg2, %2[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %4 = llvm.insertvalue %arg3, %3[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %5 = llvm.insertvalue %arg4, %4[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %6 = llvm.mlir.constant(1 : index) : i64
+    %7 = llvm.alloca %6 x !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> : (i64) -> !llvm.ptr
+    llvm.store %5, %7 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>, !llvm.ptr
+    %8 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %9 = llvm.insertvalue %arg5, %8[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %10 = llvm.insertvalue %arg6, %9[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %11 = llvm.insertvalue %arg7, %10[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %12 = llvm.insertvalue %arg8, %11[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %13 = llvm.insertvalue %arg9, %12[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %14 = llvm.mlir.constant(1 : index) : i64
+    %15 = llvm.alloca %14 x !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> : (i64) -> !llvm.ptr
+    llvm.store %13, %15 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>, !llvm.ptr
+    llvm.call @_mlir_ciface_copy_ubuf_to_ubuf_1d_int8_t(%7, %15) : (!llvm.ptr, !llvm.ptr) -> ()
+    llvm.return
+  }
+  llvm.func @_mlir_ciface_copy_ubuf_to_ubuf_1d_int8_t(!llvm.ptr, !llvm.ptr) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface, sym_visibility = "private"}
+  llvm.func private @store_ubuf_to_gm_1d_float(%arg0: !llvm.ptr<6>, %arg1: !llvm.ptr<6>, %arg2: i64, %arg3: i64, %arg4: i64, %arg5: !llvm.ptr<1>, %arg6: !llvm.ptr<1>, %arg7: i64, %arg8: i64, %arg9: i64, %arg10: i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface, sym_visibility = "private"} {
+    %0 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %1 = llvm.insertvalue %arg0, %0[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %2 = llvm.insertvalue %arg1, %1[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %3 = llvm.insertvalue %arg2, %2[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %4 = llvm.insertvalue %arg3, %3[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %5 = llvm.insertvalue %arg4, %4[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %6 = llvm.mlir.constant(1 : index) : i64
+    %7 = llvm.alloca %6 x !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> : (i64) -> !llvm.ptr
+    llvm.store %5, %7 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>, !llvm.ptr
+    %8 = llvm.mlir.undef : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)>
+    %9 = llvm.insertvalue %arg5, %8[0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %10 = llvm.insertvalue %arg6, %9[1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %11 = llvm.insertvalue %arg7, %10[2] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %12 = llvm.insertvalue %arg8, %11[3, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %13 = llvm.insertvalue %arg9, %12[4, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %14 = llvm.mlir.constant(1 : index) : i64
+    %15 = llvm.alloca %14 x !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> : (i64) -> !llvm.ptr
+    llvm.store %13, %15 : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)>, !llvm.ptr
+    llvm.call @_mlir_ciface_store_ubuf_to_gm_1d_float(%7, %15, %arg10) : (!llvm.ptr, !llvm.ptr, i32) -> ()
+    llvm.return
+  }
+  llvm.func @_mlir_ciface_store_ubuf_to_gm_1d_float(!llvm.ptr, !llvm.ptr, i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface, sym_visibility = "private"}
+  llvm.func @adc_func(%arg0: !llvm.ptr<1> {hacc.arg_type = #hacc.arg_type<sync_block_lock>}, %arg1: !llvm.ptr<1>, %arg2: i64, %arg3: i64, %arg4: i64, %arg5: !llvm.ptr<1> {hacc.arg_type = #hacc.arg_type<workspace>}, %arg6: !llvm.ptr<1>, %arg7: i64, %arg8: i64, %arg9: i64, %arg10: !llvm.ptr<1>, %arg11: !llvm.ptr<1>, %arg12: i64, %arg13: i64, %arg14: i64, %arg15: !llvm.ptr<1>, %arg16: !llvm.ptr<1>, %arg17: i64, %arg18: i64, %arg19: i64, %arg20: !llvm.ptr<1>, %arg21: !llvm.ptr<1>, %arg22: i64, %arg23: i64, %arg24: i64, %arg25: i32, %arg26: i32, %arg27: i32, %arg28: i32) attributes {SyncBlockLockArgIdx = 0 : i64, WorkspaceArgIdx = 1 : i64, func_dyn_memref_args = dense<[true, true, true, true, true, false, false, false, false]> : vector<9xi1>, hacc.entry, hacc.function_kind = #hacc.function_kind<DEVICE>, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vf_mode = #hivm.vf_mode<SIMD>, hivm_regbaseintrins.target = #hivm_regbaseintrins.target<"dav-c310">, mix_mode = "aiv", parallel_mode = "simd"} {
+    %0 = llvm.mlir.undef : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)>
+    %1 = llvm.insertvalue %arg20, %0[0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %2 = llvm.insertvalue %arg21, %1[1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %3 = llvm.insertvalue %arg22, %2[2] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %4 = llvm.insertvalue %arg23, %3[3, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %5 = llvm.insertvalue %arg24, %4[4, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %6 = llvm.mlir.undef : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)>
+    %7 = llvm.insertvalue %arg15, %6[0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %8 = llvm.insertvalue %arg16, %7[1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %9 = llvm.insertvalue %arg17, %8[2] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %10 = llvm.insertvalue %arg18, %9[3, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %11 = llvm.insertvalue %arg19, %10[4, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %12 = llvm.mlir.undef : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)>
+    %13 = llvm.insertvalue %arg10, %12[0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %14 = llvm.insertvalue %arg11, %13[1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %15 = llvm.insertvalue %arg12, %14[2] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %16 = llvm.insertvalue %arg13, %15[3, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %17 = llvm.insertvalue %arg14, %16[4, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %18 = llvm.mlir.constant(69376 : i64) : i64
+    %19 = llvm.mlir.constant(68736 : i64) : i64
+    %20 = llvm.mlir.constant(66048 : i64) : i64
+    %21 = llvm.mlir.constant(68864 : i64) : i64
+    %22 = llvm.mlir.constant(1 : i64) : i64
+    %23 = llvm.mlir.constant(66560 : i64) : i64
+    %24 = llvm.mlir.constant(68608 : i64) : i64
+    %25 = llvm.mlir.constant(65536 : i64) : i64
+    %26 = llvm.mlir.constant(0 : i64) : i64
+    %27 = llvm.mlir.constant(1 : i32) : i32
+    %28 = llvm.mlir.constant(16 : i32) : i32
+    %29 = llvm.mlir.constant(4 : i32) : i32
+    %30 = llvm.mlir.constant(32 : i32) : i32
+    %31 = llvm.mlir.constant(31 : i32) : i32
+    %32 = llvm.mlir.constant(56 : i32) : i32
+    %33 = llvm.mlir.constant(1792 : i32) : i32
+    %34 = llvm.mlir.constant(1791 : i32) : i32
+    %35 = llvm.mlir.constant(0 : i32) : i32
+    %36 = llvm.mlir.constant(0 : i8) : i8
+    %37 = llvm.mlir.constant(0.000000e+00 : f32) : f32
+    %38 = llvm.mlir.constant(0 : index) : i64
+    %39 = llvm.inttoptr %19 : i64 to !llvm.ptr<6>
+    %40 = llvm.mlir.constant(32 : index) : i64
+    %41 = llvm.mlir.constant(1 : index) : i64
+    %42 = llvm.mlir.zero : !llvm.ptr
+    %43 = llvm.getelementptr %42[32] : (!llvm.ptr) -> !llvm.ptr, f32
+    %44 = llvm.ptrtoint %43 : !llvm.ptr to i64
+    %45 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %46 = llvm.insertvalue %39, %45[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %47 = llvm.insertvalue %39, %46[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %48 = llvm.mlir.constant(0 : index) : i64
+    %49 = llvm.insertvalue %48, %47[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %50 = llvm.insertvalue %40, %49[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %51 = llvm.insertvalue %41, %50[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %52 = llvm.inttoptr %18 : i64 to !llvm.ptr<6>
+    %53 = llvm.mlir.constant(32 : index) : i64
+    %54 = llvm.mlir.constant(1 : index) : i64
+    %55 = llvm.mlir.zero : !llvm.ptr
+    %56 = llvm.getelementptr %55[32] : (!llvm.ptr) -> !llvm.ptr, f32
+    %57 = llvm.ptrtoint %56 : !llvm.ptr to i64
+    %58 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %59 = llvm.insertvalue %52, %58[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %60 = llvm.insertvalue %52, %59[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %61 = llvm.mlir.constant(0 : index) : i64
+    %62 = llvm.insertvalue %61, %60[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %63 = llvm.insertvalue %53, %62[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %64 = llvm.insertvalue %54, %63[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %65 = llvm.inttoptr %20 : i64 to !llvm.ptr<6>
+    %66 = llvm.mlir.constant(32 : index) : i64
+    %67 = llvm.mlir.constant(16 : index) : i64
+    %68 = llvm.mlir.constant(1 : index) : i64
+    %69 = llvm.mlir.constant(512 : index) : i64
+    %70 = llvm.mlir.zero : !llvm.ptr
+    %71 = llvm.getelementptr %70[512] : (!llvm.ptr) -> !llvm.ptr, i8
+    %72 = llvm.ptrtoint %71 : !llvm.ptr to i64
+    %73 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %74 = llvm.insertvalue %65, %73[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %75 = llvm.insertvalue %65, %74[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %76 = llvm.mlir.constant(0 : index) : i64
+    %77 = llvm.insertvalue %76, %75[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %78 = llvm.insertvalue %66, %77[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %79 = llvm.insertvalue %67, %78[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %80 = llvm.insertvalue %67, %79[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %81 = llvm.insertvalue %68, %80[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %82 = llvm.inttoptr %21 : i64 to !llvm.ptr<6>
+    %83 = llvm.mlir.constant(32 : index) : i64
+    %84 = llvm.mlir.constant(16 : index) : i64
+    %85 = llvm.mlir.constant(1 : index) : i64
+    %86 = llvm.mlir.constant(512 : index) : i64
+    %87 = llvm.mlir.zero : !llvm.ptr
+    %88 = llvm.getelementptr %87[512] : (!llvm.ptr) -> !llvm.ptr, i8
+    %89 = llvm.ptrtoint %88 : !llvm.ptr to i64
+    %90 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %91 = llvm.insertvalue %82, %90[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %92 = llvm.insertvalue %82, %91[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %93 = llvm.mlir.constant(0 : index) : i64
+    %94 = llvm.insertvalue %93, %92[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %95 = llvm.insertvalue %83, %94[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %96 = llvm.insertvalue %84, %95[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %97 = llvm.insertvalue %84, %96[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %98 = llvm.insertvalue %85, %97[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %99 = "hivm.intr.hivm.GET.CTRL"() : () -> i64
+    %100 = llvm.mlir.constant(60 : i64) : i64
+    %101 = "hivm.intr.hivm.SBITSET0"(%99, %100) : (i64, i64) -> i64
+    "hivm.intr.hivm.SET.CTRL"(%101) : (i64) -> ()
+    %102 = "hivm.intr.hivm.GET.CTRL"() : () -> i64
+    %103 = llvm.mlir.constant(48 : i64) : i64
+    %104 = "hivm.intr.hivm.SBITSET1"(%102, %103) : (i64, i64) -> i64
+    "hivm.intr.hivm.SET.CTRL"(%104) : (i64) -> ()
+    %105 = llvm.extractvalue %17[0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %106 = llvm.extractvalue %17[1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %107 = llvm.mlir.undef : !llvm.struct<(ptr<1>, ptr<1>, i64)>
+    %108 = llvm.insertvalue %105, %107[0] : !llvm.struct<(ptr<1>, ptr<1>, i64)> 
+    %109 = llvm.insertvalue %106, %108[1] : !llvm.struct<(ptr<1>, ptr<1>, i64)> 
+    %110 = llvm.mlir.constant(0 : index) : i64
+    %111 = llvm.insertvalue %110, %109[2] : !llvm.struct<(ptr<1>, ptr<1>, i64)> 
+    %112 = llvm.extractvalue %17[2] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %113 = llvm.extractvalue %17[3, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %114 = llvm.extractvalue %17[4, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %115 = llvm.mlir.undef : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)>
+    %116 = llvm.insertvalue %105, %115[0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %117 = llvm.insertvalue %106, %116[1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %118 = llvm.mlir.constant(0 : index) : i64
+    %119 = llvm.insertvalue %118, %117[2] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %120 = llvm.mlir.constant(16384 : index) : i64
+    %121 = llvm.insertvalue %120, %119[3, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %122 = llvm.mlir.constant(1 : index) : i64
+    %123 = llvm.insertvalue %122, %121[4, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %124 = "hivm.intr.hivm.GET.BLOCK.IDX"() : () -> i64
+    %125 = llvm.trunc %124 : i64 to i32
+    %126 = llvm.inttoptr %26 : i64 to !llvm.ptr<6>
+    %127 = llvm.mlir.constant(16384 : index) : i64
+    %128 = llvm.mlir.constant(1 : index) : i64
+    %129 = llvm.mlir.zero : !llvm.ptr
+    %130 = llvm.getelementptr %129[16384] : (!llvm.ptr) -> !llvm.ptr, f32
+    %131 = llvm.ptrtoint %130 : !llvm.ptr to i64
+    %132 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %133 = llvm.insertvalue %126, %132[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %134 = llvm.insertvalue %126, %133[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %135 = llvm.mlir.constant(0 : index) : i64
+    %136 = llvm.insertvalue %135, %134[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %137 = llvm.insertvalue %127, %136[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %138 = llvm.insertvalue %128, %137[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    "hivm.intr.hivm.SET.FLAG.IMM"() <{event_id = 0 : i64, set_pipe = 1 : i64, wait_pipe = 4 : i64}> : () -> ()
+    "hivm.intr.hivm.SET.FLAG.IMM"() <{event_id = 1 : i64, set_pipe = 1 : i64, wait_pipe = 4 : i64}> : () -> ()
+    "hivm.intr.hivm.SET.FLAG.IMM"() <{event_id = 0 : i64, set_pipe = 5 : i64, wait_pipe = 1 : i64}> : () -> ()
+    "hivm.intr.hivm.SET.FLAG.IMM"() <{event_id = 1 : i64, set_pipe = 5 : i64, wait_pipe = 1 : i64}> : () -> ()
+    llvm.call @load_gm_to_ubuf_1d_float(%105, %106, %118, %120, %122, %126, %126, %135, %127, %128, %35, %37, %38, %35) : (!llvm.ptr<1>, !llvm.ptr<1>, i64, i64, i64, !llvm.ptr<6>, !llvm.ptr<6>, i64, i64, i64, i32, f32, i64, i32) -> ()
+    %139 = llvm.add %arg25, %34 : i32
+    %140 = llvm.sdiv %139, %33  : i32
+    %141 = llvm.add %arg25, %31 : i32
+    %142 = llvm.sdiv %141, %30  : i32
+    llvm.br ^bb1(%35 : i32)
+  ^bb1(%143: i32):  // 2 preds: ^bb0, ^bb10
+    %144 = llvm.icmp "slt" %143, %140 : i32
+    llvm.cond_br %144, ^bb2, ^bb11
+  ^bb2:  // pred: ^bb1
+    %145 = llvm.sext %143 : i32 to i64
+    %146 = llvm.mlir.constant(2 : index) : i64
+    %147 = llvm.srem %145, %146  : i64
+    %148 = llvm.mlir.constant(0 : index) : i64
+    %149 = llvm.icmp "slt" %147, %148 : i64
+    %150 = llvm.add %147, %146 : i64
+    %151 = llvm.select %149, %150, %147 : i1, i64
+    %152 = llvm.icmp "eq" %151, %22 : i64
+    %153 = llvm.select %152, %64, %51 : i1, !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %154 = llvm.zext %152 : i1 to i64
+    %155 = llvm.mul %143, %32 : i32
+    %156 = llvm.add %155, %125 : i32
+    %157 = llvm.icmp "slt" %156, %142 : i32
+    llvm.cond_br %157, ^bb3, ^bb10
+  ^bb3:  // pred: ^bb2
+    %158 = llvm.inttoptr %25 : i64 to !llvm.ptr<6>
+    %159 = llvm.mlir.constant(32 : index) : i64
+    %160 = llvm.mlir.constant(16 : index) : i64
+    %161 = llvm.mlir.constant(1 : index) : i64
+    %162 = llvm.mlir.constant(512 : index) : i64
+    %163 = llvm.mlir.zero : !llvm.ptr
+    %164 = llvm.getelementptr %163[512] : (!llvm.ptr) -> !llvm.ptr, i8
+    %165 = llvm.ptrtoint %164 : !llvm.ptr to i64
+    %166 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %167 = llvm.insertvalue %158, %166[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %168 = llvm.insertvalue %158, %167[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %169 = llvm.mlir.constant(0 : index) : i64
+    %170 = llvm.insertvalue %169, %168[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %171 = llvm.insertvalue %159, %170[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %172 = llvm.insertvalue %160, %171[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %173 = llvm.insertvalue %160, %172[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %174 = llvm.insertvalue %161, %173[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    llvm.call @adc_func_outlined_vf_2(%158) {hivm.vector_function, no_inline} : (!llvm.ptr<6>) -> ()
+    %175 = llvm.inttoptr %24 : i64 to !llvm.ptr<6>
+    %176 = llvm.mlir.constant(32 : index) : i64
+    %177 = llvm.mlir.constant(1 : index) : i64
+    %178 = llvm.mlir.zero : !llvm.ptr
+    %179 = llvm.getelementptr %178[32] : (!llvm.ptr) -> !llvm.ptr, f32
+    %180 = llvm.ptrtoint %179 : !llvm.ptr to i64
+    %181 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %182 = llvm.insertvalue %175, %181[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %183 = llvm.insertvalue %175, %182[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %184 = llvm.mlir.constant(0 : index) : i64
+    %185 = llvm.insertvalue %184, %183[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %186 = llvm.insertvalue %176, %185[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %187 = llvm.insertvalue %177, %186[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    llvm.call @adc_func_outlined_vf_3(%175) {hivm.vector_function, no_inline} : (!llvm.ptr<6>) -> ()
+    %188 = llvm.mul %143, %33 : i32
+    %189 = llvm.mul %125, %30 : i32
+    %190 = llvm.add %188, %189 : i32
+    %191 = llvm.sext %190 : i32 to i64
+    %192 = llvm.sub %arg25, %189 : i32
+    %193 = llvm.sub %192, %188 : i32
+    %194 = llvm.intr.smin(%193, %30)  : (i32, i32) -> i32
+    %195 = llvm.sext %194 : i32 to i64
+    llvm.br ^bb4(%35, %187 : i32, !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>)
+  ^bb4(%196: i32, %197: !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>):  // 2 preds: ^bb3, ^bb8
+    %198 = llvm.icmp "slt" %196, %29 : i32
+    llvm.cond_br %198, ^bb5, ^bb9
+  ^bb5:  // pred: ^bb4
+    %199 = llvm.sext %196 : i32 to i64
+    %200 = llvm.mlir.constant(2 : index) : i64
+    %201 = llvm.srem %199, %200  : i64
+    %202 = llvm.mlir.constant(0 : index) : i64
+    %203 = llvm.icmp "slt" %201, %202 : i64
+    %204 = llvm.add %201, %200 : i64
+    %205 = llvm.select %203, %204, %201 : i1, i64
+    %206 = llvm.icmp "eq" %205, %22 : i64
+    %207 = llvm.select %206, %98, %81 : i1, !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %208 = llvm.zext %206 : i1 to i64
+    %209 = llvm.mul %196, %28 : i32
+    %210 = llvm.sext %209 : i32 to i64
+    %211 = llvm.extractvalue %11[0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %212 = llvm.extractvalue %11[1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %213 = llvm.mlir.undef : !llvm.struct<(ptr<1>, ptr<1>, i64)>
+    %214 = llvm.insertvalue %211, %213[0] : !llvm.struct<(ptr<1>, ptr<1>, i64)> 
+    %215 = llvm.insertvalue %212, %214[1] : !llvm.struct<(ptr<1>, ptr<1>, i64)> 
+    %216 = llvm.mlir.constant(0 : index) : i64
+    %217 = llvm.insertvalue %216, %215[2] : !llvm.struct<(ptr<1>, ptr<1>, i64)> 
+    %218 = llvm.extractvalue %11[2] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %219 = llvm.extractvalue %11[3, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %220 = llvm.extractvalue %11[4, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %221 = llvm.mlir.constant(64 : index) : i64
+    %222 = llvm.mul %191, %221 : i64
+    %223 = llvm.add %222, %210 : i64
+    %224 = llvm.mlir.undef : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)>
+    %225 = llvm.insertvalue %211, %224[0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %226 = llvm.insertvalue %212, %225[1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %227 = llvm.insertvalue %223, %226[2] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %228 = llvm.insertvalue %195, %227[3, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %229 = llvm.mlir.constant(64 : index) : i64
+    %230 = llvm.insertvalue %229, %228[4, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %231 = llvm.mlir.constant(16 : index) : i64
+    %232 = llvm.insertvalue %231, %230[3, 1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %233 = llvm.mlir.constant(1 : index) : i64
+    %234 = llvm.insertvalue %233, %232[4, 1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %235 = llvm.extractvalue %207[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %236 = llvm.extractvalue %207[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %237 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64)>
+    %238 = llvm.insertvalue %235, %237[0] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %239 = llvm.insertvalue %236, %238[1] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %240 = llvm.mlir.constant(0 : index) : i64
+    %241 = llvm.insertvalue %240, %239[2] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %242 = llvm.extractvalue %207[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %243 = llvm.extractvalue %207[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %244 = llvm.extractvalue %207[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %245 = llvm.extractvalue %207[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %246 = llvm.extractvalue %207[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %247 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %248 = llvm.insertvalue %235, %247[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %249 = llvm.insertvalue %236, %248[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %250 = llvm.mlir.constant(0 : index) : i64
+    %251 = llvm.insertvalue %250, %249[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %252 = llvm.insertvalue %195, %251[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %253 = llvm.mlir.constant(16 : index) : i64
+    %254 = llvm.insertvalue %253, %252[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %255 = llvm.mlir.constant(16 : index) : i64
+    %256 = llvm.insertvalue %255, %254[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %257 = llvm.mlir.constant(1 : index) : i64
+    %258 = llvm.insertvalue %257, %256[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    "hivm.intr.hivm.WAIT.FLAG.REG"(%208) <{set_pipe = 1 : i64, wait_pipe = 4 : i64}> : (i64) -> ()
+    llvm.call @load_gm_to_ubuf_2d_int8_t(%211, %212, %223, %195, %231, %229, %233, %235, %236, %250, %195, %255, %253, %257, %35, %36, %38, %35) : (!llvm.ptr<1>, !llvm.ptr<1>, i64, i64, i64, i64, i64, !llvm.ptr<6>, !llvm.ptr<6>, i64, i64, i64, i64, i64, i32, i8, i64, i32) -> ()
+    "hivm.intr.hivm.SET.FLAG.IMM"() <{event_id = 0 : i64, set_pipe = 4 : i64, wait_pipe = 1 : i64}> : () -> ()
+    %259 = llvm.extractvalue %207[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %260 = llvm.extractvalue %207[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %261 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64)>
+    %262 = llvm.insertvalue %259, %261[0] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %263 = llvm.insertvalue %260, %262[1] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %264 = llvm.mlir.constant(0 : index) : i64
+    %265 = llvm.insertvalue %264, %263[2] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %266 = llvm.extractvalue %207[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %267 = llvm.extractvalue %207[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %268 = llvm.extractvalue %207[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %269 = llvm.extractvalue %207[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %270 = llvm.extractvalue %207[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %271 = llvm.mlir.constant(16 : index) : i64
+    %272 = llvm.mul %195, %271 : i64
+    %273 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %274 = llvm.insertvalue %259, %273[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %275 = llvm.insertvalue %260, %274[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %276 = llvm.mlir.constant(0 : index) : i64
+    %277 = llvm.insertvalue %276, %275[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %278 = llvm.insertvalue %272, %277[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %279 = llvm.mlir.constant(1 : index) : i64
+    %280 = llvm.insertvalue %279, %278[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %281 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64)>
+    %282 = llvm.insertvalue %158, %281[0] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %283 = llvm.insertvalue %158, %282[1] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %284 = llvm.mlir.constant(0 : index) : i64
+    %285 = llvm.insertvalue %284, %283[2] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %286 = llvm.mlir.constant(16 : index) : i64
+    %287 = llvm.mul %195, %286 : i64
+    %288 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %289 = llvm.insertvalue %158, %288[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %290 = llvm.insertvalue %158, %289[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %291 = llvm.mlir.constant(0 : index) : i64
+    %292 = llvm.insertvalue %291, %290[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %293 = llvm.insertvalue %287, %292[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %294 = llvm.mlir.constant(1 : index) : i64
+    %295 = llvm.insertvalue %294, %293[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    "hivm.intr.hivm.WAIT.FLAG.IMM"() <{event_id = 0 : i64, set_pipe = 4 : i64, wait_pipe = 1 : i64}> : () -> ()
+    llvm.call @copy_ubuf_to_ubuf_1d_int8_t(%259, %260, %276, %272, %279, %158, %158, %291, %287, %294) : (!llvm.ptr<6>, !llvm.ptr<6>, i64, i64, i64, !llvm.ptr<6>, !llvm.ptr<6>, i64, i64, i64) -> ()
+    "hivm.intr.hivm.SET.FLAG.REG"(%208) <{set_pipe = 1 : i64, wait_pipe = 4 : i64}> : (i64) -> ()
+    %296 = llvm.inttoptr %23 : i64 to !llvm.ptr<6>
+    %297 = llvm.mlir.constant(32 : index) : i64
+    %298 = llvm.mlir.constant(16 : index) : i64
+    %299 = llvm.mlir.constant(1 : index) : i64
+    %300 = llvm.mlir.constant(512 : index) : i64
+    %301 = llvm.mlir.zero : !llvm.ptr
+    %302 = llvm.getelementptr %301[512] : (!llvm.ptr) -> !llvm.ptr, i32
+    %303 = llvm.ptrtoint %302 : !llvm.ptr to i64
+    %304 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %305 = llvm.insertvalue %296, %304[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %306 = llvm.insertvalue %296, %305[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %307 = llvm.mlir.constant(0 : index) : i64
+    %308 = llvm.insertvalue %307, %306[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %309 = llvm.insertvalue %297, %308[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %310 = llvm.insertvalue %298, %309[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %311 = llvm.insertvalue %298, %310[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %312 = llvm.insertvalue %299, %311[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    llvm.call @adc_func_outlined_vf_1(%158, %296) {hivm.vector_function, no_inline} : (!llvm.ptr<6>, !llvm.ptr<6>) -> ()
+    llvm.br ^bb6(%35, %197 : i32, !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>)
+  ^bb6(%313: i32, %314: !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>):  // 2 preds: ^bb5, ^bb7
+    %315 = llvm.icmp "slt" %313, %28 : i32
+    llvm.cond_br %315, ^bb7, ^bb8
+  ^bb7:  // pred: ^bb6
+    %316 = llvm.sext %313 : i32 to i64
+    %317 = llvm.inttoptr %24 : i64 to !llvm.ptr<6>
+    %318 = llvm.mlir.constant(32 : index) : i64
+    %319 = llvm.mlir.constant(1 : index) : i64
+    %320 = llvm.mlir.zero : !llvm.ptr
+    %321 = llvm.getelementptr %320[32] : (!llvm.ptr) -> !llvm.ptr, f32
+    %322 = llvm.ptrtoint %321 : !llvm.ptr to i64
+    %323 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %324 = llvm.insertvalue %317, %323[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %325 = llvm.insertvalue %317, %324[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %326 = llvm.mlir.constant(0 : index) : i64
+    %327 = llvm.insertvalue %326, %325[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %328 = llvm.insertvalue %318, %327[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %329 = llvm.insertvalue %319, %328[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %330 = llvm.extractvalue %314[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    llvm.call @adc_func_outlined_vf_0(%330, %296, %316, %126, %317) {hivm.vector_function, no_inline} : (!llvm.ptr<6>, !llvm.ptr<6>, i64, !llvm.ptr<6>, !llvm.ptr<6>) -> ()
+    %331 = llvm.add %313, %27 overflow<nsw> : i32
+    llvm.br ^bb6(%331, %329 : i32, !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>)
+  ^bb8:  // pred: ^bb6
+    %332 = llvm.add %196, %27 overflow<nsw> : i32
+    llvm.br ^bb4(%332, %314 : i32, !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>)
+  ^bb9:  // pred: ^bb4
+    "hivm.intr.hivm.WAIT.FLAG.REG"(%154) <{set_pipe = 5 : i64, wait_pipe = 1 : i64}> : (i64) -> ()
+    %333 = llvm.extractvalue %197[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %334 = llvm.extractvalue %153[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    llvm.call @adc_func_outlined_vf_4(%333, %334) {hivm.vector_function, no_inline} : (!llvm.ptr<6>, !llvm.ptr<6>) -> ()
+    "hivm.intr.hivm.SET.FLAG.IMM"() <{event_id = 0 : i64, set_pipe = 1 : i64, wait_pipe = 5 : i64}> : () -> ()
+    %335 = llvm.extractvalue %153[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %336 = llvm.extractvalue %153[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %337 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64)>
+    %338 = llvm.insertvalue %335, %337[0] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %339 = llvm.insertvalue %336, %338[1] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %340 = llvm.mlir.constant(0 : index) : i64
+    %341 = llvm.insertvalue %340, %339[2] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %342 = llvm.extractvalue %153[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %343 = llvm.extractvalue %153[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %344 = llvm.extractvalue %153[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %345 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %346 = llvm.insertvalue %335, %345[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %347 = llvm.insertvalue %336, %346[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %348 = llvm.mlir.constant(0 : index) : i64
+    %349 = llvm.insertvalue %348, %347[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %350 = llvm.insertvalue %195, %349[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %351 = llvm.mlir.constant(1 : index) : i64
+    %352 = llvm.insertvalue %351, %350[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %353 = llvm.extractvalue %5[0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %354 = llvm.extractvalue %5[1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %355 = llvm.mlir.undef : !llvm.struct<(ptr<1>, ptr<1>, i64)>
+    %356 = llvm.insertvalue %353, %355[0] : !llvm.struct<(ptr<1>, ptr<1>, i64)> 
+    %357 = llvm.insertvalue %354, %356[1] : !llvm.struct<(ptr<1>, ptr<1>, i64)> 
+    %358 = llvm.mlir.constant(0 : index) : i64
+    %359 = llvm.insertvalue %358, %357[2] : !llvm.struct<(ptr<1>, ptr<1>, i64)> 
+    %360 = llvm.extractvalue %5[2] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %361 = llvm.extractvalue %5[3, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %362 = llvm.extractvalue %5[4, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %363 = llvm.mlir.undef : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)>
+    %364 = llvm.insertvalue %353, %363[0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %365 = llvm.insertvalue %354, %364[1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %366 = llvm.insertvalue %191, %365[2] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %367 = llvm.insertvalue %195, %366[3, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %368 = llvm.mlir.constant(1 : index) : i64
+    %369 = llvm.insertvalue %368, %367[4, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    "hivm.intr.hivm.WAIT.FLAG.IMM"() <{event_id = 0 : i64, set_pipe = 1 : i64, wait_pipe = 5 : i64}> : () -> ()
+    "hivm.intr.hivm.BARRIER"() <{pipe = 5 : i64}> : () -> ()
+    llvm.call @store_ubuf_to_gm_1d_float(%335, %336, %348, %195, %351, %353, %354, %191, %195, %368, %35) : (!llvm.ptr<6>, !llvm.ptr<6>, i64, i64, i64, !llvm.ptr<1>, !llvm.ptr<1>, i64, i64, i64, i32) -> ()
+    "hivm.intr.hivm.SET.FLAG.REG"(%154) <{set_pipe = 5 : i64, wait_pipe = 1 : i64}> : (i64) -> ()
+    llvm.br ^bb10
+  ^bb10:  // 2 preds: ^bb2, ^bb9
+    %370 = llvm.add %143, %27 overflow<nsw> : i32
+    llvm.br ^bb1(%370 : i32)
+  ^bb11:  // pred: ^bb1
+    "hivm.intr.hivm.BARRIER"() <{pipe = 6 : i64}> : () -> ()
+    "hivm.intr.hivm.WAIT.FLAG.IMM"() <{event_id = 0 : i64, set_pipe = 1 : i64, wait_pipe = 4 : i64}> : () -> ()
+    "hivm.intr.hivm.WAIT.FLAG.IMM"() <{event_id = 1 : i64, set_pipe = 1 : i64, wait_pipe = 4 : i64}> : () -> ()
+    "hivm.intr.hivm.WAIT.FLAG.IMM"() <{event_id = 0 : i64, set_pipe = 5 : i64, wait_pipe = 1 : i64}> : () -> ()
+    "hivm.intr.hivm.WAIT.FLAG.IMM"() <{event_id = 1 : i64, set_pipe = 5 : i64, wait_pipe = 1 : i64}> : () -> ()
+    llvm.return
+  }
+}
+
+
+// -----// IR Dump Before TritonGlobalKernelArgsToLLVM (triton-globalkernelargs-to-llvm) //----- //
+module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #hacc.target_device_spec<#dlti.dl_entry<"AI_CORE_COUNT", 28 : i32>, #dlti.dl_entry<"CUBE_CORE_COUNT", 28 : i32>, #dlti.dl_entry<"VECTOR_CORE_COUNT", 56 : i32>, #dlti.dl_entry<"UB_SIZE", 2031616 : i32>, #dlti.dl_entry<"L1_SIZE", 4194304 : i32>, #dlti.dl_entry<"L0A_SIZE", 524288 : i32>, #dlti.dl_entry<"L0B_SIZE", 524288 : i32>, #dlti.dl_entry<"L0C_SIZE", 2097152 : i32>, #dlti.dl_entry<"UB_ALIGN_SIZE", 256 : i32>, #dlti.dl_entry<"L1_ALIGN_SIZE", 256 : i32>, #dlti.dl_entry<"L0C_ALIGN_SIZE", 4096 : i32>, #dlti.dl_entry<"MINIMAL_D_CACHE_SIZE", 262144 : i32>, #dlti.dl_entry<"MAXIMUM_D_CACHE_SIZE", 983040 : i32>, #dlti.dl_entry<"ARCH", "dav-c310">>>, hacc.target = #hacc.target<"Ascend950PR_9579">, hivm.module_core_type = #hivm.module_core_type<AIV>, memref.memref_as_ptr} {
+  llvm.func @adc_func_outlined_vf_0(%arg0: !llvm.ptr<6>, %arg1: !llvm.ptr<6>, %arg2: i64, %arg3: !llvm.ptr<6>, %arg4: !llvm.ptr<6>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function} {
+    %0 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %1 = llvm.insertvalue %arg4, %0[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %2 = llvm.insertvalue %arg4, %1[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %3 = llvm.mlir.constant(0 : index) : i64
+    %4 = llvm.insertvalue %3, %2[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %5 = llvm.mlir.constant(32 : index) : i64
+    %6 = llvm.insertvalue %5, %4[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %7 = llvm.mlir.constant(1 : index) : i64
+    %8 = llvm.insertvalue %7, %6[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %9 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %10 = llvm.insertvalue %arg3, %9[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %11 = llvm.insertvalue %arg3, %10[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %12 = llvm.mlir.constant(0 : index) : i64
+    %13 = llvm.insertvalue %12, %11[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %14 = llvm.mlir.constant(16384 : index) : i64
+    %15 = llvm.insertvalue %14, %13[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %16 = llvm.mlir.constant(1 : index) : i64
+    %17 = llvm.insertvalue %16, %15[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %18 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %19 = llvm.insertvalue %arg1, %18[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %20 = llvm.insertvalue %arg1, %19[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %21 = llvm.mlir.constant(0 : index) : i64
+    %22 = llvm.insertvalue %21, %20[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %23 = llvm.mlir.constant(32 : index) : i64
+    %24 = llvm.insertvalue %23, %22[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %25 = llvm.mlir.constant(16 : index) : i64
+    %26 = llvm.insertvalue %25, %24[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %27 = llvm.mlir.constant(16 : index) : i64
+    %28 = llvm.insertvalue %27, %26[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %29 = llvm.mlir.constant(1 : index) : i64
+    %30 = llvm.insertvalue %29, %28[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %31 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %32 = llvm.insertvalue %arg0, %31[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %33 = llvm.insertvalue %arg0, %32[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %34 = llvm.mlir.constant(0 : index) : i64
+    %35 = llvm.insertvalue %34, %33[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %36 = llvm.mlir.constant(32 : index) : i64
+    %37 = llvm.insertvalue %36, %35[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %38 = llvm.mlir.constant(1 : index) : i64
+    %39 = llvm.insertvalue %38, %37[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %40 = llvm.mlir.constant(2 : i32) : i32
+    %41 = llvm.mlir.constant(16 : index) : i64
+    %42 = llvm.mlir.constant(0 : i32) : i32
+    %43 = llvm.mlir.constant(7 : i32) : i32
+    %44 = llvm.mlir.constant(0 : index) : i64
+    %45 = llvm.extractvalue %17[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %46 = llvm.extractvalue %17[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %47 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64)>
+    %48 = llvm.insertvalue %45, %47[0] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %49 = llvm.insertvalue %46, %48[1] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %50 = llvm.mlir.constant(0 : index) : i64
+    %51 = llvm.insertvalue %50, %49[2] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %52 = llvm.extractvalue %17[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %53 = llvm.extractvalue %17[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %54 = llvm.extractvalue %17[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %55 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %56 = llvm.insertvalue %45, %55[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %57 = llvm.insertvalue %46, %56[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %58 = llvm.mlir.constant(0 : index) : i64
+    %59 = llvm.insertvalue %58, %57[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %60 = llvm.mlir.constant(256 : index) : i64
+    %61 = llvm.insertvalue %60, %59[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %62 = llvm.mlir.constant(1 : index) : i64
+    %63 = llvm.insertvalue %62, %61[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %64 = llvm.extractvalue %30[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %65 = llvm.extractvalue %30[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %66 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64)>
+    %67 = llvm.insertvalue %64, %66[0] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %68 = llvm.insertvalue %65, %67[1] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %69 = llvm.mlir.constant(0 : index) : i64
+    %70 = llvm.insertvalue %69, %68[2] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %71 = llvm.extractvalue %30[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %72 = llvm.extractvalue %30[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %73 = llvm.extractvalue %30[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %74 = llvm.extractvalue %30[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %75 = llvm.extractvalue %30[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %76 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %77 = llvm.insertvalue %64, %76[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %78 = llvm.insertvalue %65, %77[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %79 = llvm.insertvalue %arg2, %78[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %80 = llvm.mlir.constant(32 : index) : i64
+    %81 = llvm.insertvalue %80, %79[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %82 = llvm.mlir.constant(16 : index) : i64
+    %83 = llvm.insertvalue %82, %81[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %84 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%43, %42) {mask_bit_width = 32 : i32, mask_op_idx = 0 : i32} : (i32, i32) -> vector<256xi1>
+    %85 = llvm.extractvalue %39[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %86 = "hivm_regbaseintrins.intr.hivm.vldsx1.v64f32"(%85, %42, %42, %42) : (!llvm.ptr<6>, i32, i32, i32) -> vector<64xf32>
+    %87 = llvm.extractvalue %83[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %88 = llvm.extractvalue %83[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %89 = llvm.getelementptr %87[%88] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i32
+    %90 = llvm.mul %44, %41 : i64
+    %91 = llvm.getelementptr %89[%90] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i32
+    %92 = "hivm_regbaseintrins.intr.hivm.vldas"(%91) : (!llvm.ptr<6>) -> vector<32xi8>
+    %93 = "hivm_regbaseintrins.intr.hivm.vldus.post.s32"(%91, %92, %42) : (!llvm.ptr<6>, vector<32xi8>, i32) -> !llvm.struct<(vector<64xi32>, vector<32xi8>, ptr<6>)>
+    %94 = llvm.extractvalue %93[0] : !llvm.struct<(vector<64xi32>, vector<32xi8>, ptr<6>)> 
+    %95 = llvm.extractvalue %63[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %96 = "hivm_regbaseintrins.intr.hivm.vgather2_v300.v64f32"(%95, %94, %84) : (!llvm.ptr<6>, vector<64xi32>, vector<256xi1>) -> vector<64xf32>
+    %97 = "hivm_regbaseintrins.intr.hivm.vadd.s.x"(%86, %96, %84) : (vector<64xf32>, vector<64xf32>, vector<256xi1>) -> vector<64xf32>
+    %98 = llvm.extractvalue %8[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    "hivm_regbaseintrins.intr.hivm.vstsx1.v64f32"(%97, %98, %42, %40, %42, %84) : (vector<64xf32>, !llvm.ptr<6>, i32, i32, i32, vector<256xi1>) -> ()
+    llvm.return
+  }
+  llvm.func @adc_func_outlined_vf_1(%arg0: !llvm.ptr<6>, %arg1: !llvm.ptr<6>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function} {
+    %0 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %1 = llvm.insertvalue %arg1, %0[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %2 = llvm.insertvalue %arg1, %1[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %3 = llvm.mlir.constant(0 : index) : i64
+    %4 = llvm.insertvalue %3, %2[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %5 = llvm.mlir.constant(32 : index) : i64
+    %6 = llvm.insertvalue %5, %4[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %7 = llvm.mlir.constant(16 : index) : i64
+    %8 = llvm.insertvalue %7, %6[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %9 = llvm.mlir.constant(16 : index) : i64
+    %10 = llvm.insertvalue %9, %8[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %11 = llvm.mlir.constant(1 : index) : i64
+    %12 = llvm.insertvalue %11, %10[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %13 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %14 = llvm.insertvalue %arg0, %13[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %15 = llvm.insertvalue %arg0, %14[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %16 = llvm.mlir.constant(0 : index) : i64
+    %17 = llvm.insertvalue %16, %15[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %18 = llvm.mlir.constant(32 : index) : i64
+    %19 = llvm.insertvalue %18, %17[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %20 = llvm.mlir.constant(16 : index) : i64
+    %21 = llvm.insertvalue %20, %19[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %22 = llvm.mlir.constant(16 : index) : i64
+    %23 = llvm.insertvalue %22, %21[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %24 = llvm.mlir.constant(1 : index) : i64
+    %25 = llvm.insertvalue %24, %23[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %26 = llvm.mlir.constant(2 : i32) : i32
+    %27 = llvm.mlir.constant(0 : i8) : i8
+    %28 = llvm.mlir.constant(6 : i32) : i32
+    %29 = llvm.mlir.constant(0 : i32) : i32
+    %30 = llvm.mlir.constant(32 : i32) : i32
+    %31 = llvm.mlir.constant(1 : i32) : i32
+    llvm.br ^bb1(%29 : i32)
+  ^bb1(%32: i32):  // 2 preds: ^bb0, ^bb2
+    %33 = llvm.icmp "slt" %32, %30 : i32
+    llvm.cond_br %33, ^bb2, ^bb3
+  ^bb2:  // pred: ^bb1
+    %34 = llvm.sext %32 : i32 to i64
+    %35 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%28, %29) {mask_bit_width = 32 : i32, mask_op_idx = 0 : i32} : (i32, i32) -> vector<256xi1>
+    %36 = llvm.extractvalue %25[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %37 = llvm.extractvalue %25[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %38 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64)>
+    %39 = llvm.insertvalue %36, %38[0] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %40 = llvm.insertvalue %37, %39[1] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %41 = llvm.mlir.constant(0 : index) : i64
+    %42 = llvm.insertvalue %41, %40[2] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %43 = llvm.extractvalue %25[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %44 = llvm.extractvalue %25[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %45 = llvm.extractvalue %25[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %46 = llvm.extractvalue %25[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %47 = llvm.extractvalue %25[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %48 = llvm.mlir.constant(16 : index) : i64
+    %49 = llvm.mul %34, %48 : i64
+    %50 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %51 = llvm.insertvalue %36, %50[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %52 = llvm.insertvalue %37, %51[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %53 = llvm.insertvalue %49, %52[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %54 = llvm.mlir.constant(16 : index) : i64
+    %55 = llvm.insertvalue %54, %53[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %56 = llvm.mlir.constant(1 : index) : i64
+    %57 = llvm.insertvalue %56, %55[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %58 = llvm.extractvalue %57[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %59 = llvm.extractvalue %57[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %60 = llvm.getelementptr %58[%59] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i8
+    %61 = "hivm_regbaseintrins.intr.hivm.vldas"(%60) : (!llvm.ptr<6>) -> vector<32xi8>
+    %62 = "hivm_regbaseintrins.intr.hivm.vldus.post.s8"(%60, %61, %29) : (!llvm.ptr<6>, vector<32xi8>, i32) -> !llvm.struct<(vector<256xi8>, vector<32xi8>, ptr<6>)>
+    %63 = llvm.extractvalue %62[0] : !llvm.struct<(vector<256xi8>, vector<32xi8>, ptr<6>)> 
+    %64 = "hivm_regbaseintrins.intr.hivm.vbr"(%27) : (i8) -> vector<256xi8>
+    %65 = "hivm_regbaseintrins.intr.hivm.vintlv"(%63, %64) : (vector<256xi8>, vector<256xi8>) -> !llvm.struct<(vector<256xi8>, vector<256xi8>)>
+    %66 = llvm.extractvalue %65[0] : !llvm.struct<(vector<256xi8>, vector<256xi8>)> 
+    %67 = "hivm_regbaseintrins.intr.hivm.vintlv"(%66, %64) : (vector<256xi8>, vector<256xi8>) -> !llvm.struct<(vector<256xi8>, vector<256xi8>)>
+    %68 = llvm.extractvalue %67[0] : !llvm.struct<(vector<256xi8>, vector<256xi8>)> 
+    %69 = "hivm_regbaseintrins.intr.hivm.vcvtii.u82u32.x"(%68, %35, %29) : (vector<256xi8>, vector<256xi1>, i32) -> vector<64xi32>
+    %70 = llvm.extractvalue %12[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %71 = llvm.extractvalue %12[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %72 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64)>
+    %73 = llvm.insertvalue %70, %72[0] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %74 = llvm.insertvalue %71, %73[1] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %75 = llvm.mlir.constant(0 : index) : i64
+    %76 = llvm.insertvalue %75, %74[2] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %77 = llvm.extractvalue %12[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %78 = llvm.extractvalue %12[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %79 = llvm.extractvalue %12[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %80 = llvm.extractvalue %12[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %81 = llvm.extractvalue %12[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %82 = llvm.mlir.constant(16 : index) : i64
+    %83 = llvm.mul %34, %82 : i64
+    %84 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %85 = llvm.insertvalue %70, %84[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %86 = llvm.insertvalue %71, %85[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %87 = llvm.insertvalue %83, %86[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %88 = llvm.mlir.constant(16 : index) : i64
+    %89 = llvm.insertvalue %88, %87[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %90 = llvm.mlir.constant(1 : index) : i64
+    %91 = llvm.insertvalue %90, %89[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %92 = llvm.extractvalue %91[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %93 = llvm.extractvalue %91[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %94 = llvm.getelementptr %92[%93] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i32
+    "hivm_regbaseintrins.intr.hivm.vstsx1.v64s32"(%69, %94, %29, %26, %29, %35) : (vector<64xi32>, !llvm.ptr<6>, i32, i32, i32, vector<256xi1>) -> ()
+    %95 = llvm.add %32, %31 overflow<nsw> : i32
+    llvm.br ^bb1(%95 : i32)
+  ^bb3:  // pred: ^bb1
+    llvm.return
+  }
+  llvm.func @adc_func_outlined_vf_2(%arg0: !llvm.ptr<6>) attributes {element_alignment_bit_width = 8 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function} {
+    %0 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %1 = llvm.insertvalue %arg0, %0[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %2 = llvm.insertvalue %arg0, %1[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %3 = llvm.mlir.constant(0 : index) : i64
+    %4 = llvm.insertvalue %3, %2[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %5 = llvm.mlir.constant(32 : index) : i64
+    %6 = llvm.insertvalue %5, %4[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %7 = llvm.mlir.constant(16 : index) : i64
+    %8 = llvm.insertvalue %7, %6[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %9 = llvm.mlir.constant(16 : index) : i64
+    %10 = llvm.insertvalue %9, %8[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %11 = llvm.mlir.constant(1 : index) : i64
+    %12 = llvm.insertvalue %11, %10[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %13 = llvm.mlir.constant(16 : i32) : i32
+    %14 = llvm.mlir.constant(6 : i32) : i32
+    %15 = llvm.mlir.constant(0 : i8) : i8
+    %16 = llvm.mlir.constant(1 : i32) : i32
+    %17 = llvm.mlir.constant(32 : i32) : i32
+    %18 = llvm.mlir.constant(0 : i32) : i32
+    %19 = "hivm_regbaseintrins.intr.hivm.pge.b8"(%18, %18) {mask_bit_width = 8 : i32} : (i32, i32) -> vector<256xi1>
+    %20 = "hivm_regbaseintrins.intr.hivm.vdups.z"(%15, %19, %16) : (i8, vector<256xi1>, i32) -> vector<256xi8>
+    llvm.br ^bb1(%18 : i32)
+  ^bb1(%21: i32):  // 2 preds: ^bb0, ^bb2
+    %22 = llvm.icmp "slt" %21, %17 : i32
+    llvm.cond_br %22, ^bb2, ^bb3
+  ^bb2:  // pred: ^bb1
+    %23 = llvm.sext %21 : i32 to i64
+    %24 = "hivm_regbaseintrins.intr.hivm.pge.b8"(%14, %18) {mask_bit_width = 8 : i32, mask_op_idx = 0 : i32} : (i32, i32) -> vector<256xi1>
+    %25 = llvm.extractvalue %12[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %26 = llvm.extractvalue %12[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %27 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64)>
+    %28 = llvm.insertvalue %25, %27[0] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %29 = llvm.insertvalue %26, %28[1] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %30 = llvm.mlir.constant(0 : index) : i64
+    %31 = llvm.insertvalue %30, %29[2] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %32 = llvm.extractvalue %12[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %33 = llvm.extractvalue %12[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %34 = llvm.extractvalue %12[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %35 = llvm.extractvalue %12[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %36 = llvm.extractvalue %12[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %37 = llvm.mlir.constant(16 : index) : i64
+    %38 = llvm.mul %23, %37 : i64
+    %39 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %40 = llvm.insertvalue %25, %39[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %41 = llvm.insertvalue %26, %40[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %42 = llvm.insertvalue %38, %41[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %43 = llvm.mlir.constant(16 : index) : i64
+    %44 = llvm.insertvalue %43, %42[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %45 = llvm.mlir.constant(1 : index) : i64
+    %46 = llvm.insertvalue %45, %44[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %47 = llvm.extractvalue %46[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %48 = llvm.extractvalue %46[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %49 = llvm.getelementptr %47[%48] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i8
+    %50 = "hivm_regbaseintrins.intr.hivm.init.vector.align.data"() : () -> vector<32xi8>
+    %51 = "hivm_regbaseintrins.intr.hivm.vstus.post.s8"(%20, %49, %13, %50) : (vector<256xi8>, !llvm.ptr<6>, i32, vector<32xi8>) -> !llvm.struct<(vector<32xi8>, ptr<6>)>
+    %52 = llvm.extractvalue %51[0] : !llvm.struct<(vector<32xi8>, ptr<6>)> 
+    %53 = llvm.extractvalue %51[1] : !llvm.struct<(vector<32xi8>, ptr<6>)> 
+    "hivm_regbaseintrins.intr.hivm.vstas"(%52, %53, %18, %18) : (vector<32xi8>, !llvm.ptr<6>, i32, i32) -> ()
+    %54 = llvm.add %21, %16 overflow<nsw> : i32
+    llvm.br ^bb1(%54 : i32)
+  ^bb3:  // pred: ^bb1
+    llvm.return
+  }
+  llvm.func @adc_func_outlined_vf_3(%arg0: !llvm.ptr<6>) attributes {element_alignment_bit_width = -1 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function} {
+    %0 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %1 = llvm.insertvalue %arg0, %0[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %2 = llvm.insertvalue %arg0, %1[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %3 = llvm.mlir.constant(0 : index) : i64
+    %4 = llvm.insertvalue %3, %2[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %5 = llvm.mlir.constant(32 : index) : i64
+    %6 = llvm.insertvalue %5, %4[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %7 = llvm.mlir.constant(1 : index) : i64
+    %8 = llvm.insertvalue %7, %6[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %9 = llvm.mlir.constant(2 : i32) : i32
+    %10 = llvm.mlir.constant(7 : i32) : i32
+    %11 = llvm.mlir.constant(1 : i32) : i32
+    %12 = llvm.mlir.constant(0 : i32) : i32
+    %13 = llvm.mlir.constant(8 : i32) : i32
+    %14 = llvm.mlir.constant(0.000000e+00 : f32) : f32
+    %15 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%13, %12) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+    %16 = "hivm_regbaseintrins.intr.hivm.vdups.z"(%14, %15, %11) : (f32, vector<256xi1>, i32) -> vector<64xf32>
+    %17 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%10, %12) {mask_bit_width = 32 : i32, mask_op_idx = 0 : i32} : (i32, i32) -> vector<256xi1>
+    %18 = llvm.extractvalue %8[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    "hivm_regbaseintrins.intr.hivm.vstsx1.v64f32"(%16, %18, %12, %9, %12, %17) : (vector<64xf32>, !llvm.ptr<6>, i32, i32, i32, vector<256xi1>) -> ()
+    llvm.return
+  }
+  llvm.func @adc_func_outlined_vf_4(%arg0: !llvm.ptr<6>, %arg1: !llvm.ptr<6>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function} {
+    %0 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %1 = llvm.insertvalue %arg1, %0[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %2 = llvm.insertvalue %arg1, %1[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %3 = llvm.mlir.constant(0 : index) : i64
+    %4 = llvm.insertvalue %3, %2[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %5 = llvm.mlir.constant(32 : index) : i64
+    %6 = llvm.insertvalue %5, %4[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %7 = llvm.mlir.constant(1 : index) : i64
+    %8 = llvm.insertvalue %7, %6[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %9 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %10 = llvm.insertvalue %arg0, %9[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %11 = llvm.insertvalue %arg0, %10[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %12 = llvm.mlir.constant(0 : index) : i64
+    %13 = llvm.insertvalue %12, %11[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %14 = llvm.mlir.constant(32 : index) : i64
+    %15 = llvm.insertvalue %14, %13[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %16 = llvm.mlir.constant(1 : index) : i64
+    %17 = llvm.insertvalue %16, %15[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %18 = llvm.mlir.constant(2 : i32) : i32
+    %19 = llvm.mlir.constant(0 : i32) : i32
+    %20 = llvm.mlir.constant(7 : i32) : i32
+    %21 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%20, %19) {mask_bit_width = 32 : i32, mask_op_idx = 0 : i32} : (i32, i32) -> vector<256xi1>
+    %22 = llvm.extractvalue %17[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %23 = "hivm_regbaseintrins.intr.hivm.vldsx1.v64f32"(%22, %19, %19, %19) : (!llvm.ptr<6>, i32, i32, i32) -> vector<64xf32>
+    %24 = "hivm_regbaseintrins.intr.hivm.vsqrt.x"(%23, %21) : (vector<64xf32>, vector<256xi1>) -> vector<64xf32>
+    %25 = llvm.extractvalue %8[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    "hivm_regbaseintrins.intr.hivm.vstsx1.v64f32"(%24, %25, %19, %18, %19, %21) : (vector<64xf32>, !llvm.ptr<6>, i32, i32, i32, vector<256xi1>) -> ()
+    llvm.return
+  }
+  llvm.func private @load_gm_to_ubuf_1d_float(%arg0: !llvm.ptr<1>, %arg1: !llvm.ptr<1>, %arg2: i64, %arg3: i64, %arg4: i64, %arg5: !llvm.ptr<6>, %arg6: !llvm.ptr<6>, %arg7: i64, %arg8: i64, %arg9: i64, %arg10: i32, %arg11: f32, %arg12: i64, %arg13: i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface, sym_visibility = "private"} {
+    %0 = llvm.mlir.undef : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)>
+    %1 = llvm.insertvalue %arg0, %0[0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %2 = llvm.insertvalue %arg1, %1[1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %3 = llvm.insertvalue %arg2, %2[2] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %4 = llvm.insertvalue %arg3, %3[3, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %5 = llvm.insertvalue %arg4, %4[4, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %6 = llvm.mlir.constant(1 : index) : i64
+    %7 = llvm.alloca %6 x !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> : (i64) -> !llvm.ptr
+    llvm.store %5, %7 : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)>, !llvm.ptr
+    %8 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %9 = llvm.insertvalue %arg5, %8[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %10 = llvm.insertvalue %arg6, %9[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %11 = llvm.insertvalue %arg7, %10[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %12 = llvm.insertvalue %arg8, %11[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %13 = llvm.insertvalue %arg9, %12[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %14 = llvm.mlir.constant(1 : index) : i64
+    %15 = llvm.alloca %14 x !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> : (i64) -> !llvm.ptr
+    llvm.store %13, %15 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>, !llvm.ptr
+    llvm.call @_mlir_ciface_load_gm_to_ubuf_1d_float(%7, %15, %arg10, %arg11, %arg12, %arg13) : (!llvm.ptr, !llvm.ptr, i32, f32, i64, i32) -> ()
+    llvm.return
+  }
+  llvm.func @_mlir_ciface_load_gm_to_ubuf_1d_float(!llvm.ptr, !llvm.ptr, i32, f32, i64, i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface, sym_visibility = "private"}
+  llvm.func private @load_gm_to_ubuf_2d_int8_t(%arg0: !llvm.ptr<1>, %arg1: !llvm.ptr<1>, %arg2: i64, %arg3: i64, %arg4: i64, %arg5: i64, %arg6: i64, %arg7: !llvm.ptr<6>, %arg8: !llvm.ptr<6>, %arg9: i64, %arg10: i64, %arg11: i64, %arg12: i64, %arg13: i64, %arg14: i32, %arg15: i8, %arg16: i64, %arg17: i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface, sym_visibility = "private"} {
+    %0 = llvm.mlir.undef : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)>
+    %1 = llvm.insertvalue %arg0, %0[0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %2 = llvm.insertvalue %arg1, %1[1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %3 = llvm.insertvalue %arg2, %2[2] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %4 = llvm.insertvalue %arg3, %3[3, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %5 = llvm.insertvalue %arg5, %4[4, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %6 = llvm.insertvalue %arg4, %5[3, 1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %7 = llvm.insertvalue %arg6, %6[4, 1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %8 = llvm.mlir.constant(1 : index) : i64
+    %9 = llvm.alloca %8 x !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> : (i64) -> !llvm.ptr
+    llvm.store %7, %9 : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)>, !llvm.ptr
+    %10 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %11 = llvm.insertvalue %arg7, %10[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %12 = llvm.insertvalue %arg8, %11[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %13 = llvm.insertvalue %arg9, %12[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %14 = llvm.insertvalue %arg10, %13[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %15 = llvm.insertvalue %arg12, %14[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %16 = llvm.insertvalue %arg11, %15[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %17 = llvm.insertvalue %arg13, %16[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %18 = llvm.mlir.constant(1 : index) : i64
+    %19 = llvm.alloca %18 x !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> : (i64) -> !llvm.ptr
+    llvm.store %17, %19 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>, !llvm.ptr
+    llvm.call @_mlir_ciface_load_gm_to_ubuf_2d_int8_t(%9, %19, %arg14, %arg15, %arg16, %arg17) : (!llvm.ptr, !llvm.ptr, i32, i8, i64, i32) -> ()
+    llvm.return
+  }
+  llvm.func @_mlir_ciface_load_gm_to_ubuf_2d_int8_t(!llvm.ptr, !llvm.ptr, i32, i8, i64, i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface, sym_visibility = "private"}
+  llvm.func private @copy_ubuf_to_ubuf_1d_int8_t(%arg0: !llvm.ptr<6>, %arg1: !llvm.ptr<6>, %arg2: i64, %arg3: i64, %arg4: i64, %arg5: !llvm.ptr<6>, %arg6: !llvm.ptr<6>, %arg7: i64, %arg8: i64, %arg9: i64) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface, sym_visibility = "private"} {
+    %0 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %1 = llvm.insertvalue %arg0, %0[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %2 = llvm.insertvalue %arg1, %1[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %3 = llvm.insertvalue %arg2, %2[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %4 = llvm.insertvalue %arg3, %3[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %5 = llvm.insertvalue %arg4, %4[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %6 = llvm.mlir.constant(1 : index) : i64
+    %7 = llvm.alloca %6 x !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> : (i64) -> !llvm.ptr
+    llvm.store %5, %7 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>, !llvm.ptr
+    %8 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %9 = llvm.insertvalue %arg5, %8[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %10 = llvm.insertvalue %arg6, %9[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %11 = llvm.insertvalue %arg7, %10[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %12 = llvm.insertvalue %arg8, %11[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %13 = llvm.insertvalue %arg9, %12[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %14 = llvm.mlir.constant(1 : index) : i64
+    %15 = llvm.alloca %14 x !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> : (i64) -> !llvm.ptr
+    llvm.store %13, %15 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>, !llvm.ptr
+    llvm.call @_mlir_ciface_copy_ubuf_to_ubuf_1d_int8_t(%7, %15) : (!llvm.ptr, !llvm.ptr) -> ()
+    llvm.return
+  }
+  llvm.func @_mlir_ciface_copy_ubuf_to_ubuf_1d_int8_t(!llvm.ptr, !llvm.ptr) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface, sym_visibility = "private"}
+  llvm.func private @store_ubuf_to_gm_1d_float(%arg0: !llvm.ptr<6>, %arg1: !llvm.ptr<6>, %arg2: i64, %arg3: i64, %arg4: i64, %arg5: !llvm.ptr<1>, %arg6: !llvm.ptr<1>, %arg7: i64, %arg8: i64, %arg9: i64, %arg10: i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface, sym_visibility = "private"} {
+    %0 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %1 = llvm.insertvalue %arg0, %0[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %2 = llvm.insertvalue %arg1, %1[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %3 = llvm.insertvalue %arg2, %2[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %4 = llvm.insertvalue %arg3, %3[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %5 = llvm.insertvalue %arg4, %4[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %6 = llvm.mlir.constant(1 : index) : i64
+    %7 = llvm.alloca %6 x !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> : (i64) -> !llvm.ptr
+    llvm.store %5, %7 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>, !llvm.ptr
+    %8 = llvm.mlir.undef : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)>
+    %9 = llvm.insertvalue %arg5, %8[0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %10 = llvm.insertvalue %arg6, %9[1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %11 = llvm.insertvalue %arg7, %10[2] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %12 = llvm.insertvalue %arg8, %11[3, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %13 = llvm.insertvalue %arg9, %12[4, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %14 = llvm.mlir.constant(1 : index) : i64
+    %15 = llvm.alloca %14 x !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> : (i64) -> !llvm.ptr
+    llvm.store %13, %15 : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)>, !llvm.ptr
+    llvm.call @_mlir_ciface_store_ubuf_to_gm_1d_float(%7, %15, %arg10) : (!llvm.ptr, !llvm.ptr, i32) -> ()
+    llvm.return
+  }
+  llvm.func @_mlir_ciface_store_ubuf_to_gm_1d_float(!llvm.ptr, !llvm.ptr, i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface, sym_visibility = "private"}
+  llvm.func @adc_func(%arg0: !llvm.ptr<1> {hacc.arg_type = #hacc.arg_type<sync_block_lock>}, %arg1: !llvm.ptr<1>, %arg2: i64, %arg3: i64, %arg4: i64, %arg5: !llvm.ptr<1> {hacc.arg_type = #hacc.arg_type<workspace>}, %arg6: !llvm.ptr<1>, %arg7: i64, %arg8: i64, %arg9: i64, %arg10: !llvm.ptr<1>, %arg11: !llvm.ptr<1>, %arg12: i64, %arg13: i64, %arg14: i64, %arg15: !llvm.ptr<1>, %arg16: !llvm.ptr<1>, %arg17: i64, %arg18: i64, %arg19: i64, %arg20: !llvm.ptr<1>, %arg21: !llvm.ptr<1>, %arg22: i64, %arg23: i64, %arg24: i64, %arg25: i32, %arg26: i32, %arg27: i32, %arg28: i32) attributes {SyncBlockLockArgIdx = 0 : i64, WorkspaceArgIdx = 1 : i64, func_dyn_memref_args = dense<[true, true, true, true, true, false, false, false, false]> : vector<9xi1>, hacc.entry, hacc.function_kind = #hacc.function_kind<DEVICE>, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vf_mode = #hivm.vf_mode<SIMD>, hivm_regbaseintrins.target = #hivm_regbaseintrins.target<"dav-c310">, mix_mode = "aiv", parallel_mode = "simd"} {
+    %0 = llvm.mlir.undef : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)>
+    %1 = llvm.insertvalue %arg20, %0[0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %2 = llvm.insertvalue %arg21, %1[1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %3 = llvm.insertvalue %arg22, %2[2] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %4 = llvm.insertvalue %arg23, %3[3, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %5 = llvm.insertvalue %arg24, %4[4, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %6 = llvm.mlir.undef : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)>
+    %7 = llvm.insertvalue %arg15, %6[0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %8 = llvm.insertvalue %arg16, %7[1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %9 = llvm.insertvalue %arg17, %8[2] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %10 = llvm.insertvalue %arg18, %9[3, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %11 = llvm.insertvalue %arg19, %10[4, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %12 = llvm.mlir.undef : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)>
+    %13 = llvm.insertvalue %arg10, %12[0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %14 = llvm.insertvalue %arg11, %13[1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %15 = llvm.insertvalue %arg12, %14[2] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %16 = llvm.insertvalue %arg13, %15[3, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %17 = llvm.insertvalue %arg14, %16[4, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %18 = llvm.mlir.constant(69376 : i64) : i64
+    %19 = llvm.mlir.constant(68736 : i64) : i64
+    %20 = llvm.mlir.constant(66048 : i64) : i64
+    %21 = llvm.mlir.constant(68864 : i64) : i64
+    %22 = llvm.mlir.constant(1 : i64) : i64
+    %23 = llvm.mlir.constant(66560 : i64) : i64
+    %24 = llvm.mlir.constant(68608 : i64) : i64
+    %25 = llvm.mlir.constant(65536 : i64) : i64
+    %26 = llvm.mlir.constant(0 : i64) : i64
+    %27 = llvm.mlir.constant(1 : i32) : i32
+    %28 = llvm.mlir.constant(16 : i32) : i32
+    %29 = llvm.mlir.constant(4 : i32) : i32
+    %30 = llvm.mlir.constant(32 : i32) : i32
+    %31 = llvm.mlir.constant(31 : i32) : i32
+    %32 = llvm.mlir.constant(56 : i32) : i32
+    %33 = llvm.mlir.constant(1792 : i32) : i32
+    %34 = llvm.mlir.constant(1791 : i32) : i32
+    %35 = llvm.mlir.constant(0 : i32) : i32
+    %36 = llvm.mlir.constant(0 : i8) : i8
+    %37 = llvm.mlir.constant(0.000000e+00 : f32) : f32
+    %38 = llvm.mlir.constant(0 : index) : i64
+    %39 = llvm.inttoptr %19 : i64 to !llvm.ptr<6>
+    %40 = llvm.mlir.constant(32 : index) : i64
+    %41 = llvm.mlir.constant(1 : index) : i64
+    %42 = llvm.mlir.zero : !llvm.ptr
+    %43 = llvm.getelementptr %42[32] : (!llvm.ptr) -> !llvm.ptr, f32
+    %44 = llvm.ptrtoint %43 : !llvm.ptr to i64
+    %45 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %46 = llvm.insertvalue %39, %45[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %47 = llvm.insertvalue %39, %46[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %48 = llvm.mlir.constant(0 : index) : i64
+    %49 = llvm.insertvalue %48, %47[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %50 = llvm.insertvalue %40, %49[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %51 = llvm.insertvalue %41, %50[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %52 = llvm.inttoptr %18 : i64 to !llvm.ptr<6>
+    %53 = llvm.mlir.constant(32 : index) : i64
+    %54 = llvm.mlir.constant(1 : index) : i64
+    %55 = llvm.mlir.zero : !llvm.ptr
+    %56 = llvm.getelementptr %55[32] : (!llvm.ptr) -> !llvm.ptr, f32
+    %57 = llvm.ptrtoint %56 : !llvm.ptr to i64
+    %58 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %59 = llvm.insertvalue %52, %58[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %60 = llvm.insertvalue %52, %59[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %61 = llvm.mlir.constant(0 : index) : i64
+    %62 = llvm.insertvalue %61, %60[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %63 = llvm.insertvalue %53, %62[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %64 = llvm.insertvalue %54, %63[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %65 = llvm.inttoptr %20 : i64 to !llvm.ptr<6>
+    %66 = llvm.mlir.constant(32 : index) : i64
+    %67 = llvm.mlir.constant(16 : index) : i64
+    %68 = llvm.mlir.constant(1 : index) : i64
+    %69 = llvm.mlir.constant(512 : index) : i64
+    %70 = llvm.mlir.zero : !llvm.ptr
+    %71 = llvm.getelementptr %70[512] : (!llvm.ptr) -> !llvm.ptr, i8
+    %72 = llvm.ptrtoint %71 : !llvm.ptr to i64
+    %73 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %74 = llvm.insertvalue %65, %73[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %75 = llvm.insertvalue %65, %74[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %76 = llvm.mlir.constant(0 : index) : i64
+    %77 = llvm.insertvalue %76, %75[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %78 = llvm.insertvalue %66, %77[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %79 = llvm.insertvalue %67, %78[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %80 = llvm.insertvalue %67, %79[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %81 = llvm.insertvalue %68, %80[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %82 = llvm.inttoptr %21 : i64 to !llvm.ptr<6>
+    %83 = llvm.mlir.constant(32 : index) : i64
+    %84 = llvm.mlir.constant(16 : index) : i64
+    %85 = llvm.mlir.constant(1 : index) : i64
+    %86 = llvm.mlir.constant(512 : index) : i64
+    %87 = llvm.mlir.zero : !llvm.ptr
+    %88 = llvm.getelementptr %87[512] : (!llvm.ptr) -> !llvm.ptr, i8
+    %89 = llvm.ptrtoint %88 : !llvm.ptr to i64
+    %90 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %91 = llvm.insertvalue %82, %90[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %92 = llvm.insertvalue %82, %91[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %93 = llvm.mlir.constant(0 : index) : i64
+    %94 = llvm.insertvalue %93, %92[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %95 = llvm.insertvalue %83, %94[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %96 = llvm.insertvalue %84, %95[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %97 = llvm.insertvalue %84, %96[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %98 = llvm.insertvalue %85, %97[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %99 = "hivm.intr.hivm.GET.CTRL"() : () -> i64
+    %100 = llvm.mlir.constant(60 : i64) : i64
+    %101 = "hivm.intr.hivm.SBITSET0"(%99, %100) : (i64, i64) -> i64
+    "hivm.intr.hivm.SET.CTRL"(%101) : (i64) -> ()
+    %102 = "hivm.intr.hivm.GET.CTRL"() : () -> i64
+    %103 = llvm.mlir.constant(48 : i64) : i64
+    %104 = "hivm.intr.hivm.SBITSET1"(%102, %103) : (i64, i64) -> i64
+    "hivm.intr.hivm.SET.CTRL"(%104) : (i64) -> ()
+    %105 = llvm.extractvalue %17[0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %106 = llvm.extractvalue %17[1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %107 = llvm.mlir.undef : !llvm.struct<(ptr<1>, ptr<1>, i64)>
+    %108 = llvm.insertvalue %105, %107[0] : !llvm.struct<(ptr<1>, ptr<1>, i64)> 
+    %109 = llvm.insertvalue %106, %108[1] : !llvm.struct<(ptr<1>, ptr<1>, i64)> 
+    %110 = llvm.mlir.constant(0 : index) : i64
+    %111 = llvm.insertvalue %110, %109[2] : !llvm.struct<(ptr<1>, ptr<1>, i64)> 
+    %112 = llvm.extractvalue %17[2] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %113 = llvm.extractvalue %17[3, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %114 = llvm.extractvalue %17[4, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %115 = llvm.mlir.undef : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)>
+    %116 = llvm.insertvalue %105, %115[0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %117 = llvm.insertvalue %106, %116[1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %118 = llvm.mlir.constant(0 : index) : i64
+    %119 = llvm.insertvalue %118, %117[2] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %120 = llvm.mlir.constant(16384 : index) : i64
+    %121 = llvm.insertvalue %120, %119[3, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %122 = llvm.mlir.constant(1 : index) : i64
+    %123 = llvm.insertvalue %122, %121[4, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %124 = "hivm.intr.hivm.GET.BLOCK.IDX"() : () -> i64
+    %125 = llvm.trunc %124 : i64 to i32
+    %126 = llvm.inttoptr %26 : i64 to !llvm.ptr<6>
+    %127 = llvm.mlir.constant(16384 : index) : i64
+    %128 = llvm.mlir.constant(1 : index) : i64
+    %129 = llvm.mlir.zero : !llvm.ptr
+    %130 = llvm.getelementptr %129[16384] : (!llvm.ptr) -> !llvm.ptr, f32
+    %131 = llvm.ptrtoint %130 : !llvm.ptr to i64
+    %132 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %133 = llvm.insertvalue %126, %132[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %134 = llvm.insertvalue %126, %133[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %135 = llvm.mlir.constant(0 : index) : i64
+    %136 = llvm.insertvalue %135, %134[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %137 = llvm.insertvalue %127, %136[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %138 = llvm.insertvalue %128, %137[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    "hivm.intr.hivm.SET.FLAG.IMM"() <{event_id = 0 : i64, set_pipe = 1 : i64, wait_pipe = 4 : i64}> : () -> ()
+    "hivm.intr.hivm.SET.FLAG.IMM"() <{event_id = 1 : i64, set_pipe = 1 : i64, wait_pipe = 4 : i64}> : () -> ()
+    "hivm.intr.hivm.SET.FLAG.IMM"() <{event_id = 0 : i64, set_pipe = 5 : i64, wait_pipe = 1 : i64}> : () -> ()
+    "hivm.intr.hivm.SET.FLAG.IMM"() <{event_id = 1 : i64, set_pipe = 5 : i64, wait_pipe = 1 : i64}> : () -> ()
+    llvm.call @load_gm_to_ubuf_1d_float(%105, %106, %118, %120, %122, %126, %126, %135, %127, %128, %35, %37, %38, %35) : (!llvm.ptr<1>, !llvm.ptr<1>, i64, i64, i64, !llvm.ptr<6>, !llvm.ptr<6>, i64, i64, i64, i32, f32, i64, i32) -> ()
+    %139 = llvm.add %arg25, %34 : i32
+    %140 = llvm.sdiv %139, %33  : i32
+    %141 = llvm.add %arg25, %31 : i32
+    %142 = llvm.sdiv %141, %30  : i32
+    llvm.br ^bb1(%35 : i32)
+  ^bb1(%143: i32):  // 2 preds: ^bb0, ^bb10
+    %144 = llvm.icmp "slt" %143, %140 : i32
+    llvm.cond_br %144, ^bb2, ^bb11
+  ^bb2:  // pred: ^bb1
+    %145 = llvm.sext %143 : i32 to i64
+    %146 = llvm.mlir.constant(2 : index) : i64
+    %147 = llvm.srem %145, %146  : i64
+    %148 = llvm.mlir.constant(0 : index) : i64
+    %149 = llvm.icmp "slt" %147, %148 : i64
+    %150 = llvm.add %147, %146 : i64
+    %151 = llvm.select %149, %150, %147 : i1, i64
+    %152 = llvm.icmp "eq" %151, %22 : i64
+    %153 = llvm.select %152, %64, %51 : i1, !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %154 = llvm.zext %152 : i1 to i64
+    %155 = llvm.mul %143, %32 : i32
+    %156 = llvm.add %155, %125 : i32
+    %157 = llvm.icmp "slt" %156, %142 : i32
+    llvm.cond_br %157, ^bb3, ^bb10
+  ^bb3:  // pred: ^bb2
+    %158 = llvm.inttoptr %25 : i64 to !llvm.ptr<6>
+    %159 = llvm.mlir.constant(32 : index) : i64
+    %160 = llvm.mlir.constant(16 : index) : i64
+    %161 = llvm.mlir.constant(1 : index) : i64
+    %162 = llvm.mlir.constant(512 : index) : i64
+    %163 = llvm.mlir.zero : !llvm.ptr
+    %164 = llvm.getelementptr %163[512] : (!llvm.ptr) -> !llvm.ptr, i8
+    %165 = llvm.ptrtoint %164 : !llvm.ptr to i64
+    %166 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %167 = llvm.insertvalue %158, %166[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %168 = llvm.insertvalue %158, %167[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %169 = llvm.mlir.constant(0 : index) : i64
+    %170 = llvm.insertvalue %169, %168[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %171 = llvm.insertvalue %159, %170[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %172 = llvm.insertvalue %160, %171[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %173 = llvm.insertvalue %160, %172[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %174 = llvm.insertvalue %161, %173[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    llvm.call @adc_func_outlined_vf_2(%158) {hivm.vector_function, no_inline} : (!llvm.ptr<6>) -> ()
+    %175 = llvm.inttoptr %24 : i64 to !llvm.ptr<6>
+    %176 = llvm.mlir.constant(32 : index) : i64
+    %177 = llvm.mlir.constant(1 : index) : i64
+    %178 = llvm.mlir.zero : !llvm.ptr
+    %179 = llvm.getelementptr %178[32] : (!llvm.ptr) -> !llvm.ptr, f32
+    %180 = llvm.ptrtoint %179 : !llvm.ptr to i64
+    %181 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %182 = llvm.insertvalue %175, %181[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %183 = llvm.insertvalue %175, %182[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %184 = llvm.mlir.constant(0 : index) : i64
+    %185 = llvm.insertvalue %184, %183[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %186 = llvm.insertvalue %176, %185[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %187 = llvm.insertvalue %177, %186[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    llvm.call @adc_func_outlined_vf_3(%175) {hivm.vector_function, no_inline} : (!llvm.ptr<6>) -> ()
+    %188 = llvm.mul %143, %33 : i32
+    %189 = llvm.mul %125, %30 : i32
+    %190 = llvm.add %188, %189 : i32
+    %191 = llvm.sext %190 : i32 to i64
+    %192 = llvm.sub %arg25, %189 : i32
+    %193 = llvm.sub %192, %188 : i32
+    %194 = llvm.intr.smin(%193, %30)  : (i32, i32) -> i32
+    %195 = llvm.sext %194 : i32 to i64
+    llvm.br ^bb4(%35, %187 : i32, !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>)
+  ^bb4(%196: i32, %197: !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>):  // 2 preds: ^bb3, ^bb8
+    %198 = llvm.icmp "slt" %196, %29 : i32
+    llvm.cond_br %198, ^bb5, ^bb9
+  ^bb5:  // pred: ^bb4
+    %199 = llvm.sext %196 : i32 to i64
+    %200 = llvm.mlir.constant(2 : index) : i64
+    %201 = llvm.srem %199, %200  : i64
+    %202 = llvm.mlir.constant(0 : index) : i64
+    %203 = llvm.icmp "slt" %201, %202 : i64
+    %204 = llvm.add %201, %200 : i64
+    %205 = llvm.select %203, %204, %201 : i1, i64
+    %206 = llvm.icmp "eq" %205, %22 : i64
+    %207 = llvm.select %206, %98, %81 : i1, !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %208 = llvm.zext %206 : i1 to i64
+    %209 = llvm.mul %196, %28 : i32
+    %210 = llvm.sext %209 : i32 to i64
+    %211 = llvm.extractvalue %11[0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %212 = llvm.extractvalue %11[1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %213 = llvm.mlir.undef : !llvm.struct<(ptr<1>, ptr<1>, i64)>
+    %214 = llvm.insertvalue %211, %213[0] : !llvm.struct<(ptr<1>, ptr<1>, i64)> 
+    %215 = llvm.insertvalue %212, %214[1] : !llvm.struct<(ptr<1>, ptr<1>, i64)> 
+    %216 = llvm.mlir.constant(0 : index) : i64
+    %217 = llvm.insertvalue %216, %215[2] : !llvm.struct<(ptr<1>, ptr<1>, i64)> 
+    %218 = llvm.extractvalue %11[2] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %219 = llvm.extractvalue %11[3, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %220 = llvm.extractvalue %11[4, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %221 = llvm.mlir.constant(64 : index) : i64
+    %222 = llvm.mul %191, %221 : i64
+    %223 = llvm.add %222, %210 : i64
+    %224 = llvm.mlir.undef : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)>
+    %225 = llvm.insertvalue %211, %224[0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %226 = llvm.insertvalue %212, %225[1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %227 = llvm.insertvalue %223, %226[2] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %228 = llvm.insertvalue %195, %227[3, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %229 = llvm.mlir.constant(64 : index) : i64
+    %230 = llvm.insertvalue %229, %228[4, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %231 = llvm.mlir.constant(16 : index) : i64
+    %232 = llvm.insertvalue %231, %230[3, 1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %233 = llvm.mlir.constant(1 : index) : i64
+    %234 = llvm.insertvalue %233, %232[4, 1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %235 = llvm.extractvalue %207[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %236 = llvm.extractvalue %207[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %237 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64)>
+    %238 = llvm.insertvalue %235, %237[0] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %239 = llvm.insertvalue %236, %238[1] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %240 = llvm.mlir.constant(0 : index) : i64
+    %241 = llvm.insertvalue %240, %239[2] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %242 = llvm.extractvalue %207[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %243 = llvm.extractvalue %207[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %244 = llvm.extractvalue %207[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %245 = llvm.extractvalue %207[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %246 = llvm.extractvalue %207[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %247 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %248 = llvm.insertvalue %235, %247[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %249 = llvm.insertvalue %236, %248[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %250 = llvm.mlir.constant(0 : index) : i64
+    %251 = llvm.insertvalue %250, %249[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %252 = llvm.insertvalue %195, %251[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %253 = llvm.mlir.constant(16 : index) : i64
+    %254 = llvm.insertvalue %253, %252[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %255 = llvm.mlir.constant(16 : index) : i64
+    %256 = llvm.insertvalue %255, %254[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %257 = llvm.mlir.constant(1 : index) : i64
+    %258 = llvm.insertvalue %257, %256[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    "hivm.intr.hivm.WAIT.FLAG.REG"(%208) <{set_pipe = 1 : i64, wait_pipe = 4 : i64}> : (i64) -> ()
+    llvm.call @load_gm_to_ubuf_2d_int8_t(%211, %212, %223, %195, %231, %229, %233, %235, %236, %250, %195, %255, %253, %257, %35, %36, %38, %35) : (!llvm.ptr<1>, !llvm.ptr<1>, i64, i64, i64, i64, i64, !llvm.ptr<6>, !llvm.ptr<6>, i64, i64, i64, i64, i64, i32, i8, i64, i32) -> ()
+    "hivm.intr.hivm.SET.FLAG.IMM"() <{event_id = 0 : i64, set_pipe = 4 : i64, wait_pipe = 1 : i64}> : () -> ()
+    %259 = llvm.extractvalue %207[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %260 = llvm.extractvalue %207[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %261 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64)>
+    %262 = llvm.insertvalue %259, %261[0] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %263 = llvm.insertvalue %260, %262[1] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %264 = llvm.mlir.constant(0 : index) : i64
+    %265 = llvm.insertvalue %264, %263[2] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %266 = llvm.extractvalue %207[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %267 = llvm.extractvalue %207[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %268 = llvm.extractvalue %207[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %269 = llvm.extractvalue %207[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %270 = llvm.extractvalue %207[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %271 = llvm.mlir.constant(16 : index) : i64
+    %272 = llvm.mul %195, %271 : i64
+    %273 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %274 = llvm.insertvalue %259, %273[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %275 = llvm.insertvalue %260, %274[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %276 = llvm.mlir.constant(0 : index) : i64
+    %277 = llvm.insertvalue %276, %275[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %278 = llvm.insertvalue %272, %277[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %279 = llvm.mlir.constant(1 : index) : i64
+    %280 = llvm.insertvalue %279, %278[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %281 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64)>
+    %282 = llvm.insertvalue %158, %281[0] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %283 = llvm.insertvalue %158, %282[1] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %284 = llvm.mlir.constant(0 : index) : i64
+    %285 = llvm.insertvalue %284, %283[2] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %286 = llvm.mlir.constant(16 : index) : i64
+    %287 = llvm.mul %195, %286 : i64
+    %288 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %289 = llvm.insertvalue %158, %288[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %290 = llvm.insertvalue %158, %289[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %291 = llvm.mlir.constant(0 : index) : i64
+    %292 = llvm.insertvalue %291, %290[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %293 = llvm.insertvalue %287, %292[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %294 = llvm.mlir.constant(1 : index) : i64
+    %295 = llvm.insertvalue %294, %293[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    "hivm.intr.hivm.WAIT.FLAG.IMM"() <{event_id = 0 : i64, set_pipe = 4 : i64, wait_pipe = 1 : i64}> : () -> ()
+    llvm.call @copy_ubuf_to_ubuf_1d_int8_t(%259, %260, %276, %272, %279, %158, %158, %291, %287, %294) : (!llvm.ptr<6>, !llvm.ptr<6>, i64, i64, i64, !llvm.ptr<6>, !llvm.ptr<6>, i64, i64, i64) -> ()
+    "hivm.intr.hivm.SET.FLAG.REG"(%208) <{set_pipe = 1 : i64, wait_pipe = 4 : i64}> : (i64) -> ()
+    %296 = llvm.inttoptr %23 : i64 to !llvm.ptr<6>
+    %297 = llvm.mlir.constant(32 : index) : i64
+    %298 = llvm.mlir.constant(16 : index) : i64
+    %299 = llvm.mlir.constant(1 : index) : i64
+    %300 = llvm.mlir.constant(512 : index) : i64
+    %301 = llvm.mlir.zero : !llvm.ptr
+    %302 = llvm.getelementptr %301[512] : (!llvm.ptr) -> !llvm.ptr, i32
+    %303 = llvm.ptrtoint %302 : !llvm.ptr to i64
+    %304 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %305 = llvm.insertvalue %296, %304[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %306 = llvm.insertvalue %296, %305[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %307 = llvm.mlir.constant(0 : index) : i64
+    %308 = llvm.insertvalue %307, %306[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %309 = llvm.insertvalue %297, %308[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %310 = llvm.insertvalue %298, %309[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %311 = llvm.insertvalue %298, %310[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %312 = llvm.insertvalue %299, %311[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    llvm.call @adc_func_outlined_vf_1(%158, %296) {hivm.vector_function, no_inline} : (!llvm.ptr<6>, !llvm.ptr<6>) -> ()
+    llvm.br ^bb6(%35, %197 : i32, !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>)
+  ^bb6(%313: i32, %314: !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>):  // 2 preds: ^bb5, ^bb7
+    %315 = llvm.icmp "slt" %313, %28 : i32
+    llvm.cond_br %315, ^bb7, ^bb8
+  ^bb7:  // pred: ^bb6
+    %316 = llvm.sext %313 : i32 to i64
+    %317 = llvm.inttoptr %24 : i64 to !llvm.ptr<6>
+    %318 = llvm.mlir.constant(32 : index) : i64
+    %319 = llvm.mlir.constant(1 : index) : i64
+    %320 = llvm.mlir.zero : !llvm.ptr
+    %321 = llvm.getelementptr %320[32] : (!llvm.ptr) -> !llvm.ptr, f32
+    %322 = llvm.ptrtoint %321 : !llvm.ptr to i64
+    %323 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %324 = llvm.insertvalue %317, %323[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %325 = llvm.insertvalue %317, %324[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %326 = llvm.mlir.constant(0 : index) : i64
+    %327 = llvm.insertvalue %326, %325[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %328 = llvm.insertvalue %318, %327[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %329 = llvm.insertvalue %319, %328[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %330 = llvm.extractvalue %314[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    llvm.call @adc_func_outlined_vf_0(%330, %296, %316, %126, %317) {hivm.vector_function, no_inline} : (!llvm.ptr<6>, !llvm.ptr<6>, i64, !llvm.ptr<6>, !llvm.ptr<6>) -> ()
+    %331 = llvm.add %313, %27 overflow<nsw> : i32
+    llvm.br ^bb6(%331, %329 : i32, !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>)
+  ^bb8:  // pred: ^bb6
+    %332 = llvm.add %196, %27 overflow<nsw> : i32
+    llvm.br ^bb4(%332, %314 : i32, !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>)
+  ^bb9:  // pred: ^bb4
+    "hivm.intr.hivm.WAIT.FLAG.REG"(%154) <{set_pipe = 5 : i64, wait_pipe = 1 : i64}> : (i64) -> ()
+    %333 = llvm.extractvalue %197[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %334 = llvm.extractvalue %153[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    llvm.call @adc_func_outlined_vf_4(%333, %334) {hivm.vector_function, no_inline} : (!llvm.ptr<6>, !llvm.ptr<6>) -> ()
+    "hivm.intr.hivm.SET.FLAG.IMM"() <{event_id = 0 : i64, set_pipe = 1 : i64, wait_pipe = 5 : i64}> : () -> ()
+    %335 = llvm.extractvalue %153[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %336 = llvm.extractvalue %153[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %337 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64)>
+    %338 = llvm.insertvalue %335, %337[0] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %339 = llvm.insertvalue %336, %338[1] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %340 = llvm.mlir.constant(0 : index) : i64
+    %341 = llvm.insertvalue %340, %339[2] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %342 = llvm.extractvalue %153[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %343 = llvm.extractvalue %153[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %344 = llvm.extractvalue %153[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %345 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %346 = llvm.insertvalue %335, %345[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %347 = llvm.insertvalue %336, %346[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %348 = llvm.mlir.constant(0 : index) : i64
+    %349 = llvm.insertvalue %348, %347[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %350 = llvm.insertvalue %195, %349[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %351 = llvm.mlir.constant(1 : index) : i64
+    %352 = llvm.insertvalue %351, %350[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %353 = llvm.extractvalue %5[0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %354 = llvm.extractvalue %5[1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %355 = llvm.mlir.undef : !llvm.struct<(ptr<1>, ptr<1>, i64)>
+    %356 = llvm.insertvalue %353, %355[0] : !llvm.struct<(ptr<1>, ptr<1>, i64)> 
+    %357 = llvm.insertvalue %354, %356[1] : !llvm.struct<(ptr<1>, ptr<1>, i64)> 
+    %358 = llvm.mlir.constant(0 : index) : i64
+    %359 = llvm.insertvalue %358, %357[2] : !llvm.struct<(ptr<1>, ptr<1>, i64)> 
+    %360 = llvm.extractvalue %5[2] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %361 = llvm.extractvalue %5[3, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %362 = llvm.extractvalue %5[4, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %363 = llvm.mlir.undef : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)>
+    %364 = llvm.insertvalue %353, %363[0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %365 = llvm.insertvalue %354, %364[1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %366 = llvm.insertvalue %191, %365[2] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %367 = llvm.insertvalue %195, %366[3, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %368 = llvm.mlir.constant(1 : index) : i64
+    %369 = llvm.insertvalue %368, %367[4, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    "hivm.intr.hivm.WAIT.FLAG.IMM"() <{event_id = 0 : i64, set_pipe = 1 : i64, wait_pipe = 5 : i64}> : () -> ()
+    "hivm.intr.hivm.BARRIER"() <{pipe = 5 : i64}> : () -> ()
+    llvm.call @store_ubuf_to_gm_1d_float(%335, %336, %348, %195, %351, %353, %354, %191, %195, %368, %35) : (!llvm.ptr<6>, !llvm.ptr<6>, i64, i64, i64, !llvm.ptr<1>, !llvm.ptr<1>, i64, i64, i64, i32) -> ()
+    "hivm.intr.hivm.SET.FLAG.REG"(%154) <{set_pipe = 5 : i64, wait_pipe = 1 : i64}> : (i64) -> ()
+    llvm.br ^bb10
+  ^bb10:  // 2 preds: ^bb2, ^bb9
+    %370 = llvm.add %143, %27 overflow<nsw> : i32
+    llvm.br ^bb1(%370 : i32)
+  ^bb11:  // pred: ^bb1
+    "hivm.intr.hivm.BARRIER"() <{pipe = 6 : i64}> : () -> ()
+    "hivm.intr.hivm.WAIT.FLAG.IMM"() <{event_id = 0 : i64, set_pipe = 1 : i64, wait_pipe = 4 : i64}> : () -> ()
+    "hivm.intr.hivm.WAIT.FLAG.IMM"() <{event_id = 1 : i64, set_pipe = 1 : i64, wait_pipe = 4 : i64}> : () -> ()
+    "hivm.intr.hivm.WAIT.FLAG.IMM"() <{event_id = 0 : i64, set_pipe = 5 : i64, wait_pipe = 1 : i64}> : () -> ()
+    "hivm.intr.hivm.WAIT.FLAG.IMM"() <{event_id = 1 : i64, set_pipe = 5 : i64, wait_pipe = 1 : i64}> : () -> ()
+    llvm.return
+  }
+}
+
+
+// -----// IR Dump After TritonGlobalKernelArgsToLLVM (triton-globalkernelargs-to-llvm) //----- //
+module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #hacc.target_device_spec<#dlti.dl_entry<"AI_CORE_COUNT", 28 : i32>, #dlti.dl_entry<"CUBE_CORE_COUNT", 28 : i32>, #dlti.dl_entry<"VECTOR_CORE_COUNT", 56 : i32>, #dlti.dl_entry<"UB_SIZE", 2031616 : i32>, #dlti.dl_entry<"L1_SIZE", 4194304 : i32>, #dlti.dl_entry<"L0A_SIZE", 524288 : i32>, #dlti.dl_entry<"L0B_SIZE", 524288 : i32>, #dlti.dl_entry<"L0C_SIZE", 2097152 : i32>, #dlti.dl_entry<"UB_ALIGN_SIZE", 256 : i32>, #dlti.dl_entry<"L1_ALIGN_SIZE", 256 : i32>, #dlti.dl_entry<"L0C_ALIGN_SIZE", 4096 : i32>, #dlti.dl_entry<"MINIMAL_D_CACHE_SIZE", 262144 : i32>, #dlti.dl_entry<"MAXIMUM_D_CACHE_SIZE", 983040 : i32>, #dlti.dl_entry<"ARCH", "dav-c310">>>, hacc.target = #hacc.target<"Ascend950PR_9579">, hivm.module_core_type = #hivm.module_core_type<AIV>, memref.memref_as_ptr} {
+  llvm.func @adc_func_outlined_vf_0(%arg0: !llvm.ptr<6>, %arg1: !llvm.ptr<6>, %arg2: i64, %arg3: !llvm.ptr<6>, %arg4: !llvm.ptr<6>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function} {
+    %0 = llvm.mlir.constant(7 : i32) : i32
+    %1 = llvm.mlir.constant(0 : i32) : i32
+    %2 = llvm.mlir.constant(2 : i32) : i32
+    %3 = llvm.mlir.constant(16 : index) : i64
+    %4 = llvm.mlir.constant(0 : index) : i64
+    %5 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%0, %1) {mask_bit_width = 32 : i32, mask_op_idx = 0 : i32} : (i32, i32) -> vector<256xi1>
+    %6 = "hivm_regbaseintrins.intr.hivm.vldsx1.v64f32"(%arg0, %1, %1, %1) : (!llvm.ptr<6>, i32, i32, i32) -> vector<64xf32>
+    %7 = llvm.getelementptr %arg1[%arg2] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i32
+    %8 = llvm.mul %4, %3 : i64
+    %9 = llvm.getelementptr %7[%8] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i32
+    %10 = "hivm_regbaseintrins.intr.hivm.vldas"(%9) : (!llvm.ptr<6>) -> vector<32xi8>
+    %11 = "hivm_regbaseintrins.intr.hivm.vldus.post.s32"(%9, %10, %1) : (!llvm.ptr<6>, vector<32xi8>, i32) -> !llvm.struct<(vector<64xi32>, vector<32xi8>, ptr<6>)>
+    %12 = llvm.extractvalue %11[0] : !llvm.struct<(vector<64xi32>, vector<32xi8>, ptr<6>)> 
+    %13 = "hivm_regbaseintrins.intr.hivm.vgather2_v300.v64f32"(%arg3, %12, %5) : (!llvm.ptr<6>, vector<64xi32>, vector<256xi1>) -> vector<64xf32>
+    %14 = "hivm_regbaseintrins.intr.hivm.vadd.s.x"(%6, %13, %5) : (vector<64xf32>, vector<64xf32>, vector<256xi1>) -> vector<64xf32>
+    "hivm_regbaseintrins.intr.hivm.vstsx1.v64f32"(%14, %arg4, %1, %2, %1, %5) : (vector<64xf32>, !llvm.ptr<6>, i32, i32, i32, vector<256xi1>) -> ()
+    llvm.return
+  }
+  llvm.func @adc_func_outlined_vf_1(%arg0: !llvm.ptr<6>, %arg1: !llvm.ptr<6>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function} {
+    %0 = llvm.mlir.constant(1 : i32) : i32
+    %1 = llvm.mlir.constant(32 : i32) : i32
+    %2 = llvm.mlir.constant(0 : i32) : i32
+    %3 = llvm.mlir.constant(6 : i32) : i32
+    %4 = llvm.mlir.constant(0 : i8) : i8
+    %5 = llvm.mlir.constant(2 : i32) : i32
+    %6 = llvm.mlir.constant(16 : index) : i64
+    llvm.br ^bb1(%2 : i32)
+  ^bb1(%7: i32):  // 2 preds: ^bb0, ^bb2
+    %8 = llvm.icmp "slt" %7, %1 : i32
+    llvm.cond_br %8, ^bb2, ^bb3
+  ^bb2:  // pred: ^bb1
+    %9 = llvm.sext %7 : i32 to i64
+    %10 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%3, %2) {mask_bit_width = 32 : i32, mask_op_idx = 0 : i32} : (i32, i32) -> vector<256xi1>
+    %11 = llvm.mul %9, %6 : i64
+    %12 = llvm.getelementptr %arg0[%11] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i8
+    %13 = "hivm_regbaseintrins.intr.hivm.vldas"(%12) : (!llvm.ptr<6>) -> vector<32xi8>
+    %14 = "hivm_regbaseintrins.intr.hivm.vldus.post.s8"(%12, %13, %2) : (!llvm.ptr<6>, vector<32xi8>, i32) -> !llvm.struct<(vector<256xi8>, vector<32xi8>, ptr<6>)>
+    %15 = llvm.extractvalue %14[0] : !llvm.struct<(vector<256xi8>, vector<32xi8>, ptr<6>)> 
+    %16 = "hivm_regbaseintrins.intr.hivm.vbr"(%4) : (i8) -> vector<256xi8>
+    %17 = "hivm_regbaseintrins.intr.hivm.vintlv"(%15, %16) : (vector<256xi8>, vector<256xi8>) -> !llvm.struct<(vector<256xi8>, vector<256xi8>)>
+    %18 = llvm.extractvalue %17[0] : !llvm.struct<(vector<256xi8>, vector<256xi8>)> 
+    %19 = "hivm_regbaseintrins.intr.hivm.vintlv"(%18, %16) : (vector<256xi8>, vector<256xi8>) -> !llvm.struct<(vector<256xi8>, vector<256xi8>)>
+    %20 = llvm.extractvalue %19[0] : !llvm.struct<(vector<256xi8>, vector<256xi8>)> 
+    %21 = "hivm_regbaseintrins.intr.hivm.vcvtii.u82u32.x"(%20, %10, %2) : (vector<256xi8>, vector<256xi1>, i32) -> vector<64xi32>
+    %22 = llvm.mul %9, %6 : i64
+    %23 = llvm.getelementptr %arg1[%22] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i32
+    "hivm_regbaseintrins.intr.hivm.vstsx1.v64s32"(%21, %23, %2, %5, %2, %10) : (vector<64xi32>, !llvm.ptr<6>, i32, i32, i32, vector<256xi1>) -> ()
+    %24 = llvm.add %7, %0 overflow<nsw> : i32
+    llvm.br ^bb1(%24 : i32)
+  ^bb3:  // pred: ^bb1
+    llvm.return
+  }
+  llvm.func @adc_func_outlined_vf_2(%arg0: !llvm.ptr<6>) attributes {element_alignment_bit_width = 8 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function} {
+    %0 = llvm.mlir.constant(0 : i32) : i32
+    %1 = llvm.mlir.constant(32 : i32) : i32
+    %2 = llvm.mlir.constant(1 : i32) : i32
+    %3 = llvm.mlir.constant(0 : i8) : i8
+    %4 = llvm.mlir.constant(6 : i32) : i32
+    %5 = llvm.mlir.constant(16 : i32) : i32
+    %6 = llvm.mlir.constant(16 : index) : i64
+    %7 = "hivm_regbaseintrins.intr.hivm.pge.b8"(%0, %0) {mask_bit_width = 8 : i32} : (i32, i32) -> vector<256xi1>
+    %8 = "hivm_regbaseintrins.intr.hivm.vdups.z"(%3, %7, %2) : (i8, vector<256xi1>, i32) -> vector<256xi8>
+    llvm.br ^bb1(%0 : i32)
+  ^bb1(%9: i32):  // 2 preds: ^bb0, ^bb2
+    %10 = llvm.icmp "slt" %9, %1 : i32
+    llvm.cond_br %10, ^bb2, ^bb3
+  ^bb2:  // pred: ^bb1
+    %11 = llvm.sext %9 : i32 to i64
+    %12 = "hivm_regbaseintrins.intr.hivm.pge.b8"(%4, %0) {mask_bit_width = 8 : i32, mask_op_idx = 0 : i32} : (i32, i32) -> vector<256xi1>
+    %13 = llvm.mul %11, %6 : i64
+    %14 = llvm.getelementptr %arg0[%13] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i8
+    %15 = "hivm_regbaseintrins.intr.hivm.init.vector.align.data"() : () -> vector<32xi8>
+    %16 = "hivm_regbaseintrins.intr.hivm.vstus.post.s8"(%8, %14, %5, %15) : (vector<256xi8>, !llvm.ptr<6>, i32, vector<32xi8>) -> !llvm.struct<(vector<32xi8>, ptr<6>)>
+    %17 = llvm.extractvalue %16[0] : !llvm.struct<(vector<32xi8>, ptr<6>)> 
+    %18 = llvm.extractvalue %16[1] : !llvm.struct<(vector<32xi8>, ptr<6>)> 
+    "hivm_regbaseintrins.intr.hivm.vstas"(%17, %18, %0, %0) : (vector<32xi8>, !llvm.ptr<6>, i32, i32) -> ()
+    %19 = llvm.add %9, %2 overflow<nsw> : i32
+    llvm.br ^bb1(%19 : i32)
+  ^bb3:  // pred: ^bb1
+    llvm.return
+  }
+  llvm.func @adc_func_outlined_vf_3(%arg0: !llvm.ptr<6>) attributes {element_alignment_bit_width = -1 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function} {
+    %0 = llvm.mlir.constant(0.000000e+00 : f32) : f32
+    %1 = llvm.mlir.constant(8 : i32) : i32
+    %2 = llvm.mlir.constant(0 : i32) : i32
+    %3 = llvm.mlir.constant(1 : i32) : i32
+    %4 = llvm.mlir.constant(7 : i32) : i32
+    %5 = llvm.mlir.constant(2 : i32) : i32
+    %6 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%1, %2) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+    %7 = "hivm_regbaseintrins.intr.hivm.vdups.z"(%0, %6, %3) : (f32, vector<256xi1>, i32) -> vector<64xf32>
+    %8 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%4, %2) {mask_bit_width = 32 : i32, mask_op_idx = 0 : i32} : (i32, i32) -> vector<256xi1>
+    "hivm_regbaseintrins.intr.hivm.vstsx1.v64f32"(%7, %arg0, %2, %5, %2, %8) : (vector<64xf32>, !llvm.ptr<6>, i32, i32, i32, vector<256xi1>) -> ()
+    llvm.return
+  }
+  llvm.func @adc_func_outlined_vf_4(%arg0: !llvm.ptr<6>, %arg1: !llvm.ptr<6>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function} {
+    %0 = llvm.mlir.constant(7 : i32) : i32
+    %1 = llvm.mlir.constant(0 : i32) : i32
+    %2 = llvm.mlir.constant(2 : i32) : i32
+    %3 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%0, %1) {mask_bit_width = 32 : i32, mask_op_idx = 0 : i32} : (i32, i32) -> vector<256xi1>
+    %4 = "hivm_regbaseintrins.intr.hivm.vldsx1.v64f32"(%arg0, %1, %1, %1) : (!llvm.ptr<6>, i32, i32, i32) -> vector<64xf32>
+    %5 = "hivm_regbaseintrins.intr.hivm.vsqrt.x"(%4, %3) : (vector<64xf32>, vector<256xi1>) -> vector<64xf32>
+    "hivm_regbaseintrins.intr.hivm.vstsx1.v64f32"(%5, %arg1, %1, %2, %1, %3) : (vector<64xf32>, !llvm.ptr<6>, i32, i32, i32, vector<256xi1>) -> ()
+    llvm.return
+  }
+  llvm.func private @load_gm_to_ubuf_1d_float(%arg0: !llvm.ptr<1>, %arg1: !llvm.ptr<1>, %arg2: i64, %arg3: i64, %arg4: i64, %arg5: !llvm.ptr<6>, %arg6: !llvm.ptr<6>, %arg7: i64, %arg8: i64, %arg9: i64, %arg10: i32, %arg11: f32, %arg12: i64, %arg13: i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface, sym_visibility = "private"} {
+    %0 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %1 = llvm.mlir.constant(1 : index) : i64
+    %2 = llvm.mlir.undef : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)>
+    %3 = llvm.insertvalue %arg0, %2[0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %4 = llvm.insertvalue %arg1, %3[1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %5 = llvm.insertvalue %arg2, %4[2] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %6 = llvm.insertvalue %arg3, %5[3, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %7 = llvm.insertvalue %arg4, %6[4, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %8 = llvm.alloca %1 x !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> : (i64) -> !llvm.ptr
+    llvm.store %7, %8 : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)>, !llvm.ptr
+    %9 = llvm.insertvalue %arg5, %0[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %10 = llvm.insertvalue %arg6, %9[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %11 = llvm.insertvalue %arg7, %10[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %12 = llvm.insertvalue %arg8, %11[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %13 = llvm.insertvalue %arg9, %12[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %14 = llvm.alloca %1 x !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> : (i64) -> !llvm.ptr
+    llvm.store %13, %14 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>, !llvm.ptr
+    llvm.call @_mlir_ciface_load_gm_to_ubuf_1d_float(%8, %14, %arg10, %arg11, %arg12, %arg13) : (!llvm.ptr, !llvm.ptr, i32, f32, i64, i32) -> ()
+    llvm.return
+  }
+  llvm.func @_mlir_ciface_load_gm_to_ubuf_1d_float(!llvm.ptr, !llvm.ptr, i32, f32, i64, i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface, sym_visibility = "private"}
+  llvm.func private @load_gm_to_ubuf_2d_int8_t(%arg0: !llvm.ptr<1>, %arg1: !llvm.ptr<1>, %arg2: i64, %arg3: i64, %arg4: i64, %arg5: i64, %arg6: i64, %arg7: !llvm.ptr<6>, %arg8: !llvm.ptr<6>, %arg9: i64, %arg10: i64, %arg11: i64, %arg12: i64, %arg13: i64, %arg14: i32, %arg15: i8, %arg16: i64, %arg17: i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface, sym_visibility = "private"} {
+    %0 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %1 = llvm.mlir.constant(1 : index) : i64
+    %2 = llvm.mlir.undef : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)>
+    %3 = llvm.insertvalue %arg0, %2[0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %4 = llvm.insertvalue %arg1, %3[1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %5 = llvm.insertvalue %arg2, %4[2] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %6 = llvm.insertvalue %arg3, %5[3, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %7 = llvm.insertvalue %arg5, %6[4, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %8 = llvm.insertvalue %arg4, %7[3, 1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %9 = llvm.insertvalue %arg6, %8[4, 1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %10 = llvm.alloca %1 x !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> : (i64) -> !llvm.ptr
+    llvm.store %9, %10 : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)>, !llvm.ptr
+    %11 = llvm.insertvalue %arg7, %0[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %12 = llvm.insertvalue %arg8, %11[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %13 = llvm.insertvalue %arg9, %12[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %14 = llvm.insertvalue %arg10, %13[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %15 = llvm.insertvalue %arg12, %14[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %16 = llvm.insertvalue %arg11, %15[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %17 = llvm.insertvalue %arg13, %16[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %18 = llvm.alloca %1 x !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> : (i64) -> !llvm.ptr
+    llvm.store %17, %18 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>, !llvm.ptr
+    llvm.call @_mlir_ciface_load_gm_to_ubuf_2d_int8_t(%10, %18, %arg14, %arg15, %arg16, %arg17) : (!llvm.ptr, !llvm.ptr, i32, i8, i64, i32) -> ()
+    llvm.return
+  }
+  llvm.func @_mlir_ciface_load_gm_to_ubuf_2d_int8_t(!llvm.ptr, !llvm.ptr, i32, i8, i64, i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface, sym_visibility = "private"}
+  llvm.func private @copy_ubuf_to_ubuf_1d_int8_t(%arg0: !llvm.ptr<6>, %arg1: !llvm.ptr<6>, %arg2: i64, %arg3: i64, %arg4: i64, %arg5: !llvm.ptr<6>, %arg6: !llvm.ptr<6>, %arg7: i64, %arg8: i64, %arg9: i64) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface, sym_visibility = "private"} {
+    %0 = llvm.mlir.constant(1 : index) : i64
+    %1 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %2 = llvm.insertvalue %arg0, %1[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %3 = llvm.insertvalue %arg1, %2[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %4 = llvm.insertvalue %arg2, %3[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %5 = llvm.insertvalue %arg3, %4[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %6 = llvm.insertvalue %arg4, %5[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %7 = llvm.alloca %0 x !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> : (i64) -> !llvm.ptr
+    llvm.store %6, %7 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>, !llvm.ptr
+    %8 = llvm.insertvalue %arg5, %1[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %9 = llvm.insertvalue %arg6, %8[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %10 = llvm.insertvalue %arg7, %9[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %11 = llvm.insertvalue %arg8, %10[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %12 = llvm.insertvalue %arg9, %11[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %13 = llvm.alloca %0 x !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> : (i64) -> !llvm.ptr
+    llvm.store %12, %13 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>, !llvm.ptr
+    llvm.call @_mlir_ciface_copy_ubuf_to_ubuf_1d_int8_t(%7, %13) : (!llvm.ptr, !llvm.ptr) -> ()
+    llvm.return
+  }
+  llvm.func @_mlir_ciface_copy_ubuf_to_ubuf_1d_int8_t(!llvm.ptr, !llvm.ptr) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface, sym_visibility = "private"}
+  llvm.func private @store_ubuf_to_gm_1d_float(%arg0: !llvm.ptr<6>, %arg1: !llvm.ptr<6>, %arg2: i64, %arg3: i64, %arg4: i64, %arg5: !llvm.ptr<1>, %arg6: !llvm.ptr<1>, %arg7: i64, %arg8: i64, %arg9: i64, %arg10: i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface, sym_visibility = "private"} {
+    %0 = llvm.mlir.undef : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)>
+    %1 = llvm.mlir.constant(1 : index) : i64
+    %2 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %3 = llvm.insertvalue %arg0, %2[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %4 = llvm.insertvalue %arg1, %3[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %5 = llvm.insertvalue %arg2, %4[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %6 = llvm.insertvalue %arg3, %5[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %7 = llvm.insertvalue %arg4, %6[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %8 = llvm.alloca %1 x !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> : (i64) -> !llvm.ptr
+    llvm.store %7, %8 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>, !llvm.ptr
+    %9 = llvm.insertvalue %arg5, %0[0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %10 = llvm.insertvalue %arg6, %9[1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %11 = llvm.insertvalue %arg7, %10[2] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %12 = llvm.insertvalue %arg8, %11[3, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %13 = llvm.insertvalue %arg9, %12[4, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %14 = llvm.alloca %1 x !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> : (i64) -> !llvm.ptr
+    llvm.store %13, %14 : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)>, !llvm.ptr
+    llvm.call @_mlir_ciface_store_ubuf_to_gm_1d_float(%8, %14, %arg10) : (!llvm.ptr, !llvm.ptr, i32) -> ()
+    llvm.return
+  }
+  llvm.func @_mlir_ciface_store_ubuf_to_gm_1d_float(!llvm.ptr, !llvm.ptr, i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface, sym_visibility = "private"}
+  llvm.func @adc_func(%arg0: !llvm.ptr<1>, %arg1: !llvm.ptr<1>, %arg2: !llvm.ptr<1>, %arg3: !llvm.ptr<1>, %arg4: !llvm.ptr<1>, %arg5: i32, %arg6: i32, %arg7: i32, %arg8: i32) attributes {SyncBlockLockArgIdx = 0 : i64, WorkspaceArgIdx = 1 : i64, hacc.entry, hacc.function_kind = #hacc.function_kind<DEVICE>, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vf_mode = #hivm.vf_mode<SIMD>, hivm_regbaseintrins.target = #hivm_regbaseintrins.target<"dav-c310">, mix_mode = "aiv", parallel_mode = "simd"} {
+    %0 = llvm.mlir.constant(64 : index) : i64
+    %1 = llvm.mlir.constant(2 : index) : i64
+    %2 = llvm.mlir.constant(16384 : index) : i64
+    %3 = llvm.mlir.constant(48 : i64) : i64
+    %4 = llvm.mlir.constant(60 : i64) : i64
+    %5 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %6 = llvm.mlir.constant(16 : index) : i64
+    %7 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %8 = llvm.mlir.constant(1 : index) : i64
+    %9 = llvm.mlir.constant(32 : index) : i64
+    %10 = llvm.mlir.constant(0 : index) : i64
+    %11 = llvm.mlir.constant(0.000000e+00 : f32) : f32
+    %12 = llvm.mlir.constant(0 : i8) : i8
+    %13 = llvm.mlir.constant(0 : i32) : i32
+    %14 = llvm.mlir.constant(1791 : i32) : i32
+    %15 = llvm.mlir.constant(1792 : i32) : i32
+    %16 = llvm.mlir.constant(56 : i32) : i32
+    %17 = llvm.mlir.constant(31 : i32) : i32
+    %18 = llvm.mlir.constant(32 : i32) : i32
+    %19 = llvm.mlir.constant(4 : i32) : i32
+    %20 = llvm.mlir.constant(16 : i32) : i32
+    %21 = llvm.mlir.constant(1 : i32) : i32
+    %22 = llvm.mlir.constant(0 : i64) : i64
+    %23 = llvm.mlir.constant(65536 : i64) : i64
+    %24 = llvm.mlir.constant(68608 : i64) : i64
+    %25 = llvm.mlir.constant(66560 : i64) : i64
+    %26 = llvm.mlir.constant(1 : i64) : i64
+    %27 = llvm.mlir.constant(68864 : i64) : i64
+    %28 = llvm.mlir.constant(66048 : i64) : i64
+    %29 = llvm.mlir.constant(68736 : i64) : i64
+    %30 = llvm.mlir.constant(69376 : i64) : i64
+    %31 = llvm.inttoptr %29 : i64 to !llvm.ptr<6>
+    %32 = llvm.insertvalue %31, %7[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %33 = llvm.insertvalue %31, %32[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %34 = llvm.insertvalue %10, %33[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %35 = llvm.insertvalue %9, %34[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %36 = llvm.insertvalue %8, %35[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %37 = llvm.inttoptr %30 : i64 to !llvm.ptr<6>
+    %38 = llvm.insertvalue %37, %7[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %39 = llvm.insertvalue %37, %38[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %40 = llvm.insertvalue %10, %39[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %41 = llvm.insertvalue %9, %40[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %42 = llvm.insertvalue %8, %41[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %43 = llvm.inttoptr %28 : i64 to !llvm.ptr<6>
+    %44 = llvm.insertvalue %43, %5[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %45 = llvm.insertvalue %43, %44[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %46 = llvm.insertvalue %10, %45[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %47 = llvm.insertvalue %9, %46[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %48 = llvm.insertvalue %6, %47[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %49 = llvm.insertvalue %6, %48[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %50 = llvm.insertvalue %8, %49[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %51 = llvm.inttoptr %27 : i64 to !llvm.ptr<6>
+    %52 = llvm.insertvalue %51, %5[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %53 = llvm.insertvalue %51, %52[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %54 = llvm.insertvalue %10, %53[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %55 = llvm.insertvalue %9, %54[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %56 = llvm.insertvalue %6, %55[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %57 = llvm.insertvalue %6, %56[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %58 = llvm.insertvalue %8, %57[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %59 = "hivm.intr.hivm.GET.CTRL"() : () -> i64
+    %60 = "hivm.intr.hivm.SBITSET0"(%59, %4) : (i64, i64) -> i64
+    "hivm.intr.hivm.SET.CTRL"(%60) : (i64) -> ()
+    %61 = "hivm.intr.hivm.GET.CTRL"() : () -> i64
+    %62 = "hivm.intr.hivm.SBITSET1"(%61, %3) : (i64, i64) -> i64
+    "hivm.intr.hivm.SET.CTRL"(%62) : (i64) -> ()
+    %63 = "hivm.intr.hivm.GET.BLOCK.IDX"() : () -> i64
+    %64 = llvm.trunc %63 : i64 to i32
+    %65 = llvm.inttoptr %22 : i64 to !llvm.ptr<6>
+    "hivm.intr.hivm.SET.FLAG.IMM"() <{event_id = 0 : i64, set_pipe = 1 : i64, wait_pipe = 4 : i64}> : () -> ()
+    "hivm.intr.hivm.SET.FLAG.IMM"() <{event_id = 1 : i64, set_pipe = 1 : i64, wait_pipe = 4 : i64}> : () -> ()
+    "hivm.intr.hivm.SET.FLAG.IMM"() <{event_id = 0 : i64, set_pipe = 5 : i64, wait_pipe = 1 : i64}> : () -> ()
+    "hivm.intr.hivm.SET.FLAG.IMM"() <{event_id = 1 : i64, set_pipe = 5 : i64, wait_pipe = 1 : i64}> : () -> ()
+    llvm.call @load_gm_to_ubuf_1d_float(%arg2, %arg2, %10, %2, %8, %65, %65, %10, %2, %8, %13, %11, %10, %13) : (!llvm.ptr<1>, !llvm.ptr<1>, i64, i64, i64, !llvm.ptr<6>, !llvm.ptr<6>, i64, i64, i64, i32, f32, i64, i32) -> ()
+    %66 = llvm.add %arg5, %14 : i32
+    %67 = llvm.sdiv %66, %15  : i32
+    %68 = llvm.add %arg5, %17 : i32
+    %69 = llvm.sdiv %68, %18  : i32
+    llvm.br ^bb1(%13 : i32)
+  ^bb1(%70: i32):  // 2 preds: ^bb0, ^bb10
+    %71 = llvm.icmp "slt" %70, %67 : i32
+    llvm.cond_br %71, ^bb2, ^bb11
+  ^bb2:  // pred: ^bb1
+    %72 = llvm.sext %70 : i32 to i64
+    %73 = llvm.srem %72, %1  : i64
+    %74 = llvm.icmp "slt" %73, %10 : i64
+    %75 = llvm.add %73, %1 : i64
+    %76 = llvm.select %74, %75, %73 : i1, i64
+    %77 = llvm.icmp "eq" %76, %26 : i64
+    %78 = llvm.select %77, %42, %36 : i1, !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %79 = llvm.zext %77 : i1 to i64
+    %80 = llvm.mul %70, %16 : i32
+    %81 = llvm.add %80, %64 : i32
+    %82 = llvm.icmp "slt" %81, %69 : i32
+    llvm.cond_br %82, ^bb3, ^bb10
+  ^bb3:  // pred: ^bb2
+    %83 = llvm.inttoptr %23 : i64 to !llvm.ptr<6>
+    llvm.call @adc_func_outlined_vf_2(%83) {hivm.vector_function, no_inline} : (!llvm.ptr<6>) -> ()
+    %84 = llvm.inttoptr %24 : i64 to !llvm.ptr<6>
+    %85 = llvm.insertvalue %84, %7[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %86 = llvm.insertvalue %84, %85[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %87 = llvm.insertvalue %10, %86[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %88 = llvm.insertvalue %9, %87[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %89 = llvm.insertvalue %8, %88[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    llvm.call @adc_func_outlined_vf_3(%84) {hivm.vector_function, no_inline} : (!llvm.ptr<6>) -> ()
+    %90 = llvm.mul %70, %15 : i32
+    %91 = llvm.mul %64, %18 : i32
+    %92 = llvm.add %90, %91 : i32
+    %93 = llvm.sext %92 : i32 to i64
+    %94 = llvm.sub %arg5, %91 : i32
+    %95 = llvm.sub %94, %90 : i32
+    %96 = llvm.intr.smin(%95, %18)  : (i32, i32) -> i32
+    %97 = llvm.sext %96 : i32 to i64
+    llvm.br ^bb4(%13, %89 : i32, !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>)
+  ^bb4(%98: i32, %99: !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>):  // 2 preds: ^bb3, ^bb8
+    %100 = llvm.icmp "slt" %98, %19 : i32
+    llvm.cond_br %100, ^bb5, ^bb9
+  ^bb5:  // pred: ^bb4
+    %101 = llvm.sext %98 : i32 to i64
+    %102 = llvm.srem %101, %1  : i64
+    %103 = llvm.icmp "slt" %102, %10 : i64
+    %104 = llvm.add %102, %1 : i64
+    %105 = llvm.select %103, %104, %102 : i1, i64
+    %106 = llvm.icmp "eq" %105, %26 : i64
+    %107 = llvm.select %106, %58, %50 : i1, !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %108 = llvm.zext %106 : i1 to i64
+    %109 = llvm.mul %98, %20 : i32
+    %110 = llvm.sext %109 : i32 to i64
+    %111 = llvm.mul %93, %0 : i64
+    %112 = llvm.add %111, %110 : i64
+    %113 = llvm.extractvalue %107[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %114 = llvm.extractvalue %107[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    "hivm.intr.hivm.WAIT.FLAG.REG"(%108) <{set_pipe = 1 : i64, wait_pipe = 4 : i64}> : (i64) -> ()
+    llvm.call @load_gm_to_ubuf_2d_int8_t(%arg3, %arg3, %112, %97, %6, %0, %8, %113, %114, %10, %97, %6, %6, %8, %13, %12, %10, %13) : (!llvm.ptr<1>, !llvm.ptr<1>, i64, i64, i64, i64, i64, !llvm.ptr<6>, !llvm.ptr<6>, i64, i64, i64, i64, i64, i32, i8, i64, i32) -> ()
+    "hivm.intr.hivm.SET.FLAG.IMM"() <{event_id = 0 : i64, set_pipe = 4 : i64, wait_pipe = 1 : i64}> : () -> ()
+    %115 = llvm.extractvalue %107[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %116 = llvm.extractvalue %107[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %117 = llvm.mul %97, %6 : i64
+    %118 = llvm.mul %97, %6 : i64
+    "hivm.intr.hivm.WAIT.FLAG.IMM"() <{event_id = 0 : i64, set_pipe = 4 : i64, wait_pipe = 1 : i64}> : () -> ()
+    llvm.call @copy_ubuf_to_ubuf_1d_int8_t(%115, %116, %10, %117, %8, %83, %83, %10, %118, %8) : (!llvm.ptr<6>, !llvm.ptr<6>, i64, i64, i64, !llvm.ptr<6>, !llvm.ptr<6>, i64, i64, i64) -> ()
+    "hivm.intr.hivm.SET.FLAG.REG"(%108) <{set_pipe = 1 : i64, wait_pipe = 4 : i64}> : (i64) -> ()
+    %119 = llvm.inttoptr %25 : i64 to !llvm.ptr<6>
+    llvm.call @adc_func_outlined_vf_1(%83, %119) {hivm.vector_function, no_inline} : (!llvm.ptr<6>, !llvm.ptr<6>) -> ()
+    llvm.br ^bb6(%13, %99 : i32, !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>)
+  ^bb6(%120: i32, %121: !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>):  // 2 preds: ^bb5, ^bb7
+    %122 = llvm.icmp "slt" %120, %20 : i32
+    llvm.cond_br %122, ^bb7, ^bb8
+  ^bb7:  // pred: ^bb6
+    %123 = llvm.sext %120 : i32 to i64
+    %124 = llvm.inttoptr %24 : i64 to !llvm.ptr<6>
+    %125 = llvm.insertvalue %124, %7[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %126 = llvm.insertvalue %124, %125[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %127 = llvm.insertvalue %10, %126[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %128 = llvm.insertvalue %9, %127[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %129 = llvm.insertvalue %8, %128[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %130 = llvm.extractvalue %121[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    llvm.call @adc_func_outlined_vf_0(%130, %119, %123, %65, %124) {hivm.vector_function, no_inline} : (!llvm.ptr<6>, !llvm.ptr<6>, i64, !llvm.ptr<6>, !llvm.ptr<6>) -> ()
+    %131 = llvm.add %120, %21 overflow<nsw> : i32
+    llvm.br ^bb6(%131, %129 : i32, !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>)
+  ^bb8:  // pred: ^bb6
+    %132 = llvm.add %98, %21 overflow<nsw> : i32
+    llvm.br ^bb4(%132, %121 : i32, !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>)
+  ^bb9:  // pred: ^bb4
+    "hivm.intr.hivm.WAIT.FLAG.REG"(%79) <{set_pipe = 5 : i64, wait_pipe = 1 : i64}> : (i64) -> ()
+    %133 = llvm.extractvalue %99[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %134 = llvm.extractvalue %78[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    llvm.call @adc_func_outlined_vf_4(%133, %134) {hivm.vector_function, no_inline} : (!llvm.ptr<6>, !llvm.ptr<6>) -> ()
+    "hivm.intr.hivm.SET.FLAG.IMM"() <{event_id = 0 : i64, set_pipe = 1 : i64, wait_pipe = 5 : i64}> : () -> ()
+    %135 = llvm.extractvalue %78[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %136 = llvm.extractvalue %78[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    "hivm.intr.hivm.WAIT.FLAG.IMM"() <{event_id = 0 : i64, set_pipe = 1 : i64, wait_pipe = 5 : i64}> : () -> ()
+    "hivm.intr.hivm.BARRIER"() <{pipe = 5 : i64}> : () -> ()
+    llvm.call @store_ubuf_to_gm_1d_float(%135, %136, %10, %97, %8, %arg4, %arg4, %93, %97, %8, %13) : (!llvm.ptr<6>, !llvm.ptr<6>, i64, i64, i64, !llvm.ptr<1>, !llvm.ptr<1>, i64, i64, i64, i32) -> ()
+    "hivm.intr.hivm.SET.FLAG.REG"(%79) <{set_pipe = 5 : i64, wait_pipe = 1 : i64}> : (i64) -> ()
+    llvm.br ^bb10
+  ^bb10:  // 2 preds: ^bb2, ^bb9
+    %137 = llvm.add %70, %21 overflow<nsw> : i32
+    llvm.br ^bb1(%137 : i32)
+  ^bb11:  // pred: ^bb1
+    "hivm.intr.hivm.BARRIER"() <{pipe = 6 : i64}> : () -> ()
+    "hivm.intr.hivm.WAIT.FLAG.IMM"() <{event_id = 0 : i64, set_pipe = 1 : i64, wait_pipe = 4 : i64}> : () -> ()
+    "hivm.intr.hivm.WAIT.FLAG.IMM"() <{event_id = 1 : i64, set_pipe = 1 : i64, wait_pipe = 4 : i64}> : () -> ()
+    "hivm.intr.hivm.WAIT.FLAG.IMM"() <{event_id = 0 : i64, set_pipe = 5 : i64, wait_pipe = 1 : i64}> : () -> ()
+    "hivm.intr.hivm.WAIT.FLAG.IMM"() <{event_id = 1 : i64, set_pipe = 5 : i64, wait_pipe = 1 : i64}> : () -> ()
+    llvm.return
+  }
+}
+
+
+// -----// IR Dump Before AppendUsePrintDebugData (append-use-print-debug-data) //----- //
+module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #hacc.target_device_spec<#dlti.dl_entry<"AI_CORE_COUNT", 28 : i32>, #dlti.dl_entry<"CUBE_CORE_COUNT", 28 : i32>, #dlti.dl_entry<"VECTOR_CORE_COUNT", 56 : i32>, #dlti.dl_entry<"UB_SIZE", 2031616 : i32>, #dlti.dl_entry<"L1_SIZE", 4194304 : i32>, #dlti.dl_entry<"L0A_SIZE", 524288 : i32>, #dlti.dl_entry<"L0B_SIZE", 524288 : i32>, #dlti.dl_entry<"L0C_SIZE", 2097152 : i32>, #dlti.dl_entry<"UB_ALIGN_SIZE", 256 : i32>, #dlti.dl_entry<"L1_ALIGN_SIZE", 256 : i32>, #dlti.dl_entry<"L0C_ALIGN_SIZE", 4096 : i32>, #dlti.dl_entry<"MINIMAL_D_CACHE_SIZE", 262144 : i32>, #dlti.dl_entry<"MAXIMUM_D_CACHE_SIZE", 983040 : i32>, #dlti.dl_entry<"ARCH", "dav-c310">>>, hacc.target = #hacc.target<"Ascend950PR_9579">, hivm.module_core_type = #hivm.module_core_type<AIV>, memref.memref_as_ptr} {
+  llvm.func @adc_func_outlined_vf_0(%arg0: !llvm.ptr<6>, %arg1: !llvm.ptr<6>, %arg2: i64, %arg3: !llvm.ptr<6>, %arg4: !llvm.ptr<6>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function} {
+    %0 = llvm.mlir.constant(7 : i32) : i32
+    %1 = llvm.mlir.constant(0 : i32) : i32
+    %2 = llvm.mlir.constant(2 : i32) : i32
+    %3 = llvm.mlir.constant(16 : index) : i64
+    %4 = llvm.mlir.constant(0 : index) : i64
+    %5 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%0, %1) {mask_bit_width = 32 : i32, mask_op_idx = 0 : i32} : (i32, i32) -> vector<256xi1>
+    %6 = "hivm_regbaseintrins.intr.hivm.vldsx1.v64f32"(%arg0, %1, %1, %1) : (!llvm.ptr<6>, i32, i32, i32) -> vector<64xf32>
+    %7 = llvm.getelementptr %arg1[%arg2] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i32
+    %8 = llvm.mul %4, %3 : i64
+    %9 = llvm.getelementptr %7[%8] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i32
+    %10 = "hivm_regbaseintrins.intr.hivm.vldas"(%9) : (!llvm.ptr<6>) -> vector<32xi8>
+    %11 = "hivm_regbaseintrins.intr.hivm.vldus.post.s32"(%9, %10, %1) : (!llvm.ptr<6>, vector<32xi8>, i32) -> !llvm.struct<(vector<64xi32>, vector<32xi8>, ptr<6>)>
+    %12 = llvm.extractvalue %11[0] : !llvm.struct<(vector<64xi32>, vector<32xi8>, ptr<6>)> 
+    %13 = "hivm_regbaseintrins.intr.hivm.vgather2_v300.v64f32"(%arg3, %12, %5) : (!llvm.ptr<6>, vector<64xi32>, vector<256xi1>) -> vector<64xf32>
+    %14 = "hivm_regbaseintrins.intr.hivm.vadd.s.x"(%6, %13, %5) : (vector<64xf32>, vector<64xf32>, vector<256xi1>) -> vector<64xf32>
+    "hivm_regbaseintrins.intr.hivm.vstsx1.v64f32"(%14, %arg4, %1, %2, %1, %5) : (vector<64xf32>, !llvm.ptr<6>, i32, i32, i32, vector<256xi1>) -> ()
+    llvm.return
+  }
+  llvm.func @adc_func_outlined_vf_1(%arg0: !llvm.ptr<6>, %arg1: !llvm.ptr<6>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function} {
+    %0 = llvm.mlir.constant(1 : i32) : i32
+    %1 = llvm.mlir.constant(32 : i32) : i32
+    %2 = llvm.mlir.constant(0 : i32) : i32
+    %3 = llvm.mlir.constant(6 : i32) : i32
+    %4 = llvm.mlir.constant(0 : i8) : i8
+    %5 = llvm.mlir.constant(2 : i32) : i32
+    %6 = llvm.mlir.constant(16 : index) : i64
+    llvm.br ^bb1(%2 : i32)
+  ^bb1(%7: i32):  // 2 preds: ^bb0, ^bb2
+    %8 = llvm.icmp "slt" %7, %1 : i32
+    llvm.cond_br %8, ^bb2, ^bb3
+  ^bb2:  // pred: ^bb1
+    %9 = llvm.sext %7 : i32 to i64
+    %10 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%3, %2) {mask_bit_width = 32 : i32, mask_op_idx = 0 : i32} : (i32, i32) -> vector<256xi1>
+    %11 = llvm.mul %9, %6 : i64
+    %12 = llvm.getelementptr %arg0[%11] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i8
+    %13 = "hivm_regbaseintrins.intr.hivm.vldas"(%12) : (!llvm.ptr<6>) -> vector<32xi8>
+    %14 = "hivm_regbaseintrins.intr.hivm.vldus.post.s8"(%12, %13, %2) : (!llvm.ptr<6>, vector<32xi8>, i32) -> !llvm.struct<(vector<256xi8>, vector<32xi8>, ptr<6>)>
+    %15 = llvm.extractvalue %14[0] : !llvm.struct<(vector<256xi8>, vector<32xi8>, ptr<6>)> 
+    %16 = "hivm_regbaseintrins.intr.hivm.vbr"(%4) : (i8) -> vector<256xi8>
+    %17 = "hivm_regbaseintrins.intr.hivm.vintlv"(%15, %16) : (vector<256xi8>, vector<256xi8>) -> !llvm.struct<(vector<256xi8>, vector<256xi8>)>
+    %18 = llvm.extractvalue %17[0] : !llvm.struct<(vector<256xi8>, vector<256xi8>)> 
+    %19 = "hivm_regbaseintrins.intr.hivm.vintlv"(%18, %16) : (vector<256xi8>, vector<256xi8>) -> !llvm.struct<(vector<256xi8>, vector<256xi8>)>
+    %20 = llvm.extractvalue %19[0] : !llvm.struct<(vector<256xi8>, vector<256xi8>)> 
+    %21 = "hivm_regbaseintrins.intr.hivm.vcvtii.u82u32.x"(%20, %10, %2) : (vector<256xi8>, vector<256xi1>, i32) -> vector<64xi32>
+    %22 = llvm.mul %9, %6 : i64
+    %23 = llvm.getelementptr %arg1[%22] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i32
+    "hivm_regbaseintrins.intr.hivm.vstsx1.v64s32"(%21, %23, %2, %5, %2, %10) : (vector<64xi32>, !llvm.ptr<6>, i32, i32, i32, vector<256xi1>) -> ()
+    %24 = llvm.add %7, %0 overflow<nsw> : i32
+    llvm.br ^bb1(%24 : i32)
+  ^bb3:  // pred: ^bb1
+    llvm.return
+  }
+  llvm.func @adc_func_outlined_vf_2(%arg0: !llvm.ptr<6>) attributes {element_alignment_bit_width = 8 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function} {
+    %0 = llvm.mlir.constant(0 : i32) : i32
+    %1 = llvm.mlir.constant(32 : i32) : i32
+    %2 = llvm.mlir.constant(1 : i32) : i32
+    %3 = llvm.mlir.constant(0 : i8) : i8
+    %4 = llvm.mlir.constant(6 : i32) : i32
+    %5 = llvm.mlir.constant(16 : i32) : i32
+    %6 = llvm.mlir.constant(16 : index) : i64
+    %7 = "hivm_regbaseintrins.intr.hivm.pge.b8"(%0, %0) {mask_bit_width = 8 : i32} : (i32, i32) -> vector<256xi1>
+    %8 = "hivm_regbaseintrins.intr.hivm.vdups.z"(%3, %7, %2) : (i8, vector<256xi1>, i32) -> vector<256xi8>
+    llvm.br ^bb1(%0 : i32)
+  ^bb1(%9: i32):  // 2 preds: ^bb0, ^bb2
+    %10 = llvm.icmp "slt" %9, %1 : i32
+    llvm.cond_br %10, ^bb2, ^bb3
+  ^bb2:  // pred: ^bb1
+    %11 = llvm.sext %9 : i32 to i64
+    %12 = "hivm_regbaseintrins.intr.hivm.pge.b8"(%4, %0) {mask_bit_width = 8 : i32, mask_op_idx = 0 : i32} : (i32, i32) -> vector<256xi1>
+    %13 = llvm.mul %11, %6 : i64
+    %14 = llvm.getelementptr %arg0[%13] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i8
+    %15 = "hivm_regbaseintrins.intr.hivm.init.vector.align.data"() : () -> vector<32xi8>
+    %16 = "hivm_regbaseintrins.intr.hivm.vstus.post.s8"(%8, %14, %5, %15) : (vector<256xi8>, !llvm.ptr<6>, i32, vector<32xi8>) -> !llvm.struct<(vector<32xi8>, ptr<6>)>
+    %17 = llvm.extractvalue %16[0] : !llvm.struct<(vector<32xi8>, ptr<6>)> 
+    %18 = llvm.extractvalue %16[1] : !llvm.struct<(vector<32xi8>, ptr<6>)> 
+    "hivm_regbaseintrins.intr.hivm.vstas"(%17, %18, %0, %0) : (vector<32xi8>, !llvm.ptr<6>, i32, i32) -> ()
+    %19 = llvm.add %9, %2 overflow<nsw> : i32
+    llvm.br ^bb1(%19 : i32)
+  ^bb3:  // pred: ^bb1
+    llvm.return
+  }
+  llvm.func @adc_func_outlined_vf_3(%arg0: !llvm.ptr<6>) attributes {element_alignment_bit_width = -1 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function} {
+    %0 = llvm.mlir.constant(0.000000e+00 : f32) : f32
+    %1 = llvm.mlir.constant(8 : i32) : i32
+    %2 = llvm.mlir.constant(0 : i32) : i32
+    %3 = llvm.mlir.constant(1 : i32) : i32
+    %4 = llvm.mlir.constant(7 : i32) : i32
+    %5 = llvm.mlir.constant(2 : i32) : i32
+    %6 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%1, %2) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+    %7 = "hivm_regbaseintrins.intr.hivm.vdups.z"(%0, %6, %3) : (f32, vector<256xi1>, i32) -> vector<64xf32>
+    %8 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%4, %2) {mask_bit_width = 32 : i32, mask_op_idx = 0 : i32} : (i32, i32) -> vector<256xi1>
+    "hivm_regbaseintrins.intr.hivm.vstsx1.v64f32"(%7, %arg0, %2, %5, %2, %8) : (vector<64xf32>, !llvm.ptr<6>, i32, i32, i32, vector<256xi1>) -> ()
+    llvm.return
+  }
+  llvm.func @adc_func_outlined_vf_4(%arg0: !llvm.ptr<6>, %arg1: !llvm.ptr<6>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function} {
+    %0 = llvm.mlir.constant(7 : i32) : i32
+    %1 = llvm.mlir.constant(0 : i32) : i32
+    %2 = llvm.mlir.constant(2 : i32) : i32
+    %3 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%0, %1) {mask_bit_width = 32 : i32, mask_op_idx = 0 : i32} : (i32, i32) -> vector<256xi1>
+    %4 = "hivm_regbaseintrins.intr.hivm.vldsx1.v64f32"(%arg0, %1, %1, %1) : (!llvm.ptr<6>, i32, i32, i32) -> vector<64xf32>
+    %5 = "hivm_regbaseintrins.intr.hivm.vsqrt.x"(%4, %3) : (vector<64xf32>, vector<256xi1>) -> vector<64xf32>
+    "hivm_regbaseintrins.intr.hivm.vstsx1.v64f32"(%5, %arg1, %1, %2, %1, %3) : (vector<64xf32>, !llvm.ptr<6>, i32, i32, i32, vector<256xi1>) -> ()
+    llvm.return
+  }
+  llvm.func private @load_gm_to_ubuf_1d_float(%arg0: !llvm.ptr<1>, %arg1: !llvm.ptr<1>, %arg2: i64, %arg3: i64, %arg4: i64, %arg5: !llvm.ptr<6>, %arg6: !llvm.ptr<6>, %arg7: i64, %arg8: i64, %arg9: i64, %arg10: i32, %arg11: f32, %arg12: i64, %arg13: i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface, sym_visibility = "private"} {
+    %0 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %1 = llvm.mlir.constant(1 : index) : i64
+    %2 = llvm.mlir.undef : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)>
+    %3 = llvm.insertvalue %arg0, %2[0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %4 = llvm.insertvalue %arg1, %3[1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %5 = llvm.insertvalue %arg2, %4[2] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %6 = llvm.insertvalue %arg3, %5[3, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %7 = llvm.insertvalue %arg4, %6[4, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %8 = llvm.alloca %1 x !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> : (i64) -> !llvm.ptr
+    llvm.store %7, %8 : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)>, !llvm.ptr
+    %9 = llvm.insertvalue %arg5, %0[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %10 = llvm.insertvalue %arg6, %9[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %11 = llvm.insertvalue %arg7, %10[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %12 = llvm.insertvalue %arg8, %11[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %13 = llvm.insertvalue %arg9, %12[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %14 = llvm.alloca %1 x !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> : (i64) -> !llvm.ptr
+    llvm.store %13, %14 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>, !llvm.ptr
+    llvm.call @_mlir_ciface_load_gm_to_ubuf_1d_float(%8, %14, %arg10, %arg11, %arg12, %arg13) : (!llvm.ptr, !llvm.ptr, i32, f32, i64, i32) -> ()
+    llvm.return
+  }
+  llvm.func @_mlir_ciface_load_gm_to_ubuf_1d_float(!llvm.ptr, !llvm.ptr, i32, f32, i64, i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface, sym_visibility = "private"}
+  llvm.func private @load_gm_to_ubuf_2d_int8_t(%arg0: !llvm.ptr<1>, %arg1: !llvm.ptr<1>, %arg2: i64, %arg3: i64, %arg4: i64, %arg5: i64, %arg6: i64, %arg7: !llvm.ptr<6>, %arg8: !llvm.ptr<6>, %arg9: i64, %arg10: i64, %arg11: i64, %arg12: i64, %arg13: i64, %arg14: i32, %arg15: i8, %arg16: i64, %arg17: i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface, sym_visibility = "private"} {
+    %0 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %1 = llvm.mlir.constant(1 : index) : i64
+    %2 = llvm.mlir.undef : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)>
+    %3 = llvm.insertvalue %arg0, %2[0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %4 = llvm.insertvalue %arg1, %3[1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %5 = llvm.insertvalue %arg2, %4[2] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %6 = llvm.insertvalue %arg3, %5[3, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %7 = llvm.insertvalue %arg5, %6[4, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %8 = llvm.insertvalue %arg4, %7[3, 1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %9 = llvm.insertvalue %arg6, %8[4, 1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %10 = llvm.alloca %1 x !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> : (i64) -> !llvm.ptr
+    llvm.store %9, %10 : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)>, !llvm.ptr
+    %11 = llvm.insertvalue %arg7, %0[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %12 = llvm.insertvalue %arg8, %11[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %13 = llvm.insertvalue %arg9, %12[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %14 = llvm.insertvalue %arg10, %13[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %15 = llvm.insertvalue %arg12, %14[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %16 = llvm.insertvalue %arg11, %15[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %17 = llvm.insertvalue %arg13, %16[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %18 = llvm.alloca %1 x !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> : (i64) -> !llvm.ptr
+    llvm.store %17, %18 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>, !llvm.ptr
+    llvm.call @_mlir_ciface_load_gm_to_ubuf_2d_int8_t(%10, %18, %arg14, %arg15, %arg16, %arg17) : (!llvm.ptr, !llvm.ptr, i32, i8, i64, i32) -> ()
+    llvm.return
+  }
+  llvm.func @_mlir_ciface_load_gm_to_ubuf_2d_int8_t(!llvm.ptr, !llvm.ptr, i32, i8, i64, i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface, sym_visibility = "private"}
+  llvm.func private @copy_ubuf_to_ubuf_1d_int8_t(%arg0: !llvm.ptr<6>, %arg1: !llvm.ptr<6>, %arg2: i64, %arg3: i64, %arg4: i64, %arg5: !llvm.ptr<6>, %arg6: !llvm.ptr<6>, %arg7: i64, %arg8: i64, %arg9: i64) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface, sym_visibility = "private"} {
+    %0 = llvm.mlir.constant(1 : index) : i64
+    %1 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %2 = llvm.insertvalue %arg0, %1[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %3 = llvm.insertvalue %arg1, %2[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %4 = llvm.insertvalue %arg2, %3[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %5 = llvm.insertvalue %arg3, %4[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %6 = llvm.insertvalue %arg4, %5[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %7 = llvm.alloca %0 x !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> : (i64) -> !llvm.ptr
+    llvm.store %6, %7 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>, !llvm.ptr
+    %8 = llvm.insertvalue %arg5, %1[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %9 = llvm.insertvalue %arg6, %8[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %10 = llvm.insertvalue %arg7, %9[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %11 = llvm.insertvalue %arg8, %10[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %12 = llvm.insertvalue %arg9, %11[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %13 = llvm.alloca %0 x !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> : (i64) -> !llvm.ptr
+    llvm.store %12, %13 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>, !llvm.ptr
+    llvm.call @_mlir_ciface_copy_ubuf_to_ubuf_1d_int8_t(%7, %13) : (!llvm.ptr, !llvm.ptr) -> ()
+    llvm.return
+  }
+  llvm.func @_mlir_ciface_copy_ubuf_to_ubuf_1d_int8_t(!llvm.ptr, !llvm.ptr) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface, sym_visibility = "private"}
+  llvm.func private @store_ubuf_to_gm_1d_float(%arg0: !llvm.ptr<6>, %arg1: !llvm.ptr<6>, %arg2: i64, %arg3: i64, %arg4: i64, %arg5: !llvm.ptr<1>, %arg6: !llvm.ptr<1>, %arg7: i64, %arg8: i64, %arg9: i64, %arg10: i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface, sym_visibility = "private"} {
+    %0 = llvm.mlir.undef : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)>
+    %1 = llvm.mlir.constant(1 : index) : i64
+    %2 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %3 = llvm.insertvalue %arg0, %2[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %4 = llvm.insertvalue %arg1, %3[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %5 = llvm.insertvalue %arg2, %4[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %6 = llvm.insertvalue %arg3, %5[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %7 = llvm.insertvalue %arg4, %6[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %8 = llvm.alloca %1 x !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> : (i64) -> !llvm.ptr
+    llvm.store %7, %8 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>, !llvm.ptr
+    %9 = llvm.insertvalue %arg5, %0[0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %10 = llvm.insertvalue %arg6, %9[1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %11 = llvm.insertvalue %arg7, %10[2] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %12 = llvm.insertvalue %arg8, %11[3, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %13 = llvm.insertvalue %arg9, %12[4, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %14 = llvm.alloca %1 x !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> : (i64) -> !llvm.ptr
+    llvm.store %13, %14 : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)>, !llvm.ptr
+    llvm.call @_mlir_ciface_store_ubuf_to_gm_1d_float(%8, %14, %arg10) : (!llvm.ptr, !llvm.ptr, i32) -> ()
+    llvm.return
+  }
+  llvm.func @_mlir_ciface_store_ubuf_to_gm_1d_float(!llvm.ptr, !llvm.ptr, i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface, sym_visibility = "private"}
+  llvm.func @adc_func(%arg0: !llvm.ptr<1>, %arg1: !llvm.ptr<1>, %arg2: !llvm.ptr<1>, %arg3: !llvm.ptr<1>, %arg4: !llvm.ptr<1>, %arg5: i32, %arg6: i32, %arg7: i32, %arg8: i32) attributes {SyncBlockLockArgIdx = 0 : i64, WorkspaceArgIdx = 1 : i64, hacc.entry, hacc.function_kind = #hacc.function_kind<DEVICE>, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vf_mode = #hivm.vf_mode<SIMD>, hivm_regbaseintrins.target = #hivm_regbaseintrins.target<"dav-c310">, mix_mode = "aiv", parallel_mode = "simd"} {
+    %0 = llvm.mlir.constant(64 : index) : i64
+    %1 = llvm.mlir.constant(2 : index) : i64
+    %2 = llvm.mlir.constant(16384 : index) : i64
+    %3 = llvm.mlir.constant(48 : i64) : i64
+    %4 = llvm.mlir.constant(60 : i64) : i64
+    %5 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %6 = llvm.mlir.constant(16 : index) : i64
+    %7 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %8 = llvm.mlir.constant(1 : index) : i64
+    %9 = llvm.mlir.constant(32 : index) : i64
+    %10 = llvm.mlir.constant(0 : index) : i64
+    %11 = llvm.mlir.constant(0.000000e+00 : f32) : f32
+    %12 = llvm.mlir.constant(0 : i8) : i8
+    %13 = llvm.mlir.constant(0 : i32) : i32
+    %14 = llvm.mlir.constant(1791 : i32) : i32
+    %15 = llvm.mlir.constant(1792 : i32) : i32
+    %16 = llvm.mlir.constant(56 : i32) : i32
+    %17 = llvm.mlir.constant(31 : i32) : i32
+    %18 = llvm.mlir.constant(32 : i32) : i32
+    %19 = llvm.mlir.constant(4 : i32) : i32
+    %20 = llvm.mlir.constant(16 : i32) : i32
+    %21 = llvm.mlir.constant(1 : i32) : i32
+    %22 = llvm.mlir.constant(0 : i64) : i64
+    %23 = llvm.mlir.constant(65536 : i64) : i64
+    %24 = llvm.mlir.constant(68608 : i64) : i64
+    %25 = llvm.mlir.constant(66560 : i64) : i64
+    %26 = llvm.mlir.constant(1 : i64) : i64
+    %27 = llvm.mlir.constant(68864 : i64) : i64
+    %28 = llvm.mlir.constant(66048 : i64) : i64
+    %29 = llvm.mlir.constant(68736 : i64) : i64
+    %30 = llvm.mlir.constant(69376 : i64) : i64
+    %31 = llvm.inttoptr %29 : i64 to !llvm.ptr<6>
+    %32 = llvm.insertvalue %31, %7[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %33 = llvm.insertvalue %31, %32[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %34 = llvm.insertvalue %10, %33[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %35 = llvm.insertvalue %9, %34[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %36 = llvm.insertvalue %8, %35[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %37 = llvm.inttoptr %30 : i64 to !llvm.ptr<6>
+    %38 = llvm.insertvalue %37, %7[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %39 = llvm.insertvalue %37, %38[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %40 = llvm.insertvalue %10, %39[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %41 = llvm.insertvalue %9, %40[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %42 = llvm.insertvalue %8, %41[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %43 = llvm.inttoptr %28 : i64 to !llvm.ptr<6>
+    %44 = llvm.insertvalue %43, %5[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %45 = llvm.insertvalue %43, %44[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %46 = llvm.insertvalue %10, %45[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %47 = llvm.insertvalue %9, %46[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %48 = llvm.insertvalue %6, %47[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %49 = llvm.insertvalue %6, %48[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %50 = llvm.insertvalue %8, %49[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %51 = llvm.inttoptr %27 : i64 to !llvm.ptr<6>
+    %52 = llvm.insertvalue %51, %5[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %53 = llvm.insertvalue %51, %52[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %54 = llvm.insertvalue %10, %53[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %55 = llvm.insertvalue %9, %54[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %56 = llvm.insertvalue %6, %55[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %57 = llvm.insertvalue %6, %56[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %58 = llvm.insertvalue %8, %57[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %59 = "hivm.intr.hivm.GET.CTRL"() : () -> i64
+    %60 = "hivm.intr.hivm.SBITSET0"(%59, %4) : (i64, i64) -> i64
+    "hivm.intr.hivm.SET.CTRL"(%60) : (i64) -> ()
+    %61 = "hivm.intr.hivm.GET.CTRL"() : () -> i64
+    %62 = "hivm.intr.hivm.SBITSET1"(%61, %3) : (i64, i64) -> i64
+    "hivm.intr.hivm.SET.CTRL"(%62) : (i64) -> ()
+    %63 = "hivm.intr.hivm.GET.BLOCK.IDX"() : () -> i64
+    %64 = llvm.trunc %63 : i64 to i32
+    %65 = llvm.inttoptr %22 : i64 to !llvm.ptr<6>
+    "hivm.intr.hivm.SET.FLAG.IMM"() <{event_id = 0 : i64, set_pipe = 1 : i64, wait_pipe = 4 : i64}> : () -> ()
+    "hivm.intr.hivm.SET.FLAG.IMM"() <{event_id = 1 : i64, set_pipe = 1 : i64, wait_pipe = 4 : i64}> : () -> ()
+    "hivm.intr.hivm.SET.FLAG.IMM"() <{event_id = 0 : i64, set_pipe = 5 : i64, wait_pipe = 1 : i64}> : () -> ()
+    "hivm.intr.hivm.SET.FLAG.IMM"() <{event_id = 1 : i64, set_pipe = 5 : i64, wait_pipe = 1 : i64}> : () -> ()
+    llvm.call @load_gm_to_ubuf_1d_float(%arg2, %arg2, %10, %2, %8, %65, %65, %10, %2, %8, %13, %11, %10, %13) : (!llvm.ptr<1>, !llvm.ptr<1>, i64, i64, i64, !llvm.ptr<6>, !llvm.ptr<6>, i64, i64, i64, i32, f32, i64, i32) -> ()
+    %66 = llvm.add %arg5, %14 : i32
+    %67 = llvm.sdiv %66, %15  : i32
+    %68 = llvm.add %arg5, %17 : i32
+    %69 = llvm.sdiv %68, %18  : i32
+    llvm.br ^bb1(%13 : i32)
+  ^bb1(%70: i32):  // 2 preds: ^bb0, ^bb10
+    %71 = llvm.icmp "slt" %70, %67 : i32
+    llvm.cond_br %71, ^bb2, ^bb11
+  ^bb2:  // pred: ^bb1
+    %72 = llvm.sext %70 : i32 to i64
+    %73 = llvm.srem %72, %1  : i64
+    %74 = llvm.icmp "slt" %73, %10 : i64
+    %75 = llvm.add %73, %1 : i64
+    %76 = llvm.select %74, %75, %73 : i1, i64
+    %77 = llvm.icmp "eq" %76, %26 : i64
+    %78 = llvm.select %77, %42, %36 : i1, !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %79 = llvm.zext %77 : i1 to i64
+    %80 = llvm.mul %70, %16 : i32
+    %81 = llvm.add %80, %64 : i32
+    %82 = llvm.icmp "slt" %81, %69 : i32
+    llvm.cond_br %82, ^bb3, ^bb10
+  ^bb3:  // pred: ^bb2
+    %83 = llvm.inttoptr %23 : i64 to !llvm.ptr<6>
+    llvm.call @adc_func_outlined_vf_2(%83) {hivm.vector_function, no_inline} : (!llvm.ptr<6>) -> ()
+    %84 = llvm.inttoptr %24 : i64 to !llvm.ptr<6>
+    %85 = llvm.insertvalue %84, %7[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %86 = llvm.insertvalue %84, %85[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %87 = llvm.insertvalue %10, %86[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %88 = llvm.insertvalue %9, %87[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %89 = llvm.insertvalue %8, %88[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    llvm.call @adc_func_outlined_vf_3(%84) {hivm.vector_function, no_inline} : (!llvm.ptr<6>) -> ()
+    %90 = llvm.mul %70, %15 : i32
+    %91 = llvm.mul %64, %18 : i32
+    %92 = llvm.add %90, %91 : i32
+    %93 = llvm.sext %92 : i32 to i64
+    %94 = llvm.sub %arg5, %91 : i32
+    %95 = llvm.sub %94, %90 : i32
+    %96 = llvm.intr.smin(%95, %18)  : (i32, i32) -> i32
+    %97 = llvm.sext %96 : i32 to i64
+    llvm.br ^bb4(%13, %89 : i32, !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>)
+  ^bb4(%98: i32, %99: !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>):  // 2 preds: ^bb3, ^bb8
+    %100 = llvm.icmp "slt" %98, %19 : i32
+    llvm.cond_br %100, ^bb5, ^bb9
+  ^bb5:  // pred: ^bb4
+    %101 = llvm.sext %98 : i32 to i64
+    %102 = llvm.srem %101, %1  : i64
+    %103 = llvm.icmp "slt" %102, %10 : i64
+    %104 = llvm.add %102, %1 : i64
+    %105 = llvm.select %103, %104, %102 : i1, i64
+    %106 = llvm.icmp "eq" %105, %26 : i64
+    %107 = llvm.select %106, %58, %50 : i1, !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %108 = llvm.zext %106 : i1 to i64
+    %109 = llvm.mul %98, %20 : i32
+    %110 = llvm.sext %109 : i32 to i64
+    %111 = llvm.mul %93, %0 : i64
+    %112 = llvm.add %111, %110 : i64
+    %113 = llvm.extractvalue %107[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %114 = llvm.extractvalue %107[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    "hivm.intr.hivm.WAIT.FLAG.REG"(%108) <{set_pipe = 1 : i64, wait_pipe = 4 : i64}> : (i64) -> ()
+    llvm.call @load_gm_to_ubuf_2d_int8_t(%arg3, %arg3, %112, %97, %6, %0, %8, %113, %114, %10, %97, %6, %6, %8, %13, %12, %10, %13) : (!llvm.ptr<1>, !llvm.ptr<1>, i64, i64, i64, i64, i64, !llvm.ptr<6>, !llvm.ptr<6>, i64, i64, i64, i64, i64, i32, i8, i64, i32) -> ()
+    "hivm.intr.hivm.SET.FLAG.IMM"() <{event_id = 0 : i64, set_pipe = 4 : i64, wait_pipe = 1 : i64}> : () -> ()
+    %115 = llvm.extractvalue %107[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %116 = llvm.extractvalue %107[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %117 = llvm.mul %97, %6 : i64
+    %118 = llvm.mul %97, %6 : i64
+    "hivm.intr.hivm.WAIT.FLAG.IMM"() <{event_id = 0 : i64, set_pipe = 4 : i64, wait_pipe = 1 : i64}> : () -> ()
+    llvm.call @copy_ubuf_to_ubuf_1d_int8_t(%115, %116, %10, %117, %8, %83, %83, %10, %118, %8) : (!llvm.ptr<6>, !llvm.ptr<6>, i64, i64, i64, !llvm.ptr<6>, !llvm.ptr<6>, i64, i64, i64) -> ()
+    "hivm.intr.hivm.SET.FLAG.REG"(%108) <{set_pipe = 1 : i64, wait_pipe = 4 : i64}> : (i64) -> ()
+    %119 = llvm.inttoptr %25 : i64 to !llvm.ptr<6>
+    llvm.call @adc_func_outlined_vf_1(%83, %119) {hivm.vector_function, no_inline} : (!llvm.ptr<6>, !llvm.ptr<6>) -> ()
+    llvm.br ^bb6(%13, %99 : i32, !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>)
+  ^bb6(%120: i32, %121: !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>):  // 2 preds: ^bb5, ^bb7
+    %122 = llvm.icmp "slt" %120, %20 : i32
+    llvm.cond_br %122, ^bb7, ^bb8
+  ^bb7:  // pred: ^bb6
+    %123 = llvm.sext %120 : i32 to i64
+    %124 = llvm.inttoptr %24 : i64 to !llvm.ptr<6>
+    %125 = llvm.insertvalue %124, %7[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %126 = llvm.insertvalue %124, %125[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %127 = llvm.insertvalue %10, %126[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %128 = llvm.insertvalue %9, %127[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %129 = llvm.insertvalue %8, %128[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %130 = llvm.extractvalue %121[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    llvm.call @adc_func_outlined_vf_0(%130, %119, %123, %65, %124) {hivm.vector_function, no_inline} : (!llvm.ptr<6>, !llvm.ptr<6>, i64, !llvm.ptr<6>, !llvm.ptr<6>) -> ()
+    %131 = llvm.add %120, %21 overflow<nsw> : i32
+    llvm.br ^bb6(%131, %129 : i32, !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>)
+  ^bb8:  // pred: ^bb6
+    %132 = llvm.add %98, %21 overflow<nsw> : i32
+    llvm.br ^bb4(%132, %121 : i32, !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>)
+  ^bb9:  // pred: ^bb4
+    "hivm.intr.hivm.WAIT.FLAG.REG"(%79) <{set_pipe = 5 : i64, wait_pipe = 1 : i64}> : (i64) -> ()
+    %133 = llvm.extractvalue %99[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %134 = llvm.extractvalue %78[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    llvm.call @adc_func_outlined_vf_4(%133, %134) {hivm.vector_function, no_inline} : (!llvm.ptr<6>, !llvm.ptr<6>) -> ()
+    "hivm.intr.hivm.SET.FLAG.IMM"() <{event_id = 0 : i64, set_pipe = 1 : i64, wait_pipe = 5 : i64}> : () -> ()
+    %135 = llvm.extractvalue %78[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %136 = llvm.extractvalue %78[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    "hivm.intr.hivm.WAIT.FLAG.IMM"() <{event_id = 0 : i64, set_pipe = 1 : i64, wait_pipe = 5 : i64}> : () -> ()
+    "hivm.intr.hivm.BARRIER"() <{pipe = 5 : i64}> : () -> ()
+    llvm.call @store_ubuf_to_gm_1d_float(%135, %136, %10, %97, %8, %arg4, %arg4, %93, %97, %8, %13) : (!llvm.ptr<6>, !llvm.ptr<6>, i64, i64, i64, !llvm.ptr<1>, !llvm.ptr<1>, i64, i64, i64, i32) -> ()
+    "hivm.intr.hivm.SET.FLAG.REG"(%79) <{set_pipe = 5 : i64, wait_pipe = 1 : i64}> : (i64) -> ()
+    llvm.br ^bb10
+  ^bb10:  // 2 preds: ^bb2, ^bb9
+    %137 = llvm.add %70, %21 overflow<nsw> : i32
+    llvm.br ^bb1(%137 : i32)
+  ^bb11:  // pred: ^bb1
+    "hivm.intr.hivm.BARRIER"() <{pipe = 6 : i64}> : () -> ()
+    "hivm.intr.hivm.WAIT.FLAG.IMM"() <{event_id = 0 : i64, set_pipe = 1 : i64, wait_pipe = 4 : i64}> : () -> ()
+    "hivm.intr.hivm.WAIT.FLAG.IMM"() <{event_id = 1 : i64, set_pipe = 1 : i64, wait_pipe = 4 : i64}> : () -> ()
+    "hivm.intr.hivm.WAIT.FLAG.IMM"() <{event_id = 0 : i64, set_pipe = 5 : i64, wait_pipe = 1 : i64}> : () -> ()
+    "hivm.intr.hivm.WAIT.FLAG.IMM"() <{event_id = 1 : i64, set_pipe = 5 : i64, wait_pipe = 1 : i64}> : () -> ()
+    llvm.return
+  }
+}
+
+
+// -----// IR Dump After AppendUsePrintDebugData (append-use-print-debug-data) //----- //
+module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #hacc.target_device_spec<#dlti.dl_entry<"AI_CORE_COUNT", 28 : i32>, #dlti.dl_entry<"CUBE_CORE_COUNT", 28 : i32>, #dlti.dl_entry<"VECTOR_CORE_COUNT", 56 : i32>, #dlti.dl_entry<"UB_SIZE", 2031616 : i32>, #dlti.dl_entry<"L1_SIZE", 4194304 : i32>, #dlti.dl_entry<"L0A_SIZE", 524288 : i32>, #dlti.dl_entry<"L0B_SIZE", 524288 : i32>, #dlti.dl_entry<"L0C_SIZE", 2097152 : i32>, #dlti.dl_entry<"UB_ALIGN_SIZE", 256 : i32>, #dlti.dl_entry<"L1_ALIGN_SIZE", 256 : i32>, #dlti.dl_entry<"L0C_ALIGN_SIZE", 4096 : i32>, #dlti.dl_entry<"MINIMAL_D_CACHE_SIZE", 262144 : i32>, #dlti.dl_entry<"MAXIMUM_D_CACHE_SIZE", 983040 : i32>, #dlti.dl_entry<"ARCH", "dav-c310">>>, hacc.target = #hacc.target<"Ascend950PR_9579">, hivm.module_core_type = #hivm.module_core_type<AIV>, memref.memref_as_ptr} {
+  llvm.func @adc_func_outlined_vf_0(%arg0: !llvm.ptr<6>, %arg1: !llvm.ptr<6>, %arg2: i64, %arg3: !llvm.ptr<6>, %arg4: !llvm.ptr<6>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function} {
+    %0 = llvm.mlir.constant(7 : i32) : i32
+    %1 = llvm.mlir.constant(0 : i32) : i32
+    %2 = llvm.mlir.constant(2 : i32) : i32
+    %3 = llvm.mlir.constant(16 : index) : i64
+    %4 = llvm.mlir.constant(0 : index) : i64
+    %5 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%0, %1) {mask_bit_width = 32 : i32, mask_op_idx = 0 : i32} : (i32, i32) -> vector<256xi1>
+    %6 = "hivm_regbaseintrins.intr.hivm.vldsx1.v64f32"(%arg0, %1, %1, %1) : (!llvm.ptr<6>, i32, i32, i32) -> vector<64xf32>
+    %7 = llvm.getelementptr %arg1[%arg2] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i32
+    %8 = llvm.mul %4, %3 : i64
+    %9 = llvm.getelementptr %7[%8] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i32
+    %10 = "hivm_regbaseintrins.intr.hivm.vldas"(%9) : (!llvm.ptr<6>) -> vector<32xi8>
+    %11 = "hivm_regbaseintrins.intr.hivm.vldus.post.s32"(%9, %10, %1) : (!llvm.ptr<6>, vector<32xi8>, i32) -> !llvm.struct<(vector<64xi32>, vector<32xi8>, ptr<6>)>
+    %12 = llvm.extractvalue %11[0] : !llvm.struct<(vector<64xi32>, vector<32xi8>, ptr<6>)> 
+    %13 = "hivm_regbaseintrins.intr.hivm.vgather2_v300.v64f32"(%arg3, %12, %5) : (!llvm.ptr<6>, vector<64xi32>, vector<256xi1>) -> vector<64xf32>
+    %14 = "hivm_regbaseintrins.intr.hivm.vadd.s.x"(%6, %13, %5) : (vector<64xf32>, vector<64xf32>, vector<256xi1>) -> vector<64xf32>
+    "hivm_regbaseintrins.intr.hivm.vstsx1.v64f32"(%14, %arg4, %1, %2, %1, %5) : (vector<64xf32>, !llvm.ptr<6>, i32, i32, i32, vector<256xi1>) -> ()
+    llvm.return
+  }
+  llvm.func @adc_func_outlined_vf_1(%arg0: !llvm.ptr<6>, %arg1: !llvm.ptr<6>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function} {
+    %0 = llvm.mlir.constant(1 : i32) : i32
+    %1 = llvm.mlir.constant(32 : i32) : i32
+    %2 = llvm.mlir.constant(0 : i32) : i32
+    %3 = llvm.mlir.constant(6 : i32) : i32
+    %4 = llvm.mlir.constant(0 : i8) : i8
+    %5 = llvm.mlir.constant(2 : i32) : i32
+    %6 = llvm.mlir.constant(16 : index) : i64
+    llvm.br ^bb1(%2 : i32)
+  ^bb1(%7: i32):  // 2 preds: ^bb0, ^bb2
+    %8 = llvm.icmp "slt" %7, %1 : i32
+    llvm.cond_br %8, ^bb2, ^bb3
+  ^bb2:  // pred: ^bb1
+    %9 = llvm.sext %7 : i32 to i64
+    %10 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%3, %2) {mask_bit_width = 32 : i32, mask_op_idx = 0 : i32} : (i32, i32) -> vector<256xi1>
+    %11 = llvm.mul %9, %6 : i64
+    %12 = llvm.getelementptr %arg0[%11] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i8
+    %13 = "hivm_regbaseintrins.intr.hivm.vldas"(%12) : (!llvm.ptr<6>) -> vector<32xi8>
+    %14 = "hivm_regbaseintrins.intr.hivm.vldus.post.s8"(%12, %13, %2) : (!llvm.ptr<6>, vector<32xi8>, i32) -> !llvm.struct<(vector<256xi8>, vector<32xi8>, ptr<6>)>
+    %15 = llvm.extractvalue %14[0] : !llvm.struct<(vector<256xi8>, vector<32xi8>, ptr<6>)> 
+    %16 = "hivm_regbaseintrins.intr.hivm.vbr"(%4) : (i8) -> vector<256xi8>
+    %17 = "hivm_regbaseintrins.intr.hivm.vintlv"(%15, %16) : (vector<256xi8>, vector<256xi8>) -> !llvm.struct<(vector<256xi8>, vector<256xi8>)>
+    %18 = llvm.extractvalue %17[0] : !llvm.struct<(vector<256xi8>, vector<256xi8>)> 
+    %19 = "hivm_regbaseintrins.intr.hivm.vintlv"(%18, %16) : (vector<256xi8>, vector<256xi8>) -> !llvm.struct<(vector<256xi8>, vector<256xi8>)>
+    %20 = llvm.extractvalue %19[0] : !llvm.struct<(vector<256xi8>, vector<256xi8>)> 
+    %21 = "hivm_regbaseintrins.intr.hivm.vcvtii.u82u32.x"(%20, %10, %2) : (vector<256xi8>, vector<256xi1>, i32) -> vector<64xi32>
+    %22 = llvm.mul %9, %6 : i64
+    %23 = llvm.getelementptr %arg1[%22] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i32
+    "hivm_regbaseintrins.intr.hivm.vstsx1.v64s32"(%21, %23, %2, %5, %2, %10) : (vector<64xi32>, !llvm.ptr<6>, i32, i32, i32, vector<256xi1>) -> ()
+    %24 = llvm.add %7, %0 overflow<nsw> : i32
+    llvm.br ^bb1(%24 : i32)
+  ^bb3:  // pred: ^bb1
+    llvm.return
+  }
+  llvm.func @adc_func_outlined_vf_2(%arg0: !llvm.ptr<6>) attributes {element_alignment_bit_width = 8 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function} {
+    %0 = llvm.mlir.constant(0 : i32) : i32
+    %1 = llvm.mlir.constant(32 : i32) : i32
+    %2 = llvm.mlir.constant(1 : i32) : i32
+    %3 = llvm.mlir.constant(0 : i8) : i8
+    %4 = llvm.mlir.constant(6 : i32) : i32
+    %5 = llvm.mlir.constant(16 : i32) : i32
+    %6 = llvm.mlir.constant(16 : index) : i64
+    %7 = "hivm_regbaseintrins.intr.hivm.pge.b8"(%0, %0) {mask_bit_width = 8 : i32} : (i32, i32) -> vector<256xi1>
+    %8 = "hivm_regbaseintrins.intr.hivm.vdups.z"(%3, %7, %2) : (i8, vector<256xi1>, i32) -> vector<256xi8>
+    llvm.br ^bb1(%0 : i32)
+  ^bb1(%9: i32):  // 2 preds: ^bb0, ^bb2
+    %10 = llvm.icmp "slt" %9, %1 : i32
+    llvm.cond_br %10, ^bb2, ^bb3
+  ^bb2:  // pred: ^bb1
+    %11 = llvm.sext %9 : i32 to i64
+    %12 = "hivm_regbaseintrins.intr.hivm.pge.b8"(%4, %0) {mask_bit_width = 8 : i32, mask_op_idx = 0 : i32} : (i32, i32) -> vector<256xi1>
+    %13 = llvm.mul %11, %6 : i64
+    %14 = llvm.getelementptr %arg0[%13] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i8
+    %15 = "hivm_regbaseintrins.intr.hivm.init.vector.align.data"() : () -> vector<32xi8>
+    %16 = "hivm_regbaseintrins.intr.hivm.vstus.post.s8"(%8, %14, %5, %15) : (vector<256xi8>, !llvm.ptr<6>, i32, vector<32xi8>) -> !llvm.struct<(vector<32xi8>, ptr<6>)>
+    %17 = llvm.extractvalue %16[0] : !llvm.struct<(vector<32xi8>, ptr<6>)> 
+    %18 = llvm.extractvalue %16[1] : !llvm.struct<(vector<32xi8>, ptr<6>)> 
+    "hivm_regbaseintrins.intr.hivm.vstas"(%17, %18, %0, %0) : (vector<32xi8>, !llvm.ptr<6>, i32, i32) -> ()
+    %19 = llvm.add %9, %2 overflow<nsw> : i32
+    llvm.br ^bb1(%19 : i32)
+  ^bb3:  // pred: ^bb1
+    llvm.return
+  }
+  llvm.func @adc_func_outlined_vf_3(%arg0: !llvm.ptr<6>) attributes {element_alignment_bit_width = -1 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function} {
+    %0 = llvm.mlir.constant(0.000000e+00 : f32) : f32
+    %1 = llvm.mlir.constant(8 : i32) : i32
+    %2 = llvm.mlir.constant(0 : i32) : i32
+    %3 = llvm.mlir.constant(1 : i32) : i32
+    %4 = llvm.mlir.constant(7 : i32) : i32
+    %5 = llvm.mlir.constant(2 : i32) : i32
+    %6 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%1, %2) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+    %7 = "hivm_regbaseintrins.intr.hivm.vdups.z"(%0, %6, %3) : (f32, vector<256xi1>, i32) -> vector<64xf32>
+    %8 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%4, %2) {mask_bit_width = 32 : i32, mask_op_idx = 0 : i32} : (i32, i32) -> vector<256xi1>
+    "hivm_regbaseintrins.intr.hivm.vstsx1.v64f32"(%7, %arg0, %2, %5, %2, %8) : (vector<64xf32>, !llvm.ptr<6>, i32, i32, i32, vector<256xi1>) -> ()
+    llvm.return
+  }
+  llvm.func @adc_func_outlined_vf_4(%arg0: !llvm.ptr<6>, %arg1: !llvm.ptr<6>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function} {
+    %0 = llvm.mlir.constant(7 : i32) : i32
+    %1 = llvm.mlir.constant(0 : i32) : i32
+    %2 = llvm.mlir.constant(2 : i32) : i32
+    %3 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%0, %1) {mask_bit_width = 32 : i32, mask_op_idx = 0 : i32} : (i32, i32) -> vector<256xi1>
+    %4 = "hivm_regbaseintrins.intr.hivm.vldsx1.v64f32"(%arg0, %1, %1, %1) : (!llvm.ptr<6>, i32, i32, i32) -> vector<64xf32>
+    %5 = "hivm_regbaseintrins.intr.hivm.vsqrt.x"(%4, %3) : (vector<64xf32>, vector<256xi1>) -> vector<64xf32>
+    "hivm_regbaseintrins.intr.hivm.vstsx1.v64f32"(%5, %arg1, %1, %2, %1, %3) : (vector<64xf32>, !llvm.ptr<6>, i32, i32, i32, vector<256xi1>) -> ()
+    llvm.return
+  }
+  llvm.func private @load_gm_to_ubuf_1d_float(%arg0: !llvm.ptr<1>, %arg1: !llvm.ptr<1>, %arg2: i64, %arg3: i64, %arg4: i64, %arg5: !llvm.ptr<6>, %arg6: !llvm.ptr<6>, %arg7: i64, %arg8: i64, %arg9: i64, %arg10: i32, %arg11: f32, %arg12: i64, %arg13: i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface, sym_visibility = "private"} {
+    %0 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %1 = llvm.mlir.constant(1 : index) : i64
+    %2 = llvm.mlir.undef : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)>
+    %3 = llvm.insertvalue %arg0, %2[0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %4 = llvm.insertvalue %arg1, %3[1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %5 = llvm.insertvalue %arg2, %4[2] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %6 = llvm.insertvalue %arg3, %5[3, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %7 = llvm.insertvalue %arg4, %6[4, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %8 = llvm.alloca %1 x !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> : (i64) -> !llvm.ptr
+    llvm.store %7, %8 : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)>, !llvm.ptr
+    %9 = llvm.insertvalue %arg5, %0[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %10 = llvm.insertvalue %arg6, %9[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %11 = llvm.insertvalue %arg7, %10[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %12 = llvm.insertvalue %arg8, %11[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %13 = llvm.insertvalue %arg9, %12[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %14 = llvm.alloca %1 x !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> : (i64) -> !llvm.ptr
+    llvm.store %13, %14 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>, !llvm.ptr
+    llvm.call @_mlir_ciface_load_gm_to_ubuf_1d_float(%8, %14, %arg10, %arg11, %arg12, %arg13) : (!llvm.ptr, !llvm.ptr, i32, f32, i64, i32) -> ()
+    llvm.return
+  }
+  llvm.func @_mlir_ciface_load_gm_to_ubuf_1d_float(!llvm.ptr, !llvm.ptr, i32, f32, i64, i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface, sym_visibility = "private"}
+  llvm.func private @load_gm_to_ubuf_2d_int8_t(%arg0: !llvm.ptr<1>, %arg1: !llvm.ptr<1>, %arg2: i64, %arg3: i64, %arg4: i64, %arg5: i64, %arg6: i64, %arg7: !llvm.ptr<6>, %arg8: !llvm.ptr<6>, %arg9: i64, %arg10: i64, %arg11: i64, %arg12: i64, %arg13: i64, %arg14: i32, %arg15: i8, %arg16: i64, %arg17: i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface, sym_visibility = "private"} {
+    %0 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %1 = llvm.mlir.constant(1 : index) : i64
+    %2 = llvm.mlir.undef : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)>
+    %3 = llvm.insertvalue %arg0, %2[0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %4 = llvm.insertvalue %arg1, %3[1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %5 = llvm.insertvalue %arg2, %4[2] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %6 = llvm.insertvalue %arg3, %5[3, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %7 = llvm.insertvalue %arg5, %6[4, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %8 = llvm.insertvalue %arg4, %7[3, 1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %9 = llvm.insertvalue %arg6, %8[4, 1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %10 = llvm.alloca %1 x !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> : (i64) -> !llvm.ptr
+    llvm.store %9, %10 : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)>, !llvm.ptr
+    %11 = llvm.insertvalue %arg7, %0[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %12 = llvm.insertvalue %arg8, %11[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %13 = llvm.insertvalue %arg9, %12[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %14 = llvm.insertvalue %arg10, %13[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %15 = llvm.insertvalue %arg12, %14[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %16 = llvm.insertvalue %arg11, %15[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %17 = llvm.insertvalue %arg13, %16[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %18 = llvm.alloca %1 x !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> : (i64) -> !llvm.ptr
+    llvm.store %17, %18 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>, !llvm.ptr
+    llvm.call @_mlir_ciface_load_gm_to_ubuf_2d_int8_t(%10, %18, %arg14, %arg15, %arg16, %arg17) : (!llvm.ptr, !llvm.ptr, i32, i8, i64, i32) -> ()
+    llvm.return
+  }
+  llvm.func @_mlir_ciface_load_gm_to_ubuf_2d_int8_t(!llvm.ptr, !llvm.ptr, i32, i8, i64, i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface, sym_visibility = "private"}
+  llvm.func private @copy_ubuf_to_ubuf_1d_int8_t(%arg0: !llvm.ptr<6>, %arg1: !llvm.ptr<6>, %arg2: i64, %arg3: i64, %arg4: i64, %arg5: !llvm.ptr<6>, %arg6: !llvm.ptr<6>, %arg7: i64, %arg8: i64, %arg9: i64) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface, sym_visibility = "private"} {
+    %0 = llvm.mlir.constant(1 : index) : i64
+    %1 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %2 = llvm.insertvalue %arg0, %1[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %3 = llvm.insertvalue %arg1, %2[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %4 = llvm.insertvalue %arg2, %3[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %5 = llvm.insertvalue %arg3, %4[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %6 = llvm.insertvalue %arg4, %5[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %7 = llvm.alloca %0 x !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> : (i64) -> !llvm.ptr
+    llvm.store %6, %7 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>, !llvm.ptr
+    %8 = llvm.insertvalue %arg5, %1[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %9 = llvm.insertvalue %arg6, %8[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %10 = llvm.insertvalue %arg7, %9[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %11 = llvm.insertvalue %arg8, %10[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %12 = llvm.insertvalue %arg9, %11[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %13 = llvm.alloca %0 x !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> : (i64) -> !llvm.ptr
+    llvm.store %12, %13 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>, !llvm.ptr
+    llvm.call @_mlir_ciface_copy_ubuf_to_ubuf_1d_int8_t(%7, %13) : (!llvm.ptr, !llvm.ptr) -> ()
+    llvm.return
+  }
+  llvm.func @_mlir_ciface_copy_ubuf_to_ubuf_1d_int8_t(!llvm.ptr, !llvm.ptr) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface, sym_visibility = "private"}
+  llvm.func private @store_ubuf_to_gm_1d_float(%arg0: !llvm.ptr<6>, %arg1: !llvm.ptr<6>, %arg2: i64, %arg3: i64, %arg4: i64, %arg5: !llvm.ptr<1>, %arg6: !llvm.ptr<1>, %arg7: i64, %arg8: i64, %arg9: i64, %arg10: i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface, sym_visibility = "private"} {
+    %0 = llvm.mlir.undef : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)>
+    %1 = llvm.mlir.constant(1 : index) : i64
+    %2 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %3 = llvm.insertvalue %arg0, %2[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %4 = llvm.insertvalue %arg1, %3[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %5 = llvm.insertvalue %arg2, %4[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %6 = llvm.insertvalue %arg3, %5[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %7 = llvm.insertvalue %arg4, %6[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %8 = llvm.alloca %1 x !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> : (i64) -> !llvm.ptr
+    llvm.store %7, %8 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>, !llvm.ptr
+    %9 = llvm.insertvalue %arg5, %0[0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %10 = llvm.insertvalue %arg6, %9[1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %11 = llvm.insertvalue %arg7, %10[2] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %12 = llvm.insertvalue %arg8, %11[3, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %13 = llvm.insertvalue %arg9, %12[4, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %14 = llvm.alloca %1 x !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> : (i64) -> !llvm.ptr
+    llvm.store %13, %14 : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)>, !llvm.ptr
+    llvm.call @_mlir_ciface_store_ubuf_to_gm_1d_float(%8, %14, %arg10) : (!llvm.ptr, !llvm.ptr, i32) -> ()
+    llvm.return
+  }
+  llvm.func @_mlir_ciface_store_ubuf_to_gm_1d_float(!llvm.ptr, !llvm.ptr, i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface, sym_visibility = "private"}
+  llvm.func @adc_func(%arg0: !llvm.ptr<1>, %arg1: !llvm.ptr<1>, %arg2: !llvm.ptr<1>, %arg3: !llvm.ptr<1>, %arg4: !llvm.ptr<1>, %arg5: i32, %arg6: i32, %arg7: i32, %arg8: i32) attributes {SyncBlockLockArgIdx = 0 : i64, WorkspaceArgIdx = 1 : i64, hacc.entry, hacc.function_kind = #hacc.function_kind<DEVICE>, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vf_mode = #hivm.vf_mode<SIMD>, hivm_regbaseintrins.target = #hivm_regbaseintrins.target<"dav-c310">, mix_mode = "aiv", parallel_mode = "simd"} {
+    %0 = llvm.mlir.constant(64 : index) : i64
+    %1 = llvm.mlir.constant(2 : index) : i64
+    %2 = llvm.mlir.constant(16384 : index) : i64
+    %3 = llvm.mlir.constant(48 : i64) : i64
+    %4 = llvm.mlir.constant(60 : i64) : i64
+    %5 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %6 = llvm.mlir.constant(16 : index) : i64
+    %7 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %8 = llvm.mlir.constant(1 : index) : i64
+    %9 = llvm.mlir.constant(32 : index) : i64
+    %10 = llvm.mlir.constant(0 : index) : i64
+    %11 = llvm.mlir.constant(0.000000e+00 : f32) : f32
+    %12 = llvm.mlir.constant(0 : i8) : i8
+    %13 = llvm.mlir.constant(0 : i32) : i32
+    %14 = llvm.mlir.constant(1791 : i32) : i32
+    %15 = llvm.mlir.constant(1792 : i32) : i32
+    %16 = llvm.mlir.constant(56 : i32) : i32
+    %17 = llvm.mlir.constant(31 : i32) : i32
+    %18 = llvm.mlir.constant(32 : i32) : i32
+    %19 = llvm.mlir.constant(4 : i32) : i32
+    %20 = llvm.mlir.constant(16 : i32) : i32
+    %21 = llvm.mlir.constant(1 : i32) : i32
+    %22 = llvm.mlir.constant(0 : i64) : i64
+    %23 = llvm.mlir.constant(65536 : i64) : i64
+    %24 = llvm.mlir.constant(68608 : i64) : i64
+    %25 = llvm.mlir.constant(66560 : i64) : i64
+    %26 = llvm.mlir.constant(1 : i64) : i64
+    %27 = llvm.mlir.constant(68864 : i64) : i64
+    %28 = llvm.mlir.constant(66048 : i64) : i64
+    %29 = llvm.mlir.constant(68736 : i64) : i64
+    %30 = llvm.mlir.constant(69376 : i64) : i64
+    %31 = llvm.inttoptr %29 : i64 to !llvm.ptr<6>
+    %32 = llvm.insertvalue %31, %7[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %33 = llvm.insertvalue %31, %32[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %34 = llvm.insertvalue %10, %33[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %35 = llvm.insertvalue %9, %34[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %36 = llvm.insertvalue %8, %35[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %37 = llvm.inttoptr %30 : i64 to !llvm.ptr<6>
+    %38 = llvm.insertvalue %37, %7[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %39 = llvm.insertvalue %37, %38[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %40 = llvm.insertvalue %10, %39[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %41 = llvm.insertvalue %9, %40[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %42 = llvm.insertvalue %8, %41[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %43 = llvm.inttoptr %28 : i64 to !llvm.ptr<6>
+    %44 = llvm.insertvalue %43, %5[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %45 = llvm.insertvalue %43, %44[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %46 = llvm.insertvalue %10, %45[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %47 = llvm.insertvalue %9, %46[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %48 = llvm.insertvalue %6, %47[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %49 = llvm.insertvalue %6, %48[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %50 = llvm.insertvalue %8, %49[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %51 = llvm.inttoptr %27 : i64 to !llvm.ptr<6>
+    %52 = llvm.insertvalue %51, %5[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %53 = llvm.insertvalue %51, %52[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %54 = llvm.insertvalue %10, %53[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %55 = llvm.insertvalue %9, %54[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %56 = llvm.insertvalue %6, %55[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %57 = llvm.insertvalue %6, %56[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %58 = llvm.insertvalue %8, %57[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %59 = "hivm.intr.hivm.GET.CTRL"() : () -> i64
+    %60 = "hivm.intr.hivm.SBITSET0"(%59, %4) : (i64, i64) -> i64
+    "hivm.intr.hivm.SET.CTRL"(%60) : (i64) -> ()
+    %61 = "hivm.intr.hivm.GET.CTRL"() : () -> i64
+    %62 = "hivm.intr.hivm.SBITSET1"(%61, %3) : (i64, i64) -> i64
+    "hivm.intr.hivm.SET.CTRL"(%62) : (i64) -> ()
+    %63 = "hivm.intr.hivm.GET.BLOCK.IDX"() : () -> i64
+    %64 = llvm.trunc %63 : i64 to i32
+    %65 = llvm.inttoptr %22 : i64 to !llvm.ptr<6>
+    "hivm.intr.hivm.SET.FLAG.IMM"() <{event_id = 0 : i64, set_pipe = 1 : i64, wait_pipe = 4 : i64}> : () -> ()
+    "hivm.intr.hivm.SET.FLAG.IMM"() <{event_id = 1 : i64, set_pipe = 1 : i64, wait_pipe = 4 : i64}> : () -> ()
+    "hivm.intr.hivm.SET.FLAG.IMM"() <{event_id = 0 : i64, set_pipe = 5 : i64, wait_pipe = 1 : i64}> : () -> ()
+    "hivm.intr.hivm.SET.FLAG.IMM"() <{event_id = 1 : i64, set_pipe = 5 : i64, wait_pipe = 1 : i64}> : () -> ()
+    llvm.call @load_gm_to_ubuf_1d_float(%arg2, %arg2, %10, %2, %8, %65, %65, %10, %2, %8, %13, %11, %10, %13) : (!llvm.ptr<1>, !llvm.ptr<1>, i64, i64, i64, !llvm.ptr<6>, !llvm.ptr<6>, i64, i64, i64, i32, f32, i64, i32) -> ()
+    %66 = llvm.add %arg5, %14 : i32
+    %67 = llvm.sdiv %66, %15  : i32
+    %68 = llvm.add %arg5, %17 : i32
+    %69 = llvm.sdiv %68, %18  : i32
+    llvm.br ^bb1(%13 : i32)
+  ^bb1(%70: i32):  // 2 preds: ^bb0, ^bb10
+    %71 = llvm.icmp "slt" %70, %67 : i32
+    llvm.cond_br %71, ^bb2, ^bb11
+  ^bb2:  // pred: ^bb1
+    %72 = llvm.sext %70 : i32 to i64
+    %73 = llvm.srem %72, %1  : i64
+    %74 = llvm.icmp "slt" %73, %10 : i64
+    %75 = llvm.add %73, %1 : i64
+    %76 = llvm.select %74, %75, %73 : i1, i64
+    %77 = llvm.icmp "eq" %76, %26 : i64
+    %78 = llvm.select %77, %42, %36 : i1, !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %79 = llvm.zext %77 : i1 to i64
+    %80 = llvm.mul %70, %16 : i32
+    %81 = llvm.add %80, %64 : i32
+    %82 = llvm.icmp "slt" %81, %69 : i32
+    llvm.cond_br %82, ^bb3, ^bb10
+  ^bb3:  // pred: ^bb2
+    %83 = llvm.inttoptr %23 : i64 to !llvm.ptr<6>
+    llvm.call @adc_func_outlined_vf_2(%83) {hivm.vector_function, no_inline} : (!llvm.ptr<6>) -> ()
+    %84 = llvm.inttoptr %24 : i64 to !llvm.ptr<6>
+    %85 = llvm.insertvalue %84, %7[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %86 = llvm.insertvalue %84, %85[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %87 = llvm.insertvalue %10, %86[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %88 = llvm.insertvalue %9, %87[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %89 = llvm.insertvalue %8, %88[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    llvm.call @adc_func_outlined_vf_3(%84) {hivm.vector_function, no_inline} : (!llvm.ptr<6>) -> ()
+    %90 = llvm.mul %70, %15 : i32
+    %91 = llvm.mul %64, %18 : i32
+    %92 = llvm.add %90, %91 : i32
+    %93 = llvm.sext %92 : i32 to i64
+    %94 = llvm.sub %arg5, %91 : i32
+    %95 = llvm.sub %94, %90 : i32
+    %96 = llvm.intr.smin(%95, %18)  : (i32, i32) -> i32
+    %97 = llvm.sext %96 : i32 to i64
+    llvm.br ^bb4(%13, %89 : i32, !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>)
+  ^bb4(%98: i32, %99: !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>):  // 2 preds: ^bb3, ^bb8
+    %100 = llvm.icmp "slt" %98, %19 : i32
+    llvm.cond_br %100, ^bb5, ^bb9
+  ^bb5:  // pred: ^bb4
+    %101 = llvm.sext %98 : i32 to i64
+    %102 = llvm.srem %101, %1  : i64
+    %103 = llvm.icmp "slt" %102, %10 : i64
+    %104 = llvm.add %102, %1 : i64
+    %105 = llvm.select %103, %104, %102 : i1, i64
+    %106 = llvm.icmp "eq" %105, %26 : i64
+    %107 = llvm.select %106, %58, %50 : i1, !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %108 = llvm.zext %106 : i1 to i64
+    %109 = llvm.mul %98, %20 : i32
+    %110 = llvm.sext %109 : i32 to i64
+    %111 = llvm.mul %93, %0 : i64
+    %112 = llvm.add %111, %110 : i64
+    %113 = llvm.extractvalue %107[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %114 = llvm.extractvalue %107[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    "hivm.intr.hivm.WAIT.FLAG.REG"(%108) <{set_pipe = 1 : i64, wait_pipe = 4 : i64}> : (i64) -> ()
+    llvm.call @load_gm_to_ubuf_2d_int8_t(%arg3, %arg3, %112, %97, %6, %0, %8, %113, %114, %10, %97, %6, %6, %8, %13, %12, %10, %13) : (!llvm.ptr<1>, !llvm.ptr<1>, i64, i64, i64, i64, i64, !llvm.ptr<6>, !llvm.ptr<6>, i64, i64, i64, i64, i64, i32, i8, i64, i32) -> ()
+    "hivm.intr.hivm.SET.FLAG.IMM"() <{event_id = 0 : i64, set_pipe = 4 : i64, wait_pipe = 1 : i64}> : () -> ()
+    %115 = llvm.extractvalue %107[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %116 = llvm.extractvalue %107[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %117 = llvm.mul %97, %6 : i64
+    %118 = llvm.mul %97, %6 : i64
+    "hivm.intr.hivm.WAIT.FLAG.IMM"() <{event_id = 0 : i64, set_pipe = 4 : i64, wait_pipe = 1 : i64}> : () -> ()
+    llvm.call @copy_ubuf_to_ubuf_1d_int8_t(%115, %116, %10, %117, %8, %83, %83, %10, %118, %8) : (!llvm.ptr<6>, !llvm.ptr<6>, i64, i64, i64, !llvm.ptr<6>, !llvm.ptr<6>, i64, i64, i64) -> ()
+    "hivm.intr.hivm.SET.FLAG.REG"(%108) <{set_pipe = 1 : i64, wait_pipe = 4 : i64}> : (i64) -> ()
+    %119 = llvm.inttoptr %25 : i64 to !llvm.ptr<6>
+    llvm.call @adc_func_outlined_vf_1(%83, %119) {hivm.vector_function, no_inline} : (!llvm.ptr<6>, !llvm.ptr<6>) -> ()
+    llvm.br ^bb6(%13, %99 : i32, !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>)
+  ^bb6(%120: i32, %121: !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>):  // 2 preds: ^bb5, ^bb7
+    %122 = llvm.icmp "slt" %120, %20 : i32
+    llvm.cond_br %122, ^bb7, ^bb8
+  ^bb7:  // pred: ^bb6
+    %123 = llvm.sext %120 : i32 to i64
+    %124 = llvm.inttoptr %24 : i64 to !llvm.ptr<6>
+    %125 = llvm.insertvalue %124, %7[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %126 = llvm.insertvalue %124, %125[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %127 = llvm.insertvalue %10, %126[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %128 = llvm.insertvalue %9, %127[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %129 = llvm.insertvalue %8, %128[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %130 = llvm.extractvalue %121[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    llvm.call @adc_func_outlined_vf_0(%130, %119, %123, %65, %124) {hivm.vector_function, no_inline} : (!llvm.ptr<6>, !llvm.ptr<6>, i64, !llvm.ptr<6>, !llvm.ptr<6>) -> ()
+    %131 = llvm.add %120, %21 overflow<nsw> : i32
+    llvm.br ^bb6(%131, %129 : i32, !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>)
+  ^bb8:  // pred: ^bb6
+    %132 = llvm.add %98, %21 overflow<nsw> : i32
+    llvm.br ^bb4(%132, %121 : i32, !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>)
+  ^bb9:  // pred: ^bb4
+    "hivm.intr.hivm.WAIT.FLAG.REG"(%79) <{set_pipe = 5 : i64, wait_pipe = 1 : i64}> : (i64) -> ()
+    %133 = llvm.extractvalue %99[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %134 = llvm.extractvalue %78[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    llvm.call @adc_func_outlined_vf_4(%133, %134) {hivm.vector_function, no_inline} : (!llvm.ptr<6>, !llvm.ptr<6>) -> ()
+    "hivm.intr.hivm.SET.FLAG.IMM"() <{event_id = 0 : i64, set_pipe = 1 : i64, wait_pipe = 5 : i64}> : () -> ()
+    %135 = llvm.extractvalue %78[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %136 = llvm.extractvalue %78[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    "hivm.intr.hivm.WAIT.FLAG.IMM"() <{event_id = 0 : i64, set_pipe = 1 : i64, wait_pipe = 5 : i64}> : () -> ()
+    "hivm.intr.hivm.BARRIER"() <{pipe = 5 : i64}> : () -> ()
+    llvm.call @store_ubuf_to_gm_1d_float(%135, %136, %10, %97, %8, %arg4, %arg4, %93, %97, %8, %13) : (!llvm.ptr<6>, !llvm.ptr<6>, i64, i64, i64, !llvm.ptr<1>, !llvm.ptr<1>, i64, i64, i64, i32) -> ()
+    "hivm.intr.hivm.SET.FLAG.REG"(%79) <{set_pipe = 5 : i64, wait_pipe = 1 : i64}> : (i64) -> ()
+    llvm.br ^bb10
+  ^bb10:  // 2 preds: ^bb2, ^bb9
+    %137 = llvm.add %70, %21 overflow<nsw> : i32
+    llvm.br ^bb1(%137 : i32)
+  ^bb11:  // pred: ^bb1
+    "hivm.intr.hivm.BARRIER"() <{pipe = 6 : i64}> : () -> ()
+    "hivm.intr.hivm.WAIT.FLAG.IMM"() <{event_id = 0 : i64, set_pipe = 1 : i64, wait_pipe = 4 : i64}> : () -> ()
+    "hivm.intr.hivm.WAIT.FLAG.IMM"() <{event_id = 1 : i64, set_pipe = 1 : i64, wait_pipe = 4 : i64}> : () -> ()
+    "hivm.intr.hivm.WAIT.FLAG.IMM"() <{event_id = 0 : i64, set_pipe = 5 : i64, wait_pipe = 1 : i64}> : () -> ()
+    "hivm.intr.hivm.WAIT.FLAG.IMM"() <{event_id = 1 : i64, set_pipe = 5 : i64, wait_pipe = 1 : i64}> : () -> ()
+    llvm.return
+  }
+}
+
+
+bisheng: warning: the flag '--cce-aicore-input-parameter-size=1536' has been deprecated and will be ignored [-Wunused-command-line-argument]
