@@ -1,0 +1,5606 @@
+{
+    "name": "DAVID_EVENT_RECORD",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859142025.091",
+    "dur": 0.028,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "DAVID_EVENT_RECORD",
+      "Physic Stream Id": 61,
+      "Task Id": 798,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4451
+    }
+  },
+  {
+    "name": "HostToDevice19116899434496",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "19116899434496",
+    "ts": "1780108859142025.091",
+    "bp": "e"
+  },
+  {
+    "name": "DAVID_EVENT_RECORD",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859142081.664",
+    "dur": 0.028,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "DAVID_EVENT_RECORD",
+      "Physic Stream Id": 61,
+      "Task Id": 799,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4453
+    }
+  },
+  {
+    "name": "HostToDevice19125489369088",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "19125489369088",
+    "ts": "1780108859142081.664",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnInplaceZero_ZerosLikeAiCore_ZerosLike",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859142172.168",
+    "dur": 2.636,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 800,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4456
+    }
+  },
+  {
+    "name": "HostToDevice19138374270976",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "19138374270976",
+    "ts": "1780108859142172.168",
+    "bp": "e"
+  },
+  {
+    "name": "DAVID_EVENT_RECORD",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859153901.074",
+    "dur": 0.028,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "DAVID_EVENT_RECORD",
+      "Physic Stream Id": 61,
+      "Task Id": 803,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4481
+    }
+  },
+  {
+    "name": "HostToDevice19245748453376",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "19245748453376",
+    "ts": "1780108859153901.074",
+    "bp": "e"
+  },
+  {
+    "name": "DAVID_EVENT_WAIT",
+    "pid": 33120676,
+    "tid": 58,
+    "ts": "1780108859153908.030",
+    "dur": 0.027,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "DAVID_EVENT_WAIT",
+      "Physic Stream Id": 58,
+      "Task Id": 804,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4482
+    }
+  },
+  {
+    "name": "HostToDevice19250043420672",
+    "pid": 33120676,
+    "tid": 58,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "19250043420672",
+    "ts": "1780108859153908.030",
+    "bp": "e"
+  },
+  {
+    "name": "AivKernel",
+    "pid": 33120676,
+    "tid": 58,
+    "ts": "1780108859154071.274",
+    "dur": 10.558,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "COMMUNICATION",
+      "Physic Stream Id": 58,
+      "Task Id": 805,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4497
+    }
+  },
+  {
+    "name": "HostToDevice19314467930112",
+    "pid": 33120676,
+    "tid": 58,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "19314467930112",
+    "ts": "1780108859154071.274",
+    "bp": "e"
+  },
+  {
+    "name": "DAVID_EVENT_RECORD",
+    "pid": 33120676,
+    "tid": 58,
+    "ts": "1780108859154091.990",
+    "dur": 0.028,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "DAVID_EVENT_RECORD",
+      "Physic Stream Id": 58,
+      "Task Id": 806,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4498
+    }
+  },
+  {
+    "name": "HostToDevice19318762897408",
+    "pid": 33120676,
+    "tid": 58,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "19318762897408",
+    "ts": "1780108859154091.990",
+    "bp": "e"
+  },
+  {
+    "name": "DAVID_EVENT_RECORD",
+    "pid": 33120676,
+    "tid": 58,
+    "ts": "1780108859154095.561",
+    "dur": 0.028,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "DAVID_EVENT_RECORD",
+      "Physic Stream Id": 58,
+      "Task Id": 807,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4499
+    }
+  },
+  {
+    "name": "HostToDevice19323057864704",
+    "pid": 33120676,
+    "tid": 58,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "19323057864704",
+    "ts": "1780108859154095.561",
+    "bp": "e"
+  },
+  {
+    "name": "DAVID_EVENT_WAIT",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859154097.933",
+    "dur": 0.027,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "DAVID_EVENT_WAIT",
+      "Physic Stream Id": 61,
+      "Task Id": 808,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4500
+    }
+  },
+  {
+    "name": "HostToDevice19327352832000",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "19327352832000",
+    "ts": "1780108859154097.933",
+    "bp": "e"
+  },
+  {
+    "name": "DAVID_EVENT_RECORD",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859154257.514",
+    "dur": 0.028,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "DAVID_EVENT_RECORD",
+      "Physic Stream Id": 61,
+      "Task Id": 809,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4505
+    }
+  },
+  {
+    "name": "HostToDevice19348827668480",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "19348827668480",
+    "ts": "1780108859154257.514",
+    "bp": "e"
+  },
+  {
+    "name": "DAVID_EVENT_WAIT",
+    "pid": 33120676,
+    "tid": 58,
+    "ts": "1780108859154262.784",
+    "dur": 0.027,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "DAVID_EVENT_WAIT",
+      "Physic Stream Id": 58,
+      "Task Id": 810,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4506
+    }
+  },
+  {
+    "name": "HostToDevice19353122635776",
+    "pid": 33120676,
+    "tid": 58,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "19353122635776",
+    "ts": "1780108859154262.784",
+    "bp": "e"
+  },
+  {
+    "name": "AivKernel",
+    "pid": 33120676,
+    "tid": 58,
+    "ts": "1780108859154354.821",
+    "dur": 55.536,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "COMMUNICATION",
+      "Physic Stream Id": 58,
+      "Task Id": 811,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4528
+    }
+  },
+  {
+    "name": "HostToDevice19447611916288",
+    "pid": 33120676,
+    "tid": 58,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "19447611916288",
+    "ts": "1780108859154354.821",
+    "bp": "e"
+  },
+  {
+    "name": "DAVID_EVENT_RECORD",
+    "pid": 33120676,
+    "tid": 58,
+    "ts": "1780108859154418.533",
+    "dur": 0.028,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "DAVID_EVENT_RECORD",
+      "Physic Stream Id": 58,
+      "Task Id": 816,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4546
+    }
+  },
+  {
+    "name": "HostToDevice19524921327616",
+    "pid": 33120676,
+    "tid": 58,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "19524921327616",
+    "ts": "1780108859154418.533",
+    "bp": "e"
+  },
+  {
+    "name": "DAVID_EVENT_RECORD",
+    "pid": 33120676,
+    "tid": 58,
+    "ts": "1780108859154422.004",
+    "dur": 0.028,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "DAVID_EVENT_RECORD",
+      "Physic Stream Id": 58,
+      "Task Id": 817,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4547
+    }
+  },
+  {
+    "name": "HostToDevice19529216294912",
+    "pid": 33120676,
+    "tid": 58,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "19529216294912",
+    "ts": "1780108859154422.004",
+    "bp": "e"
+  },
+  {
+    "name": "DAVID_EVENT_WAIT",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859154425.553",
+    "dur": 0.027,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "DAVID_EVENT_WAIT",
+      "Physic Stream Id": 61,
+      "Task Id": 818,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4548
+    }
+  },
+  {
+    "name": "HostToDevice19533511262208",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "19533511262208",
+    "ts": "1780108859154425.553",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnStack_PackAiCore_Pack",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859154448.550",
+    "dur": 2.982,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 819,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4552
+    }
+  },
+  {
+    "name": "HostToDevice19550691131392",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "19550691131392",
+    "ts": "1780108859154448.550",
+    "bp": "e"
+  },
+  {
+    "name": "DAVID_EVENT_RECORD",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859154697.100",
+    "dur": 0.028,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "DAVID_EVENT_RECORD",
+      "Physic Stream Id": 61,
+      "Task Id": 821,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4561
+    }
+  },
+  {
+    "name": "HostToDevice19589345837056",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "19589345837056",
+    "ts": "1780108859154697.100",
+    "bp": "e"
+  },
+  {
+    "name": "DAVID_EVENT_RECORD",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859154759.086",
+    "dur": 0.028,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "DAVID_EVENT_RECORD",
+      "Physic Stream Id": 61,
+      "Task Id": 822,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4563
+    }
+  },
+  {
+    "name": "HostToDevice19597935771648",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "19597935771648",
+    "ts": "1780108859154759.086",
+    "bp": "e"
+  },
+  {
+    "name": "dist",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859154913.555",
+    "dur": 778.794,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 823,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 8710
+    }
+  },
+  {
+    "name": "HostToDevice37409165148160",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "37409165148160",
+    "ts": "1780108859154913.555",
+    "bp": "e"
+  },
+  {
+    "name": "DAVID_EVENT_WAIT",
+    "pid": 33120676,
+    "tid": 58,
+    "ts": "1780108859155235.277",
+    "dur": 724.747,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "DAVID_EVENT_WAIT",
+      "Physic Stream Id": 58,
+      "Task Id": 833,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4600
+    }
+  },
+  {
+    "name": "HostToDevice19756849561600",
+    "pid": 33120676,
+    "tid": 58,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "19756849561600",
+    "ts": "1780108859155235.277",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnInplaceCopy_CastAiCore_Cast",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859155692.371",
+    "dur": 9.024,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 824,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4566
+    }
+  },
+  {
+    "name": "HostToDevice19610820673536",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "19610820673536",
+    "ts": "1780108859155692.371",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnInplaceFillScalar_FillAiCore_Fill",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859155701.417",
+    "dur": 2.859,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 825,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4570
+    }
+  },
+  {
+    "name": "HostToDevice19628000542720",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "19628000542720",
+    "ts": "1780108859155701.417",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnInplaceFillScalar_FillAiCore_Fill",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859155704.298",
+    "dur": 2.709,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 826,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4574
+    }
+  },
+  {
+    "name": "HostToDevice19645180411904",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "19645180411904",
+    "ts": "1780108859155704.298",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnTopk_TopkV2AiCoreForDavid_TopKV2",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859155707.029",
+    "dur": 247.161,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "MIX_AIV",
+      "Physic Stream Id": 61,
+      "Task Id": 827,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4578
+    }
+  },
+  {
+    "name": "HostToDevice19662360281088",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "19662360281088",
+    "ts": "1780108859155707.029",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnAdds_AddAiCore_Add",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859155954.934",
+    "dur": 3.648,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 829,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4588
+    }
+  },
+  {
+    "name": "HostToDevice19705309954048",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "19705309954048",
+    "ts": "1780108859155954.934",
+    "bp": "e"
+  },
+  {
+    "name": "DAVID_EVENT_RECORD",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859155959.401",
+    "dur": 0.028,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "DAVID_EVENT_RECORD",
+      "Physic Stream Id": 61,
+      "Task Id": 831,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4597
+    }
+  },
+  {
+    "name": "HostToDevice19743964659712",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "19743964659712",
+    "ts": "1780108859155959.401",
+    "bp": "e"
+  },
+  {
+    "name": "DAVID_EVENT_RECORD",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859155959.668",
+    "dur": 0.028,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "DAVID_EVENT_RECORD",
+      "Physic Stream Id": 61,
+      "Task Id": 832,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4599
+    }
+  },
+  {
+    "name": "HostToDevice19752554594304",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "19752554594304",
+    "ts": "1780108859155959.668",
+    "bp": "e"
+  },
+  {
+    "name": "DAVID_EVENT_WAIT",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859155959.717",
+    "dur": 16.677,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "DAVID_EVENT_WAIT",
+      "Physic Stream Id": 61,
+      "Task Id": 841,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4642
+    }
+  },
+  {
+    "name": "HostToDevice19937238188032",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "19937238188032",
+    "ts": "1780108859155959.717",
+    "bp": "e"
+  },
+  {
+    "name": "AivKernel",
+    "pid": 33120676,
+    "tid": 58,
+    "ts": "1780108859155960.142",
+    "dur": 12.8,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "COMMUNICATION",
+      "Physic Stream Id": 58,
+      "Task Id": 834,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4627
+    }
+  },
+  {
+    "name": "HostToDevice19872813678592",
+    "pid": 33120676,
+    "tid": 58,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "19872813678592",
+    "ts": "1780108859155960.142",
+    "bp": "e"
+  },
+  {
+    "name": "DAVID_EVENT_RECORD",
+    "pid": 33120676,
+    "tid": 58,
+    "ts": "1780108859155975.766",
+    "dur": 0.028,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "DAVID_EVENT_RECORD",
+      "Physic Stream Id": 58,
+      "Task Id": 839,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4640
+    }
+  },
+  {
+    "name": "HostToDevice19928648253440",
+    "pid": 33120676,
+    "tid": 58,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "19928648253440",
+    "ts": "1780108859155975.766",
+    "bp": "e"
+  },
+  {
+    "name": "DAVID_EVENT_RECORD",
+    "pid": 33120676,
+    "tid": 58,
+    "ts": "1780108859155975.815",
+    "dur": 0.028,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "DAVID_EVENT_RECORD",
+      "Physic Stream Id": 58,
+      "Task Id": 840,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4641
+    }
+  },
+  {
+    "name": "HostToDevice19932943220736",
+    "pid": 33120676,
+    "tid": 58,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "19932943220736",
+    "ts": "1780108859155975.815",
+    "bp": "e"
+  },
+  {
+    "name": "DAVID_EVENT_WAIT",
+    "pid": 33120676,
+    "tid": 58,
+    "ts": "1780108859155975.864",
+    "dur": 1.21,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "DAVID_EVENT_WAIT",
+      "Physic Stream Id": 58,
+      "Task Id": 843,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4646
+    }
+  },
+  {
+    "name": "HostToDevice19954418057216",
+    "pid": 33120676,
+    "tid": 58,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "19954418057216",
+    "ts": "1780108859155975.864",
+    "bp": "e"
+  },
+  {
+    "name": "DAVID_EVENT_RECORD",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859155976.430",
+    "dur": 0.028,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "DAVID_EVENT_RECORD",
+      "Physic Stream Id": 61,
+      "Task Id": 842,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4645
+    }
+  },
+  {
+    "name": "HostToDevice19950123089920",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "19950123089920",
+    "ts": "1780108859155976.430",
+    "bp": "e"
+  },
+  {
+    "name": "DAVID_EVENT_WAIT",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859155976.573",
+    "dur": 22.6,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "DAVID_EVENT_WAIT",
+      "Physic Stream Id": 61,
+      "Task Id": 851,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4688
+    }
+  },
+  {
+    "name": "HostToDevice20134806683648",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "20134806683648",
+    "ts": "1780108859155976.573",
+    "bp": "e"
+  },
+  {
+    "name": "AivKernel",
+    "pid": 33120676,
+    "tid": 58,
+    "ts": "1780108859155977.189",
+    "dur": 18.669,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "COMMUNICATION",
+      "Physic Stream Id": 58,
+      "Task Id": 844,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4673
+    }
+  },
+  {
+    "name": "HostToDevice20070382174208",
+    "pid": 33120676,
+    "tid": 58,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "20070382174208",
+    "ts": "1780108859155977.189",
+    "bp": "e"
+  },
+  {
+    "name": "DAVID_EVENT_RECORD",
+    "pid": 33120676,
+    "tid": 58,
+    "ts": "1780108859155998.525",
+    "dur": 0.028,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "DAVID_EVENT_RECORD",
+      "Physic Stream Id": 58,
+      "Task Id": 849,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4686
+    }
+  },
+  {
+    "name": "HostToDevice20126216749056",
+    "pid": 33120676,
+    "tid": 58,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "20126216749056",
+    "ts": "1780108859155998.525",
+    "bp": "e"
+  },
+  {
+    "name": "DAVID_EVENT_RECORD",
+    "pid": 33120676,
+    "tid": 58,
+    "ts": "1780108859155998.574",
+    "dur": 0.028,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "DAVID_EVENT_RECORD",
+      "Physic Stream Id": 58,
+      "Task Id": 850,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4687
+    }
+  },
+  {
+    "name": "HostToDevice20130511716352",
+    "pid": 33120676,
+    "tid": 58,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "20130511716352",
+    "ts": "1780108859155998.574",
+    "bp": "e"
+  },
+  {
+    "name": "DAVID_EVENT_RECORD",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859155999.303",
+    "dur": 0.028,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "DAVID_EVENT_RECORD",
+      "Physic Stream Id": 61,
+      "Task Id": 852,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4691
+    }
+  },
+  {
+    "name": "HostToDevice20147691585536",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "20147691585536",
+    "ts": "1780108859155999.303",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnCat_ConcatD_ConcatD",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859155999.564",
+    "dur": 4.111,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 853,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4694
+    }
+  },
+  {
+    "name": "HostToDevice20160576487424",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "20160576487424",
+    "ts": "1780108859155999.564",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnCat_ConcatD_ConcatD",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859156003.697",
+    "dur": 4.656,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 854,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4698
+    }
+  },
+  {
+    "name": "HostToDevice20177756356608",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "20177756356608",
+    "ts": "1780108859156003.697",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnNeScalar_NotEqualAiCore_NotEqual",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859156008.375",
+    "dur": 4.154,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 855,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4702
+    }
+  },
+  {
+    "name": "HostToDevice20194936225792",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "20194936225792",
+    "ts": "1780108859156008.375",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnReduceSum_CastAiCore_Cast",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859156012.551",
+    "dur": 3.052,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 856,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4706
+    }
+  },
+  {
+    "name": "HostToDevice20212116094976",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "20212116094976",
+    "ts": "1780108859156012.551",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnReduceSum_ReduceSumOpAiCore_ReduceSum",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859156015.625",
+    "dur": 7.7,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "MIX_AIV",
+      "Physic Stream Id": 61,
+      "Task Id": 857,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4708
+    }
+  },
+  {
+    "name": "HostToDevice20220706029568",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "20220706029568",
+    "ts": "1780108859156015.625",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnReduceSum_CastAiCore_Cast",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859156023.347",
+    "dur": 2.42,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 858,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4710
+    }
+  },
+  {
+    "name": "HostToDevice20229295964160",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "20229295964160",
+    "ts": "1780108859156023.347",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnTopk_TopkV2AiCoreForDavid_TopKV2",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859156124.439",
+    "dur": 35.07,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "MIX_AIV",
+      "Physic Stream Id": 61,
+      "Task Id": 859,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4716
+    }
+  },
+  {
+    "name": "HostToDevice20255065767936",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "20255065767936",
+    "ts": "1780108859156124.439",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnIndex_GatherV2AiCore_GatherV2",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859156159.531",
+    "dur": 4.016,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 860,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4720
+    }
+  },
+  {
+    "name": "HostToDevice20272245637120",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "20272245637120",
+    "ts": "1780108859156159.531",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnIndex_GatherV2AiCore_GatherV2",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859156163.569",
+    "dur": 5.388,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 861,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4724
+    }
+  },
+  {
+    "name": "HostToDevice20289425506304",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "20289425506304",
+    "ts": "1780108859156163.569",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnInplaceCopy_CastAiCore_Cast",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859156177.361",
+    "dur": 2.825,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 862,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4728
+    }
+  },
+  {
+    "name": "HostToDevice20306605375488",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "20306605375488",
+    "ts": "1780108859156177.361",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnCumsum_CumsumAiCore_Cumsum",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859156203.478",
+    "dur": 18.78,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 863,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4732
+    }
+  },
+  {
+    "name": "HostToDevice20323785244672",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "20323785244672",
+    "ts": "1780108859156203.478",
+    "bp": "e"
+  },
+  {
+    "name": "DAVID_EVENT_RECORD",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859156406.530",
+    "dur": 0.028,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "DAVID_EVENT_RECORD",
+      "Physic Stream Id": 61,
+      "Task Id": 864,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4737
+    }
+  },
+  {
+    "name": "HostToDevice20345260081152",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "20345260081152",
+    "ts": "1780108859156406.530",
+    "bp": "e"
+  },
+  {
+    "name": "DAVID_EVENT_RECORD",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859156465.288",
+    "dur": 0.028,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "DAVID_EVENT_RECORD",
+      "Physic Stream Id": 61,
+      "Task Id": 865,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4739
+    }
+  },
+  {
+    "name": "HostToDevice20353850015744",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "20353850015744",
+    "ts": "1780108859156465.288",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnMatmul_MatMulV3Common_MatMulV3",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859156537.264",
+    "dur": 3.571,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 866,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4742
+    }
+  },
+  {
+    "name": "HostToDevice20366734917632",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "20366734917632",
+    "ts": "1780108859156537.264",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnInplaceCopy_CastAiCore_Cast",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859156601.017",
+    "dur": 2.126,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 867,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4746
+    }
+  },
+  {
+    "name": "HostToDevice20383914786816",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "20383914786816",
+    "ts": "1780108859156601.017",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnInplaceCopy_CastAiCore_Cast",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859156665.293",
+    "dur": 2.646,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 868,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4750
+    }
+  },
+  {
+    "name": "HostToDevice20401094656000",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "20401094656000",
+    "ts": "1780108859156665.293",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnSub_SubAiCore_Sub",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859156761.601",
+    "dur": 4.478,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 869,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4754
+    }
+  },
+  {
+    "name": "HostToDevice20418274525184",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "20418274525184",
+    "ts": "1780108859156761.601",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnMul_MulAiCore_Mul",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859156776.568",
+    "dur": 2.733,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 870,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4758
+    }
+  },
+  {
+    "name": "HostToDevice20435454394368",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "20435454394368",
+    "ts": "1780108859156776.568",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnReduceSum_ReduceSumOpAiCore_ReduceSum",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859156807.487",
+    "dur": 4.844,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 871,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4762
+    }
+  },
+  {
+    "name": "HostToDevice20452634263552",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "20452634263552",
+    "ts": "1780108859156807.487",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnIndex_GatherV2AiCore_GatherV2",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859156863.268",
+    "dur": 4.298,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 872,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4766
+    }
+  },
+  {
+    "name": "HostToDevice20469814132736",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "20469814132736",
+    "ts": "1780108859156863.268",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnAdds_AddAiCore_Add",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859156904.698",
+    "dur": 2.821,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 873,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4770
+    }
+  },
+  {
+    "name": "HostToDevice20486994001920",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "20486994001920",
+    "ts": "1780108859156904.698",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnIndex_GatherV2AiCore_GatherV2",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859156920.419",
+    "dur": 2.695,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 874,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4774
+    }
+  },
+  {
+    "name": "HostToDevice20504173871104",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "20504173871104",
+    "ts": "1780108859156920.419",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnSub_SubAiCore_Sub",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859156937.320",
+    "dur": 3.496,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 875,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4778
+    }
+  },
+  {
+    "name": "HostToDevice20521353740288",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "20521353740288",
+    "ts": "1780108859156937.320",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnClampMin_ClipByValueV2AiCore_ClipByValueV2",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859156958.682",
+    "dur": 3.061,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 876,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4782
+    }
+  },
+  {
+    "name": "HostToDevice20538533609472",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "20538533609472",
+    "ts": "1780108859156958.682",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnIndex_GatherV2AiCore_GatherV2",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859156980.845",
+    "dur": 4.226,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 877,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4786
+    }
+  },
+  {
+    "name": "HostToDevice20555713478656",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "20555713478656",
+    "ts": "1780108859156980.845",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnAdds_AddAiCore_Add",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859157002.879",
+    "dur": 2.16,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 878,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4790
+    }
+  },
+  {
+    "name": "HostToDevice20572893347840",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "20572893347840",
+    "ts": "1780108859157002.879",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnIndex_GatherV2AiCore_GatherV2",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859157038.147",
+    "dur": 2.859,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 879,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4794
+    }
+  },
+  {
+    "name": "HostToDevice20590073217024",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "20590073217024",
+    "ts": "1780108859157038.147",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnSub_SubAiCore_Sub",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859157062.457",
+    "dur": 1.987,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 880,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4798
+    }
+  },
+  {
+    "name": "HostToDevice20607253086208",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "20607253086208",
+    "ts": "1780108859157062.457",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnArange_ArangeAiCore_Range",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859157112.162",
+    "dur": 3.308,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 881,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4802
+    }
+  },
+  {
+    "name": "HostToDevice20624432955392",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "20624432955392",
+    "ts": "1780108859157112.162",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnReduceSum_ReduceSumOpAiCore_ReduceSum",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859157132.087",
+    "dur": 8.093,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "MIX_AIV",
+      "Physic Stream Id": 61,
+      "Task Id": 882,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4806
+    }
+  },
+  {
+    "name": "HostToDevice20641612824576",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "20641612824576",
+    "ts": "1780108859157132.087",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnRepeatInterleave_RepeatInterleave_RepeatInterleave",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859157211.037",
+    "dur": 37.169,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "MIX_AIV",
+      "Physic Stream Id": 61,
+      "Task Id": 883,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4812
+    }
+  },
+  {
+    "name": "HostToDevice20667382628352",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "20667382628352",
+    "ts": "1780108859157211.037",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnCumsum_CumsumAiCore_Cumsum",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859157248.228",
+    "dur": 17.644,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 884,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4816
+    }
+  },
+  {
+    "name": "HostToDevice20684562497536",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "20684562497536",
+    "ts": "1780108859157248.228",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnInplaceZero_ZerosLikeAiCore_ZerosLike",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859157292.366",
+    "dur": 2.961,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 885,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4820
+    }
+  },
+  {
+    "name": "HostToDevice20701742366720",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "20701742366720",
+    "ts": "1780108859157292.366",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnArange_ArangeAiCore_Range",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859157461.185",
+    "dur": 6.913,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 887,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4832
+    }
+  },
+  {
+    "name": "HostToDevice20753281974272",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "20753281974272",
+    "ts": "1780108859157461.185",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnIndex_GatherV2AiCore_GatherV2",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859157488.307",
+    "dur": 9.229,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 888,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4836
+    }
+  },
+  {
+    "name": "HostToDevice20770461843456",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "20770461843456",
+    "ts": "1780108859157488.307",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnSub_SubAiCore_Sub",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859157497.558",
+    "dur": 8.086,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 889,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4840
+    }
+  },
+  {
+    "name": "HostToDevice20787641712640",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "20787641712640",
+    "ts": "1780108859157497.558",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnIndex_GatherV2AiCore_GatherV2",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859157511.296",
+    "dur": 8.033,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 890,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4844
+    }
+  },
+  {
+    "name": "HostToDevice20804821581824",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "20804821581824",
+    "ts": "1780108859157511.296",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnAdd_AddAiCore_Add",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859157521.002",
+    "dur": 7.771,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 891,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4848
+    }
+  },
+  {
+    "name": "HostToDevice20822001451008",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "20822001451008",
+    "ts": "1780108859157521.002",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnIndex_GatherV2AiCore_GatherV2",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859157543.225",
+    "dur": 8.425,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 892,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4852
+    }
+  },
+  {
+    "name": "HostToDevice20839181320192",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "20839181320192",
+    "ts": "1780108859157543.225",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnMuls_MulAiCore_Mul",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859157557.345",
+    "dur": 6.853,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 893,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4856
+    }
+  },
+  {
+    "name": "HostToDevice20856361189376",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "20856361189376",
+    "ts": "1780108859157557.345",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnAdd_AddAiCore_Add",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859157570.915",
+    "dur": 8.275,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 894,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4860
+    }
+  },
+  {
+    "name": "HostToDevice20873541058560",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "20873541058560",
+    "ts": "1780108859157570.915",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnIndex_GatherV2AiCore_GatherV2",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859157682.259",
+    "dur": 8.357,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 895,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4864
+    }
+  },
+  {
+    "name": "HostToDevice20890720927744",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "20890720927744",
+    "ts": "1780108859157682.259",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnAdd_AddAiCore_Add",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859157692.235",
+    "dur": 7.542,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 896,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4868
+    }
+  },
+  {
+    "name": "HostToDevice20907900796928",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "20907900796928",
+    "ts": "1780108859157692.235",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnIndex_GatherV2AiCore_GatherV2",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859157711.848",
+    "dur": 8.224,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 897,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4872
+    }
+  },
+  {
+    "name": "HostToDevice20925080666112",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "20925080666112",
+    "ts": "1780108859157711.848",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnLtTensor_LessAiCore_Less",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859157720.094",
+    "dur": 7.93,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 898,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4876
+    }
+  },
+  {
+    "name": "HostToDevice20942260535296",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "20942260535296",
+    "ts": "1780108859157720.094",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnIndex_GatherV2AiCore_GatherV2",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859157746.503",
+    "dur": 184.589,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 899,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4880
+    }
+  },
+  {
+    "name": "HostToDevice20959440404480",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "20959440404480",
+    "ts": "1780108859157746.503",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnInplaceCopy_CastAiCore_Cast",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859157931.114",
+    "dur": 300.822,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 900,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4884
+    }
+  },
+  {
+    "name": "HostToDevice20976620273664",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "20976620273664",
+    "ts": "1780108859157931.114",
+    "bp": "e"
+  },
+  {
+    "name": "adc_func",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859158231.958",
+    "dur": 1258.982,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 901,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 8711
+    }
+  },
+  {
+    "name": "HostToDevice37413460115456",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "37413460115456",
+    "ts": "1780108859158231.958",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnBitwiseNot_LogicalNotAiCore_LogicalNot",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859159490.962",
+    "dur": 4.749,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 902,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4888
+    }
+  },
+  {
+    "name": "HostToDevice20993800142848",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "20993800142848",
+    "ts": "1780108859159490.962",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnInplaceFillScalar_FillAiCore_Fill",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859159495.733",
+    "dur": 2.718,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 903,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4892
+    }
+  },
+  {
+    "name": "HostToDevice21010980012032",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "21010980012032",
+    "ts": "1780108859159495.733",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnNonzeroV2_NonzeroAiCore_NonZero",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859159498.473",
+    "dur": 9.569,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "MIX_AIV",
+      "Physic Stream Id": 61,
+      "Task Id": 904,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4903
+    }
+  },
+  {
+    "name": "HostToDevice21058224652288",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "21058224652288",
+    "ts": "1780108859159498.473",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnInplaceFillScalar_FillAiCore_Fill",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859159650.068",
+    "dur": 2.733,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 905,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4910
+    }
+  },
+  {
+    "name": "HostToDevice21088289423360",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "21088289423360",
+    "ts": "1780108859159650.068",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnInplaceZero_ZerosLikeAiCore_ZerosLike",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859159666.822",
+    "dur": 2.665,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 906,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4914
+    }
+  },
+  {
+    "name": "HostToDevice21105469292544",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "21105469292544",
+    "ts": "1780108859159666.822",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnInplaceZero_ZerosLikeAiCore_ZerosLike",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859159689.670",
+    "dur": 1.567,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 907,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4918
+    }
+  },
+  {
+    "name": "HostToDevice21122649161728",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "21122649161728",
+    "ts": "1780108859159689.670",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnTopk_TopkV2AiCoreForDavid_TopKV2",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859159707.233",
+    "dur": 288.126,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "MIX_AIV",
+      "Physic Stream Id": 61,
+      "Task Id": 908,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4922
+    }
+  },
+  {
+    "name": "HostToDevice21139829030912",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "21139829030912",
+    "ts": "1780108859159707.233",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnIndex_GatherV2AiCore_GatherV2",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859159995.381",
+    "dur": 5.177,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 909,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4926
+    }
+  },
+  {
+    "name": "HostToDevice21157008900096",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "21157008900096",
+    "ts": "1780108859159995.381",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnInplaceClampMax_ClipByValueV2AiCore_ClipByValueV2",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859160000.580",
+    "dur": 2.577,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 910,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4930
+    }
+  },
+  {
+    "name": "HostToDevice21174188769280",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "21174188769280",
+    "ts": "1780108859160000.580",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnIndex_GatherV2AiCore_GatherV2",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859160003.179",
+    "dur": 2.878,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 911,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4934
+    }
+  },
+  {
+    "name": "HostToDevice21191368638464",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "21191368638464",
+    "ts": "1780108859160003.179",
+    "bp": "e"
+  },
+  {
+    "name": "DAVID_EVENT_RECORD",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859160008.264",
+    "dur": 0.028,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "DAVID_EVENT_RECORD",
+      "Physic Stream Id": 61,
+      "Task Id": 915,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4955
+    }
+  },
+  {
+    "name": "HostToDevice21281562951680",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "21281562951680",
+    "ts": "1780108859160008.264",
+    "bp": "e"
+  },
+  {
+    "name": "DAVID_EVENT_RECORD",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859160008.532",
+    "dur": 0.028,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "DAVID_EVENT_RECORD",
+      "Physic Stream Id": 61,
+      "Task Id": 916,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4957
+    }
+  },
+  {
+    "name": "HostToDevice21290152886272",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "21290152886272",
+    "ts": "1780108859160008.532",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnStack_PackAiCore_Pack",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859160023.901",
+    "dur": 4.409,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 917,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4960
+    }
+  },
+  {
+    "name": "HostToDevice21303037788160",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "21303037788160",
+    "ts": "1780108859160023.901",
+    "bp": "e"
+  },
+  {
+    "name": "DAVID_EVENT_RECORD",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859160111.690",
+    "dur": 0.028,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "DAVID_EVENT_RECORD",
+      "Physic Stream Id": 61,
+      "Task Id": 918,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4963
+    }
+  },
+  {
+    "name": "HostToDevice21315922690048",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "21315922690048",
+    "ts": "1780108859160111.690",
+    "bp": "e"
+  },
+  {
+    "name": "DAVID_EVENT_WAIT",
+    "pid": 33120676,
+    "tid": 58,
+    "ts": "1780108859160126.373",
+    "dur": 0.027,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "DAVID_EVENT_WAIT",
+      "Physic Stream Id": 58,
+      "Task Id": 919,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4964
+    }
+  },
+  {
+    "name": "HostToDevice21320217657344",
+    "pid": 33120676,
+    "tid": 58,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "21320217657344",
+    "ts": "1780108859160126.373",
+    "bp": "e"
+  },
+  {
+    "name": "AivKernel",
+    "pid": 33120676,
+    "tid": 58,
+    "ts": "1780108859160250.464",
+    "dur": 12.215,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "COMMUNICATION",
+      "Physic Stream Id": 58,
+      "Task Id": 920,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 4991
+    }
+  },
+  {
+    "name": "HostToDevice21436181774336",
+    "pid": 33120676,
+    "tid": 58,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "21436181774336",
+    "ts": "1780108859160250.464",
+    "bp": "e"
+  },
+  {
+    "name": "DAVID_EVENT_RECORD",
+    "pid": 33120676,
+    "tid": 58,
+    "ts": "1780108859160310.257",
+    "dur": 0.028,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "DAVID_EVENT_RECORD",
+      "Physic Stream Id": 58,
+      "Task Id": 925,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5004
+    }
+  },
+  {
+    "name": "HostToDevice21492016349184",
+    "pid": 33120676,
+    "tid": 58,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "21492016349184",
+    "ts": "1780108859160310.257",
+    "bp": "e"
+  },
+  {
+    "name": "DAVID_EVENT_RECORD",
+    "pid": 33120676,
+    "tid": 58,
+    "ts": "1780108859160314.471",
+    "dur": 0.028,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "DAVID_EVENT_RECORD",
+      "Physic Stream Id": 58,
+      "Task Id": 926,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5005
+    }
+  },
+  {
+    "name": "HostToDevice21496311316480",
+    "pid": 33120676,
+    "tid": 58,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "21496311316480",
+    "ts": "1780108859160314.471",
+    "bp": "e"
+  },
+  {
+    "name": "DAVID_EVENT_WAIT",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859160322.195",
+    "dur": 0.027,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "DAVID_EVENT_WAIT",
+      "Physic Stream Id": 61,
+      "Task Id": 927,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5006
+    }
+  },
+  {
+    "name": "HostToDevice21500606283776",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "21500606283776",
+    "ts": "1780108859160322.195",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnCat_ConcatD_ConcatD",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859160352.642",
+    "dur": 4.352,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 928,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5010
+    }
+  },
+  {
+    "name": "HostToDevice21517786152960",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "21517786152960",
+    "ts": "1780108859160352.642",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnStack_PackAiCore_Pack",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859160382.553",
+    "dur": 3.564,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 929,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5014
+    }
+  },
+  {
+    "name": "HostToDevice21534966022144",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "21534966022144",
+    "ts": "1780108859160382.553",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnStack_PackAiCore_Pack",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859160404.001",
+    "dur": 3.196,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 930,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5018
+    }
+  },
+  {
+    "name": "HostToDevice21552145891328",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "21552145891328",
+    "ts": "1780108859160404.001",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnMatmul_MatMulV3Common_MatMulV3",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859160416.922",
+    "dur": 3.526,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 931,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5022
+    }
+  },
+  {
+    "name": "HostToDevice21569325760512",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "21569325760512",
+    "ts": "1780108859160416.922",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnTopk_TopkV2AiCoreForDavid_TopKV2",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859160429.632",
+    "dur": 44.517,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "MIX_AIV",
+      "Physic Stream Id": 61,
+      "Task Id": 932,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5028
+    }
+  },
+  {
+    "name": "HostToDevice21595095564288",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "21595095564288",
+    "ts": "1780108859160429.632",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnFloorDivides_FloorDivAiCore_FloorDiv",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859160474.171",
+    "dur": 4.424,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 933,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5032
+    }
+  },
+  {
+    "name": "HostToDevice21612275433472",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "21612275433472",
+    "ts": "1780108859160474.171",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnEqScalar_EqualAiCore_Equal",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859160478.617",
+    "dur": 3.59,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 934,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5036
+    }
+  },
+  {
+    "name": "HostToDevice21629455302656",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "21629455302656",
+    "ts": "1780108859160478.617",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnNonzeroV2_NonzeroAiCore_NonZero",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859160482.229",
+    "dur": 3.892,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "MIX_AIV",
+      "Physic Stream Id": 61,
+      "Task Id": 935,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5045
+    }
+  },
+  {
+    "name": "HostToDevice21668110008320",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "21668110008320",
+    "ts": "1780108859160482.229",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnIndex_GatherV2AiCore_GatherV2",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859160600.073",
+    "dur": 2.405,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 936,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5050
+    }
+  },
+  {
+    "name": "HostToDevice21689584844800",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "21689584844800",
+    "ts": "1780108859160600.073",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnRemainderTensorScalar_FloorModAiCore_FloorMod",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859160615.085",
+    "dur": 2.908,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 937,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5054
+    }
+  },
+  {
+    "name": "HostToDevice21706764713984",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "21706764713984",
+    "ts": "1780108859160615.085",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnIndex_GatherV2AiCore_GatherV2",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859160642.122",
+    "dur": 2.181,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 938,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5058
+    }
+  },
+  {
+    "name": "HostToDevice21723944583168",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "21723944583168",
+    "ts": "1780108859160642.122",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnIndex_GatherV2AiCore_GatherV2",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859160659.113",
+    "dur": 1.901,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 939,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5062
+    }
+  },
+  {
+    "name": "HostToDevice21741124452352",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "21741124452352",
+    "ts": "1780108859160659.113",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnInplaceFillScalar_FillAiCore_Fill",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859160686.473",
+    "dur": 1.994,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 940,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5066
+    }
+  },
+  {
+    "name": "HostToDevice21758304321536",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "21758304321536",
+    "ts": "1780108859160686.473",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnInplaceZero_ZerosLikeAiCore_ZerosLike",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859160704.128",
+    "dur": 1.805,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 941,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5070
+    }
+  },
+  {
+    "name": "HostToDevice21775484190720",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "21775484190720",
+    "ts": "1780108859160704.128",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnIndex_GatherV2AiCore_GatherV2",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859160737.855",
+    "dur": 6.228,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 942,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5074
+    }
+  },
+  {
+    "name": "HostToDevice21792664059904",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "21792664059904",
+    "ts": "1780108859160737.855",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnInplaceCopy_CastAiCore_Cast",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859160762.849",
+    "dur": 2.832,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 943,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5078
+    }
+  },
+  {
+    "name": "HostToDevice21809843929088",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "21809843929088",
+    "ts": "1780108859160762.849",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnInplaceCopy_CastAiCore_Cast",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859160796.255",
+    "dur": 4.173,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 944,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5082
+    }
+  },
+  {
+    "name": "HostToDevice21827023798272",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "21827023798272",
+    "ts": "1780108859160796.255",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnAdd_AddAiCore_Add",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859160829.950",
+    "dur": 4.308,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 945,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5086
+    }
+  },
+  {
+    "name": "HostToDevice21844203667456",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "21844203667456",
+    "ts": "1780108859160829.950",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnIndexSelect_GatherV2AiCore_GatherV2",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859160874.734",
+    "dur": 5.243,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 946,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5090
+    }
+  },
+  {
+    "name": "HostToDevice21861383536640",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "21861383536640",
+    "ts": "1780108859160874.734",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnIndex_GatherV2AiCore_GatherV2",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859160929.833",
+    "dur": 7.027,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 947,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5094
+    }
+  },
+  {
+    "name": "HostToDevice21878563405824",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "21878563405824",
+    "ts": "1780108859160929.833",
+    "bp": "e"
+  },
+  {
+    "name": "DAVID_EVENT_RECORD",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859161258.887",
+    "dur": 0.007,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "DAVID_EVENT_RECORD",
+      "Physic Stream Id": 61,
+      "Task Id": 949,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5102
+    }
+  },
+  {
+    "name": "HostToDevice21912923144192",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "21912923144192",
+    "ts": "1780108859161258.887",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnRightShift_RightShiftAiCore_RightShift",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859161276.125",
+    "dur": 2.16,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 950,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5105
+    }
+  },
+  {
+    "name": "HostToDevice21925808046080",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "21925808046080",
+    "ts": "1780108859161276.125",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnInplaceCopy_CastAiCore_Cast",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859161309.981",
+    "dur": 3.21,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 951,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5109
+    }
+  },
+  {
+    "name": "HostToDevice21942987915264",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "21942987915264",
+    "ts": "1780108859161309.981",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnBitwiseAndScalar_BitwiseAndAiCpu_BitwiseAnd",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859161382.442",
+    "dur": 51.832,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_CPU",
+      "Physic Stream Id": 61,
+      "Task Id": 952,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5115
+    }
+  },
+  {
+    "name": "HostToDevice21968757719040",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "21968757719040",
+    "ts": "1780108859161382.442",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnInplaceCopy_CastAiCore_Cast",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859161434.296",
+    "dur": 2.47,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 953,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5119
+    }
+  },
+  {
+    "name": "HostToDevice21985937588224",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "21985937588224",
+    "ts": "1780108859161434.296",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnStack_PackAiCore_Pack",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859161436.788",
+    "dur": 4.399,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 954,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5123
+    }
+  },
+  {
+    "name": "HostToDevice22003117457408",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "22003117457408",
+    "ts": "1780108859161436.788",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnEmbedding_SliceAiCore_Slice",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859161544.523",
+    "dur": 4.076,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 955,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5127
+    }
+  },
+  {
+    "name": "HostToDevice22020297326592",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "22020297326592",
+    "ts": "1780108859161544.523",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnEmbedding_EmbeddingAiCore_Embedding",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859161549.693",
+    "dur": 2.987,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 956,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5129
+    }
+  },
+  {
+    "name": "HostToDevice22028887261184",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "22028887261184",
+    "ts": "1780108859161549.693",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnEmbedding_SliceAiCore_Slice",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859161589.730",
+    "dur": 2.815,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 957,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5133
+    }
+  },
+  {
+    "name": "HostToDevice22046067130368",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "22046067130368",
+    "ts": "1780108859161589.730",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnEmbedding_EmbeddingAiCore_Embedding",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859161592.567",
+    "dur": 1.754,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 958,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5135
+    }
+  },
+  {
+    "name": "HostToDevice22054657064960",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "22054657064960",
+    "ts": "1780108859161592.567",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnEmbedding_SliceAiCore_Slice",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859161641.645",
+    "dur": 2.771,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 959,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5139
+    }
+  },
+  {
+    "name": "HostToDevice22071836934144",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "22071836934144",
+    "ts": "1780108859161641.645",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnEmbedding_EmbeddingAiCore_Embedding",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859161645.614",
+    "dur": 1.903,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 960,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5141
+    }
+  },
+  {
+    "name": "HostToDevice22080426868736",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "22080426868736",
+    "ts": "1780108859161645.614",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnEmbedding_SliceAiCore_Slice",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859161692.603",
+    "dur": 4.048,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 961,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5145
+    }
+  },
+  {
+    "name": "HostToDevice22097606737920",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "22097606737920",
+    "ts": "1780108859161692.603",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnEmbedding_EmbeddingAiCore_Embedding",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859161697.274",
+    "dur": 2.079,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 962,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5147
+    }
+  },
+  {
+    "name": "HostToDevice22106196672512",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "22106196672512",
+    "ts": "1780108859161697.274",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnEmbedding_SliceAiCore_Slice",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859161738.254",
+    "dur": 2.902,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 963,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5151
+    }
+  },
+  {
+    "name": "HostToDevice22123376541696",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "22123376541696",
+    "ts": "1780108859161738.254",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnEmbedding_EmbeddingAiCore_Embedding",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859161741.178",
+    "dur": 1.924,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 964,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5153
+    }
+  },
+  {
+    "name": "HostToDevice22131966476288",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "22131966476288",
+    "ts": "1780108859161741.178",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnEmbedding_SliceAiCore_Slice",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859161783.242",
+    "dur": 2.625,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 965,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5157
+    }
+  },
+  {
+    "name": "HostToDevice22149146345472",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "22149146345472",
+    "ts": "1780108859161783.242",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnEmbedding_EmbeddingAiCore_Embedding",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859161785.889",
+    "dur": 1.757,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 966,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5159
+    }
+  },
+  {
+    "name": "HostToDevice22157736280064",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "22157736280064",
+    "ts": "1780108859161785.889",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnEmbedding_SliceAiCore_Slice",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859161847.882",
+    "dur": 3.297,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 967,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5163
+    }
+  },
+  {
+    "name": "HostToDevice22174916149248",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "22174916149248",
+    "ts": "1780108859161847.882",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnEmbedding_EmbeddingAiCore_Embedding",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859161853.388",
+    "dur": 1.797,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 968,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5165
+    }
+  },
+  {
+    "name": "HostToDevice22183506083840",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "22183506083840",
+    "ts": "1780108859161853.388",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnEmbedding_SliceAiCore_Slice",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859161904.526",
+    "dur": 2.933,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 969,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5169
+    }
+  },
+  {
+    "name": "HostToDevice22200685953024",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "22200685953024",
+    "ts": "1780108859161904.526",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnEmbedding_EmbeddingAiCore_Embedding",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859161907.481",
+    "dur": 1.82,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 970,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5171
+    }
+  },
+  {
+    "name": "HostToDevice22209275887616",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "22209275887616",
+    "ts": "1780108859161907.481",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnEmbedding_SliceAiCore_Slice",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859161956.086",
+    "dur": 2.753,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 971,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5175
+    }
+  },
+  {
+    "name": "HostToDevice22226455756800",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "22226455756800",
+    "ts": "1780108859161956.086",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnEmbedding_EmbeddingAiCore_Embedding",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859161959.953",
+    "dur": 2.023,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 972,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5177
+    }
+  },
+  {
+    "name": "HostToDevice22235045691392",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "22235045691392",
+    "ts": "1780108859161959.953",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnEmbedding_SliceAiCore_Slice",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859162001.399",
+    "dur": 2.838,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 973,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5181
+    }
+  },
+  {
+    "name": "HostToDevice22252225560576",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "22252225560576",
+    "ts": "1780108859162001.399",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnEmbedding_EmbeddingAiCore_Embedding",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859162005.804",
+    "dur": 1.832,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 974,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5183
+    }
+  },
+  {
+    "name": "HostToDevice22260815495168",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "22260815495168",
+    "ts": "1780108859162005.804",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnEmbedding_SliceAiCore_Slice",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859162053.960",
+    "dur": 3.088,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 975,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5187
+    }
+  },
+  {
+    "name": "HostToDevice22277995364352",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "22277995364352",
+    "ts": "1780108859162053.960",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnEmbedding_EmbeddingAiCore_Embedding",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859162057.929",
+    "dur": 2.089,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 976,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5189
+    }
+  },
+  {
+    "name": "HostToDevice22286585298944",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "22286585298944",
+    "ts": "1780108859162057.929",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnEmbedding_SliceAiCore_Slice",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859162117.991",
+    "dur": 2.62,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 977,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5193
+    }
+  },
+  {
+    "name": "HostToDevice22303765168128",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "22303765168128",
+    "ts": "1780108859162117.991",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnEmbedding_EmbeddingAiCore_Embedding",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859162120.633",
+    "dur": 1.761,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 978,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5195
+    }
+  },
+  {
+    "name": "HostToDevice22312355102720",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "22312355102720",
+    "ts": "1780108859162120.633",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnEmbedding_SliceAiCore_Slice",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859162171.750",
+    "dur": 2.808,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 979,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5199
+    }
+  },
+  {
+    "name": "HostToDevice22329534971904",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "22329534971904",
+    "ts": "1780108859162171.750",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnEmbedding_EmbeddingAiCore_Embedding",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859162176.423",
+    "dur": 1.874,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 980,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5201
+    }
+  },
+  {
+    "name": "HostToDevice22338124906496",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "22338124906496",
+    "ts": "1780108859162176.423",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnCat_ConcatD_ConcatD",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859162215.232",
+    "dur": 5.266,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 981,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5205
+    }
+  },
+  {
+    "name": "HostToDevice22355304775680",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "22355304775680",
+    "ts": "1780108859162215.232",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnCat_ConcatD_ConcatD",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859162269.027",
+    "dur": 12.638,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 982,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5209
+    }
+  },
+  {
+    "name": "HostToDevice22372484644864",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "22372484644864",
+    "ts": "1780108859162269.027",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnLayerNormWithImplMode_LayerNormV4_LayerNormV4",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859162319.625",
+    "dur": 5.643,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 983,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5213
+    }
+  },
+  {
+    "name": "HostToDevice22389664514048",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "22389664514048",
+    "ts": "1780108859162319.625",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnAddmm_MatMulV3Common_MatMulV3",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859162359.581",
+    "dur": 28.814,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 984,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5217
+    }
+  },
+  {
+    "name": "HostToDevice22406844383232",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "22406844383232",
+    "ts": "1780108859162359.581",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnLeakyRelu_LeakyReluAICore_LeakyRelu",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859162388.417",
+    "dur": 10.071,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 985,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5221
+    }
+  },
+  {
+    "name": "HostToDevice22424024252416",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "22424024252416",
+    "ts": "1780108859162388.417",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnAddmm_MatMulV3Common_MatMulV3",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859162416.272",
+    "dur": 25.741,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 986,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5225
+    }
+  },
+  {
+    "name": "HostToDevice22441204121600",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "22441204121600",
+    "ts": "1780108859162416.272",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnAdd_AddAiCore_Add",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859162444.482",
+    "dur": 3.683,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 987,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5229
+    }
+  },
+  {
+    "name": "HostToDevice22458383990784",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "22458383990784",
+    "ts": "1780108859162444.482",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnLayerNormWithImplMode_LayerNormV4_LayerNormV4",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859162475.001",
+    "dur": 4.812,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 988,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5233
+    }
+  },
+  {
+    "name": "HostToDevice22475563859968",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "22475563859968",
+    "ts": "1780108859162475.001",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnAddmm_MatMulV3Common_MatMulV3",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859162505.537",
+    "dur": 27.914,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 989,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5237
+    }
+  },
+  {
+    "name": "HostToDevice22492743729152",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "22492743729152",
+    "ts": "1780108859162505.537",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnLeakyRelu_LeakyReluAICore_LeakyRelu",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859162533.473",
+    "dur": 6.389,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 990,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5241
+    }
+  },
+  {
+    "name": "HostToDevice22509923598336",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "22509923598336",
+    "ts": "1780108859162533.473",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnAddmm_MatMulV3Common_MatMulV3",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859162553.461",
+    "dur": 24.612,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 991,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5245
+    }
+  },
+  {
+    "name": "HostToDevice22527103467520",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "22527103467520",
+    "ts": "1780108859162553.461",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnAdd_AddAiCore_Add",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859162578.095",
+    "dur": 3.331,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 992,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5249
+    }
+  },
+  {
+    "name": "HostToDevice22544283336704",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "22544283336704",
+    "ts": "1780108859162578.095",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnLayerNormWithImplMode_LayerNormV4_LayerNormV4",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859162600.564",
+    "dur": 5.024,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 993,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5253
+    }
+  },
+  {
+    "name": "HostToDevice22561463205888",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "22561463205888",
+    "ts": "1780108859162600.564",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnAddmm_MatMulV3Common_MatMulV3",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859162628.916",
+    "dur": 27.648,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 994,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5257
+    }
+  },
+  {
+    "name": "HostToDevice22578643075072",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "22578643075072",
+    "ts": "1780108859162628.916",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnLeakyRelu_LeakyReluAICore_LeakyRelu",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859162656.586",
+    "dur": 6.615,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 995,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5261
+    }
+  },
+  {
+    "name": "HostToDevice22595822944256",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "22595822944256",
+    "ts": "1780108859162656.586",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnAddmm_MatMulV3Common_MatMulV3",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859162671.821",
+    "dur": 24.762,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 996,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5265
+    }
+  },
+  {
+    "name": "HostToDevice22613002813440",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "22613002813440",
+    "ts": "1780108859162671.821",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnAdd_AddAiCore_Add",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859162696.605",
+    "dur": 2.983,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 997,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5269
+    }
+  },
+  {
+    "name": "HostToDevice22630182682624",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "22630182682624",
+    "ts": "1780108859162696.605",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnLayerNormWithImplMode_LayerNormV4_LayerNormV4",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859162723.941",
+    "dur": 4.647,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 998,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5273
+    }
+  },
+  {
+    "name": "HostToDevice22647362551808",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "22647362551808",
+    "ts": "1780108859162723.941",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnAddmm_MatMulV3Common_MatMulV3",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859162751.650",
+    "dur": 27.873,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 999,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5277
+    }
+  },
+  {
+    "name": "HostToDevice22664542420992",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "22664542420992",
+    "ts": "1780108859162751.650",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnLeakyRelu_LeakyReluAICore_LeakyRelu",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859162779.545",
+    "dur": 6.514,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 1000,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5281
+    }
+  },
+  {
+    "name": "HostToDevice22681722290176",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "22681722290176",
+    "ts": "1780108859162779.545",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnAddmm_MatMulV3Common_MatMulV3",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859162790.938",
+    "dur": 24.834,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 1001,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5285
+    }
+  },
+  {
+    "name": "HostToDevice22698902159360",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "22698902159360",
+    "ts": "1780108859162790.938",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnAdd_AddAiCore_Add",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859162815.794",
+    "dur": 3.259,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 1002,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5289
+    }
+  },
+  {
+    "name": "HostToDevice22716082028544",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "22716082028544",
+    "ts": "1780108859162815.794",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnAddmm_MatMulV3Common_MatMulV3",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859162839.975",
+    "dur": 3.212,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 1003,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5293
+    }
+  },
+  {
+    "name": "HostToDevice22733261897728",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "22733261897728",
+    "ts": "1780108859162839.975",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnTopk_SortAiCoreForDavid_Sort",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859162913.093",
+    "dur": 5.037,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "MIX_AIV",
+      "Physic Stream Id": 61,
+      "Task Id": 1005,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5303
+    }
+  },
+  {
+    "name": "HostToDevice22776211570688",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "22776211570688",
+    "ts": "1780108859162913.093",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnInplaceCopy_CastAiCore_Cast",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859162934.826",
+    "dur": 2.693,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 1006,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5307
+    }
+  },
+  {
+    "name": "HostToDevice22793391439872",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "22793391439872",
+    "ts": "1780108859162934.826",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnIndex_GatherV2AiCore_GatherV2",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859162952.696",
+    "dur": 2.737,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 1007,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5311
+    }
+  },
+  {
+    "name": "HostToDevice22810571309056",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "22810571309056",
+    "ts": "1780108859162952.696",
+    "bp": "e"
+  },
+  {
+    "name": "DAVID_EVENT_RECORD",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859163095.211",
+    "dur": 0.028,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "DAVID_EVENT_RECORD",
+      "Physic Stream Id": 61,
+      "Task Id": 1009,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5320
+    }
+  },
+  {
+    "name": "HostToDevice22849226014720",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "22849226014720",
+    "ts": "1780108859163095.211",
+    "bp": "e"
+  },
+  {
+    "name": "DAVID_EVENT_RECORD",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859163138.630",
+    "dur": 0.028,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "DAVID_EVENT_RECORD",
+      "Physic Stream Id": 61,
+      "Task Id": 1010,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5322
+    }
+  },
+  {
+    "name": "HostToDevice22857815949312",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "22857815949312",
+    "ts": "1780108859163138.630",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnStack_PackAiCore_Pack",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859163210.726",
+    "dur": 3.339,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 1011,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5325
+    }
+  },
+  {
+    "name": "HostToDevice22870700851200",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "22870700851200",
+    "ts": "1780108859163210.726",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnStack_PackAiCore_Pack",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859163234.583",
+    "dur": 3.043,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 1012,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5329
+    }
+  },
+  {
+    "name": "HostToDevice22887880720384",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "22887880720384",
+    "ts": "1780108859163234.583",
+    "bp": "e"
+  },
+  {
+    "name": "DAVID_EVENT_RECORD",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859163313.849",
+    "dur": 0.028,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "DAVID_EVENT_RECORD",
+      "Physic Stream Id": 61,
+      "Task Id": 1013,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5332
+    }
+  },
+  {
+    "name": "HostToDevice22900765622272",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "22900765622272",
+    "ts": "1780108859163313.849",
+    "bp": "e"
+  },
+  {
+    "name": "DAVID_EVENT_WAIT",
+    "pid": 33120676,
+    "tid": 58,
+    "ts": "1780108859163319.835",
+    "dur": 0.027,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "DAVID_EVENT_WAIT",
+      "Physic Stream Id": 58,
+      "Task Id": 1014,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5333
+    }
+  },
+  {
+    "name": "HostToDevice22905060589568",
+    "pid": 33120676,
+    "tid": 58,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "22905060589568",
+    "ts": "1780108859163319.835",
+    "bp": "e"
+  },
+  {
+    "name": "AivKernel",
+    "pid": 33120676,
+    "tid": 58,
+    "ts": "1780108859163444.203",
+    "dur": 11.536,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "COMMUNICATION",
+      "Physic Stream Id": 58,
+      "Task Id": 1015,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5358
+    }
+  },
+  {
+    "name": "HostToDevice23012434771968",
+    "pid": 33120676,
+    "tid": 58,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "23012434771968",
+    "ts": "1780108859163444.203",
+    "bp": "e"
+  },
+  {
+    "name": "DAVID_EVENT_RECORD",
+    "pid": 33120676,
+    "tid": 58,
+    "ts": "1780108859163507.185",
+    "dur": 0.028,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "DAVID_EVENT_RECORD",
+      "Physic Stream Id": 58,
+      "Task Id": 1020,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5373
+    }
+  },
+  {
+    "name": "HostToDevice23076859281408",
+    "pid": 33120676,
+    "tid": 58,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "23076859281408",
+    "ts": "1780108859163507.185",
+    "bp": "e"
+  },
+  {
+    "name": "DAVID_EVENT_RECORD",
+    "pid": 33120676,
+    "tid": 58,
+    "ts": "1780108859163510.613",
+    "dur": 0.028,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "DAVID_EVENT_RECORD",
+      "Physic Stream Id": 58,
+      "Task Id": 1021,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5374
+    }
+  },
+  {
+    "name": "HostToDevice23081154248704",
+    "pid": 33120676,
+    "tid": 58,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "23081154248704",
+    "ts": "1780108859163510.613",
+    "bp": "e"
+  },
+  {
+    "name": "DAVID_EVENT_WAIT",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859163513.768",
+    "dur": 0.027,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "DAVID_EVENT_WAIT",
+      "Physic Stream Id": 61,
+      "Task Id": 1022,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5375
+    }
+  },
+  {
+    "name": "HostToDevice23085449216000",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "23085449216000",
+    "ts": "1780108859163513.768",
+    "bp": "e"
+  },
+  {
+    "name": "DAVID_EVENT_RECORD",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859163590.380",
+    "dur": 0.028,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "DAVID_EVENT_RECORD",
+      "Physic Stream Id": 61,
+      "Task Id": 1023,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5378
+    }
+  },
+  {
+    "name": "HostToDevice23098334117888",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "23098334117888",
+    "ts": "1780108859163590.380",
+    "bp": "e"
+  },
+  {
+    "name": "DAVID_EVENT_WAIT",
+    "pid": 33120676,
+    "tid": 58,
+    "ts": "1780108859163594.130",
+    "dur": 0.027,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "DAVID_EVENT_WAIT",
+      "Physic Stream Id": 58,
+      "Task Id": 1024,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5379
+    }
+  },
+  {
+    "name": "HostToDevice23102629085184",
+    "pid": 33120676,
+    "tid": 58,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "23102629085184",
+    "ts": "1780108859163594.130",
+    "bp": "e"
+  },
+  {
+    "name": "AivKernel",
+    "pid": 33120676,
+    "tid": 58,
+    "ts": "1780108859163683.081",
+    "dur": 13.592,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "COMMUNICATION",
+      "Physic Stream Id": 58,
+      "Task Id": 1025,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5401
+    }
+  },
+  {
+    "name": "HostToDevice23197118365696",
+    "pid": 33120676,
+    "tid": 58,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "23197118365696",
+    "ts": "1780108859163683.081",
+    "bp": "e"
+  },
+  {
+    "name": "DAVID_EVENT_RECORD",
+    "pid": 33120676,
+    "tid": 58,
+    "ts": "1780108859163745.282",
+    "dur": 0.028,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "DAVID_EVENT_RECORD",
+      "Physic Stream Id": 58,
+      "Task Id": 1030,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5419
+    }
+  },
+  {
+    "name": "HostToDevice23274427777024",
+    "pid": 33120676,
+    "tid": 58,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "23274427777024",
+    "ts": "1780108859163745.282",
+    "bp": "e"
+  },
+  {
+    "name": "DAVID_EVENT_RECORD",
+    "pid": 33120676,
+    "tid": 58,
+    "ts": "1780108859163751.777",
+    "dur": 0.028,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "DAVID_EVENT_RECORD",
+      "Physic Stream Id": 58,
+      "Task Id": 1031,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5420
+    }
+  },
+  {
+    "name": "HostToDevice23278722744320",
+    "pid": 33120676,
+    "tid": 58,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "23278722744320",
+    "ts": "1780108859163751.777",
+    "bp": "e"
+  },
+  {
+    "name": "DAVID_EVENT_WAIT",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859163754.859",
+    "dur": 0.027,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "DAVID_EVENT_WAIT",
+      "Physic Stream Id": 61,
+      "Task Id": 1032,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5421
+    }
+  },
+  {
+    "name": "HostToDevice23283017711616",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "23283017711616",
+    "ts": "1780108859163754.859",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnCat_ConcatD_ConcatD",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859163806.134",
+    "dur": 4.111,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 1033,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5425
+    }
+  },
+  {
+    "name": "HostToDevice23300197580800",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "23300197580800",
+    "ts": "1780108859163806.134",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnCat_ConcatD_ConcatD",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859163829.547",
+    "dur": 4.372,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 1034,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5429
+    }
+  },
+  {
+    "name": "HostToDevice23317377449984",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "23317377449984",
+    "ts": "1780108859163829.547",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnTopk_TopkV2AiCoreForDavid_TopKV2",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859164008.726",
+    "dur": 28.868,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "MIX_AIV",
+      "Physic Stream Id": 61,
+      "Task Id": 1035,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5433
+    }
+  },
+  {
+    "name": "HostToDevice23334557319168",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "23334557319168",
+    "ts": "1780108859164008.726",
+    "bp": "e"
+  },
+  {
+    "name": "aclnnGather_GatherElements_GatherElements",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859164037.616",
+    "dur": 4.657,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "AI_VECTOR_CORE",
+      "Physic Stream Id": 61,
+      "Task Id": 1036,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5437
+    }
+  },
+  {
+    "name": "HostToDevice23351737188352",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "23351737188352",
+    "ts": "1780108859164037.616",
+    "bp": "e"
+  },
+  {
+    "name": "DAVID_EVENT_RECORD",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859164394.797",
+    "dur": 0.028,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "DAVID_EVENT_RECORD",
+      "Physic Stream Id": 61,
+      "Task Id": 1037,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5444
+    }
+  },
+  {
+    "name": "HostToDevice23381801959424",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "23381801959424",
+    "ts": "1780108859164394.797",
+    "bp": "e"
+  },
+  {
+    "name": "DAVID_EVENT_RECORD",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859164479.600",
+    "dur": 0.028,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "DAVID_EVENT_RECORD",
+      "Physic Stream Id": 61,
+      "Task Id": 1038,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5446
+    }
+  },
+  {
+    "name": "HostToDevice23390391894016",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "23390391894016",
+    "ts": "1780108859164479.600",
+    "bp": "e"
+  },
+  {
+    "name": "DAVID_EVENT_RECORD",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859165207.070",
+    "dur": 0.007,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "DAVID_EVENT_RECORD",
+      "Physic Stream Id": 61,
+      "Task Id": 1042,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5484
+    }
+  },
+  {
+    "name": "HostToDevice23553600651264",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "23553600651264",
+    "ts": "1780108859165207.070",
+    "bp": "e"
+  },
+  {
+    "name": "DAVID_EVENT_RECORD",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859165229.588",
+    "dur": 0.007,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "DAVID_EVENT_RECORD",
+      "Physic Stream Id": 61,
+      "Task Id": 1043,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5485
+    }
+  },
+  {
+    "name": "HostToDevice23557895618560",
+    "pid": 33120676,
+    "tid": 61,
+    "ph": "f",
+    "cat": "HostToDevice",
+    "id": "23557895618560",
+    "ts": "1780108859165229.588",
+    "bp": "e"
+  },
+  {
+    "name": "DAVID_EVENT_RECORD",
+    "pid": 33120676,
+    "tid": 61,
+    "ts": "1780108859165236.513",
+    "dur": 0.007,
+    "ph": "X",
+    "args": {
+      "Model Id": 4294967295,
+      "Task Type": "DAVID_EVENT_RECORD",
+      "Physic Stream Id": 61,
+      "Task Id": 1044,
+      "Batch Id": 0,
+      "Subtask Id": 4294967295,
+      "connection_id": 5486
+    }
+  },
