@@ -87592,3 +87592,8868 @@ func.func @adc_func_outlined_vf_0(%arg0: memref<832xf32, #hivm.address_space<ub>
   } {element_alignment_bit_width = 32 : i32}
   return
 }
+
+// -----// IR Dump Before InsertInitAndFinishForDebug (hivm-insert-init-and-finish-for-debug) //----- //
+func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub>>, %arg1: memref<8x832xi32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+  %c1 = arith.constant 1 : index
+  %c8 = arith.constant 8 : index
+  %c64 = arith.constant 64 : index
+  %c832 = arith.constant 832 : index
+  %c0 = arith.constant 0 : index
+  scf.for %arg2 = %c0 to %c8 step %c1 {
+    scf.for %arg3 = %c0 to %c832 step %c64 {
+      %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
+      %res = ave.hir.vload <NORM> %subview[%c0, %c0] {ave.unaligned_ub_access = #ave.unaligned_ub_access, element_alignment_bit_width = 32 : i32} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>> into vector<64xi8>
+      %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
+      %0 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<64xi1>
+      %1 = ave.hir.vextsi %res, %0 {element_alignment_bit_width = 32 : i32, pp = #ave.vcvt_pp_type<pp0>} : vector<64xi8>, vector<64xi32>, vector<64xi1>
+      %subview_1 = memref.subview %subview_0[0, 0] [1, 64] [1, 1] : memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>> to memref<64xi32, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>
+      %2 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<64xi1>
+      ave.hir.masked_store <NORM_B32> %subview_1[%c0], %2, %1 {element_alignment_bit_width = 32 : i32, hivm.is_continuous} : memref<64xi32, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>, vector<64xi1>, vector<64xi32>
+    } {element_alignment_bit_width = 32 : i32}
+  } {element_alignment_bit_width = 32 : i32}
+  return
+}
+
+// -----// IR Dump After InsertInitAndFinishForDebug (hivm-insert-init-and-finish-for-debug) //----- //
+func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub>>, %arg1: memref<8x832xi32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+  %c1 = arith.constant 1 : index
+  %c8 = arith.constant 8 : index
+  %c64 = arith.constant 64 : index
+  %c832 = arith.constant 832 : index
+  %c0 = arith.constant 0 : index
+  scf.for %arg2 = %c0 to %c8 step %c1 {
+    scf.for %arg3 = %c0 to %c832 step %c64 {
+      %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
+      %res = ave.hir.vload <NORM> %subview[%c0, %c0] {ave.unaligned_ub_access = #ave.unaligned_ub_access, element_alignment_bit_width = 32 : i32} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>> into vector<64xi8>
+      %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
+      %0 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<64xi1>
+      %1 = ave.hir.vextsi %res, %0 {element_alignment_bit_width = 32 : i32, pp = #ave.vcvt_pp_type<pp0>} : vector<64xi8>, vector<64xi32>, vector<64xi1>
+      %subview_1 = memref.subview %subview_0[0, 0] [1, 64] [1, 1] : memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>> to memref<64xi32, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>
+      %2 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<64xi1>
+      ave.hir.masked_store <NORM_B32> %subview_1[%c0], %2, %1 {element_alignment_bit_width = 32 : i32, hivm.is_continuous} : memref<64xi32, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>, vector<64xi1>, vector<64xi32>
+    } {element_alignment_bit_width = 32 : i32}
+  } {element_alignment_bit_width = 32 : i32}
+  return
+}
+
+// -----// IR Dump Before InsertInitAndFinishForDebug (hivm-insert-init-and-finish-for-debug) //----- //
+func.func @adc_func_outlined_vf_2(%arg0: memref<832x8xi8, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 8 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+  %c0 = arith.constant 0 : index
+  %c832 = arith.constant 832 : index
+  %c1 = arith.constant 1 : index
+  %c0_i16 = arith.constant 0 : i16
+  %0 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<256xi1>
+  %1 = ave.hir.broadcast %c0_i16, %0 {element_alignment_bit_width = 8 : i32} : i16, vector<256xi1> -> vector<256xi8>
+  scf.for %arg1 = %c0 to %c832 step %c1 {
+    %subview = memref.subview %arg0[%arg1, 0] [1, 8] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<1x8xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
+    %2 = ave.hir.pge <VL8> {element_alignment_bit_width = -1 : i32, mask_op_idx = 0 : i32} : vector<256xi1>
+    %subview_0 = memref.subview %subview[0, 0] [1, 8] [1, 1] : memref<1x8xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>> to memref<8xi8, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>
+    ave.hir.masked_store <NORM_B8> %subview_0[%c0], %2, %1 {ave.unaligned_ub_access = #ave.unaligned_ub_access, element_alignment_bit_width = 8 : i32} : memref<8xi8, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>, vector<256xi1>, vector<256xi8>
+  } {element_alignment_bit_width = -1 : i32}
+  return
+}
+
+// -----// IR Dump After InsertInitAndFinishForDebug (hivm-insert-init-and-finish-for-debug) //----- //
+func.func @adc_func_outlined_vf_2(%arg0: memref<832x8xi8, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 8 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+  %c0 = arith.constant 0 : index
+  %c832 = arith.constant 832 : index
+  %c1 = arith.constant 1 : index
+  %c0_i16 = arith.constant 0 : i16
+  %0 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<256xi1>
+  %1 = ave.hir.broadcast %c0_i16, %0 {element_alignment_bit_width = 8 : i32} : i16, vector<256xi1> -> vector<256xi8>
+  scf.for %arg1 = %c0 to %c832 step %c1 {
+    %subview = memref.subview %arg0[%arg1, 0] [1, 8] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<1x8xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
+    %2 = ave.hir.pge <VL8> {element_alignment_bit_width = -1 : i32, mask_op_idx = 0 : i32} : vector<256xi1>
+    %subview_0 = memref.subview %subview[0, 0] [1, 8] [1, 1] : memref<1x8xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>> to memref<8xi8, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>
+    ave.hir.masked_store <NORM_B8> %subview_0[%c0], %2, %1 {ave.unaligned_ub_access = #ave.unaligned_ub_access, element_alignment_bit_width = 8 : i32} : memref<8xi8, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>, vector<256xi1>, vector<256xi8>
+  } {element_alignment_bit_width = -1 : i32}
+  return
+}
+
+// -----// IR Dump Before InsertInitAndFinishForDebug (hivm-insert-init-and-finish-for-debug) //----- //
+func.func @adc_func_outlined_vf_3(%arg0: memref<832xf32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+  %c0 = arith.constant 0 : index
+  %c832 = arith.constant 832 : index
+  %c64 = arith.constant 64 : index
+  %cst = arith.constant 0.000000e+00 : f32
+  %0 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<64xi1>
+  %1 = ave.hir.broadcast %cst, %0 {element_alignment_bit_width = 32 : i32} : f32, vector<64xi1> -> vector<64xf32>
+  scf.for %arg1 = %c0 to %c832 step %c64 {
+    %subview = memref.subview %arg0[%arg1] [64] [1] : memref<832xf32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+    %2 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<64xi1>
+    ave.hir.masked_store <NORM_B32> %subview[%c0], %2, %1 {element_alignment_bit_width = 32 : i32, hivm.is_continuous} : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>, vector<64xi1>, vector<64xf32>
+  } {element_alignment_bit_width = -1 : i32}
+  return
+}
+
+// -----// IR Dump After InsertInitAndFinishForDebug (hivm-insert-init-and-finish-for-debug) //----- //
+func.func @adc_func_outlined_vf_3(%arg0: memref<832xf32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+  %c0 = arith.constant 0 : index
+  %c832 = arith.constant 832 : index
+  %c64 = arith.constant 64 : index
+  %cst = arith.constant 0.000000e+00 : f32
+  %0 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<64xi1>
+  %1 = ave.hir.broadcast %cst, %0 {element_alignment_bit_width = 32 : i32} : f32, vector<64xi1> -> vector<64xf32>
+  scf.for %arg1 = %c0 to %c832 step %c64 {
+    %subview = memref.subview %arg0[%arg1] [64] [1] : memref<832xf32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+    %2 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<64xi1>
+    ave.hir.masked_store <NORM_B32> %subview[%c0], %2, %1 {element_alignment_bit_width = 32 : i32, hivm.is_continuous} : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>, vector<64xi1>, vector<64xf32>
+  } {element_alignment_bit_width = -1 : i32}
+  return
+}
+
+// -----// IR Dump Before InsertInitAndFinishForDebug (hivm-insert-init-and-finish-for-debug) //----- //
+func.func @adc_func_outlined_vf_4(%arg0: memref<832xf32, #hivm.address_space<ub>>, %arg1: memref<832xf32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+  %c64 = arith.constant 64 : index
+  %c832 = arith.constant 832 : index
+  %c0 = arith.constant 0 : index
+  scf.for %arg2 = %c0 to %c832 step %c64 {
+    %subview = memref.subview %arg0[%arg2] [64] [1] : memref<832xf32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+    %subview_0 = memref.subview %arg1[%arg2] [64] [1] : memref<832xf32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+    %res = ave.hir.vload <NORM> %subview[%c0] {element_alignment_bit_width = 32 : i32} : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> into vector<64xf32>
+    %0 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<64xi1>
+    %1 = ave.hir.vsqrt %res, %0 {element_alignment_bit_width = 32 : i32} : vector<64xf32>, vector<64xi1>
+    %2 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<64xi1>
+    ave.hir.masked_store <NORM_B32> %subview_0[%c0], %2, %1 {element_alignment_bit_width = 32 : i32, hivm.is_continuous} : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>, vector<64xi1>, vector<64xf32>
+  } {element_alignment_bit_width = 32 : i32}
+  return
+}
+
+// -----// IR Dump After InsertInitAndFinishForDebug (hivm-insert-init-and-finish-for-debug) //----- //
+func.func @adc_func_outlined_vf_4(%arg0: memref<832xf32, #hivm.address_space<ub>>, %arg1: memref<832xf32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+  %c64 = arith.constant 64 : index
+  %c832 = arith.constant 832 : index
+  %c0 = arith.constant 0 : index
+  scf.for %arg2 = %c0 to %c832 step %c64 {
+    %subview = memref.subview %arg0[%arg2] [64] [1] : memref<832xf32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+    %subview_0 = memref.subview %arg1[%arg2] [64] [1] : memref<832xf32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+    %res = ave.hir.vload <NORM> %subview[%c0] {element_alignment_bit_width = 32 : i32} : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> into vector<64xf32>
+    %0 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<64xi1>
+    %1 = ave.hir.vsqrt %res, %0 {element_alignment_bit_width = 32 : i32} : vector<64xf32>, vector<64xi1>
+    %2 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<64xi1>
+    ave.hir.masked_store <NORM_B32> %subview_0[%c0], %2, %1 {element_alignment_bit_width = 32 : i32, hivm.is_continuous} : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>, vector<64xi1>, vector<64xf32>
+  } {element_alignment_bit_width = 32 : i32}
+  return
+}
+
+// -----// IR Dump Before InsertInitAndFinishForDebug (hivm-insert-init-and-finish-for-debug) //----- //
+func.func @adc_func(%arg0: memref<?xi8, #hivm.address_space<gm>> {hacc.arg_type = #hacc.arg_type<sync_block_lock>}, %arg1: memref<?xi8, #hivm.address_space<gm>> {hacc.arg_type = #hacc.arg_type<workspace>}, %arg2: memref<?xf32, #hivm.address_space<gm>>, %arg3: memref<?xi8, #hivm.address_space<gm>>, %arg4: memref<?xf32, #hivm.address_space<gm>>, %arg5: i32, %arg6: i32, %arg7: i32, %arg8: i32) attributes {SyncBlockLockArgIdx = 0 : i64, WorkspaceArgIdx = 1 : i64, func_dyn_memref_args = dense<[true, true, true, true, true, false, false, false, false]> : vector<9xi1>, hacc.entry, hacc.function_kind = #hacc.function_kind<DEVICE>, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vf_mode = #hivm.vf_mode<SIMD>, mix_mode = "aiv", parallel_mode = "simd"} {
+  %c0 = arith.constant 0 : index
+  %c0_i32 = arith.constant 0 : i32
+  %c46591_i32 = arith.constant 46591 : i32
+  %c46592_i32 = arith.constant 46592 : i32
+  %c56_i32 = arith.constant 56 : i32
+  %c831_i32 = arith.constant 831 : i32
+  %c832_i32 = arith.constant 832 : i32
+  %c8_i32 = arith.constant 8 : i32
+  %c1_i32 = arith.constant 1 : i32
+  %c0_i64 = arith.constant 0 : i64
+  %c65536_i64 = arith.constant 65536 : i64
+  %c72192_i64 = arith.constant 72192 : i64
+  %c82176_i64 = arith.constant 82176 : i64
+  %c1_i64 = arith.constant 1 : i64
+  %c112128_i64 = arith.constant 112128 : i64
+  %c75520_i64 = arith.constant 75520 : i64
+  %c108800_i64 = arith.constant 108800 : i64
+  %c118784_i64 = arith.constant 118784 : i64
+  %0 = hivm.hir.pointer_cast(%c108800_i64) : memref<832xf32, #hivm.address_space<ub>>
+  %1 = hivm.hir.pointer_cast(%c118784_i64) : memref<832xf32, #hivm.address_space<ub>>
+  %2 = hivm.hir.pointer_cast(%c75520_i64) : memref<832x8xi8, #hivm.address_space<ub>>
+  %3 = hivm.hir.pointer_cast(%c112128_i64) : memref<832x8xi8, #hivm.address_space<ub>>
+  hivm.hir.set_ctrl false at ctrl[60]
+  hivm.hir.set_ctrl true at ctrl[48]
+  %reinterpret_cast = memref.reinterpret_cast %arg2 to offset: [0], sizes: [64, 256], strides: [256, 1] : memref<?xf32, #hivm.address_space<gm>> to memref<64x256xf32, strided<[256, 1]>, #hivm.address_space<gm>>
+  %4 = arith.index_cast %arg5 : i32 to index
+  %reinterpret_cast_0 = memref.reinterpret_cast %arg4 to offset: [0], sizes: [%4], strides: [1] : memref<?xf32, #hivm.address_space<gm>> to memref<?xf32, strided<[1]>, #hivm.address_space<gm>>
+  %reinterpret_cast_1 = memref.reinterpret_cast %arg3 to offset: [0], sizes: [%4, 64], strides: [64, 1] : memref<?xi8, #hivm.address_space<gm>> to memref<?x64xi8, strided<[64, 1]>, #hivm.address_space<gm>>
+  %5 = hivm.hir.get_block_idx -> i64
+  %6 = arith.trunci %5 : i64 to i32
+  %7 = hivm.hir.pointer_cast(%c0_i64) : memref<64x256xf32, #hivm.address_space<ub>>
+  %collapse_shape = memref.collapse_shape %reinterpret_cast [[0, 1]] : memref<64x256xf32, strided<[256, 1]>, #hivm.address_space<gm>> into memref<16384xf32, strided<[1]>, #hivm.address_space<gm>>
+  %collapse_shape_2 = memref.collapse_shape %7 [[0, 1]] : memref<64x256xf32, #hivm.address_space<ub>> into memref<16384xf32, #hivm.address_space<ub>>
+  hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID0>]
+  hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID1>]
+  hivm.hir.set_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID0>]
+  hivm.hir.set_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID1>]
+  hivm.hir.load ins(%collapse_shape : memref<16384xf32, strided<[1]>, #hivm.address_space<gm>>) outs(%collapse_shape_2 : memref<16384xf32, #hivm.address_space<ub>>) eviction_policy = <EvictFirst>
+  %8 = arith.addi %arg5, %c46591_i32 : i32
+  %9 = arith.divsi %8, %c46592_i32 : i32
+  %10 = arith.addi %arg5, %c831_i32 : i32
+  %11 = arith.divsi %10, %c832_i32 : i32
+  scf.for %arg9 = %c0_i32 to %9 step %c1_i32  : i32 {
+    %12 = arith.index_cast %arg9 : i32 to index
+    %13 = affine.apply affine_map<()[s0] -> (s0 mod 2)>()[%12]
+    %14 = arith.index_cast %13 : index to i64
+    %15 = arith.cmpi eq, %14, %c1_i64 : i64
+    %16 = arith.select %15, %1, %0 : memref<832xf32, #hivm.address_space<ub>>
+    %17 = arith.extui %15 : i1 to i64
+    %18 = arith.muli %arg9, %c56_i32 : i32
+    %19 = arith.addi %18, %6 : i32
+    %20 = arith.cmpi slt, %19, %11 : i32
+    scf.if %20 {
+      %21 = hivm.hir.pointer_cast(%c65536_i64) : memref<832x8xi8, #hivm.address_space<ub>>
+      func.call @adc_func_outlined_vf_2(%21) {hivm.vector_function, no_inline} : (memref<832x8xi8, #hivm.address_space<ub>>) -> ()
+      %22 = hivm.hir.pointer_cast(%c72192_i64) : memref<832xf32, #hivm.address_space<ub>>
+      func.call @adc_func_outlined_vf_3(%22) {hivm.vector_function, no_inline} : (memref<832xf32, #hivm.address_space<ub>>) -> ()
+      %23 = arith.muli %arg9, %c46592_i32 : i32
+      %24 = arith.muli %6, %c832_i32 : i32
+      %25 = arith.addi %23, %24 : i32
+      %26 = arith.index_cast %25 : i32 to index
+      %27 = arith.subi %arg5, %24 : i32
+      %28 = arith.subi %27, %23 : i32
+      %29 = arith.minsi %28, %c832_i32 : i32
+      %30 = arith.index_cast %29 : i32 to index
+      %31 = scf.for %arg10 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg11 = %22) -> (memref<832xf32, #hivm.address_space<ub>>)  : i32 {
+        %32 = arith.index_cast %arg10 : i32 to index
+        %33 = affine.apply affine_map<()[s0] -> (s0 mod 2)>()[%32]
+        %34 = arith.index_cast %33 : index to i64
+        %35 = arith.cmpi eq, %34, %c1_i64 : i64
+        %36 = arith.select %35, %3, %2 : memref<832x8xi8, #hivm.address_space<ub>>
+        %37 = arith.extui %35 : i1 to i64
+        %38 = arith.muli %arg10, %c8_i32 : i32
+        %39 = arith.index_cast %38 : i32 to index
+        %subview_4 = memref.subview %reinterpret_cast_1[%26, %39] [%30, 8] [1, 1] : memref<?x64xi8, strided<[64, 1]>, #hivm.address_space<gm>> to memref<?x8xi8, strided<[64, 1], offset: ?>, #hivm.address_space<gm>>
+        %subview_5 = memref.subview %36[0, 0] [%30, 8] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<?x8xi8, strided<[8, 1]>, #hivm.address_space<ub>>
+        hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE2>, %37]
+        hivm.hir.load ins(%subview_4 : memref<?x8xi8, strided<[64, 1], offset: ?>, #hivm.address_space<gm>>) outs(%subview_5 : memref<?x8xi8, strided<[8, 1]>, #hivm.address_space<ub>>) left_padding_num = %c0 : index eviction_policy = <EvictFirst>
+        hivm.hir.set_flag[<PIPE_MTE2>, <PIPE_V>, <EVENT_ID0>]
+        %subview_6 = memref.subview %21[0, 0] [%30, 8] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<?x8xi8, strided<[8, 1]>, #hivm.address_space<ub>>
+        %collapse_shape_7 = memref.collapse_shape %subview_5 [[0, 1]] : memref<?x8xi8, strided<[8, 1]>, #hivm.address_space<ub>> into memref<?xi8, strided<[1]>, #hivm.address_space<ub>>
+        %collapse_shape_8 = memref.collapse_shape %subview_6 [[0, 1]] : memref<?x8xi8, strided<[8, 1]>, #hivm.address_space<ub>> into memref<?xi8, strided<[1]>, #hivm.address_space<ub>>
+        hivm.hir.wait_flag[<PIPE_MTE2>, <PIPE_V>, <EVENT_ID0>]
+        hivm.hir.copy ins(%collapse_shape_7 : memref<?xi8, strided<[1]>, #hivm.address_space<ub>>) outs(%collapse_shape_8 : memref<?xi8, strided<[1]>, #hivm.address_space<ub>>)
+        hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE2>, %37]
+        %40 = hivm.hir.pointer_cast(%c82176_i64) : memref<8x832xi32, #hivm.address_space<ub>>
+        func.call @adc_func_outlined_vf_1(%21, %40) {hivm.vector_function, no_inline} : (memref<832x8xi8, #hivm.address_space<ub>>, memref<8x832xi32, #hivm.address_space<ub>>) -> ()
+        %41 = scf.for %arg12 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg13 = %arg11) -> (memref<832xf32, #hivm.address_space<ub>>)  : i32 {
+          %42 = arith.addi %38, %arg12 : i32
+          %43 = arith.index_cast %42 : i32 to index
+          %44 = arith.index_cast %arg12 : i32 to index
+          %45 = hivm.hir.pointer_cast(%c72192_i64) : memref<832xf32, #hivm.address_space<ub>>
+          func.call @adc_func_outlined_vf_0(%arg13, %40, %44, %7, %43, %45) {hivm.vector_function, no_inline} : (memref<832xf32, #hivm.address_space<ub>>, memref<8x832xi32, #hivm.address_space<ub>>, index, memref<64x256xf32, #hivm.address_space<ub>>, index, memref<832xf32, #hivm.address_space<ub>>) -> ()
+          scf.yield %45 : memref<832xf32, #hivm.address_space<ub>>
+        }
+        scf.yield %41 : memref<832xf32, #hivm.address_space<ub>>
+      }
+      hivm.hir.wait_flag[<PIPE_MTE3>, <PIPE_V>, %17]
+      func.call @adc_func_outlined_vf_4(%31, %16) {hivm.vector_function, no_inline} : (memref<832xf32, #hivm.address_space<ub>>, memref<832xf32, #hivm.address_space<ub>>) -> ()
+      hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE3>, <EVENT_ID0>]
+      %subview = memref.subview %16[0] [%30] [1] : memref<832xf32, #hivm.address_space<ub>> to memref<?xf32, strided<[1]>, #hivm.address_space<ub>>
+      %subview_3 = memref.subview %reinterpret_cast_0[%26] [%30] [1] : memref<?xf32, strided<[1]>, #hivm.address_space<gm>> to memref<?xf32, strided<[1], offset: ?>, #hivm.address_space<gm>>
+      hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE3>, <EVENT_ID0>]
+      hivm.hir.pipe_barrier[<PIPE_MTE3>]
+      hivm.hir.store ins(%subview : memref<?xf32, strided<[1]>, #hivm.address_space<ub>>) outs(%subview_3 : memref<?xf32, strided<[1], offset: ?>, #hivm.address_space<gm>>)
+      hivm.hir.set_flag[<PIPE_MTE3>, <PIPE_V>, %17]
+    }
+  }
+  hivm.hir.pipe_barrier[<PIPE_ALL>]
+  hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID0>]
+  hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID1>]
+  hivm.hir.wait_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID0>]
+  hivm.hir.wait_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID1>]
+  return
+}
+
+// -----// IR Dump After InsertInitAndFinishForDebug (hivm-insert-init-and-finish-for-debug) //----- //
+func.func @adc_func(%arg0: memref<?xi8, #hivm.address_space<gm>> {hacc.arg_type = #hacc.arg_type<sync_block_lock>}, %arg1: memref<?xi8, #hivm.address_space<gm>> {hacc.arg_type = #hacc.arg_type<workspace>}, %arg2: memref<?xf32, #hivm.address_space<gm>>, %arg3: memref<?xi8, #hivm.address_space<gm>>, %arg4: memref<?xf32, #hivm.address_space<gm>>, %arg5: i32, %arg6: i32, %arg7: i32, %arg8: i32) attributes {SyncBlockLockArgIdx = 0 : i64, WorkspaceArgIdx = 1 : i64, func_dyn_memref_args = dense<[true, true, true, true, true, false, false, false, false]> : vector<9xi1>, hacc.entry, hacc.function_kind = #hacc.function_kind<DEVICE>, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vf_mode = #hivm.vf_mode<SIMD>, mix_mode = "aiv", parallel_mode = "simd"} {
+  %c0 = arith.constant 0 : index
+  %c0_i32 = arith.constant 0 : i32
+  %c46591_i32 = arith.constant 46591 : i32
+  %c46592_i32 = arith.constant 46592 : i32
+  %c56_i32 = arith.constant 56 : i32
+  %c831_i32 = arith.constant 831 : i32
+  %c832_i32 = arith.constant 832 : i32
+  %c8_i32 = arith.constant 8 : i32
+  %c1_i32 = arith.constant 1 : i32
+  %c0_i64 = arith.constant 0 : i64
+  %c65536_i64 = arith.constant 65536 : i64
+  %c72192_i64 = arith.constant 72192 : i64
+  %c82176_i64 = arith.constant 82176 : i64
+  %c1_i64 = arith.constant 1 : i64
+  %c112128_i64 = arith.constant 112128 : i64
+  %c75520_i64 = arith.constant 75520 : i64
+  %c108800_i64 = arith.constant 108800 : i64
+  %c118784_i64 = arith.constant 118784 : i64
+  %0 = hivm.hir.pointer_cast(%c108800_i64) : memref<832xf32, #hivm.address_space<ub>>
+  %1 = hivm.hir.pointer_cast(%c118784_i64) : memref<832xf32, #hivm.address_space<ub>>
+  %2 = hivm.hir.pointer_cast(%c75520_i64) : memref<832x8xi8, #hivm.address_space<ub>>
+  %3 = hivm.hir.pointer_cast(%c112128_i64) : memref<832x8xi8, #hivm.address_space<ub>>
+  hivm.hir.set_ctrl false at ctrl[60]
+  hivm.hir.set_ctrl true at ctrl[48]
+  %reinterpret_cast = memref.reinterpret_cast %arg2 to offset: [0], sizes: [64, 256], strides: [256, 1] : memref<?xf32, #hivm.address_space<gm>> to memref<64x256xf32, strided<[256, 1]>, #hivm.address_space<gm>>
+  %4 = arith.index_cast %arg5 : i32 to index
+  %reinterpret_cast_0 = memref.reinterpret_cast %arg4 to offset: [0], sizes: [%4], strides: [1] : memref<?xf32, #hivm.address_space<gm>> to memref<?xf32, strided<[1]>, #hivm.address_space<gm>>
+  %reinterpret_cast_1 = memref.reinterpret_cast %arg3 to offset: [0], sizes: [%4, 64], strides: [64, 1] : memref<?xi8, #hivm.address_space<gm>> to memref<?x64xi8, strided<[64, 1]>, #hivm.address_space<gm>>
+  %5 = hivm.hir.get_block_idx -> i64
+  %6 = arith.trunci %5 : i64 to i32
+  %7 = hivm.hir.pointer_cast(%c0_i64) : memref<64x256xf32, #hivm.address_space<ub>>
+  %collapse_shape = memref.collapse_shape %reinterpret_cast [[0, 1]] : memref<64x256xf32, strided<[256, 1]>, #hivm.address_space<gm>> into memref<16384xf32, strided<[1]>, #hivm.address_space<gm>>
+  %collapse_shape_2 = memref.collapse_shape %7 [[0, 1]] : memref<64x256xf32, #hivm.address_space<ub>> into memref<16384xf32, #hivm.address_space<ub>>
+  hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID0>]
+  hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID1>]
+  hivm.hir.set_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID0>]
+  hivm.hir.set_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID1>]
+  hivm.hir.load ins(%collapse_shape : memref<16384xf32, strided<[1]>, #hivm.address_space<gm>>) outs(%collapse_shape_2 : memref<16384xf32, #hivm.address_space<ub>>) eviction_policy = <EvictFirst>
+  %8 = arith.addi %arg5, %c46591_i32 : i32
+  %9 = arith.divsi %8, %c46592_i32 : i32
+  %10 = arith.addi %arg5, %c831_i32 : i32
+  %11 = arith.divsi %10, %c832_i32 : i32
+  scf.for %arg9 = %c0_i32 to %9 step %c1_i32  : i32 {
+    %12 = arith.index_cast %arg9 : i32 to index
+    %13 = affine.apply affine_map<()[s0] -> (s0 mod 2)>()[%12]
+    %14 = arith.index_cast %13 : index to i64
+    %15 = arith.cmpi eq, %14, %c1_i64 : i64
+    %16 = arith.select %15, %1, %0 : memref<832xf32, #hivm.address_space<ub>>
+    %17 = arith.extui %15 : i1 to i64
+    %18 = arith.muli %arg9, %c56_i32 : i32
+    %19 = arith.addi %18, %6 : i32
+    %20 = arith.cmpi slt, %19, %11 : i32
+    scf.if %20 {
+      %21 = hivm.hir.pointer_cast(%c65536_i64) : memref<832x8xi8, #hivm.address_space<ub>>
+      func.call @adc_func_outlined_vf_2(%21) {hivm.vector_function, no_inline} : (memref<832x8xi8, #hivm.address_space<ub>>) -> ()
+      %22 = hivm.hir.pointer_cast(%c72192_i64) : memref<832xf32, #hivm.address_space<ub>>
+      func.call @adc_func_outlined_vf_3(%22) {hivm.vector_function, no_inline} : (memref<832xf32, #hivm.address_space<ub>>) -> ()
+      %23 = arith.muli %arg9, %c46592_i32 : i32
+      %24 = arith.muli %6, %c832_i32 : i32
+      %25 = arith.addi %23, %24 : i32
+      %26 = arith.index_cast %25 : i32 to index
+      %27 = arith.subi %arg5, %24 : i32
+      %28 = arith.subi %27, %23 : i32
+      %29 = arith.minsi %28, %c832_i32 : i32
+      %30 = arith.index_cast %29 : i32 to index
+      %31 = scf.for %arg10 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg11 = %22) -> (memref<832xf32, #hivm.address_space<ub>>)  : i32 {
+        %32 = arith.index_cast %arg10 : i32 to index
+        %33 = affine.apply affine_map<()[s0] -> (s0 mod 2)>()[%32]
+        %34 = arith.index_cast %33 : index to i64
+        %35 = arith.cmpi eq, %34, %c1_i64 : i64
+        %36 = arith.select %35, %3, %2 : memref<832x8xi8, #hivm.address_space<ub>>
+        %37 = arith.extui %35 : i1 to i64
+        %38 = arith.muli %arg10, %c8_i32 : i32
+        %39 = arith.index_cast %38 : i32 to index
+        %subview_4 = memref.subview %reinterpret_cast_1[%26, %39] [%30, 8] [1, 1] : memref<?x64xi8, strided<[64, 1]>, #hivm.address_space<gm>> to memref<?x8xi8, strided<[64, 1], offset: ?>, #hivm.address_space<gm>>
+        %subview_5 = memref.subview %36[0, 0] [%30, 8] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<?x8xi8, strided<[8, 1]>, #hivm.address_space<ub>>
+        hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE2>, %37]
+        hivm.hir.load ins(%subview_4 : memref<?x8xi8, strided<[64, 1], offset: ?>, #hivm.address_space<gm>>) outs(%subview_5 : memref<?x8xi8, strided<[8, 1]>, #hivm.address_space<ub>>) left_padding_num = %c0 : index eviction_policy = <EvictFirst>
+        hivm.hir.set_flag[<PIPE_MTE2>, <PIPE_V>, <EVENT_ID0>]
+        %subview_6 = memref.subview %21[0, 0] [%30, 8] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<?x8xi8, strided<[8, 1]>, #hivm.address_space<ub>>
+        %collapse_shape_7 = memref.collapse_shape %subview_5 [[0, 1]] : memref<?x8xi8, strided<[8, 1]>, #hivm.address_space<ub>> into memref<?xi8, strided<[1]>, #hivm.address_space<ub>>
+        %collapse_shape_8 = memref.collapse_shape %subview_6 [[0, 1]] : memref<?x8xi8, strided<[8, 1]>, #hivm.address_space<ub>> into memref<?xi8, strided<[1]>, #hivm.address_space<ub>>
+        hivm.hir.wait_flag[<PIPE_MTE2>, <PIPE_V>, <EVENT_ID0>]
+        hivm.hir.copy ins(%collapse_shape_7 : memref<?xi8, strided<[1]>, #hivm.address_space<ub>>) outs(%collapse_shape_8 : memref<?xi8, strided<[1]>, #hivm.address_space<ub>>)
+        hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE2>, %37]
+        %40 = hivm.hir.pointer_cast(%c82176_i64) : memref<8x832xi32, #hivm.address_space<ub>>
+        func.call @adc_func_outlined_vf_1(%21, %40) {hivm.vector_function, no_inline} : (memref<832x8xi8, #hivm.address_space<ub>>, memref<8x832xi32, #hivm.address_space<ub>>) -> ()
+        %41 = scf.for %arg12 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg13 = %arg11) -> (memref<832xf32, #hivm.address_space<ub>>)  : i32 {
+          %42 = arith.addi %38, %arg12 : i32
+          %43 = arith.index_cast %42 : i32 to index
+          %44 = arith.index_cast %arg12 : i32 to index
+          %45 = hivm.hir.pointer_cast(%c72192_i64) : memref<832xf32, #hivm.address_space<ub>>
+          func.call @adc_func_outlined_vf_0(%arg13, %40, %44, %7, %43, %45) {hivm.vector_function, no_inline} : (memref<832xf32, #hivm.address_space<ub>>, memref<8x832xi32, #hivm.address_space<ub>>, index, memref<64x256xf32, #hivm.address_space<ub>>, index, memref<832xf32, #hivm.address_space<ub>>) -> ()
+          scf.yield %45 : memref<832xf32, #hivm.address_space<ub>>
+        }
+        scf.yield %41 : memref<832xf32, #hivm.address_space<ub>>
+      }
+      hivm.hir.wait_flag[<PIPE_MTE3>, <PIPE_V>, %17]
+      func.call @adc_func_outlined_vf_4(%31, %16) {hivm.vector_function, no_inline} : (memref<832xf32, #hivm.address_space<ub>>, memref<832xf32, #hivm.address_space<ub>>) -> ()
+      hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE3>, <EVENT_ID0>]
+      %subview = memref.subview %16[0] [%30] [1] : memref<832xf32, #hivm.address_space<ub>> to memref<?xf32, strided<[1]>, #hivm.address_space<ub>>
+      %subview_3 = memref.subview %reinterpret_cast_0[%26] [%30] [1] : memref<?xf32, strided<[1]>, #hivm.address_space<gm>> to memref<?xf32, strided<[1], offset: ?>, #hivm.address_space<gm>>
+      hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE3>, <EVENT_ID0>]
+      hivm.hir.pipe_barrier[<PIPE_MTE3>]
+      hivm.hir.store ins(%subview : memref<?xf32, strided<[1]>, #hivm.address_space<ub>>) outs(%subview_3 : memref<?xf32, strided<[1], offset: ?>, #hivm.address_space<gm>>)
+      hivm.hir.set_flag[<PIPE_MTE3>, <PIPE_V>, %17]
+    }
+  }
+  hivm.hir.pipe_barrier[<PIPE_ALL>]
+  hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID0>]
+  hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID1>]
+  hivm.hir.wait_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID0>]
+  hivm.hir.wait_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID1>]
+  return
+}
+
+// -----// IR Dump Before MarkDisableLoad (hivm-mark-disable-load) //----- //
+#map = affine_map<(d0)[s0] -> (d0 + s0)>
+#map1 = affine_map<()[s0] -> (s0 mod 2)>
+module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #hacc.target_device_spec<#dlti.dl_entry<"AI_CORE_COUNT", 28 : i32>, #dlti.dl_entry<"CUBE_CORE_COUNT", 28 : i32>, #dlti.dl_entry<"VECTOR_CORE_COUNT", 56 : i32>, #dlti.dl_entry<"UB_SIZE", 2031616 : i32>, #dlti.dl_entry<"L1_SIZE", 4194304 : i32>, #dlti.dl_entry<"L0A_SIZE", 524288 : i32>, #dlti.dl_entry<"L0B_SIZE", 524288 : i32>, #dlti.dl_entry<"L0C_SIZE", 2097152 : i32>, #dlti.dl_entry<"UB_ALIGN_SIZE", 256 : i32>, #dlti.dl_entry<"L1_ALIGN_SIZE", 256 : i32>, #dlti.dl_entry<"L0C_ALIGN_SIZE", 4096 : i32>, #dlti.dl_entry<"MINIMAL_D_CACHE_SIZE", 262144 : i32>, #dlti.dl_entry<"MAXIMUM_D_CACHE_SIZE", 983040 : i32>, #dlti.dl_entry<"ARCH", "dav-c310">>>, hacc.target = #hacc.target<"Ascend950PR_9579">, hivm.module_core_type = #hivm.module_core_type<AIV>, memref.memref_as_ptr} {
+  func.func @adc_func_outlined_vf_0(%arg0: memref<832xf32, #hivm.address_space<ub>>, %arg1: memref<8x832xi32, #hivm.address_space<ub>>, %arg2: index, %arg3: memref<64x256xf32, #hivm.address_space<ub>>, %arg4: index, %arg5: memref<832xf32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %c0 = arith.constant 0 : index
+    %c832 = arith.constant 832 : index
+    %c64 = arith.constant 64 : index
+    %0 = ave.hir.pge <ALL> {element_alignment_bit_width = 32 : i32} : vector<64xi1>
+    %subview = memref.subview %arg3[%arg4, 0] [1, 256] [1, 1] : memref<64x256xf32, #hivm.address_space<ub>> to memref<256xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+    scf.for %arg6 = %c0 to %c832 step %c64 {
+      %subview_0 = memref.subview %arg0[%arg6] [64] [1] : memref<832xf32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+      %subview_1 = memref.subview %arg1[%arg2, %arg6] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<64xi32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+      %subview_2 = memref.subview %arg5[%arg6] [64] [1] : memref<832xf32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+      %res = ave.hir.vload <NORM> %subview_0[%c0] {element_alignment_bit_width = 32 : i32} : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> into vector<64xf32>
+      %res_3 = ave.hir.vload <NORM> %subview_1[%c0] {element_alignment_bit_width = 32 : i32} : memref<64xi32, strided<[1], offset: ?>, #hivm.address_space<ub>> into vector<64xi32>
+      %1 = ave.hir.vgather %subview[%c0] [%res_3], %0 {element_alignment_bit_width = 32 : i32} : memref<256xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>, vector<64xi32>, vector<64xi1> into vector<64xf32>
+      %2 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<64xi1>
+      %3 = ave.hir.vadd %res, %1, %2 {element_alignment_bit_width = 32 : i32} : vector<64xf32>, vector<64xi1>
+      %4 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<64xi1>
+      ave.hir.masked_store <NORM_B32> %subview_2[%c0], %4, %3 {element_alignment_bit_width = 32 : i32, hivm.is_continuous} : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>, vector<64xi1>, vector<64xf32>
+    } {element_alignment_bit_width = 32 : i32}
+    return
+  }
+  func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub>>, %arg1: memref<8x832xi32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %c1 = arith.constant 1 : index
+    %c8 = arith.constant 8 : index
+    %c64 = arith.constant 64 : index
+    %c832 = arith.constant 832 : index
+    %c0 = arith.constant 0 : index
+    scf.for %arg2 = %c0 to %c8 step %c1 {
+      scf.for %arg3 = %c0 to %c832 step %c64 {
+        %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
+        %res = ave.hir.vload <NORM> %subview[%c0, %c0] {ave.unaligned_ub_access = #ave.unaligned_ub_access, element_alignment_bit_width = 32 : i32} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>> into vector<64xi8>
+        %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
+        %0 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<64xi1>
+        %1 = ave.hir.vextsi %res, %0 {element_alignment_bit_width = 32 : i32, pp = #ave.vcvt_pp_type<pp0>} : vector<64xi8>, vector<64xi32>, vector<64xi1>
+        %subview_1 = memref.subview %subview_0[0, 0] [1, 64] [1, 1] : memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>> to memref<64xi32, #map, #hivm.address_space<ub>>
+        %2 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<64xi1>
+        ave.hir.masked_store <NORM_B32> %subview_1[%c0], %2, %1 {element_alignment_bit_width = 32 : i32, hivm.is_continuous} : memref<64xi32, #map, #hivm.address_space<ub>>, vector<64xi1>, vector<64xi32>
+      } {element_alignment_bit_width = 32 : i32}
+    } {element_alignment_bit_width = 32 : i32}
+    return
+  }
+  func.func @adc_func_outlined_vf_2(%arg0: memref<832x8xi8, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 8 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %c0 = arith.constant 0 : index
+    %c832 = arith.constant 832 : index
+    %c1 = arith.constant 1 : index
+    %c0_i16 = arith.constant 0 : i16
+    %0 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<256xi1>
+    %1 = ave.hir.broadcast %c0_i16, %0 {element_alignment_bit_width = 8 : i32} : i16, vector<256xi1> -> vector<256xi8>
+    scf.for %arg1 = %c0 to %c832 step %c1 {
+      %subview = memref.subview %arg0[%arg1, 0] [1, 8] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<1x8xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
+      %2 = ave.hir.pge <VL8> {element_alignment_bit_width = -1 : i32, mask_op_idx = 0 : i32} : vector<256xi1>
+      %subview_0 = memref.subview %subview[0, 0] [1, 8] [1, 1] : memref<1x8xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>> to memref<8xi8, #map, #hivm.address_space<ub>>
+      ave.hir.masked_store <NORM_B8> %subview_0[%c0], %2, %1 {ave.unaligned_ub_access = #ave.unaligned_ub_access, element_alignment_bit_width = 8 : i32} : memref<8xi8, #map, #hivm.address_space<ub>>, vector<256xi1>, vector<256xi8>
+    } {element_alignment_bit_width = -1 : i32}
+    return
+  }
+  func.func @adc_func_outlined_vf_3(%arg0: memref<832xf32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %c0 = arith.constant 0 : index
+    %c832 = arith.constant 832 : index
+    %c64 = arith.constant 64 : index
+    %cst = arith.constant 0.000000e+00 : f32
+    %0 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<64xi1>
+    %1 = ave.hir.broadcast %cst, %0 {element_alignment_bit_width = 32 : i32} : f32, vector<64xi1> -> vector<64xf32>
+    scf.for %arg1 = %c0 to %c832 step %c64 {
+      %subview = memref.subview %arg0[%arg1] [64] [1] : memref<832xf32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+      %2 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<64xi1>
+      ave.hir.masked_store <NORM_B32> %subview[%c0], %2, %1 {element_alignment_bit_width = 32 : i32, hivm.is_continuous} : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>, vector<64xi1>, vector<64xf32>
+    } {element_alignment_bit_width = -1 : i32}
+    return
+  }
+  func.func @adc_func_outlined_vf_4(%arg0: memref<832xf32, #hivm.address_space<ub>>, %arg1: memref<832xf32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %c64 = arith.constant 64 : index
+    %c832 = arith.constant 832 : index
+    %c0 = arith.constant 0 : index
+    scf.for %arg2 = %c0 to %c832 step %c64 {
+      %subview = memref.subview %arg0[%arg2] [64] [1] : memref<832xf32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+      %subview_0 = memref.subview %arg1[%arg2] [64] [1] : memref<832xf32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+      %res = ave.hir.vload <NORM> %subview[%c0] {element_alignment_bit_width = 32 : i32} : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> into vector<64xf32>
+      %0 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<64xi1>
+      %1 = ave.hir.vsqrt %res, %0 {element_alignment_bit_width = 32 : i32} : vector<64xf32>, vector<64xi1>
+      %2 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<64xi1>
+      ave.hir.masked_store <NORM_B32> %subview_0[%c0], %2, %1 {element_alignment_bit_width = 32 : i32, hivm.is_continuous} : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>, vector<64xi1>, vector<64xf32>
+    } {element_alignment_bit_width = 32 : i32}
+    return
+  }
+  func.func @adc_func(%arg0: memref<?xi8, #hivm.address_space<gm>> {hacc.arg_type = #hacc.arg_type<sync_block_lock>}, %arg1: memref<?xi8, #hivm.address_space<gm>> {hacc.arg_type = #hacc.arg_type<workspace>}, %arg2: memref<?xf32, #hivm.address_space<gm>>, %arg3: memref<?xi8, #hivm.address_space<gm>>, %arg4: memref<?xf32, #hivm.address_space<gm>>, %arg5: i32, %arg6: i32, %arg7: i32, %arg8: i32) attributes {SyncBlockLockArgIdx = 0 : i64, WorkspaceArgIdx = 1 : i64, func_dyn_memref_args = dense<[true, true, true, true, true, false, false, false, false]> : vector<9xi1>, hacc.entry, hacc.function_kind = #hacc.function_kind<DEVICE>, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vf_mode = #hivm.vf_mode<SIMD>, mix_mode = "aiv", parallel_mode = "simd"} {
+    %c0 = arith.constant 0 : index
+    %c0_i32 = arith.constant 0 : i32
+    %c46591_i32 = arith.constant 46591 : i32
+    %c46592_i32 = arith.constant 46592 : i32
+    %c56_i32 = arith.constant 56 : i32
+    %c831_i32 = arith.constant 831 : i32
+    %c832_i32 = arith.constant 832 : i32
+    %c8_i32 = arith.constant 8 : i32
+    %c1_i32 = arith.constant 1 : i32
+    %c0_i64 = arith.constant 0 : i64
+    %c65536_i64 = arith.constant 65536 : i64
+    %c72192_i64 = arith.constant 72192 : i64
+    %c82176_i64 = arith.constant 82176 : i64
+    %c1_i64 = arith.constant 1 : i64
+    %c112128_i64 = arith.constant 112128 : i64
+    %c75520_i64 = arith.constant 75520 : i64
+    %c108800_i64 = arith.constant 108800 : i64
+    %c118784_i64 = arith.constant 118784 : i64
+    %0 = hivm.hir.pointer_cast(%c108800_i64) : memref<832xf32, #hivm.address_space<ub>>
+    %1 = hivm.hir.pointer_cast(%c118784_i64) : memref<832xf32, #hivm.address_space<ub>>
+    %2 = hivm.hir.pointer_cast(%c75520_i64) : memref<832x8xi8, #hivm.address_space<ub>>
+    %3 = hivm.hir.pointer_cast(%c112128_i64) : memref<832x8xi8, #hivm.address_space<ub>>
+    hivm.hir.set_ctrl false at ctrl[60]
+    hivm.hir.set_ctrl true at ctrl[48]
+    %reinterpret_cast = memref.reinterpret_cast %arg2 to offset: [0], sizes: [64, 256], strides: [256, 1] : memref<?xf32, #hivm.address_space<gm>> to memref<64x256xf32, strided<[256, 1]>, #hivm.address_space<gm>>
+    %4 = arith.index_cast %arg5 : i32 to index
+    %reinterpret_cast_0 = memref.reinterpret_cast %arg4 to offset: [0], sizes: [%4], strides: [1] : memref<?xf32, #hivm.address_space<gm>> to memref<?xf32, strided<[1]>, #hivm.address_space<gm>>
+    %reinterpret_cast_1 = memref.reinterpret_cast %arg3 to offset: [0], sizes: [%4, 64], strides: [64, 1] : memref<?xi8, #hivm.address_space<gm>> to memref<?x64xi8, strided<[64, 1]>, #hivm.address_space<gm>>
+    %5 = hivm.hir.get_block_idx -> i64
+    %6 = arith.trunci %5 : i64 to i32
+    %7 = hivm.hir.pointer_cast(%c0_i64) : memref<64x256xf32, #hivm.address_space<ub>>
+    %collapse_shape = memref.collapse_shape %reinterpret_cast [[0, 1]] : memref<64x256xf32, strided<[256, 1]>, #hivm.address_space<gm>> into memref<16384xf32, strided<[1]>, #hivm.address_space<gm>>
+    %collapse_shape_2 = memref.collapse_shape %7 [[0, 1]] : memref<64x256xf32, #hivm.address_space<ub>> into memref<16384xf32, #hivm.address_space<ub>>
+    hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID0>]
+    hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID1>]
+    hivm.hir.set_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID0>]
+    hivm.hir.set_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID1>]
+    hivm.hir.load ins(%collapse_shape : memref<16384xf32, strided<[1]>, #hivm.address_space<gm>>) outs(%collapse_shape_2 : memref<16384xf32, #hivm.address_space<ub>>) eviction_policy = <EvictFirst>
+    %8 = arith.addi %arg5, %c46591_i32 : i32
+    %9 = arith.divsi %8, %c46592_i32 : i32
+    %10 = arith.addi %arg5, %c831_i32 : i32
+    %11 = arith.divsi %10, %c832_i32 : i32
+    scf.for %arg9 = %c0_i32 to %9 step %c1_i32  : i32 {
+      %12 = arith.index_cast %arg9 : i32 to index
+      %13 = affine.apply #map1()[%12]
+      %14 = arith.index_cast %13 : index to i64
+      %15 = arith.cmpi eq, %14, %c1_i64 : i64
+      %16 = arith.select %15, %1, %0 : memref<832xf32, #hivm.address_space<ub>>
+      %17 = arith.extui %15 : i1 to i64
+      %18 = arith.muli %arg9, %c56_i32 : i32
+      %19 = arith.addi %18, %6 : i32
+      %20 = arith.cmpi slt, %19, %11 : i32
+      scf.if %20 {
+        %21 = hivm.hir.pointer_cast(%c65536_i64) : memref<832x8xi8, #hivm.address_space<ub>>
+        func.call @adc_func_outlined_vf_2(%21) {hivm.vector_function, no_inline} : (memref<832x8xi8, #hivm.address_space<ub>>) -> ()
+        %22 = hivm.hir.pointer_cast(%c72192_i64) : memref<832xf32, #hivm.address_space<ub>>
+        func.call @adc_func_outlined_vf_3(%22) {hivm.vector_function, no_inline} : (memref<832xf32, #hivm.address_space<ub>>) -> ()
+        %23 = arith.muli %arg9, %c46592_i32 : i32
+        %24 = arith.muli %6, %c832_i32 : i32
+        %25 = arith.addi %23, %24 : i32
+        %26 = arith.index_cast %25 : i32 to index
+        %27 = arith.subi %arg5, %24 : i32
+        %28 = arith.subi %27, %23 : i32
+        %29 = arith.minsi %28, %c832_i32 : i32
+        %30 = arith.index_cast %29 : i32 to index
+        %31 = scf.for %arg10 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg11 = %22) -> (memref<832xf32, #hivm.address_space<ub>>)  : i32 {
+          %32 = arith.index_cast %arg10 : i32 to index
+          %33 = affine.apply #map1()[%32]
+          %34 = arith.index_cast %33 : index to i64
+          %35 = arith.cmpi eq, %34, %c1_i64 : i64
+          %36 = arith.select %35, %3, %2 : memref<832x8xi8, #hivm.address_space<ub>>
+          %37 = arith.extui %35 : i1 to i64
+          %38 = arith.muli %arg10, %c8_i32 : i32
+          %39 = arith.index_cast %38 : i32 to index
+          %subview_4 = memref.subview %reinterpret_cast_1[%26, %39] [%30, 8] [1, 1] : memref<?x64xi8, strided<[64, 1]>, #hivm.address_space<gm>> to memref<?x8xi8, strided<[64, 1], offset: ?>, #hivm.address_space<gm>>
+          %subview_5 = memref.subview %36[0, 0] [%30, 8] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<?x8xi8, strided<[8, 1]>, #hivm.address_space<ub>>
+          hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE2>, %37]
+          hivm.hir.load ins(%subview_4 : memref<?x8xi8, strided<[64, 1], offset: ?>, #hivm.address_space<gm>>) outs(%subview_5 : memref<?x8xi8, strided<[8, 1]>, #hivm.address_space<ub>>) left_padding_num = %c0 : index eviction_policy = <EvictFirst>
+          hivm.hir.set_flag[<PIPE_MTE2>, <PIPE_V>, <EVENT_ID0>]
+          %subview_6 = memref.subview %21[0, 0] [%30, 8] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<?x8xi8, strided<[8, 1]>, #hivm.address_space<ub>>
+          %collapse_shape_7 = memref.collapse_shape %subview_5 [[0, 1]] : memref<?x8xi8, strided<[8, 1]>, #hivm.address_space<ub>> into memref<?xi8, strided<[1]>, #hivm.address_space<ub>>
+          %collapse_shape_8 = memref.collapse_shape %subview_6 [[0, 1]] : memref<?x8xi8, strided<[8, 1]>, #hivm.address_space<ub>> into memref<?xi8, strided<[1]>, #hivm.address_space<ub>>
+          hivm.hir.wait_flag[<PIPE_MTE2>, <PIPE_V>, <EVENT_ID0>]
+          hivm.hir.copy ins(%collapse_shape_7 : memref<?xi8, strided<[1]>, #hivm.address_space<ub>>) outs(%collapse_shape_8 : memref<?xi8, strided<[1]>, #hivm.address_space<ub>>)
+          hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE2>, %37]
+          %40 = hivm.hir.pointer_cast(%c82176_i64) : memref<8x832xi32, #hivm.address_space<ub>>
+          func.call @adc_func_outlined_vf_1(%21, %40) {hivm.vector_function, no_inline} : (memref<832x8xi8, #hivm.address_space<ub>>, memref<8x832xi32, #hivm.address_space<ub>>) -> ()
+          %41 = scf.for %arg12 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg13 = %arg11) -> (memref<832xf32, #hivm.address_space<ub>>)  : i32 {
+            %42 = arith.addi %38, %arg12 : i32
+            %43 = arith.index_cast %42 : i32 to index
+            %44 = arith.index_cast %arg12 : i32 to index
+            %45 = hivm.hir.pointer_cast(%c72192_i64) : memref<832xf32, #hivm.address_space<ub>>
+            func.call @adc_func_outlined_vf_0(%arg13, %40, %44, %7, %43, %45) {hivm.vector_function, no_inline} : (memref<832xf32, #hivm.address_space<ub>>, memref<8x832xi32, #hivm.address_space<ub>>, index, memref<64x256xf32, #hivm.address_space<ub>>, index, memref<832xf32, #hivm.address_space<ub>>) -> ()
+            scf.yield %45 : memref<832xf32, #hivm.address_space<ub>>
+          }
+          scf.yield %41 : memref<832xf32, #hivm.address_space<ub>>
+        }
+        hivm.hir.wait_flag[<PIPE_MTE3>, <PIPE_V>, %17]
+        func.call @adc_func_outlined_vf_4(%31, %16) {hivm.vector_function, no_inline} : (memref<832xf32, #hivm.address_space<ub>>, memref<832xf32, #hivm.address_space<ub>>) -> ()
+        hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE3>, <EVENT_ID0>]
+        %subview = memref.subview %16[0] [%30] [1] : memref<832xf32, #hivm.address_space<ub>> to memref<?xf32, strided<[1]>, #hivm.address_space<ub>>
+        %subview_3 = memref.subview %reinterpret_cast_0[%26] [%30] [1] : memref<?xf32, strided<[1]>, #hivm.address_space<gm>> to memref<?xf32, strided<[1], offset: ?>, #hivm.address_space<gm>>
+        hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE3>, <EVENT_ID0>]
+        hivm.hir.pipe_barrier[<PIPE_MTE3>]
+        hivm.hir.store ins(%subview : memref<?xf32, strided<[1]>, #hivm.address_space<ub>>) outs(%subview_3 : memref<?xf32, strided<[1], offset: ?>, #hivm.address_space<gm>>)
+        hivm.hir.set_flag[<PIPE_MTE3>, <PIPE_V>, %17]
+      }
+    }
+    hivm.hir.pipe_barrier[<PIPE_ALL>]
+    hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID0>]
+    hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID1>]
+    hivm.hir.wait_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID0>]
+    hivm.hir.wait_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID1>]
+    return
+  }
+}
+
+
+// -----// IR Dump After MarkDisableLoad (hivm-mark-disable-load) //----- //
+#map = affine_map<(d0)[s0] -> (d0 + s0)>
+#map1 = affine_map<()[s0] -> (s0 mod 2)>
+module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #hacc.target_device_spec<#dlti.dl_entry<"AI_CORE_COUNT", 28 : i32>, #dlti.dl_entry<"CUBE_CORE_COUNT", 28 : i32>, #dlti.dl_entry<"VECTOR_CORE_COUNT", 56 : i32>, #dlti.dl_entry<"UB_SIZE", 2031616 : i32>, #dlti.dl_entry<"L1_SIZE", 4194304 : i32>, #dlti.dl_entry<"L0A_SIZE", 524288 : i32>, #dlti.dl_entry<"L0B_SIZE", 524288 : i32>, #dlti.dl_entry<"L0C_SIZE", 2097152 : i32>, #dlti.dl_entry<"UB_ALIGN_SIZE", 256 : i32>, #dlti.dl_entry<"L1_ALIGN_SIZE", 256 : i32>, #dlti.dl_entry<"L0C_ALIGN_SIZE", 4096 : i32>, #dlti.dl_entry<"MINIMAL_D_CACHE_SIZE", 262144 : i32>, #dlti.dl_entry<"MAXIMUM_D_CACHE_SIZE", 983040 : i32>, #dlti.dl_entry<"ARCH", "dav-c310">>>, hacc.target = #hacc.target<"Ascend950PR_9579">, hivm.module_core_type = #hivm.module_core_type<AIV>, memref.memref_as_ptr} {
+  func.func @adc_func_outlined_vf_0(%arg0: memref<832xf32, #hivm.address_space<ub>>, %arg1: memref<8x832xi32, #hivm.address_space<ub>>, %arg2: index, %arg3: memref<64x256xf32, #hivm.address_space<ub>>, %arg4: index, %arg5: memref<832xf32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %c0 = arith.constant 0 : index
+    %c832 = arith.constant 832 : index
+    %c64 = arith.constant 64 : index
+    %0 = ave.hir.pge <ALL> {element_alignment_bit_width = 32 : i32} : vector<64xi1>
+    %subview = memref.subview %arg3[%arg4, 0] [1, 256] [1, 1] : memref<64x256xf32, #hivm.address_space<ub>> to memref<256xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+    scf.for %arg6 = %c0 to %c832 step %c64 {
+      %subview_0 = memref.subview %arg0[%arg6] [64] [1] : memref<832xf32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+      %subview_1 = memref.subview %arg1[%arg2, %arg6] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<64xi32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+      %subview_2 = memref.subview %arg5[%arg6] [64] [1] : memref<832xf32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+      %res = ave.hir.vload <NORM> %subview_0[%c0] {element_alignment_bit_width = 32 : i32} : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> into vector<64xf32>
+      %res_3 = ave.hir.vload <NORM> %subview_1[%c0] {element_alignment_bit_width = 32 : i32} : memref<64xi32, strided<[1], offset: ?>, #hivm.address_space<ub>> into vector<64xi32>
+      %1 = ave.hir.vgather %subview[%c0] [%res_3], %0 {element_alignment_bit_width = 32 : i32} : memref<256xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>, vector<64xi32>, vector<64xi1> into vector<64xf32>
+      %2 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<64xi1>
+      %3 = ave.hir.vadd %res, %1, %2 {element_alignment_bit_width = 32 : i32} : vector<64xf32>, vector<64xi1>
+      %4 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<64xi1>
+      ave.hir.masked_store <NORM_B32> %subview_2[%c0], %4, %3 {element_alignment_bit_width = 32 : i32, hivm.is_continuous} : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>, vector<64xi1>, vector<64xf32>
+    } {element_alignment_bit_width = 32 : i32}
+    return
+  }
+  func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub>>, %arg1: memref<8x832xi32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %c1 = arith.constant 1 : index
+    %c8 = arith.constant 8 : index
+    %c64 = arith.constant 64 : index
+    %c832 = arith.constant 832 : index
+    %c0 = arith.constant 0 : index
+    scf.for %arg2 = %c0 to %c8 step %c1 {
+      scf.for %arg3 = %c0 to %c832 step %c64 {
+        %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
+        %res = ave.hir.vload <NORM> %subview[%c0, %c0] {ave.unaligned_ub_access = #ave.unaligned_ub_access, element_alignment_bit_width = 32 : i32} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>> into vector<64xi8>
+        %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
+        %0 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<64xi1>
+        %1 = ave.hir.vextsi %res, %0 {element_alignment_bit_width = 32 : i32, pp = #ave.vcvt_pp_type<pp0>} : vector<64xi8>, vector<64xi32>, vector<64xi1>
+        %subview_1 = memref.subview %subview_0[0, 0] [1, 64] [1, 1] : memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>> to memref<64xi32, #map, #hivm.address_space<ub>>
+        %2 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<64xi1>
+        ave.hir.masked_store <NORM_B32> %subview_1[%c0], %2, %1 {element_alignment_bit_width = 32 : i32, hivm.is_continuous} : memref<64xi32, #map, #hivm.address_space<ub>>, vector<64xi1>, vector<64xi32>
+      } {element_alignment_bit_width = 32 : i32}
+    } {element_alignment_bit_width = 32 : i32}
+    return
+  }
+  func.func @adc_func_outlined_vf_2(%arg0: memref<832x8xi8, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 8 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %c0 = arith.constant 0 : index
+    %c832 = arith.constant 832 : index
+    %c1 = arith.constant 1 : index
+    %c0_i16 = arith.constant 0 : i16
+    %0 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<256xi1>
+    %1 = ave.hir.broadcast %c0_i16, %0 {element_alignment_bit_width = 8 : i32} : i16, vector<256xi1> -> vector<256xi8>
+    scf.for %arg1 = %c0 to %c832 step %c1 {
+      %subview = memref.subview %arg0[%arg1, 0] [1, 8] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<1x8xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
+      %2 = ave.hir.pge <VL8> {element_alignment_bit_width = -1 : i32, mask_op_idx = 0 : i32} : vector<256xi1>
+      %subview_0 = memref.subview %subview[0, 0] [1, 8] [1, 1] : memref<1x8xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>> to memref<8xi8, #map, #hivm.address_space<ub>>
+      ave.hir.masked_store <NORM_B8> %subview_0[%c0], %2, %1 {ave.unaligned_ub_access = #ave.unaligned_ub_access, element_alignment_bit_width = 8 : i32} : memref<8xi8, #map, #hivm.address_space<ub>>, vector<256xi1>, vector<256xi8>
+    } {element_alignment_bit_width = -1 : i32}
+    return
+  }
+  func.func @adc_func_outlined_vf_3(%arg0: memref<832xf32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %c0 = arith.constant 0 : index
+    %c832 = arith.constant 832 : index
+    %c64 = arith.constant 64 : index
+    %cst = arith.constant 0.000000e+00 : f32
+    %0 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<64xi1>
+    %1 = ave.hir.broadcast %cst, %0 {element_alignment_bit_width = 32 : i32} : f32, vector<64xi1> -> vector<64xf32>
+    scf.for %arg1 = %c0 to %c832 step %c64 {
+      %subview = memref.subview %arg0[%arg1] [64] [1] : memref<832xf32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+      %2 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<64xi1>
+      ave.hir.masked_store <NORM_B32> %subview[%c0], %2, %1 {element_alignment_bit_width = 32 : i32, hivm.is_continuous} : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>, vector<64xi1>, vector<64xf32>
+    } {element_alignment_bit_width = -1 : i32}
+    return
+  }
+  func.func @adc_func_outlined_vf_4(%arg0: memref<832xf32, #hivm.address_space<ub>>, %arg1: memref<832xf32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %c64 = arith.constant 64 : index
+    %c832 = arith.constant 832 : index
+    %c0 = arith.constant 0 : index
+    scf.for %arg2 = %c0 to %c832 step %c64 {
+      %subview = memref.subview %arg0[%arg2] [64] [1] : memref<832xf32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+      %subview_0 = memref.subview %arg1[%arg2] [64] [1] : memref<832xf32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+      %res = ave.hir.vload <NORM> %subview[%c0] {element_alignment_bit_width = 32 : i32} : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> into vector<64xf32>
+      %0 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<64xi1>
+      %1 = ave.hir.vsqrt %res, %0 {element_alignment_bit_width = 32 : i32} : vector<64xf32>, vector<64xi1>
+      %2 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<64xi1>
+      ave.hir.masked_store <NORM_B32> %subview_0[%c0], %2, %1 {element_alignment_bit_width = 32 : i32, hivm.is_continuous} : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>, vector<64xi1>, vector<64xf32>
+    } {element_alignment_bit_width = 32 : i32}
+    return
+  }
+  func.func @adc_func(%arg0: memref<?xi8, #hivm.address_space<gm>> {hacc.arg_type = #hacc.arg_type<sync_block_lock>}, %arg1: memref<?xi8, #hivm.address_space<gm>> {hacc.arg_type = #hacc.arg_type<workspace>}, %arg2: memref<?xf32, #hivm.address_space<gm>>, %arg3: memref<?xi8, #hivm.address_space<gm>>, %arg4: memref<?xf32, #hivm.address_space<gm>>, %arg5: i32, %arg6: i32, %arg7: i32, %arg8: i32) attributes {SyncBlockLockArgIdx = 0 : i64, WorkspaceArgIdx = 1 : i64, func_dyn_memref_args = dense<[true, true, true, true, true, false, false, false, false]> : vector<9xi1>, hacc.entry, hacc.function_kind = #hacc.function_kind<DEVICE>, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vf_mode = #hivm.vf_mode<SIMD>, mix_mode = "aiv", parallel_mode = "simd"} {
+    %c0 = arith.constant 0 : index
+    %c0_i32 = arith.constant 0 : i32
+    %c46591_i32 = arith.constant 46591 : i32
+    %c46592_i32 = arith.constant 46592 : i32
+    %c56_i32 = arith.constant 56 : i32
+    %c831_i32 = arith.constant 831 : i32
+    %c832_i32 = arith.constant 832 : i32
+    %c8_i32 = arith.constant 8 : i32
+    %c1_i32 = arith.constant 1 : i32
+    %c0_i64 = arith.constant 0 : i64
+    %c65536_i64 = arith.constant 65536 : i64
+    %c72192_i64 = arith.constant 72192 : i64
+    %c82176_i64 = arith.constant 82176 : i64
+    %c1_i64 = arith.constant 1 : i64
+    %c112128_i64 = arith.constant 112128 : i64
+    %c75520_i64 = arith.constant 75520 : i64
+    %c108800_i64 = arith.constant 108800 : i64
+    %c118784_i64 = arith.constant 118784 : i64
+    %0 = hivm.hir.pointer_cast(%c108800_i64) : memref<832xf32, #hivm.address_space<ub>>
+    %1 = hivm.hir.pointer_cast(%c118784_i64) : memref<832xf32, #hivm.address_space<ub>>
+    %2 = hivm.hir.pointer_cast(%c75520_i64) : memref<832x8xi8, #hivm.address_space<ub>>
+    %3 = hivm.hir.pointer_cast(%c112128_i64) : memref<832x8xi8, #hivm.address_space<ub>>
+    hivm.hir.set_ctrl false at ctrl[60]
+    hivm.hir.set_ctrl true at ctrl[48]
+    %reinterpret_cast = memref.reinterpret_cast %arg2 to offset: [0], sizes: [64, 256], strides: [256, 1] : memref<?xf32, #hivm.address_space<gm>> to memref<64x256xf32, strided<[256, 1]>, #hivm.address_space<gm>>
+    %4 = arith.index_cast %arg5 : i32 to index
+    %reinterpret_cast_0 = memref.reinterpret_cast %arg4 to offset: [0], sizes: [%4], strides: [1] : memref<?xf32, #hivm.address_space<gm>> to memref<?xf32, strided<[1]>, #hivm.address_space<gm>>
+    %reinterpret_cast_1 = memref.reinterpret_cast %arg3 to offset: [0], sizes: [%4, 64], strides: [64, 1] : memref<?xi8, #hivm.address_space<gm>> to memref<?x64xi8, strided<[64, 1]>, #hivm.address_space<gm>>
+    %5 = hivm.hir.get_block_idx -> i64
+    %6 = arith.trunci %5 : i64 to i32
+    %7 = hivm.hir.pointer_cast(%c0_i64) : memref<64x256xf32, #hivm.address_space<ub>>
+    %collapse_shape = memref.collapse_shape %reinterpret_cast [[0, 1]] : memref<64x256xf32, strided<[256, 1]>, #hivm.address_space<gm>> into memref<16384xf32, strided<[1]>, #hivm.address_space<gm>>
+    %collapse_shape_2 = memref.collapse_shape %7 [[0, 1]] : memref<64x256xf32, #hivm.address_space<ub>> into memref<16384xf32, #hivm.address_space<ub>>
+    hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID0>]
+    hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID1>]
+    hivm.hir.set_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID0>]
+    hivm.hir.set_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID1>]
+    hivm.hir.load ins(%collapse_shape : memref<16384xf32, strided<[1]>, #hivm.address_space<gm>>) outs(%collapse_shape_2 : memref<16384xf32, #hivm.address_space<ub>>) eviction_policy = <EvictFirst>
+    %8 = arith.addi %arg5, %c46591_i32 : i32
+    %9 = arith.divsi %8, %c46592_i32 : i32
+    %10 = arith.addi %arg5, %c831_i32 : i32
+    %11 = arith.divsi %10, %c832_i32 : i32
+    scf.for %arg9 = %c0_i32 to %9 step %c1_i32  : i32 {
+      %12 = arith.index_cast %arg9 : i32 to index
+      %13 = affine.apply #map1()[%12]
+      %14 = arith.index_cast %13 : index to i64
+      %15 = arith.cmpi eq, %14, %c1_i64 : i64
+      %16 = arith.select %15, %1, %0 : memref<832xf32, #hivm.address_space<ub>>
+      %17 = arith.extui %15 : i1 to i64
+      %18 = arith.muli %arg9, %c56_i32 : i32
+      %19 = arith.addi %18, %6 : i32
+      %20 = arith.cmpi slt, %19, %11 : i32
+      scf.if %20 {
+        %21 = hivm.hir.pointer_cast(%c65536_i64) : memref<832x8xi8, #hivm.address_space<ub>>
+        func.call @adc_func_outlined_vf_2(%21) {hivm.vector_function, no_inline} : (memref<832x8xi8, #hivm.address_space<ub>>) -> ()
+        %22 = hivm.hir.pointer_cast(%c72192_i64) : memref<832xf32, #hivm.address_space<ub>>
+        func.call @adc_func_outlined_vf_3(%22) {hivm.vector_function, no_inline} : (memref<832xf32, #hivm.address_space<ub>>) -> ()
+        %23 = arith.muli %arg9, %c46592_i32 : i32
+        %24 = arith.muli %6, %c832_i32 : i32
+        %25 = arith.addi %23, %24 : i32
+        %26 = arith.index_cast %25 : i32 to index
+        %27 = arith.subi %arg5, %24 : i32
+        %28 = arith.subi %27, %23 : i32
+        %29 = arith.minsi %28, %c832_i32 : i32
+        %30 = arith.index_cast %29 : i32 to index
+        %31 = scf.for %arg10 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg11 = %22) -> (memref<832xf32, #hivm.address_space<ub>>)  : i32 {
+          %32 = arith.index_cast %arg10 : i32 to index
+          %33 = affine.apply #map1()[%32]
+          %34 = arith.index_cast %33 : index to i64
+          %35 = arith.cmpi eq, %34, %c1_i64 : i64
+          %36 = arith.select %35, %3, %2 : memref<832x8xi8, #hivm.address_space<ub>>
+          %37 = arith.extui %35 : i1 to i64
+          %38 = arith.muli %arg10, %c8_i32 : i32
+          %39 = arith.index_cast %38 : i32 to index
+          %subview_4 = memref.subview %reinterpret_cast_1[%26, %39] [%30, 8] [1, 1] : memref<?x64xi8, strided<[64, 1]>, #hivm.address_space<gm>> to memref<?x8xi8, strided<[64, 1], offset: ?>, #hivm.address_space<gm>>
+          %subview_5 = memref.subview %36[0, 0] [%30, 8] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<?x8xi8, strided<[8, 1]>, #hivm.address_space<ub>>
+          hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE2>, %37]
+          hivm.hir.load ins(%subview_4 : memref<?x8xi8, strided<[64, 1], offset: ?>, #hivm.address_space<gm>>) outs(%subview_5 : memref<?x8xi8, strided<[8, 1]>, #hivm.address_space<ub>>) left_padding_num = %c0 : index eviction_policy = <EvictFirst>
+          hivm.hir.set_flag[<PIPE_MTE2>, <PIPE_V>, <EVENT_ID0>]
+          %subview_6 = memref.subview %21[0, 0] [%30, 8] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<?x8xi8, strided<[8, 1]>, #hivm.address_space<ub>>
+          %collapse_shape_7 = memref.collapse_shape %subview_5 [[0, 1]] : memref<?x8xi8, strided<[8, 1]>, #hivm.address_space<ub>> into memref<?xi8, strided<[1]>, #hivm.address_space<ub>>
+          %collapse_shape_8 = memref.collapse_shape %subview_6 [[0, 1]] : memref<?x8xi8, strided<[8, 1]>, #hivm.address_space<ub>> into memref<?xi8, strided<[1]>, #hivm.address_space<ub>>
+          hivm.hir.wait_flag[<PIPE_MTE2>, <PIPE_V>, <EVENT_ID0>]
+          hivm.hir.copy ins(%collapse_shape_7 : memref<?xi8, strided<[1]>, #hivm.address_space<ub>>) outs(%collapse_shape_8 : memref<?xi8, strided<[1]>, #hivm.address_space<ub>>)
+          hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE2>, %37]
+          %40 = hivm.hir.pointer_cast(%c82176_i64) : memref<8x832xi32, #hivm.address_space<ub>>
+          func.call @adc_func_outlined_vf_1(%21, %40) {hivm.vector_function, no_inline} : (memref<832x8xi8, #hivm.address_space<ub>>, memref<8x832xi32, #hivm.address_space<ub>>) -> ()
+          %41 = scf.for %arg12 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg13 = %arg11) -> (memref<832xf32, #hivm.address_space<ub>>)  : i32 {
+            %42 = arith.addi %38, %arg12 : i32
+            %43 = arith.index_cast %42 : i32 to index
+            %44 = arith.index_cast %arg12 : i32 to index
+            %45 = hivm.hir.pointer_cast(%c72192_i64) : memref<832xf32, #hivm.address_space<ub>>
+            func.call @adc_func_outlined_vf_0(%arg13, %40, %44, %7, %43, %45) {hivm.vector_function, no_inline} : (memref<832xf32, #hivm.address_space<ub>>, memref<8x832xi32, #hivm.address_space<ub>>, index, memref<64x256xf32, #hivm.address_space<ub>>, index, memref<832xf32, #hivm.address_space<ub>>) -> ()
+            scf.yield %45 : memref<832xf32, #hivm.address_space<ub>>
+          }
+          scf.yield %41 : memref<832xf32, #hivm.address_space<ub>>
+        }
+        hivm.hir.wait_flag[<PIPE_MTE3>, <PIPE_V>, %17]
+        func.call @adc_func_outlined_vf_4(%31, %16) {hivm.vector_function, no_inline} : (memref<832xf32, #hivm.address_space<ub>>, memref<832xf32, #hivm.address_space<ub>>) -> ()
+        hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE3>, <EVENT_ID0>]
+        %subview = memref.subview %16[0] [%30] [1] : memref<832xf32, #hivm.address_space<ub>> to memref<?xf32, strided<[1]>, #hivm.address_space<ub>>
+        %subview_3 = memref.subview %reinterpret_cast_0[%26] [%30] [1] : memref<?xf32, strided<[1]>, #hivm.address_space<gm>> to memref<?xf32, strided<[1], offset: ?>, #hivm.address_space<gm>>
+        hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE3>, <EVENT_ID0>]
+        hivm.hir.pipe_barrier[<PIPE_MTE3>]
+        hivm.hir.store ins(%subview : memref<?xf32, strided<[1]>, #hivm.address_space<ub>>) outs(%subview_3 : memref<?xf32, strided<[1], offset: ?>, #hivm.address_space<gm>>)
+        hivm.hir.set_flag[<PIPE_MTE3>, <PIPE_V>, %17]
+      }
+    }
+    hivm.hir.pipe_barrier[<PIPE_ALL>]
+    hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID0>]
+    hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID1>]
+    hivm.hir.wait_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID0>]
+    hivm.hir.wait_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID1>]
+    return
+  }
+}
+
+
+// -----// IR Dump Before ConvertHIVMToStandard (convert-hivm-to-std) //----- //
+#map = affine_map<(d0)[s0] -> (d0 + s0)>
+#map1 = affine_map<()[s0] -> (s0 mod 2)>
+module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #hacc.target_device_spec<#dlti.dl_entry<"AI_CORE_COUNT", 28 : i32>, #dlti.dl_entry<"CUBE_CORE_COUNT", 28 : i32>, #dlti.dl_entry<"VECTOR_CORE_COUNT", 56 : i32>, #dlti.dl_entry<"UB_SIZE", 2031616 : i32>, #dlti.dl_entry<"L1_SIZE", 4194304 : i32>, #dlti.dl_entry<"L0A_SIZE", 524288 : i32>, #dlti.dl_entry<"L0B_SIZE", 524288 : i32>, #dlti.dl_entry<"L0C_SIZE", 2097152 : i32>, #dlti.dl_entry<"UB_ALIGN_SIZE", 256 : i32>, #dlti.dl_entry<"L1_ALIGN_SIZE", 256 : i32>, #dlti.dl_entry<"L0C_ALIGN_SIZE", 4096 : i32>, #dlti.dl_entry<"MINIMAL_D_CACHE_SIZE", 262144 : i32>, #dlti.dl_entry<"MAXIMUM_D_CACHE_SIZE", 983040 : i32>, #dlti.dl_entry<"ARCH", "dav-c310">>>, hacc.target = #hacc.target<"Ascend950PR_9579">, hivm.module_core_type = #hivm.module_core_type<AIV>, memref.memref_as_ptr} {
+  func.func @adc_func_outlined_vf_0(%arg0: memref<832xf32, #hivm.address_space<ub>>, %arg1: memref<8x832xi32, #hivm.address_space<ub>>, %arg2: index, %arg3: memref<64x256xf32, #hivm.address_space<ub>>, %arg4: index, %arg5: memref<832xf32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %c0 = arith.constant 0 : index
+    %c832 = arith.constant 832 : index
+    %c64 = arith.constant 64 : index
+    %0 = ave.hir.pge <ALL> {element_alignment_bit_width = 32 : i32} : vector<64xi1>
+    %subview = memref.subview %arg3[%arg4, 0] [1, 256] [1, 1] : memref<64x256xf32, #hivm.address_space<ub>> to memref<256xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+    scf.for %arg6 = %c0 to %c832 step %c64 {
+      %subview_0 = memref.subview %arg0[%arg6] [64] [1] : memref<832xf32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+      %subview_1 = memref.subview %arg1[%arg2, %arg6] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<64xi32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+      %subview_2 = memref.subview %arg5[%arg6] [64] [1] : memref<832xf32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+      %res = ave.hir.vload <NORM> %subview_0[%c0] {element_alignment_bit_width = 32 : i32} : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> into vector<64xf32>
+      %res_3 = ave.hir.vload <NORM> %subview_1[%c0] {element_alignment_bit_width = 32 : i32} : memref<64xi32, strided<[1], offset: ?>, #hivm.address_space<ub>> into vector<64xi32>
+      %1 = ave.hir.vgather %subview[%c0] [%res_3], %0 {element_alignment_bit_width = 32 : i32} : memref<256xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>, vector<64xi32>, vector<64xi1> into vector<64xf32>
+      %2 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<64xi1>
+      %3 = ave.hir.vadd %res, %1, %2 {element_alignment_bit_width = 32 : i32} : vector<64xf32>, vector<64xi1>
+      %4 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<64xi1>
+      ave.hir.masked_store <NORM_B32> %subview_2[%c0], %4, %3 {element_alignment_bit_width = 32 : i32, hivm.is_continuous} : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>, vector<64xi1>, vector<64xf32>
+    } {element_alignment_bit_width = 32 : i32}
+    return
+  }
+  func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub>>, %arg1: memref<8x832xi32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %c1 = arith.constant 1 : index
+    %c8 = arith.constant 8 : index
+    %c64 = arith.constant 64 : index
+    %c832 = arith.constant 832 : index
+    %c0 = arith.constant 0 : index
+    scf.for %arg2 = %c0 to %c8 step %c1 {
+      scf.for %arg3 = %c0 to %c832 step %c64 {
+        %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
+        %res = ave.hir.vload <NORM> %subview[%c0, %c0] {ave.unaligned_ub_access = #ave.unaligned_ub_access, element_alignment_bit_width = 32 : i32} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>> into vector<64xi8>
+        %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
+        %0 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<64xi1>
+        %1 = ave.hir.vextsi %res, %0 {element_alignment_bit_width = 32 : i32, pp = #ave.vcvt_pp_type<pp0>} : vector<64xi8>, vector<64xi32>, vector<64xi1>
+        %subview_1 = memref.subview %subview_0[0, 0] [1, 64] [1, 1] : memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>> to memref<64xi32, #map, #hivm.address_space<ub>>
+        %2 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<64xi1>
+        ave.hir.masked_store <NORM_B32> %subview_1[%c0], %2, %1 {element_alignment_bit_width = 32 : i32, hivm.is_continuous} : memref<64xi32, #map, #hivm.address_space<ub>>, vector<64xi1>, vector<64xi32>
+      } {element_alignment_bit_width = 32 : i32}
+    } {element_alignment_bit_width = 32 : i32}
+    return
+  }
+  func.func @adc_func_outlined_vf_2(%arg0: memref<832x8xi8, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 8 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %c0 = arith.constant 0 : index
+    %c832 = arith.constant 832 : index
+    %c1 = arith.constant 1 : index
+    %c0_i16 = arith.constant 0 : i16
+    %0 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<256xi1>
+    %1 = ave.hir.broadcast %c0_i16, %0 {element_alignment_bit_width = 8 : i32} : i16, vector<256xi1> -> vector<256xi8>
+    scf.for %arg1 = %c0 to %c832 step %c1 {
+      %subview = memref.subview %arg0[%arg1, 0] [1, 8] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<1x8xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
+      %2 = ave.hir.pge <VL8> {element_alignment_bit_width = -1 : i32, mask_op_idx = 0 : i32} : vector<256xi1>
+      %subview_0 = memref.subview %subview[0, 0] [1, 8] [1, 1] : memref<1x8xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>> to memref<8xi8, #map, #hivm.address_space<ub>>
+      ave.hir.masked_store <NORM_B8> %subview_0[%c0], %2, %1 {ave.unaligned_ub_access = #ave.unaligned_ub_access, element_alignment_bit_width = 8 : i32} : memref<8xi8, #map, #hivm.address_space<ub>>, vector<256xi1>, vector<256xi8>
+    } {element_alignment_bit_width = -1 : i32}
+    return
+  }
+  func.func @adc_func_outlined_vf_3(%arg0: memref<832xf32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %c0 = arith.constant 0 : index
+    %c832 = arith.constant 832 : index
+    %c64 = arith.constant 64 : index
+    %cst = arith.constant 0.000000e+00 : f32
+    %0 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<64xi1>
+    %1 = ave.hir.broadcast %cst, %0 {element_alignment_bit_width = 32 : i32} : f32, vector<64xi1> -> vector<64xf32>
+    scf.for %arg1 = %c0 to %c832 step %c64 {
+      %subview = memref.subview %arg0[%arg1] [64] [1] : memref<832xf32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+      %2 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<64xi1>
+      ave.hir.masked_store <NORM_B32> %subview[%c0], %2, %1 {element_alignment_bit_width = 32 : i32, hivm.is_continuous} : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>, vector<64xi1>, vector<64xf32>
+    } {element_alignment_bit_width = -1 : i32}
+    return
+  }
+  func.func @adc_func_outlined_vf_4(%arg0: memref<832xf32, #hivm.address_space<ub>>, %arg1: memref<832xf32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %c64 = arith.constant 64 : index
+    %c832 = arith.constant 832 : index
+    %c0 = arith.constant 0 : index
+    scf.for %arg2 = %c0 to %c832 step %c64 {
+      %subview = memref.subview %arg0[%arg2] [64] [1] : memref<832xf32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+      %subview_0 = memref.subview %arg1[%arg2] [64] [1] : memref<832xf32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+      %res = ave.hir.vload <NORM> %subview[%c0] {element_alignment_bit_width = 32 : i32} : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> into vector<64xf32>
+      %0 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<64xi1>
+      %1 = ave.hir.vsqrt %res, %0 {element_alignment_bit_width = 32 : i32} : vector<64xf32>, vector<64xi1>
+      %2 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<64xi1>
+      ave.hir.masked_store <NORM_B32> %subview_0[%c0], %2, %1 {element_alignment_bit_width = 32 : i32, hivm.is_continuous} : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>, vector<64xi1>, vector<64xf32>
+    } {element_alignment_bit_width = 32 : i32}
+    return
+  }
+  func.func @adc_func(%arg0: memref<?xi8, #hivm.address_space<gm>> {hacc.arg_type = #hacc.arg_type<sync_block_lock>}, %arg1: memref<?xi8, #hivm.address_space<gm>> {hacc.arg_type = #hacc.arg_type<workspace>}, %arg2: memref<?xf32, #hivm.address_space<gm>>, %arg3: memref<?xi8, #hivm.address_space<gm>>, %arg4: memref<?xf32, #hivm.address_space<gm>>, %arg5: i32, %arg6: i32, %arg7: i32, %arg8: i32) attributes {SyncBlockLockArgIdx = 0 : i64, WorkspaceArgIdx = 1 : i64, func_dyn_memref_args = dense<[true, true, true, true, true, false, false, false, false]> : vector<9xi1>, hacc.entry, hacc.function_kind = #hacc.function_kind<DEVICE>, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vf_mode = #hivm.vf_mode<SIMD>, mix_mode = "aiv", parallel_mode = "simd"} {
+    %c0 = arith.constant 0 : index
+    %c0_i32 = arith.constant 0 : i32
+    %c46591_i32 = arith.constant 46591 : i32
+    %c46592_i32 = arith.constant 46592 : i32
+    %c56_i32 = arith.constant 56 : i32
+    %c831_i32 = arith.constant 831 : i32
+    %c832_i32 = arith.constant 832 : i32
+    %c8_i32 = arith.constant 8 : i32
+    %c1_i32 = arith.constant 1 : i32
+    %c0_i64 = arith.constant 0 : i64
+    %c65536_i64 = arith.constant 65536 : i64
+    %c72192_i64 = arith.constant 72192 : i64
+    %c82176_i64 = arith.constant 82176 : i64
+    %c1_i64 = arith.constant 1 : i64
+    %c112128_i64 = arith.constant 112128 : i64
+    %c75520_i64 = arith.constant 75520 : i64
+    %c108800_i64 = arith.constant 108800 : i64
+    %c118784_i64 = arith.constant 118784 : i64
+    %0 = hivm.hir.pointer_cast(%c108800_i64) : memref<832xf32, #hivm.address_space<ub>>
+    %1 = hivm.hir.pointer_cast(%c118784_i64) : memref<832xf32, #hivm.address_space<ub>>
+    %2 = hivm.hir.pointer_cast(%c75520_i64) : memref<832x8xi8, #hivm.address_space<ub>>
+    %3 = hivm.hir.pointer_cast(%c112128_i64) : memref<832x8xi8, #hivm.address_space<ub>>
+    hivm.hir.set_ctrl false at ctrl[60]
+    hivm.hir.set_ctrl true at ctrl[48]
+    %reinterpret_cast = memref.reinterpret_cast %arg2 to offset: [0], sizes: [64, 256], strides: [256, 1] : memref<?xf32, #hivm.address_space<gm>> to memref<64x256xf32, strided<[256, 1]>, #hivm.address_space<gm>>
+    %4 = arith.index_cast %arg5 : i32 to index
+    %reinterpret_cast_0 = memref.reinterpret_cast %arg4 to offset: [0], sizes: [%4], strides: [1] : memref<?xf32, #hivm.address_space<gm>> to memref<?xf32, strided<[1]>, #hivm.address_space<gm>>
+    %reinterpret_cast_1 = memref.reinterpret_cast %arg3 to offset: [0], sizes: [%4, 64], strides: [64, 1] : memref<?xi8, #hivm.address_space<gm>> to memref<?x64xi8, strided<[64, 1]>, #hivm.address_space<gm>>
+    %5 = hivm.hir.get_block_idx -> i64
+    %6 = arith.trunci %5 : i64 to i32
+    %7 = hivm.hir.pointer_cast(%c0_i64) : memref<64x256xf32, #hivm.address_space<ub>>
+    %collapse_shape = memref.collapse_shape %reinterpret_cast [[0, 1]] : memref<64x256xf32, strided<[256, 1]>, #hivm.address_space<gm>> into memref<16384xf32, strided<[1]>, #hivm.address_space<gm>>
+    %collapse_shape_2 = memref.collapse_shape %7 [[0, 1]] : memref<64x256xf32, #hivm.address_space<ub>> into memref<16384xf32, #hivm.address_space<ub>>
+    hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID0>]
+    hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID1>]
+    hivm.hir.set_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID0>]
+    hivm.hir.set_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID1>]
+    hivm.hir.load ins(%collapse_shape : memref<16384xf32, strided<[1]>, #hivm.address_space<gm>>) outs(%collapse_shape_2 : memref<16384xf32, #hivm.address_space<ub>>) eviction_policy = <EvictFirst>
+    %8 = arith.addi %arg5, %c46591_i32 : i32
+    %9 = arith.divsi %8, %c46592_i32 : i32
+    %10 = arith.addi %arg5, %c831_i32 : i32
+    %11 = arith.divsi %10, %c832_i32 : i32
+    scf.for %arg9 = %c0_i32 to %9 step %c1_i32  : i32 {
+      %12 = arith.index_cast %arg9 : i32 to index
+      %13 = affine.apply #map1()[%12]
+      %14 = arith.index_cast %13 : index to i64
+      %15 = arith.cmpi eq, %14, %c1_i64 : i64
+      %16 = arith.select %15, %1, %0 : memref<832xf32, #hivm.address_space<ub>>
+      %17 = arith.extui %15 : i1 to i64
+      %18 = arith.muli %arg9, %c56_i32 : i32
+      %19 = arith.addi %18, %6 : i32
+      %20 = arith.cmpi slt, %19, %11 : i32
+      scf.if %20 {
+        %21 = hivm.hir.pointer_cast(%c65536_i64) : memref<832x8xi8, #hivm.address_space<ub>>
+        func.call @adc_func_outlined_vf_2(%21) {hivm.vector_function, no_inline} : (memref<832x8xi8, #hivm.address_space<ub>>) -> ()
+        %22 = hivm.hir.pointer_cast(%c72192_i64) : memref<832xf32, #hivm.address_space<ub>>
+        func.call @adc_func_outlined_vf_3(%22) {hivm.vector_function, no_inline} : (memref<832xf32, #hivm.address_space<ub>>) -> ()
+        %23 = arith.muli %arg9, %c46592_i32 : i32
+        %24 = arith.muli %6, %c832_i32 : i32
+        %25 = arith.addi %23, %24 : i32
+        %26 = arith.index_cast %25 : i32 to index
+        %27 = arith.subi %arg5, %24 : i32
+        %28 = arith.subi %27, %23 : i32
+        %29 = arith.minsi %28, %c832_i32 : i32
+        %30 = arith.index_cast %29 : i32 to index
+        %31 = scf.for %arg10 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg11 = %22) -> (memref<832xf32, #hivm.address_space<ub>>)  : i32 {
+          %32 = arith.index_cast %arg10 : i32 to index
+          %33 = affine.apply #map1()[%32]
+          %34 = arith.index_cast %33 : index to i64
+          %35 = arith.cmpi eq, %34, %c1_i64 : i64
+          %36 = arith.select %35, %3, %2 : memref<832x8xi8, #hivm.address_space<ub>>
+          %37 = arith.extui %35 : i1 to i64
+          %38 = arith.muli %arg10, %c8_i32 : i32
+          %39 = arith.index_cast %38 : i32 to index
+          %subview_4 = memref.subview %reinterpret_cast_1[%26, %39] [%30, 8] [1, 1] : memref<?x64xi8, strided<[64, 1]>, #hivm.address_space<gm>> to memref<?x8xi8, strided<[64, 1], offset: ?>, #hivm.address_space<gm>>
+          %subview_5 = memref.subview %36[0, 0] [%30, 8] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<?x8xi8, strided<[8, 1]>, #hivm.address_space<ub>>
+          hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE2>, %37]
+          hivm.hir.load ins(%subview_4 : memref<?x8xi8, strided<[64, 1], offset: ?>, #hivm.address_space<gm>>) outs(%subview_5 : memref<?x8xi8, strided<[8, 1]>, #hivm.address_space<ub>>) left_padding_num = %c0 : index eviction_policy = <EvictFirst>
+          hivm.hir.set_flag[<PIPE_MTE2>, <PIPE_V>, <EVENT_ID0>]
+          %subview_6 = memref.subview %21[0, 0] [%30, 8] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<?x8xi8, strided<[8, 1]>, #hivm.address_space<ub>>
+          %collapse_shape_7 = memref.collapse_shape %subview_5 [[0, 1]] : memref<?x8xi8, strided<[8, 1]>, #hivm.address_space<ub>> into memref<?xi8, strided<[1]>, #hivm.address_space<ub>>
+          %collapse_shape_8 = memref.collapse_shape %subview_6 [[0, 1]] : memref<?x8xi8, strided<[8, 1]>, #hivm.address_space<ub>> into memref<?xi8, strided<[1]>, #hivm.address_space<ub>>
+          hivm.hir.wait_flag[<PIPE_MTE2>, <PIPE_V>, <EVENT_ID0>]
+          hivm.hir.copy ins(%collapse_shape_7 : memref<?xi8, strided<[1]>, #hivm.address_space<ub>>) outs(%collapse_shape_8 : memref<?xi8, strided<[1]>, #hivm.address_space<ub>>)
+          hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE2>, %37]
+          %40 = hivm.hir.pointer_cast(%c82176_i64) : memref<8x832xi32, #hivm.address_space<ub>>
+          func.call @adc_func_outlined_vf_1(%21, %40) {hivm.vector_function, no_inline} : (memref<832x8xi8, #hivm.address_space<ub>>, memref<8x832xi32, #hivm.address_space<ub>>) -> ()
+          %41 = scf.for %arg12 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg13 = %arg11) -> (memref<832xf32, #hivm.address_space<ub>>)  : i32 {
+            %42 = arith.addi %38, %arg12 : i32
+            %43 = arith.index_cast %42 : i32 to index
+            %44 = arith.index_cast %arg12 : i32 to index
+            %45 = hivm.hir.pointer_cast(%c72192_i64) : memref<832xf32, #hivm.address_space<ub>>
+            func.call @adc_func_outlined_vf_0(%arg13, %40, %44, %7, %43, %45) {hivm.vector_function, no_inline} : (memref<832xf32, #hivm.address_space<ub>>, memref<8x832xi32, #hivm.address_space<ub>>, index, memref<64x256xf32, #hivm.address_space<ub>>, index, memref<832xf32, #hivm.address_space<ub>>) -> ()
+            scf.yield %45 : memref<832xf32, #hivm.address_space<ub>>
+          }
+          scf.yield %41 : memref<832xf32, #hivm.address_space<ub>>
+        }
+        hivm.hir.wait_flag[<PIPE_MTE3>, <PIPE_V>, %17]
+        func.call @adc_func_outlined_vf_4(%31, %16) {hivm.vector_function, no_inline} : (memref<832xf32, #hivm.address_space<ub>>, memref<832xf32, #hivm.address_space<ub>>) -> ()
+        hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE3>, <EVENT_ID0>]
+        %subview = memref.subview %16[0] [%30] [1] : memref<832xf32, #hivm.address_space<ub>> to memref<?xf32, strided<[1]>, #hivm.address_space<ub>>
+        %subview_3 = memref.subview %reinterpret_cast_0[%26] [%30] [1] : memref<?xf32, strided<[1]>, #hivm.address_space<gm>> to memref<?xf32, strided<[1], offset: ?>, #hivm.address_space<gm>>
+        hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE3>, <EVENT_ID0>]
+        hivm.hir.pipe_barrier[<PIPE_MTE3>]
+        hivm.hir.store ins(%subview : memref<?xf32, strided<[1]>, #hivm.address_space<ub>>) outs(%subview_3 : memref<?xf32, strided<[1], offset: ?>, #hivm.address_space<gm>>)
+        hivm.hir.set_flag[<PIPE_MTE3>, <PIPE_V>, %17]
+      }
+    }
+    hivm.hir.pipe_barrier[<PIPE_ALL>]
+    hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID0>]
+    hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID1>]
+    hivm.hir.wait_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID0>]
+    hivm.hir.wait_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID1>]
+    return
+  }
+}
+
+
+// -----// IR Dump After ConvertHIVMToStandard (convert-hivm-to-std) //----- //
+#map = affine_map<(d0)[s0] -> (d0 + s0)>
+#map1 = affine_map<()[s0] -> (s0 mod 2)>
+module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #hacc.target_device_spec<#dlti.dl_entry<"AI_CORE_COUNT", 28 : i32>, #dlti.dl_entry<"CUBE_CORE_COUNT", 28 : i32>, #dlti.dl_entry<"VECTOR_CORE_COUNT", 56 : i32>, #dlti.dl_entry<"UB_SIZE", 2031616 : i32>, #dlti.dl_entry<"L1_SIZE", 4194304 : i32>, #dlti.dl_entry<"L0A_SIZE", 524288 : i32>, #dlti.dl_entry<"L0B_SIZE", 524288 : i32>, #dlti.dl_entry<"L0C_SIZE", 2097152 : i32>, #dlti.dl_entry<"UB_ALIGN_SIZE", 256 : i32>, #dlti.dl_entry<"L1_ALIGN_SIZE", 256 : i32>, #dlti.dl_entry<"L0C_ALIGN_SIZE", 4096 : i32>, #dlti.dl_entry<"MINIMAL_D_CACHE_SIZE", 262144 : i32>, #dlti.dl_entry<"MAXIMUM_D_CACHE_SIZE", 983040 : i32>, #dlti.dl_entry<"ARCH", "dav-c310">>>, hacc.target = #hacc.target<"Ascend950PR_9579">, hivm.module_core_type = #hivm.module_core_type<AIV>, memref.memref_as_ptr} {
+  func.func @adc_func_outlined_vf_0(%arg0: memref<832xf32, #hivm.address_space<ub>>, %arg1: memref<8x832xi32, #hivm.address_space<ub>>, %arg2: index, %arg3: memref<64x256xf32, #hivm.address_space<ub>>, %arg4: index, %arg5: memref<832xf32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %c0 = arith.constant 0 : index
+    %c832 = arith.constant 832 : index
+    %c64 = arith.constant 64 : index
+    %0 = ave.hir.pge <ALL> {element_alignment_bit_width = 32 : i32} : vector<64xi1>
+    %subview = memref.subview %arg3[%arg4, 0] [1, 256] [1, 1] : memref<64x256xf32, #hivm.address_space<ub>> to memref<256xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+    scf.for %arg6 = %c0 to %c832 step %c64 {
+      %subview_0 = memref.subview %arg0[%arg6] [64] [1] : memref<832xf32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+      %subview_1 = memref.subview %arg1[%arg2, %arg6] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<64xi32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+      %subview_2 = memref.subview %arg5[%arg6] [64] [1] : memref<832xf32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+      %res = ave.hir.vload <NORM> %subview_0[%c0] {element_alignment_bit_width = 32 : i32} : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> into vector<64xf32>
+      %res_3 = ave.hir.vload <NORM> %subview_1[%c0] {element_alignment_bit_width = 32 : i32} : memref<64xi32, strided<[1], offset: ?>, #hivm.address_space<ub>> into vector<64xi32>
+      %1 = ave.hir.vgather %subview[%c0] [%res_3], %0 {element_alignment_bit_width = 32 : i32} : memref<256xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>, vector<64xi32>, vector<64xi1> into vector<64xf32>
+      %2 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<64xi1>
+      %3 = ave.hir.vadd %res, %1, %2 {element_alignment_bit_width = 32 : i32} : vector<64xf32>, vector<64xi1>
+      %4 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<64xi1>
+      ave.hir.masked_store <NORM_B32> %subview_2[%c0], %4, %3 {element_alignment_bit_width = 32 : i32, hivm.is_continuous} : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>, vector<64xi1>, vector<64xf32>
+    } {element_alignment_bit_width = 32 : i32}
+    return
+  }
+  func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub>>, %arg1: memref<8x832xi32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %c1 = arith.constant 1 : index
+    %c8 = arith.constant 8 : index
+    %c64 = arith.constant 64 : index
+    %c832 = arith.constant 832 : index
+    %c0 = arith.constant 0 : index
+    scf.for %arg2 = %c0 to %c8 step %c1 {
+      scf.for %arg3 = %c0 to %c832 step %c64 {
+        %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
+        %res = ave.hir.vload <NORM> %subview[%c0, %c0] {ave.unaligned_ub_access = #ave.unaligned_ub_access, element_alignment_bit_width = 32 : i32} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>> into vector<64xi8>
+        %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
+        %0 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<64xi1>
+        %1 = ave.hir.vextsi %res, %0 {element_alignment_bit_width = 32 : i32, pp = #ave.vcvt_pp_type<pp0>} : vector<64xi8>, vector<64xi32>, vector<64xi1>
+        %subview_1 = memref.subview %subview_0[0, 0] [1, 64] [1, 1] : memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>> to memref<64xi32, #map, #hivm.address_space<ub>>
+        %2 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<64xi1>
+        ave.hir.masked_store <NORM_B32> %subview_1[%c0], %2, %1 {element_alignment_bit_width = 32 : i32, hivm.is_continuous} : memref<64xi32, #map, #hivm.address_space<ub>>, vector<64xi1>, vector<64xi32>
+      } {element_alignment_bit_width = 32 : i32}
+    } {element_alignment_bit_width = 32 : i32}
+    return
+  }
+  func.func @adc_func_outlined_vf_2(%arg0: memref<832x8xi8, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 8 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %c0 = arith.constant 0 : index
+    %c832 = arith.constant 832 : index
+    %c1 = arith.constant 1 : index
+    %c0_i16 = arith.constant 0 : i16
+    %0 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<256xi1>
+    %1 = ave.hir.broadcast %c0_i16, %0 {element_alignment_bit_width = 8 : i32} : i16, vector<256xi1> -> vector<256xi8>
+    scf.for %arg1 = %c0 to %c832 step %c1 {
+      %subview = memref.subview %arg0[%arg1, 0] [1, 8] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<1x8xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
+      %2 = ave.hir.pge <VL8> {element_alignment_bit_width = -1 : i32, mask_op_idx = 0 : i32} : vector<256xi1>
+      %subview_0 = memref.subview %subview[0, 0] [1, 8] [1, 1] : memref<1x8xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>> to memref<8xi8, #map, #hivm.address_space<ub>>
+      ave.hir.masked_store <NORM_B8> %subview_0[%c0], %2, %1 {ave.unaligned_ub_access = #ave.unaligned_ub_access, element_alignment_bit_width = 8 : i32} : memref<8xi8, #map, #hivm.address_space<ub>>, vector<256xi1>, vector<256xi8>
+    } {element_alignment_bit_width = -1 : i32}
+    return
+  }
+  func.func @adc_func_outlined_vf_3(%arg0: memref<832xf32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %c0 = arith.constant 0 : index
+    %c832 = arith.constant 832 : index
+    %c64 = arith.constant 64 : index
+    %cst = arith.constant 0.000000e+00 : f32
+    %0 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<64xi1>
+    %1 = ave.hir.broadcast %cst, %0 {element_alignment_bit_width = 32 : i32} : f32, vector<64xi1> -> vector<64xf32>
+    scf.for %arg1 = %c0 to %c832 step %c64 {
+      %subview = memref.subview %arg0[%arg1] [64] [1] : memref<832xf32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+      %2 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<64xi1>
+      ave.hir.masked_store <NORM_B32> %subview[%c0], %2, %1 {element_alignment_bit_width = 32 : i32, hivm.is_continuous} : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>, vector<64xi1>, vector<64xf32>
+    } {element_alignment_bit_width = -1 : i32}
+    return
+  }
+  func.func @adc_func_outlined_vf_4(%arg0: memref<832xf32, #hivm.address_space<ub>>, %arg1: memref<832xf32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %c64 = arith.constant 64 : index
+    %c832 = arith.constant 832 : index
+    %c0 = arith.constant 0 : index
+    scf.for %arg2 = %c0 to %c832 step %c64 {
+      %subview = memref.subview %arg0[%arg2] [64] [1] : memref<832xf32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+      %subview_0 = memref.subview %arg1[%arg2] [64] [1] : memref<832xf32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+      %res = ave.hir.vload <NORM> %subview[%c0] {element_alignment_bit_width = 32 : i32} : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> into vector<64xf32>
+      %0 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<64xi1>
+      %1 = ave.hir.vsqrt %res, %0 {element_alignment_bit_width = 32 : i32} : vector<64xf32>, vector<64xi1>
+      %2 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<64xi1>
+      ave.hir.masked_store <NORM_B32> %subview_0[%c0], %2, %1 {element_alignment_bit_width = 32 : i32, hivm.is_continuous} : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>, vector<64xi1>, vector<64xf32>
+    } {element_alignment_bit_width = 32 : i32}
+    return
+  }
+  func.func private @load_gm_to_ubuf_1d_float(memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>, memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>, i32, f32, index, i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface}
+  func.func private @load_gm_to_ubuf_2d_int8_t(memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<gm>>, memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<ub>>, i32, i8, index, i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface}
+  func.func private @copy_ubuf_to_ubuf_1d_int8_t(memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>, memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface}
+  func.func private @store_ubuf_to_gm_1d_float(memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>, memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>, i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface}
+  func.func @adc_func(%arg0: memref<?xi8, #hivm.address_space<gm>> {hacc.arg_type = #hacc.arg_type<sync_block_lock>}, %arg1: memref<?xi8, #hivm.address_space<gm>> {hacc.arg_type = #hacc.arg_type<workspace>}, %arg2: memref<?xf32, #hivm.address_space<gm>>, %arg3: memref<?xi8, #hivm.address_space<gm>>, %arg4: memref<?xf32, #hivm.address_space<gm>>, %arg5: i32, %arg6: i32, %arg7: i32, %arg8: i32) attributes {SyncBlockLockArgIdx = 0 : i64, WorkspaceArgIdx = 1 : i64, func_dyn_memref_args = dense<[true, true, true, true, true, false, false, false, false]> : vector<9xi1>, hacc.entry, hacc.function_kind = #hacc.function_kind<DEVICE>, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vf_mode = #hivm.vf_mode<SIMD>, mix_mode = "aiv", parallel_mode = "simd"} {
+    %c0_i8 = arith.constant 0 : i8
+    %cst = arith.constant 0.000000e+00 : f32
+    %c0 = arith.constant 0 : index
+    %c0_i32 = arith.constant 0 : i32
+    %c46591_i32 = arith.constant 46591 : i32
+    %c46592_i32 = arith.constant 46592 : i32
+    %c56_i32 = arith.constant 56 : i32
+    %c831_i32 = arith.constant 831 : i32
+    %c832_i32 = arith.constant 832 : i32
+    %c8_i32 = arith.constant 8 : i32
+    %c1_i32 = arith.constant 1 : i32
+    %c0_i64 = arith.constant 0 : i64
+    %c65536_i64 = arith.constant 65536 : i64
+    %c72192_i64 = arith.constant 72192 : i64
+    %c82176_i64 = arith.constant 82176 : i64
+    %c1_i64 = arith.constant 1 : i64
+    %c112128_i64 = arith.constant 112128 : i64
+    %c75520_i64 = arith.constant 75520 : i64
+    %c108800_i64 = arith.constant 108800 : i64
+    %c118784_i64 = arith.constant 118784 : i64
+    %0 = hivm.hir.pointer_cast(%c108800_i64) : memref<832xf32, #hivm.address_space<ub>>
+    %1 = hivm.hir.pointer_cast(%c118784_i64) : memref<832xf32, #hivm.address_space<ub>>
+    %2 = hivm.hir.pointer_cast(%c75520_i64) : memref<832x8xi8, #hivm.address_space<ub>>
+    %3 = hivm.hir.pointer_cast(%c112128_i64) : memref<832x8xi8, #hivm.address_space<ub>>
+    hivm.hir.set_ctrl false at ctrl[60]
+    hivm.hir.set_ctrl true at ctrl[48]
+    %reinterpret_cast = memref.reinterpret_cast %arg2 to offset: [0], sizes: [64, 256], strides: [256, 1] : memref<?xf32, #hivm.address_space<gm>> to memref<64x256xf32, strided<[256, 1]>, #hivm.address_space<gm>>
+    %4 = arith.index_cast %arg5 : i32 to index
+    %reinterpret_cast_0 = memref.reinterpret_cast %arg4 to offset: [0], sizes: [%4], strides: [1] : memref<?xf32, #hivm.address_space<gm>> to memref<?xf32, strided<[1]>, #hivm.address_space<gm>>
+    %reinterpret_cast_1 = memref.reinterpret_cast %arg3 to offset: [0], sizes: [%4, 64], strides: [64, 1] : memref<?xi8, #hivm.address_space<gm>> to memref<?x64xi8, strided<[64, 1]>, #hivm.address_space<gm>>
+    %5 = hivm.hir.get_block_idx -> i64
+    %6 = arith.trunci %5 : i64 to i32
+    %7 = hivm.hir.pointer_cast(%c0_i64) : memref<64x256xf32, #hivm.address_space<ub>>
+    %collapse_shape = memref.collapse_shape %reinterpret_cast [[0, 1]] : memref<64x256xf32, strided<[256, 1]>, #hivm.address_space<gm>> into memref<16384xf32, strided<[1]>, #hivm.address_space<gm>>
+    %collapse_shape_2 = memref.collapse_shape %7 [[0, 1]] : memref<64x256xf32, #hivm.address_space<ub>> into memref<16384xf32, #hivm.address_space<ub>>
+    hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID0>]
+    hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID1>]
+    hivm.hir.set_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID0>]
+    hivm.hir.set_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID1>]
+    %cast = memref.cast %collapse_shape : memref<16384xf32, strided<[1]>, #hivm.address_space<gm>> to memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>
+    %cast_3 = memref.cast %collapse_shape_2 : memref<16384xf32, #hivm.address_space<ub>> to memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>
+    call @load_gm_to_ubuf_1d_float(%cast, %cast_3, %c0_i32, %cst, %c0, %c0_i32) : (memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>, memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>, i32, f32, index, i32) -> ()
+    %8 = arith.addi %arg5, %c46591_i32 : i32
+    %9 = arith.divsi %8, %c46592_i32 : i32
+    %10 = arith.addi %arg5, %c831_i32 : i32
+    %11 = arith.divsi %10, %c832_i32 : i32
+    scf.for %arg9 = %c0_i32 to %9 step %c1_i32  : i32 {
+      %12 = arith.index_cast %arg9 : i32 to index
+      %13 = affine.apply #map1()[%12]
+      %14 = arith.index_cast %13 : index to i64
+      %15 = arith.cmpi eq, %14, %c1_i64 : i64
+      %16 = arith.select %15, %1, %0 : memref<832xf32, #hivm.address_space<ub>>
+      %17 = arith.extui %15 : i1 to i64
+      %18 = arith.muli %arg9, %c56_i32 : i32
+      %19 = arith.addi %18, %6 : i32
+      %20 = arith.cmpi slt, %19, %11 : i32
+      scf.if %20 {
+        %21 = hivm.hir.pointer_cast(%c65536_i64) : memref<832x8xi8, #hivm.address_space<ub>>
+        func.call @adc_func_outlined_vf_2(%21) {hivm.vector_function, no_inline} : (memref<832x8xi8, #hivm.address_space<ub>>) -> ()
+        %22 = hivm.hir.pointer_cast(%c72192_i64) : memref<832xf32, #hivm.address_space<ub>>
+        func.call @adc_func_outlined_vf_3(%22) {hivm.vector_function, no_inline} : (memref<832xf32, #hivm.address_space<ub>>) -> ()
+        %23 = arith.muli %arg9, %c46592_i32 : i32
+        %24 = arith.muli %6, %c832_i32 : i32
+        %25 = arith.addi %23, %24 : i32
+        %26 = arith.index_cast %25 : i32 to index
+        %27 = arith.subi %arg5, %24 : i32
+        %28 = arith.subi %27, %23 : i32
+        %29 = arith.minsi %28, %c832_i32 : i32
+        %30 = arith.index_cast %29 : i32 to index
+        %31 = scf.for %arg10 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg11 = %22) -> (memref<832xf32, #hivm.address_space<ub>>)  : i32 {
+          %32 = arith.index_cast %arg10 : i32 to index
+          %33 = affine.apply #map1()[%32]
+          %34 = arith.index_cast %33 : index to i64
+          %35 = arith.cmpi eq, %34, %c1_i64 : i64
+          %36 = arith.select %35, %3, %2 : memref<832x8xi8, #hivm.address_space<ub>>
+          %37 = arith.extui %35 : i1 to i64
+          %38 = arith.muli %arg10, %c8_i32 : i32
+          %39 = arith.index_cast %38 : i32 to index
+          %subview_7 = memref.subview %reinterpret_cast_1[%26, %39] [%30, 8] [1, 1] : memref<?x64xi8, strided<[64, 1]>, #hivm.address_space<gm>> to memref<?x8xi8, strided<[64, 1], offset: ?>, #hivm.address_space<gm>>
+          %subview_8 = memref.subview %36[0, 0] [%30, 8] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<?x8xi8, strided<[8, 1]>, #hivm.address_space<ub>>
+          hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE2>, %37]
+          %cast_9 = memref.cast %subview_7 : memref<?x8xi8, strided<[64, 1], offset: ?>, #hivm.address_space<gm>> to memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<gm>>
+          %cast_10 = memref.cast %subview_8 : memref<?x8xi8, strided<[8, 1]>, #hivm.address_space<ub>> to memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<ub>>
+          func.call @load_gm_to_ubuf_2d_int8_t(%cast_9, %cast_10, %c0_i32, %c0_i8, %c0, %c0_i32) : (memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<gm>>, memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<ub>>, i32, i8, index, i32) -> ()
+          hivm.hir.set_flag[<PIPE_MTE2>, <PIPE_V>, <EVENT_ID0>]
+          %subview_11 = memref.subview %21[0, 0] [%30, 8] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<?x8xi8, strided<[8, 1]>, #hivm.address_space<ub>>
+          %collapse_shape_12 = memref.collapse_shape %subview_8 [[0, 1]] : memref<?x8xi8, strided<[8, 1]>, #hivm.address_space<ub>> into memref<?xi8, strided<[1]>, #hivm.address_space<ub>>
+          %collapse_shape_13 = memref.collapse_shape %subview_11 [[0, 1]] : memref<?x8xi8, strided<[8, 1]>, #hivm.address_space<ub>> into memref<?xi8, strided<[1]>, #hivm.address_space<ub>>
+          hivm.hir.wait_flag[<PIPE_MTE2>, <PIPE_V>, <EVENT_ID0>]
+          %cast_14 = memref.cast %collapse_shape_12 : memref<?xi8, strided<[1]>, #hivm.address_space<ub>> to memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>
+          %cast_15 = memref.cast %collapse_shape_13 : memref<?xi8, strided<[1]>, #hivm.address_space<ub>> to memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>
+          func.call @copy_ubuf_to_ubuf_1d_int8_t(%cast_14, %cast_15) : (memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>, memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>) -> ()
+          hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE2>, %37]
+          %40 = hivm.hir.pointer_cast(%c82176_i64) : memref<8x832xi32, #hivm.address_space<ub>>
+          func.call @adc_func_outlined_vf_1(%21, %40) {hivm.vector_function, no_inline} : (memref<832x8xi8, #hivm.address_space<ub>>, memref<8x832xi32, #hivm.address_space<ub>>) -> ()
+          %41 = scf.for %arg12 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg13 = %arg11) -> (memref<832xf32, #hivm.address_space<ub>>)  : i32 {
+            %42 = arith.addi %38, %arg12 : i32
+            %43 = arith.index_cast %42 : i32 to index
+            %44 = arith.index_cast %arg12 : i32 to index
+            %45 = hivm.hir.pointer_cast(%c72192_i64) : memref<832xf32, #hivm.address_space<ub>>
+            func.call @adc_func_outlined_vf_0(%arg13, %40, %44, %7, %43, %45) {hivm.vector_function, no_inline} : (memref<832xf32, #hivm.address_space<ub>>, memref<8x832xi32, #hivm.address_space<ub>>, index, memref<64x256xf32, #hivm.address_space<ub>>, index, memref<832xf32, #hivm.address_space<ub>>) -> ()
+            scf.yield %45 : memref<832xf32, #hivm.address_space<ub>>
+          }
+          scf.yield %41 : memref<832xf32, #hivm.address_space<ub>>
+        }
+        hivm.hir.wait_flag[<PIPE_MTE3>, <PIPE_V>, %17]
+        func.call @adc_func_outlined_vf_4(%31, %16) {hivm.vector_function, no_inline} : (memref<832xf32, #hivm.address_space<ub>>, memref<832xf32, #hivm.address_space<ub>>) -> ()
+        hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE3>, <EVENT_ID0>]
+        %subview = memref.subview %16[0] [%30] [1] : memref<832xf32, #hivm.address_space<ub>> to memref<?xf32, strided<[1]>, #hivm.address_space<ub>>
+        %subview_4 = memref.subview %reinterpret_cast_0[%26] [%30] [1] : memref<?xf32, strided<[1]>, #hivm.address_space<gm>> to memref<?xf32, strided<[1], offset: ?>, #hivm.address_space<gm>>
+        hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE3>, <EVENT_ID0>]
+        hivm.hir.pipe_barrier[<PIPE_MTE3>]
+        %cast_5 = memref.cast %subview : memref<?xf32, strided<[1]>, #hivm.address_space<ub>> to memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>
+        %cast_6 = memref.cast %subview_4 : memref<?xf32, strided<[1], offset: ?>, #hivm.address_space<gm>> to memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>
+        func.call @store_ubuf_to_gm_1d_float(%cast_5, %cast_6, %c0_i32) : (memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>, memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>, i32) -> ()
+        hivm.hir.set_flag[<PIPE_MTE3>, <PIPE_V>, %17]
+      }
+    }
+    hivm.hir.pipe_barrier[<PIPE_ALL>]
+    hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID0>]
+    hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID1>]
+    hivm.hir.wait_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID0>]
+    hivm.hir.wait_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID1>]
+    return
+  }
+}
+
+
+// -----// IR Dump Before ConvertHIVMAVEToStandard (convert-hivmave-to-std) //----- //
+#map = affine_map<(d0)[s0] -> (d0 + s0)>
+#map1 = affine_map<()[s0] -> (s0 mod 2)>
+module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #hacc.target_device_spec<#dlti.dl_entry<"AI_CORE_COUNT", 28 : i32>, #dlti.dl_entry<"CUBE_CORE_COUNT", 28 : i32>, #dlti.dl_entry<"VECTOR_CORE_COUNT", 56 : i32>, #dlti.dl_entry<"UB_SIZE", 2031616 : i32>, #dlti.dl_entry<"L1_SIZE", 4194304 : i32>, #dlti.dl_entry<"L0A_SIZE", 524288 : i32>, #dlti.dl_entry<"L0B_SIZE", 524288 : i32>, #dlti.dl_entry<"L0C_SIZE", 2097152 : i32>, #dlti.dl_entry<"UB_ALIGN_SIZE", 256 : i32>, #dlti.dl_entry<"L1_ALIGN_SIZE", 256 : i32>, #dlti.dl_entry<"L0C_ALIGN_SIZE", 4096 : i32>, #dlti.dl_entry<"MINIMAL_D_CACHE_SIZE", 262144 : i32>, #dlti.dl_entry<"MAXIMUM_D_CACHE_SIZE", 983040 : i32>, #dlti.dl_entry<"ARCH", "dav-c310">>>, hacc.target = #hacc.target<"Ascend950PR_9579">, hivm.module_core_type = #hivm.module_core_type<AIV>, memref.memref_as_ptr} {
+  func.func @adc_func_outlined_vf_0(%arg0: memref<832xf32, #hivm.address_space<ub>>, %arg1: memref<8x832xi32, #hivm.address_space<ub>>, %arg2: index, %arg3: memref<64x256xf32, #hivm.address_space<ub>>, %arg4: index, %arg5: memref<832xf32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %c0 = arith.constant 0 : index
+    %c832 = arith.constant 832 : index
+    %c64 = arith.constant 64 : index
+    %0 = ave.hir.pge <ALL> {element_alignment_bit_width = 32 : i32} : vector<64xi1>
+    %subview = memref.subview %arg3[%arg4, 0] [1, 256] [1, 1] : memref<64x256xf32, #hivm.address_space<ub>> to memref<256xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+    scf.for %arg6 = %c0 to %c832 step %c64 {
+      %subview_0 = memref.subview %arg0[%arg6] [64] [1] : memref<832xf32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+      %subview_1 = memref.subview %arg1[%arg2, %arg6] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<64xi32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+      %subview_2 = memref.subview %arg5[%arg6] [64] [1] : memref<832xf32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+      %res = ave.hir.vload <NORM> %subview_0[%c0] {element_alignment_bit_width = 32 : i32} : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> into vector<64xf32>
+      %res_3 = ave.hir.vload <NORM> %subview_1[%c0] {element_alignment_bit_width = 32 : i32} : memref<64xi32, strided<[1], offset: ?>, #hivm.address_space<ub>> into vector<64xi32>
+      %1 = ave.hir.vgather %subview[%c0] [%res_3], %0 {element_alignment_bit_width = 32 : i32} : memref<256xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>, vector<64xi32>, vector<64xi1> into vector<64xf32>
+      %2 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<64xi1>
+      %3 = ave.hir.vadd %res, %1, %2 {element_alignment_bit_width = 32 : i32} : vector<64xf32>, vector<64xi1>
+      %4 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<64xi1>
+      ave.hir.masked_store <NORM_B32> %subview_2[%c0], %4, %3 {element_alignment_bit_width = 32 : i32, hivm.is_continuous} : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>, vector<64xi1>, vector<64xf32>
+    } {element_alignment_bit_width = 32 : i32}
+    return
+  }
+  func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub>>, %arg1: memref<8x832xi32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %c1 = arith.constant 1 : index
+    %c8 = arith.constant 8 : index
+    %c64 = arith.constant 64 : index
+    %c832 = arith.constant 832 : index
+    %c0 = arith.constant 0 : index
+    scf.for %arg2 = %c0 to %c8 step %c1 {
+      scf.for %arg3 = %c0 to %c832 step %c64 {
+        %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
+        %res = ave.hir.vload <NORM> %subview[%c0, %c0] {ave.unaligned_ub_access = #ave.unaligned_ub_access, element_alignment_bit_width = 32 : i32} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>> into vector<64xi8>
+        %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
+        %0 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<64xi1>
+        %1 = ave.hir.vextsi %res, %0 {element_alignment_bit_width = 32 : i32, pp = #ave.vcvt_pp_type<pp0>} : vector<64xi8>, vector<64xi32>, vector<64xi1>
+        %subview_1 = memref.subview %subview_0[0, 0] [1, 64] [1, 1] : memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>> to memref<64xi32, #map, #hivm.address_space<ub>>
+        %2 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<64xi1>
+        ave.hir.masked_store <NORM_B32> %subview_1[%c0], %2, %1 {element_alignment_bit_width = 32 : i32, hivm.is_continuous} : memref<64xi32, #map, #hivm.address_space<ub>>, vector<64xi1>, vector<64xi32>
+      } {element_alignment_bit_width = 32 : i32}
+    } {element_alignment_bit_width = 32 : i32}
+    return
+  }
+  func.func @adc_func_outlined_vf_2(%arg0: memref<832x8xi8, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 8 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %c0 = arith.constant 0 : index
+    %c832 = arith.constant 832 : index
+    %c1 = arith.constant 1 : index
+    %c0_i16 = arith.constant 0 : i16
+    %0 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<256xi1>
+    %1 = ave.hir.broadcast %c0_i16, %0 {element_alignment_bit_width = 8 : i32} : i16, vector<256xi1> -> vector<256xi8>
+    scf.for %arg1 = %c0 to %c832 step %c1 {
+      %subview = memref.subview %arg0[%arg1, 0] [1, 8] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<1x8xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
+      %2 = ave.hir.pge <VL8> {element_alignment_bit_width = -1 : i32, mask_op_idx = 0 : i32} : vector<256xi1>
+      %subview_0 = memref.subview %subview[0, 0] [1, 8] [1, 1] : memref<1x8xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>> to memref<8xi8, #map, #hivm.address_space<ub>>
+      ave.hir.masked_store <NORM_B8> %subview_0[%c0], %2, %1 {ave.unaligned_ub_access = #ave.unaligned_ub_access, element_alignment_bit_width = 8 : i32} : memref<8xi8, #map, #hivm.address_space<ub>>, vector<256xi1>, vector<256xi8>
+    } {element_alignment_bit_width = -1 : i32}
+    return
+  }
+  func.func @adc_func_outlined_vf_3(%arg0: memref<832xf32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %c0 = arith.constant 0 : index
+    %c832 = arith.constant 832 : index
+    %c64 = arith.constant 64 : index
+    %cst = arith.constant 0.000000e+00 : f32
+    %0 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<64xi1>
+    %1 = ave.hir.broadcast %cst, %0 {element_alignment_bit_width = 32 : i32} : f32, vector<64xi1> -> vector<64xf32>
+    scf.for %arg1 = %c0 to %c832 step %c64 {
+      %subview = memref.subview %arg0[%arg1] [64] [1] : memref<832xf32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+      %2 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<64xi1>
+      ave.hir.masked_store <NORM_B32> %subview[%c0], %2, %1 {element_alignment_bit_width = 32 : i32, hivm.is_continuous} : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>, vector<64xi1>, vector<64xf32>
+    } {element_alignment_bit_width = -1 : i32}
+    return
+  }
+  func.func @adc_func_outlined_vf_4(%arg0: memref<832xf32, #hivm.address_space<ub>>, %arg1: memref<832xf32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %c64 = arith.constant 64 : index
+    %c832 = arith.constant 832 : index
+    %c0 = arith.constant 0 : index
+    scf.for %arg2 = %c0 to %c832 step %c64 {
+      %subview = memref.subview %arg0[%arg2] [64] [1] : memref<832xf32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+      %subview_0 = memref.subview %arg1[%arg2] [64] [1] : memref<832xf32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+      %res = ave.hir.vload <NORM> %subview[%c0] {element_alignment_bit_width = 32 : i32} : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> into vector<64xf32>
+      %0 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<64xi1>
+      %1 = ave.hir.vsqrt %res, %0 {element_alignment_bit_width = 32 : i32} : vector<64xf32>, vector<64xi1>
+      %2 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<64xi1>
+      ave.hir.masked_store <NORM_B32> %subview_0[%c0], %2, %1 {element_alignment_bit_width = 32 : i32, hivm.is_continuous} : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>, vector<64xi1>, vector<64xf32>
+    } {element_alignment_bit_width = 32 : i32}
+    return
+  }
+  func.func private @load_gm_to_ubuf_1d_float(memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>, memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>, i32, f32, index, i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface}
+  func.func private @load_gm_to_ubuf_2d_int8_t(memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<gm>>, memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<ub>>, i32, i8, index, i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface}
+  func.func private @copy_ubuf_to_ubuf_1d_int8_t(memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>, memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface}
+  func.func private @store_ubuf_to_gm_1d_float(memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>, memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>, i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface}
+  func.func @adc_func(%arg0: memref<?xi8, #hivm.address_space<gm>> {hacc.arg_type = #hacc.arg_type<sync_block_lock>}, %arg1: memref<?xi8, #hivm.address_space<gm>> {hacc.arg_type = #hacc.arg_type<workspace>}, %arg2: memref<?xf32, #hivm.address_space<gm>>, %arg3: memref<?xi8, #hivm.address_space<gm>>, %arg4: memref<?xf32, #hivm.address_space<gm>>, %arg5: i32, %arg6: i32, %arg7: i32, %arg8: i32) attributes {SyncBlockLockArgIdx = 0 : i64, WorkspaceArgIdx = 1 : i64, func_dyn_memref_args = dense<[true, true, true, true, true, false, false, false, false]> : vector<9xi1>, hacc.entry, hacc.function_kind = #hacc.function_kind<DEVICE>, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vf_mode = #hivm.vf_mode<SIMD>, mix_mode = "aiv", parallel_mode = "simd"} {
+    %c0_i8 = arith.constant 0 : i8
+    %cst = arith.constant 0.000000e+00 : f32
+    %c0 = arith.constant 0 : index
+    %c0_i32 = arith.constant 0 : i32
+    %c46591_i32 = arith.constant 46591 : i32
+    %c46592_i32 = arith.constant 46592 : i32
+    %c56_i32 = arith.constant 56 : i32
+    %c831_i32 = arith.constant 831 : i32
+    %c832_i32 = arith.constant 832 : i32
+    %c8_i32 = arith.constant 8 : i32
+    %c1_i32 = arith.constant 1 : i32
+    %c0_i64 = arith.constant 0 : i64
+    %c65536_i64 = arith.constant 65536 : i64
+    %c72192_i64 = arith.constant 72192 : i64
+    %c82176_i64 = arith.constant 82176 : i64
+    %c1_i64 = arith.constant 1 : i64
+    %c112128_i64 = arith.constant 112128 : i64
+    %c75520_i64 = arith.constant 75520 : i64
+    %c108800_i64 = arith.constant 108800 : i64
+    %c118784_i64 = arith.constant 118784 : i64
+    %0 = hivm.hir.pointer_cast(%c108800_i64) : memref<832xf32, #hivm.address_space<ub>>
+    %1 = hivm.hir.pointer_cast(%c118784_i64) : memref<832xf32, #hivm.address_space<ub>>
+    %2 = hivm.hir.pointer_cast(%c75520_i64) : memref<832x8xi8, #hivm.address_space<ub>>
+    %3 = hivm.hir.pointer_cast(%c112128_i64) : memref<832x8xi8, #hivm.address_space<ub>>
+    hivm.hir.set_ctrl false at ctrl[60]
+    hivm.hir.set_ctrl true at ctrl[48]
+    %reinterpret_cast = memref.reinterpret_cast %arg2 to offset: [0], sizes: [64, 256], strides: [256, 1] : memref<?xf32, #hivm.address_space<gm>> to memref<64x256xf32, strided<[256, 1]>, #hivm.address_space<gm>>
+    %4 = arith.index_cast %arg5 : i32 to index
+    %reinterpret_cast_0 = memref.reinterpret_cast %arg4 to offset: [0], sizes: [%4], strides: [1] : memref<?xf32, #hivm.address_space<gm>> to memref<?xf32, strided<[1]>, #hivm.address_space<gm>>
+    %reinterpret_cast_1 = memref.reinterpret_cast %arg3 to offset: [0], sizes: [%4, 64], strides: [64, 1] : memref<?xi8, #hivm.address_space<gm>> to memref<?x64xi8, strided<[64, 1]>, #hivm.address_space<gm>>
+    %5 = hivm.hir.get_block_idx -> i64
+    %6 = arith.trunci %5 : i64 to i32
+    %7 = hivm.hir.pointer_cast(%c0_i64) : memref<64x256xf32, #hivm.address_space<ub>>
+    %collapse_shape = memref.collapse_shape %reinterpret_cast [[0, 1]] : memref<64x256xf32, strided<[256, 1]>, #hivm.address_space<gm>> into memref<16384xf32, strided<[1]>, #hivm.address_space<gm>>
+    %collapse_shape_2 = memref.collapse_shape %7 [[0, 1]] : memref<64x256xf32, #hivm.address_space<ub>> into memref<16384xf32, #hivm.address_space<ub>>
+    hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID0>]
+    hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID1>]
+    hivm.hir.set_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID0>]
+    hivm.hir.set_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID1>]
+    %cast = memref.cast %collapse_shape : memref<16384xf32, strided<[1]>, #hivm.address_space<gm>> to memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>
+    %cast_3 = memref.cast %collapse_shape_2 : memref<16384xf32, #hivm.address_space<ub>> to memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>
+    call @load_gm_to_ubuf_1d_float(%cast, %cast_3, %c0_i32, %cst, %c0, %c0_i32) : (memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>, memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>, i32, f32, index, i32) -> ()
+    %8 = arith.addi %arg5, %c46591_i32 : i32
+    %9 = arith.divsi %8, %c46592_i32 : i32
+    %10 = arith.addi %arg5, %c831_i32 : i32
+    %11 = arith.divsi %10, %c832_i32 : i32
+    scf.for %arg9 = %c0_i32 to %9 step %c1_i32  : i32 {
+      %12 = arith.index_cast %arg9 : i32 to index
+      %13 = affine.apply #map1()[%12]
+      %14 = arith.index_cast %13 : index to i64
+      %15 = arith.cmpi eq, %14, %c1_i64 : i64
+      %16 = arith.select %15, %1, %0 : memref<832xf32, #hivm.address_space<ub>>
+      %17 = arith.extui %15 : i1 to i64
+      %18 = arith.muli %arg9, %c56_i32 : i32
+      %19 = arith.addi %18, %6 : i32
+      %20 = arith.cmpi slt, %19, %11 : i32
+      scf.if %20 {
+        %21 = hivm.hir.pointer_cast(%c65536_i64) : memref<832x8xi8, #hivm.address_space<ub>>
+        func.call @adc_func_outlined_vf_2(%21) {hivm.vector_function, no_inline} : (memref<832x8xi8, #hivm.address_space<ub>>) -> ()
+        %22 = hivm.hir.pointer_cast(%c72192_i64) : memref<832xf32, #hivm.address_space<ub>>
+        func.call @adc_func_outlined_vf_3(%22) {hivm.vector_function, no_inline} : (memref<832xf32, #hivm.address_space<ub>>) -> ()
+        %23 = arith.muli %arg9, %c46592_i32 : i32
+        %24 = arith.muli %6, %c832_i32 : i32
+        %25 = arith.addi %23, %24 : i32
+        %26 = arith.index_cast %25 : i32 to index
+        %27 = arith.subi %arg5, %24 : i32
+        %28 = arith.subi %27, %23 : i32
+        %29 = arith.minsi %28, %c832_i32 : i32
+        %30 = arith.index_cast %29 : i32 to index
+        %31 = scf.for %arg10 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg11 = %22) -> (memref<832xf32, #hivm.address_space<ub>>)  : i32 {
+          %32 = arith.index_cast %arg10 : i32 to index
+          %33 = affine.apply #map1()[%32]
+          %34 = arith.index_cast %33 : index to i64
+          %35 = arith.cmpi eq, %34, %c1_i64 : i64
+          %36 = arith.select %35, %3, %2 : memref<832x8xi8, #hivm.address_space<ub>>
+          %37 = arith.extui %35 : i1 to i64
+          %38 = arith.muli %arg10, %c8_i32 : i32
+          %39 = arith.index_cast %38 : i32 to index
+          %subview_7 = memref.subview %reinterpret_cast_1[%26, %39] [%30, 8] [1, 1] : memref<?x64xi8, strided<[64, 1]>, #hivm.address_space<gm>> to memref<?x8xi8, strided<[64, 1], offset: ?>, #hivm.address_space<gm>>
+          %subview_8 = memref.subview %36[0, 0] [%30, 8] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<?x8xi8, strided<[8, 1]>, #hivm.address_space<ub>>
+          hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE2>, %37]
+          %cast_9 = memref.cast %subview_7 : memref<?x8xi8, strided<[64, 1], offset: ?>, #hivm.address_space<gm>> to memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<gm>>
+          %cast_10 = memref.cast %subview_8 : memref<?x8xi8, strided<[8, 1]>, #hivm.address_space<ub>> to memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<ub>>
+          func.call @load_gm_to_ubuf_2d_int8_t(%cast_9, %cast_10, %c0_i32, %c0_i8, %c0, %c0_i32) : (memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<gm>>, memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<ub>>, i32, i8, index, i32) -> ()
+          hivm.hir.set_flag[<PIPE_MTE2>, <PIPE_V>, <EVENT_ID0>]
+          %subview_11 = memref.subview %21[0, 0] [%30, 8] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<?x8xi8, strided<[8, 1]>, #hivm.address_space<ub>>
+          %collapse_shape_12 = memref.collapse_shape %subview_8 [[0, 1]] : memref<?x8xi8, strided<[8, 1]>, #hivm.address_space<ub>> into memref<?xi8, strided<[1]>, #hivm.address_space<ub>>
+          %collapse_shape_13 = memref.collapse_shape %subview_11 [[0, 1]] : memref<?x8xi8, strided<[8, 1]>, #hivm.address_space<ub>> into memref<?xi8, strided<[1]>, #hivm.address_space<ub>>
+          hivm.hir.wait_flag[<PIPE_MTE2>, <PIPE_V>, <EVENT_ID0>]
+          %cast_14 = memref.cast %collapse_shape_12 : memref<?xi8, strided<[1]>, #hivm.address_space<ub>> to memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>
+          %cast_15 = memref.cast %collapse_shape_13 : memref<?xi8, strided<[1]>, #hivm.address_space<ub>> to memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>
+          func.call @copy_ubuf_to_ubuf_1d_int8_t(%cast_14, %cast_15) : (memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>, memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>) -> ()
+          hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE2>, %37]
+          %40 = hivm.hir.pointer_cast(%c82176_i64) : memref<8x832xi32, #hivm.address_space<ub>>
+          func.call @adc_func_outlined_vf_1(%21, %40) {hivm.vector_function, no_inline} : (memref<832x8xi8, #hivm.address_space<ub>>, memref<8x832xi32, #hivm.address_space<ub>>) -> ()
+          %41 = scf.for %arg12 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg13 = %arg11) -> (memref<832xf32, #hivm.address_space<ub>>)  : i32 {
+            %42 = arith.addi %38, %arg12 : i32
+            %43 = arith.index_cast %42 : i32 to index
+            %44 = arith.index_cast %arg12 : i32 to index
+            %45 = hivm.hir.pointer_cast(%c72192_i64) : memref<832xf32, #hivm.address_space<ub>>
+            func.call @adc_func_outlined_vf_0(%arg13, %40, %44, %7, %43, %45) {hivm.vector_function, no_inline} : (memref<832xf32, #hivm.address_space<ub>>, memref<8x832xi32, #hivm.address_space<ub>>, index, memref<64x256xf32, #hivm.address_space<ub>>, index, memref<832xf32, #hivm.address_space<ub>>) -> ()
+            scf.yield %45 : memref<832xf32, #hivm.address_space<ub>>
+          }
+          scf.yield %41 : memref<832xf32, #hivm.address_space<ub>>
+        }
+        hivm.hir.wait_flag[<PIPE_MTE3>, <PIPE_V>, %17]
+        func.call @adc_func_outlined_vf_4(%31, %16) {hivm.vector_function, no_inline} : (memref<832xf32, #hivm.address_space<ub>>, memref<832xf32, #hivm.address_space<ub>>) -> ()
+        hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE3>, <EVENT_ID0>]
+        %subview = memref.subview %16[0] [%30] [1] : memref<832xf32, #hivm.address_space<ub>> to memref<?xf32, strided<[1]>, #hivm.address_space<ub>>
+        %subview_4 = memref.subview %reinterpret_cast_0[%26] [%30] [1] : memref<?xf32, strided<[1]>, #hivm.address_space<gm>> to memref<?xf32, strided<[1], offset: ?>, #hivm.address_space<gm>>
+        hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE3>, <EVENT_ID0>]
+        hivm.hir.pipe_barrier[<PIPE_MTE3>]
+        %cast_5 = memref.cast %subview : memref<?xf32, strided<[1]>, #hivm.address_space<ub>> to memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>
+        %cast_6 = memref.cast %subview_4 : memref<?xf32, strided<[1], offset: ?>, #hivm.address_space<gm>> to memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>
+        func.call @store_ubuf_to_gm_1d_float(%cast_5, %cast_6, %c0_i32) : (memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>, memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>, i32) -> ()
+        hivm.hir.set_flag[<PIPE_MTE3>, <PIPE_V>, %17]
+      }
+    }
+    hivm.hir.pipe_barrier[<PIPE_ALL>]
+    hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID0>]
+    hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID1>]
+    hivm.hir.wait_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID0>]
+    hivm.hir.wait_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID1>]
+    return
+  }
+}
+
+
+// -----// IR Dump After ConvertHIVMAVEToStandard (convert-hivmave-to-std) //----- //
+#map = affine_map<(d0)[s0] -> (d0 + s0)>
+#map1 = affine_map<()[s0] -> (s0 mod 2)>
+module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #hacc.target_device_spec<#dlti.dl_entry<"AI_CORE_COUNT", 28 : i32>, #dlti.dl_entry<"CUBE_CORE_COUNT", 28 : i32>, #dlti.dl_entry<"VECTOR_CORE_COUNT", 56 : i32>, #dlti.dl_entry<"UB_SIZE", 2031616 : i32>, #dlti.dl_entry<"L1_SIZE", 4194304 : i32>, #dlti.dl_entry<"L0A_SIZE", 524288 : i32>, #dlti.dl_entry<"L0B_SIZE", 524288 : i32>, #dlti.dl_entry<"L0C_SIZE", 2097152 : i32>, #dlti.dl_entry<"UB_ALIGN_SIZE", 256 : i32>, #dlti.dl_entry<"L1_ALIGN_SIZE", 256 : i32>, #dlti.dl_entry<"L0C_ALIGN_SIZE", 4096 : i32>, #dlti.dl_entry<"MINIMAL_D_CACHE_SIZE", 262144 : i32>, #dlti.dl_entry<"MAXIMUM_D_CACHE_SIZE", 983040 : i32>, #dlti.dl_entry<"ARCH", "dav-c310">>>, hacc.target = #hacc.target<"Ascend950PR_9579">, hivm.module_core_type = #hivm.module_core_type<AIV>, memref.memref_as_ptr} {
+  func.func @adc_func_outlined_vf_0(%arg0: memref<832xf32, #hivm.address_space<ub>>, %arg1: memref<8x832xi32, #hivm.address_space<ub>>, %arg2: index, %arg3: memref<64x256xf32, #hivm.address_space<ub>>, %arg4: index, %arg5: memref<832xf32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %c0 = arith.constant 0 : index
+    %c832 = arith.constant 832 : index
+    %c64 = arith.constant 64 : index
+    %0 = ave.hir.pge <ALL> {element_alignment_bit_width = 32 : i32} : vector<64xi1>
+    %subview = memref.subview %arg3[%arg4, 0] [1, 256] [1, 1] : memref<64x256xf32, #hivm.address_space<ub>> to memref<256xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+    scf.for %arg6 = %c0 to %c832 step %c64 {
+      %subview_0 = memref.subview %arg0[%arg6] [64] [1] : memref<832xf32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+      %subview_1 = memref.subview %arg1[%arg2, %arg6] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<64xi32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+      %subview_2 = memref.subview %arg5[%arg6] [64] [1] : memref<832xf32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+      %res = ave.hir.vload <NORM> %subview_0[%c0] {element_alignment_bit_width = 32 : i32} : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> into vector<64xf32>
+      %res_3 = ave.hir.vload <NORM> %subview_1[%c0] {element_alignment_bit_width = 32 : i32} : memref<64xi32, strided<[1], offset: ?>, #hivm.address_space<ub>> into vector<64xi32>
+      %1 = ave.hir.vgather %subview[%c0] [%res_3], %0 {element_alignment_bit_width = 32 : i32} : memref<256xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>, vector<64xi32>, vector<64xi1> into vector<64xf32>
+      %2 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<64xi1>
+      %3 = ave.hir.vadd %res, %1, %2 {element_alignment_bit_width = 32 : i32} : vector<64xf32>, vector<64xi1>
+      %4 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<64xi1>
+      ave.hir.masked_store <NORM_B32> %subview_2[%c0], %4, %3 {element_alignment_bit_width = 32 : i32, hivm.is_continuous} : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>, vector<64xi1>, vector<64xf32>
+    } {element_alignment_bit_width = 32 : i32}
+    return
+  }
+  func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub>>, %arg1: memref<8x832xi32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %c1 = arith.constant 1 : index
+    %c8 = arith.constant 8 : index
+    %c64 = arith.constant 64 : index
+    %c832 = arith.constant 832 : index
+    %c0 = arith.constant 0 : index
+    scf.for %arg2 = %c0 to %c8 step %c1 {
+      scf.for %arg3 = %c0 to %c832 step %c64 {
+        %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
+        %res = ave.hir.vload <NORM> %subview[%c0, %c0] {ave.unaligned_ub_access = #ave.unaligned_ub_access, element_alignment_bit_width = 32 : i32} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>> into vector<64xi8>
+        %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
+        %0 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<64xi1>
+        %1 = ave.hir.vextsi %res, %0 {element_alignment_bit_width = 32 : i32, pp = #ave.vcvt_pp_type<pp0>} : vector<64xi8>, vector<64xi32>, vector<64xi1>
+        %subview_1 = memref.subview %subview_0[0, 0] [1, 64] [1, 1] : memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>> to memref<64xi32, #map, #hivm.address_space<ub>>
+        %2 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<64xi1>
+        ave.hir.masked_store <NORM_B32> %subview_1[%c0], %2, %1 {element_alignment_bit_width = 32 : i32, hivm.is_continuous} : memref<64xi32, #map, #hivm.address_space<ub>>, vector<64xi1>, vector<64xi32>
+      } {element_alignment_bit_width = 32 : i32}
+    } {element_alignment_bit_width = 32 : i32}
+    return
+  }
+  func.func @adc_func_outlined_vf_2(%arg0: memref<832x8xi8, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 8 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %c0 = arith.constant 0 : index
+    %c832 = arith.constant 832 : index
+    %c1 = arith.constant 1 : index
+    %c0_i16 = arith.constant 0 : i16
+    %0 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<256xi1>
+    %1 = ave.hir.broadcast %c0_i16, %0 {element_alignment_bit_width = 8 : i32} : i16, vector<256xi1> -> vector<256xi8>
+    scf.for %arg1 = %c0 to %c832 step %c1 {
+      %subview = memref.subview %arg0[%arg1, 0] [1, 8] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<1x8xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
+      %2 = ave.hir.pge <VL8> {element_alignment_bit_width = -1 : i32, mask_op_idx = 0 : i32} : vector<256xi1>
+      %subview_0 = memref.subview %subview[0, 0] [1, 8] [1, 1] : memref<1x8xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>> to memref<8xi8, #map, #hivm.address_space<ub>>
+      ave.hir.masked_store <NORM_B8> %subview_0[%c0], %2, %1 {ave.unaligned_ub_access = #ave.unaligned_ub_access, element_alignment_bit_width = 8 : i32} : memref<8xi8, #map, #hivm.address_space<ub>>, vector<256xi1>, vector<256xi8>
+    } {element_alignment_bit_width = -1 : i32}
+    return
+  }
+  func.func @adc_func_outlined_vf_3(%arg0: memref<832xf32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %c0 = arith.constant 0 : index
+    %c832 = arith.constant 832 : index
+    %c64 = arith.constant 64 : index
+    %cst = arith.constant 0.000000e+00 : f32
+    %0 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<64xi1>
+    %1 = ave.hir.broadcast %cst, %0 {element_alignment_bit_width = 32 : i32} : f32, vector<64xi1> -> vector<64xf32>
+    scf.for %arg1 = %c0 to %c832 step %c64 {
+      %subview = memref.subview %arg0[%arg1] [64] [1] : memref<832xf32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+      %2 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<64xi1>
+      ave.hir.masked_store <NORM_B32> %subview[%c0], %2, %1 {element_alignment_bit_width = 32 : i32, hivm.is_continuous} : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>, vector<64xi1>, vector<64xf32>
+    } {element_alignment_bit_width = -1 : i32}
+    return
+  }
+  func.func @adc_func_outlined_vf_4(%arg0: memref<832xf32, #hivm.address_space<ub>>, %arg1: memref<832xf32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %c64 = arith.constant 64 : index
+    %c832 = arith.constant 832 : index
+    %c0 = arith.constant 0 : index
+    scf.for %arg2 = %c0 to %c832 step %c64 {
+      %subview = memref.subview %arg0[%arg2] [64] [1] : memref<832xf32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+      %subview_0 = memref.subview %arg1[%arg2] [64] [1] : memref<832xf32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+      %res = ave.hir.vload <NORM> %subview[%c0] {element_alignment_bit_width = 32 : i32} : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> into vector<64xf32>
+      %0 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<64xi1>
+      %1 = ave.hir.vsqrt %res, %0 {element_alignment_bit_width = 32 : i32} : vector<64xf32>, vector<64xi1>
+      %2 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<64xi1>
+      ave.hir.masked_store <NORM_B32> %subview_0[%c0], %2, %1 {element_alignment_bit_width = 32 : i32, hivm.is_continuous} : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>, vector<64xi1>, vector<64xf32>
+    } {element_alignment_bit_width = 32 : i32}
+    return
+  }
+  func.func private @load_gm_to_ubuf_1d_float(memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>, memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>, i32, f32, index, i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface}
+  func.func private @load_gm_to_ubuf_2d_int8_t(memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<gm>>, memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<ub>>, i32, i8, index, i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface}
+  func.func private @copy_ubuf_to_ubuf_1d_int8_t(memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>, memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface}
+  func.func private @store_ubuf_to_gm_1d_float(memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>, memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>, i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface}
+  func.func @adc_func(%arg0: memref<?xi8, #hivm.address_space<gm>> {hacc.arg_type = #hacc.arg_type<sync_block_lock>}, %arg1: memref<?xi8, #hivm.address_space<gm>> {hacc.arg_type = #hacc.arg_type<workspace>}, %arg2: memref<?xf32, #hivm.address_space<gm>>, %arg3: memref<?xi8, #hivm.address_space<gm>>, %arg4: memref<?xf32, #hivm.address_space<gm>>, %arg5: i32, %arg6: i32, %arg7: i32, %arg8: i32) attributes {SyncBlockLockArgIdx = 0 : i64, WorkspaceArgIdx = 1 : i64, func_dyn_memref_args = dense<[true, true, true, true, true, false, false, false, false]> : vector<9xi1>, hacc.entry, hacc.function_kind = #hacc.function_kind<DEVICE>, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vf_mode = #hivm.vf_mode<SIMD>, mix_mode = "aiv", parallel_mode = "simd"} {
+    %c0_i8 = arith.constant 0 : i8
+    %cst = arith.constant 0.000000e+00 : f32
+    %c0 = arith.constant 0 : index
+    %c0_i32 = arith.constant 0 : i32
+    %c46591_i32 = arith.constant 46591 : i32
+    %c46592_i32 = arith.constant 46592 : i32
+    %c56_i32 = arith.constant 56 : i32
+    %c831_i32 = arith.constant 831 : i32
+    %c832_i32 = arith.constant 832 : i32
+    %c8_i32 = arith.constant 8 : i32
+    %c1_i32 = arith.constant 1 : i32
+    %c0_i64 = arith.constant 0 : i64
+    %c65536_i64 = arith.constant 65536 : i64
+    %c72192_i64 = arith.constant 72192 : i64
+    %c82176_i64 = arith.constant 82176 : i64
+    %c1_i64 = arith.constant 1 : i64
+    %c112128_i64 = arith.constant 112128 : i64
+    %c75520_i64 = arith.constant 75520 : i64
+    %c108800_i64 = arith.constant 108800 : i64
+    %c118784_i64 = arith.constant 118784 : i64
+    %0 = hivm.hir.pointer_cast(%c108800_i64) : memref<832xf32, #hivm.address_space<ub>>
+    %1 = hivm.hir.pointer_cast(%c118784_i64) : memref<832xf32, #hivm.address_space<ub>>
+    %2 = hivm.hir.pointer_cast(%c75520_i64) : memref<832x8xi8, #hivm.address_space<ub>>
+    %3 = hivm.hir.pointer_cast(%c112128_i64) : memref<832x8xi8, #hivm.address_space<ub>>
+    hivm.hir.set_ctrl false at ctrl[60]
+    hivm.hir.set_ctrl true at ctrl[48]
+    %reinterpret_cast = memref.reinterpret_cast %arg2 to offset: [0], sizes: [64, 256], strides: [256, 1] : memref<?xf32, #hivm.address_space<gm>> to memref<64x256xf32, strided<[256, 1]>, #hivm.address_space<gm>>
+    %4 = arith.index_cast %arg5 : i32 to index
+    %reinterpret_cast_0 = memref.reinterpret_cast %arg4 to offset: [0], sizes: [%4], strides: [1] : memref<?xf32, #hivm.address_space<gm>> to memref<?xf32, strided<[1]>, #hivm.address_space<gm>>
+    %reinterpret_cast_1 = memref.reinterpret_cast %arg3 to offset: [0], sizes: [%4, 64], strides: [64, 1] : memref<?xi8, #hivm.address_space<gm>> to memref<?x64xi8, strided<[64, 1]>, #hivm.address_space<gm>>
+    %5 = hivm.hir.get_block_idx -> i64
+    %6 = arith.trunci %5 : i64 to i32
+    %7 = hivm.hir.pointer_cast(%c0_i64) : memref<64x256xf32, #hivm.address_space<ub>>
+    %collapse_shape = memref.collapse_shape %reinterpret_cast [[0, 1]] : memref<64x256xf32, strided<[256, 1]>, #hivm.address_space<gm>> into memref<16384xf32, strided<[1]>, #hivm.address_space<gm>>
+    %collapse_shape_2 = memref.collapse_shape %7 [[0, 1]] : memref<64x256xf32, #hivm.address_space<ub>> into memref<16384xf32, #hivm.address_space<ub>>
+    hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID0>]
+    hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID1>]
+    hivm.hir.set_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID0>]
+    hivm.hir.set_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID1>]
+    %cast = memref.cast %collapse_shape : memref<16384xf32, strided<[1]>, #hivm.address_space<gm>> to memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>
+    %cast_3 = memref.cast %collapse_shape_2 : memref<16384xf32, #hivm.address_space<ub>> to memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>
+    call @load_gm_to_ubuf_1d_float(%cast, %cast_3, %c0_i32, %cst, %c0, %c0_i32) : (memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>, memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>, i32, f32, index, i32) -> ()
+    %8 = arith.addi %arg5, %c46591_i32 : i32
+    %9 = arith.divsi %8, %c46592_i32 : i32
+    %10 = arith.addi %arg5, %c831_i32 : i32
+    %11 = arith.divsi %10, %c832_i32 : i32
+    scf.for %arg9 = %c0_i32 to %9 step %c1_i32  : i32 {
+      %12 = arith.index_cast %arg9 : i32 to index
+      %13 = affine.apply #map1()[%12]
+      %14 = arith.index_cast %13 : index to i64
+      %15 = arith.cmpi eq, %14, %c1_i64 : i64
+      %16 = arith.select %15, %1, %0 : memref<832xf32, #hivm.address_space<ub>>
+      %17 = arith.extui %15 : i1 to i64
+      %18 = arith.muli %arg9, %c56_i32 : i32
+      %19 = arith.addi %18, %6 : i32
+      %20 = arith.cmpi slt, %19, %11 : i32
+      scf.if %20 {
+        %21 = hivm.hir.pointer_cast(%c65536_i64) : memref<832x8xi8, #hivm.address_space<ub>>
+        func.call @adc_func_outlined_vf_2(%21) {hivm.vector_function, no_inline} : (memref<832x8xi8, #hivm.address_space<ub>>) -> ()
+        %22 = hivm.hir.pointer_cast(%c72192_i64) : memref<832xf32, #hivm.address_space<ub>>
+        func.call @adc_func_outlined_vf_3(%22) {hivm.vector_function, no_inline} : (memref<832xf32, #hivm.address_space<ub>>) -> ()
+        %23 = arith.muli %arg9, %c46592_i32 : i32
+        %24 = arith.muli %6, %c832_i32 : i32
+        %25 = arith.addi %23, %24 : i32
+        %26 = arith.index_cast %25 : i32 to index
+        %27 = arith.subi %arg5, %24 : i32
+        %28 = arith.subi %27, %23 : i32
+        %29 = arith.minsi %28, %c832_i32 : i32
+        %30 = arith.index_cast %29 : i32 to index
+        %31 = scf.for %arg10 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg11 = %22) -> (memref<832xf32, #hivm.address_space<ub>>)  : i32 {
+          %32 = arith.index_cast %arg10 : i32 to index
+          %33 = affine.apply #map1()[%32]
+          %34 = arith.index_cast %33 : index to i64
+          %35 = arith.cmpi eq, %34, %c1_i64 : i64
+          %36 = arith.select %35, %3, %2 : memref<832x8xi8, #hivm.address_space<ub>>
+          %37 = arith.extui %35 : i1 to i64
+          %38 = arith.muli %arg10, %c8_i32 : i32
+          %39 = arith.index_cast %38 : i32 to index
+          %subview_7 = memref.subview %reinterpret_cast_1[%26, %39] [%30, 8] [1, 1] : memref<?x64xi8, strided<[64, 1]>, #hivm.address_space<gm>> to memref<?x8xi8, strided<[64, 1], offset: ?>, #hivm.address_space<gm>>
+          %subview_8 = memref.subview %36[0, 0] [%30, 8] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<?x8xi8, strided<[8, 1]>, #hivm.address_space<ub>>
+          hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE2>, %37]
+          %cast_9 = memref.cast %subview_7 : memref<?x8xi8, strided<[64, 1], offset: ?>, #hivm.address_space<gm>> to memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<gm>>
+          %cast_10 = memref.cast %subview_8 : memref<?x8xi8, strided<[8, 1]>, #hivm.address_space<ub>> to memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<ub>>
+          func.call @load_gm_to_ubuf_2d_int8_t(%cast_9, %cast_10, %c0_i32, %c0_i8, %c0, %c0_i32) : (memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<gm>>, memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<ub>>, i32, i8, index, i32) -> ()
+          hivm.hir.set_flag[<PIPE_MTE2>, <PIPE_V>, <EVENT_ID0>]
+          %subview_11 = memref.subview %21[0, 0] [%30, 8] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<?x8xi8, strided<[8, 1]>, #hivm.address_space<ub>>
+          %collapse_shape_12 = memref.collapse_shape %subview_8 [[0, 1]] : memref<?x8xi8, strided<[8, 1]>, #hivm.address_space<ub>> into memref<?xi8, strided<[1]>, #hivm.address_space<ub>>
+          %collapse_shape_13 = memref.collapse_shape %subview_11 [[0, 1]] : memref<?x8xi8, strided<[8, 1]>, #hivm.address_space<ub>> into memref<?xi8, strided<[1]>, #hivm.address_space<ub>>
+          hivm.hir.wait_flag[<PIPE_MTE2>, <PIPE_V>, <EVENT_ID0>]
+          %cast_14 = memref.cast %collapse_shape_12 : memref<?xi8, strided<[1]>, #hivm.address_space<ub>> to memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>
+          %cast_15 = memref.cast %collapse_shape_13 : memref<?xi8, strided<[1]>, #hivm.address_space<ub>> to memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>
+          func.call @copy_ubuf_to_ubuf_1d_int8_t(%cast_14, %cast_15) : (memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>, memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>) -> ()
+          hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE2>, %37]
+          %40 = hivm.hir.pointer_cast(%c82176_i64) : memref<8x832xi32, #hivm.address_space<ub>>
+          func.call @adc_func_outlined_vf_1(%21, %40) {hivm.vector_function, no_inline} : (memref<832x8xi8, #hivm.address_space<ub>>, memref<8x832xi32, #hivm.address_space<ub>>) -> ()
+          %41 = scf.for %arg12 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg13 = %arg11) -> (memref<832xf32, #hivm.address_space<ub>>)  : i32 {
+            %42 = arith.addi %38, %arg12 : i32
+            %43 = arith.index_cast %42 : i32 to index
+            %44 = arith.index_cast %arg12 : i32 to index
+            %45 = hivm.hir.pointer_cast(%c72192_i64) : memref<832xf32, #hivm.address_space<ub>>
+            func.call @adc_func_outlined_vf_0(%arg13, %40, %44, %7, %43, %45) {hivm.vector_function, no_inline} : (memref<832xf32, #hivm.address_space<ub>>, memref<8x832xi32, #hivm.address_space<ub>>, index, memref<64x256xf32, #hivm.address_space<ub>>, index, memref<832xf32, #hivm.address_space<ub>>) -> ()
+            scf.yield %45 : memref<832xf32, #hivm.address_space<ub>>
+          }
+          scf.yield %41 : memref<832xf32, #hivm.address_space<ub>>
+        }
+        hivm.hir.wait_flag[<PIPE_MTE3>, <PIPE_V>, %17]
+        func.call @adc_func_outlined_vf_4(%31, %16) {hivm.vector_function, no_inline} : (memref<832xf32, #hivm.address_space<ub>>, memref<832xf32, #hivm.address_space<ub>>) -> ()
+        hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE3>, <EVENT_ID0>]
+        %subview = memref.subview %16[0] [%30] [1] : memref<832xf32, #hivm.address_space<ub>> to memref<?xf32, strided<[1]>, #hivm.address_space<ub>>
+        %subview_4 = memref.subview %reinterpret_cast_0[%26] [%30] [1] : memref<?xf32, strided<[1]>, #hivm.address_space<gm>> to memref<?xf32, strided<[1], offset: ?>, #hivm.address_space<gm>>
+        hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE3>, <EVENT_ID0>]
+        hivm.hir.pipe_barrier[<PIPE_MTE3>]
+        %cast_5 = memref.cast %subview : memref<?xf32, strided<[1]>, #hivm.address_space<ub>> to memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>
+        %cast_6 = memref.cast %subview_4 : memref<?xf32, strided<[1], offset: ?>, #hivm.address_space<gm>> to memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>
+        func.call @store_ubuf_to_gm_1d_float(%cast_5, %cast_6, %c0_i32) : (memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>, memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>, i32) -> ()
+        hivm.hir.set_flag[<PIPE_MTE3>, <PIPE_V>, %17]
+      }
+    }
+    hivm.hir.pipe_barrier[<PIPE_ALL>]
+    hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID0>]
+    hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID1>]
+    hivm.hir.wait_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID0>]
+    hivm.hir.wait_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID1>]
+    return
+  }
+}
+
+
+// -----// IR Dump Before ExpandStridedMetadata (expand-strided-metadata) //----- //
+#map = affine_map<(d0)[s0] -> (d0 + s0)>
+#map1 = affine_map<()[s0] -> (s0 mod 2)>
+module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #hacc.target_device_spec<#dlti.dl_entry<"AI_CORE_COUNT", 28 : i32>, #dlti.dl_entry<"CUBE_CORE_COUNT", 28 : i32>, #dlti.dl_entry<"VECTOR_CORE_COUNT", 56 : i32>, #dlti.dl_entry<"UB_SIZE", 2031616 : i32>, #dlti.dl_entry<"L1_SIZE", 4194304 : i32>, #dlti.dl_entry<"L0A_SIZE", 524288 : i32>, #dlti.dl_entry<"L0B_SIZE", 524288 : i32>, #dlti.dl_entry<"L0C_SIZE", 2097152 : i32>, #dlti.dl_entry<"UB_ALIGN_SIZE", 256 : i32>, #dlti.dl_entry<"L1_ALIGN_SIZE", 256 : i32>, #dlti.dl_entry<"L0C_ALIGN_SIZE", 4096 : i32>, #dlti.dl_entry<"MINIMAL_D_CACHE_SIZE", 262144 : i32>, #dlti.dl_entry<"MAXIMUM_D_CACHE_SIZE", 983040 : i32>, #dlti.dl_entry<"ARCH", "dav-c310">>>, hacc.target = #hacc.target<"Ascend950PR_9579">, hivm.module_core_type = #hivm.module_core_type<AIV>, memref.memref_as_ptr} {
+  func.func @adc_func_outlined_vf_0(%arg0: memref<832xf32, #hivm.address_space<ub>>, %arg1: memref<8x832xi32, #hivm.address_space<ub>>, %arg2: index, %arg3: memref<64x256xf32, #hivm.address_space<ub>>, %arg4: index, %arg5: memref<832xf32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %c0 = arith.constant 0 : index
+    %c832 = arith.constant 832 : index
+    %c64 = arith.constant 64 : index
+    %0 = ave.hir.pge <ALL> {element_alignment_bit_width = 32 : i32} : vector<64xi1>
+    %subview = memref.subview %arg3[%arg4, 0] [1, 256] [1, 1] : memref<64x256xf32, #hivm.address_space<ub>> to memref<256xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+    scf.for %arg6 = %c0 to %c832 step %c64 {
+      %subview_0 = memref.subview %arg0[%arg6] [64] [1] : memref<832xf32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+      %subview_1 = memref.subview %arg1[%arg2, %arg6] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<64xi32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+      %subview_2 = memref.subview %arg5[%arg6] [64] [1] : memref<832xf32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+      %res = ave.hir.vload <NORM> %subview_0[%c0] {element_alignment_bit_width = 32 : i32} : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> into vector<64xf32>
+      %res_3 = ave.hir.vload <NORM> %subview_1[%c0] {element_alignment_bit_width = 32 : i32} : memref<64xi32, strided<[1], offset: ?>, #hivm.address_space<ub>> into vector<64xi32>
+      %1 = ave.hir.vgather %subview[%c0] [%res_3], %0 {element_alignment_bit_width = 32 : i32} : memref<256xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>, vector<64xi32>, vector<64xi1> into vector<64xf32>
+      %2 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<64xi1>
+      %3 = ave.hir.vadd %res, %1, %2 {element_alignment_bit_width = 32 : i32} : vector<64xf32>, vector<64xi1>
+      %4 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<64xi1>
+      ave.hir.masked_store <NORM_B32> %subview_2[%c0], %4, %3 {element_alignment_bit_width = 32 : i32, hivm.is_continuous} : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>, vector<64xi1>, vector<64xf32>
+    } {element_alignment_bit_width = 32 : i32}
+    return
+  }
+  func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub>>, %arg1: memref<8x832xi32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %c1 = arith.constant 1 : index
+    %c8 = arith.constant 8 : index
+    %c64 = arith.constant 64 : index
+    %c832 = arith.constant 832 : index
+    %c0 = arith.constant 0 : index
+    scf.for %arg2 = %c0 to %c8 step %c1 {
+      scf.for %arg3 = %c0 to %c832 step %c64 {
+        %subview = memref.subview %arg0[%arg3, %arg2] [64, 1] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
+        %res = ave.hir.vload <NORM> %subview[%c0, %c0] {ave.unaligned_ub_access = #ave.unaligned_ub_access, element_alignment_bit_width = 32 : i32} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>> into vector<64xi8>
+        %subview_0 = memref.subview %arg1[%arg2, %arg3] [1, 64] [1, 1] : memref<8x832xi32, #hivm.address_space<ub>> to memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>>
+        %0 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<64xi1>
+        %1 = ave.hir.vextsi %res, %0 {element_alignment_bit_width = 32 : i32, pp = #ave.vcvt_pp_type<pp0>} : vector<64xi8>, vector<64xi32>, vector<64xi1>
+        %subview_1 = memref.subview %subview_0[0, 0] [1, 64] [1, 1] : memref<1x64xi32, strided<[832, 1], offset: ?>, #hivm.address_space<ub>> to memref<64xi32, #map, #hivm.address_space<ub>>
+        %2 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<64xi1>
+        ave.hir.masked_store <NORM_B32> %subview_1[%c0], %2, %1 {element_alignment_bit_width = 32 : i32, hivm.is_continuous} : memref<64xi32, #map, #hivm.address_space<ub>>, vector<64xi1>, vector<64xi32>
+      } {element_alignment_bit_width = 32 : i32}
+    } {element_alignment_bit_width = 32 : i32}
+    return
+  }
+  func.func @adc_func_outlined_vf_2(%arg0: memref<832x8xi8, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 8 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %c0 = arith.constant 0 : index
+    %c832 = arith.constant 832 : index
+    %c1 = arith.constant 1 : index
+    %c0_i16 = arith.constant 0 : i16
+    %0 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<256xi1>
+    %1 = ave.hir.broadcast %c0_i16, %0 {element_alignment_bit_width = 8 : i32} : i16, vector<256xi1> -> vector<256xi8>
+    scf.for %arg1 = %c0 to %c832 step %c1 {
+      %subview = memref.subview %arg0[%arg1, 0] [1, 8] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<1x8xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
+      %2 = ave.hir.pge <VL8> {element_alignment_bit_width = -1 : i32, mask_op_idx = 0 : i32} : vector<256xi1>
+      %subview_0 = memref.subview %subview[0, 0] [1, 8] [1, 1] : memref<1x8xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>> to memref<8xi8, #map, #hivm.address_space<ub>>
+      ave.hir.masked_store <NORM_B8> %subview_0[%c0], %2, %1 {ave.unaligned_ub_access = #ave.unaligned_ub_access, element_alignment_bit_width = 8 : i32} : memref<8xi8, #map, #hivm.address_space<ub>>, vector<256xi1>, vector<256xi8>
+    } {element_alignment_bit_width = -1 : i32}
+    return
+  }
+  func.func @adc_func_outlined_vf_3(%arg0: memref<832xf32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %c0 = arith.constant 0 : index
+    %c832 = arith.constant 832 : index
+    %c64 = arith.constant 64 : index
+    %cst = arith.constant 0.000000e+00 : f32
+    %0 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<64xi1>
+    %1 = ave.hir.broadcast %cst, %0 {element_alignment_bit_width = 32 : i32} : f32, vector<64xi1> -> vector<64xf32>
+    scf.for %arg1 = %c0 to %c832 step %c64 {
+      %subview = memref.subview %arg0[%arg1] [64] [1] : memref<832xf32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+      %2 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<64xi1>
+      ave.hir.masked_store <NORM_B32> %subview[%c0], %2, %1 {element_alignment_bit_width = 32 : i32, hivm.is_continuous} : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>, vector<64xi1>, vector<64xf32>
+    } {element_alignment_bit_width = -1 : i32}
+    return
+  }
+  func.func @adc_func_outlined_vf_4(%arg0: memref<832xf32, #hivm.address_space<ub>>, %arg1: memref<832xf32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %c64 = arith.constant 64 : index
+    %c832 = arith.constant 832 : index
+    %c0 = arith.constant 0 : index
+    scf.for %arg2 = %c0 to %c832 step %c64 {
+      %subview = memref.subview %arg0[%arg2] [64] [1] : memref<832xf32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+      %subview_0 = memref.subview %arg1[%arg2] [64] [1] : memref<832xf32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+      %res = ave.hir.vload <NORM> %subview[%c0] {element_alignment_bit_width = 32 : i32} : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> into vector<64xf32>
+      %0 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<64xi1>
+      %1 = ave.hir.vsqrt %res, %0 {element_alignment_bit_width = 32 : i32} : vector<64xf32>, vector<64xi1>
+      %2 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<64xi1>
+      ave.hir.masked_store <NORM_B32> %subview_0[%c0], %2, %1 {element_alignment_bit_width = 32 : i32, hivm.is_continuous} : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>, vector<64xi1>, vector<64xf32>
+    } {element_alignment_bit_width = 32 : i32}
+    return
+  }
+  func.func private @load_gm_to_ubuf_1d_float(memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>, memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>, i32, f32, index, i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface}
+  func.func private @load_gm_to_ubuf_2d_int8_t(memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<gm>>, memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<ub>>, i32, i8, index, i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface}
+  func.func private @copy_ubuf_to_ubuf_1d_int8_t(memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>, memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface}
+  func.func private @store_ubuf_to_gm_1d_float(memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>, memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>, i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface}
+  func.func @adc_func(%arg0: memref<?xi8, #hivm.address_space<gm>> {hacc.arg_type = #hacc.arg_type<sync_block_lock>}, %arg1: memref<?xi8, #hivm.address_space<gm>> {hacc.arg_type = #hacc.arg_type<workspace>}, %arg2: memref<?xf32, #hivm.address_space<gm>>, %arg3: memref<?xi8, #hivm.address_space<gm>>, %arg4: memref<?xf32, #hivm.address_space<gm>>, %arg5: i32, %arg6: i32, %arg7: i32, %arg8: i32) attributes {SyncBlockLockArgIdx = 0 : i64, WorkspaceArgIdx = 1 : i64, func_dyn_memref_args = dense<[true, true, true, true, true, false, false, false, false]> : vector<9xi1>, hacc.entry, hacc.function_kind = #hacc.function_kind<DEVICE>, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vf_mode = #hivm.vf_mode<SIMD>, mix_mode = "aiv", parallel_mode = "simd"} {
+    %c0_i8 = arith.constant 0 : i8
+    %cst = arith.constant 0.000000e+00 : f32
+    %c0 = arith.constant 0 : index
+    %c0_i32 = arith.constant 0 : i32
+    %c46591_i32 = arith.constant 46591 : i32
+    %c46592_i32 = arith.constant 46592 : i32
+    %c56_i32 = arith.constant 56 : i32
+    %c831_i32 = arith.constant 831 : i32
+    %c832_i32 = arith.constant 832 : i32
+    %c8_i32 = arith.constant 8 : i32
+    %c1_i32 = arith.constant 1 : i32
+    %c0_i64 = arith.constant 0 : i64
+    %c65536_i64 = arith.constant 65536 : i64
+    %c72192_i64 = arith.constant 72192 : i64
+    %c82176_i64 = arith.constant 82176 : i64
+    %c1_i64 = arith.constant 1 : i64
+    %c112128_i64 = arith.constant 112128 : i64
+    %c75520_i64 = arith.constant 75520 : i64
+    %c108800_i64 = arith.constant 108800 : i64
+    %c118784_i64 = arith.constant 118784 : i64
+    %0 = hivm.hir.pointer_cast(%c108800_i64) : memref<832xf32, #hivm.address_space<ub>>
+    %1 = hivm.hir.pointer_cast(%c118784_i64) : memref<832xf32, #hivm.address_space<ub>>
+    %2 = hivm.hir.pointer_cast(%c75520_i64) : memref<832x8xi8, #hivm.address_space<ub>>
+    %3 = hivm.hir.pointer_cast(%c112128_i64) : memref<832x8xi8, #hivm.address_space<ub>>
+    hivm.hir.set_ctrl false at ctrl[60]
+    hivm.hir.set_ctrl true at ctrl[48]
+    %reinterpret_cast = memref.reinterpret_cast %arg2 to offset: [0], sizes: [64, 256], strides: [256, 1] : memref<?xf32, #hivm.address_space<gm>> to memref<64x256xf32, strided<[256, 1]>, #hivm.address_space<gm>>
+    %4 = arith.index_cast %arg5 : i32 to index
+    %reinterpret_cast_0 = memref.reinterpret_cast %arg4 to offset: [0], sizes: [%4], strides: [1] : memref<?xf32, #hivm.address_space<gm>> to memref<?xf32, strided<[1]>, #hivm.address_space<gm>>
+    %reinterpret_cast_1 = memref.reinterpret_cast %arg3 to offset: [0], sizes: [%4, 64], strides: [64, 1] : memref<?xi8, #hivm.address_space<gm>> to memref<?x64xi8, strided<[64, 1]>, #hivm.address_space<gm>>
+    %5 = hivm.hir.get_block_idx -> i64
+    %6 = arith.trunci %5 : i64 to i32
+    %7 = hivm.hir.pointer_cast(%c0_i64) : memref<64x256xf32, #hivm.address_space<ub>>
+    %collapse_shape = memref.collapse_shape %reinterpret_cast [[0, 1]] : memref<64x256xf32, strided<[256, 1]>, #hivm.address_space<gm>> into memref<16384xf32, strided<[1]>, #hivm.address_space<gm>>
+    %collapse_shape_2 = memref.collapse_shape %7 [[0, 1]] : memref<64x256xf32, #hivm.address_space<ub>> into memref<16384xf32, #hivm.address_space<ub>>
+    hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID0>]
+    hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID1>]
+    hivm.hir.set_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID0>]
+    hivm.hir.set_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID1>]
+    %cast = memref.cast %collapse_shape : memref<16384xf32, strided<[1]>, #hivm.address_space<gm>> to memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>
+    %cast_3 = memref.cast %collapse_shape_2 : memref<16384xf32, #hivm.address_space<ub>> to memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>
+    call @load_gm_to_ubuf_1d_float(%cast, %cast_3, %c0_i32, %cst, %c0, %c0_i32) : (memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>, memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>, i32, f32, index, i32) -> ()
+    %8 = arith.addi %arg5, %c46591_i32 : i32
+    %9 = arith.divsi %8, %c46592_i32 : i32
+    %10 = arith.addi %arg5, %c831_i32 : i32
+    %11 = arith.divsi %10, %c832_i32 : i32
+    scf.for %arg9 = %c0_i32 to %9 step %c1_i32  : i32 {
+      %12 = arith.index_cast %arg9 : i32 to index
+      %13 = affine.apply #map1()[%12]
+      %14 = arith.index_cast %13 : index to i64
+      %15 = arith.cmpi eq, %14, %c1_i64 : i64
+      %16 = arith.select %15, %1, %0 : memref<832xf32, #hivm.address_space<ub>>
+      %17 = arith.extui %15 : i1 to i64
+      %18 = arith.muli %arg9, %c56_i32 : i32
+      %19 = arith.addi %18, %6 : i32
+      %20 = arith.cmpi slt, %19, %11 : i32
+      scf.if %20 {
+        %21 = hivm.hir.pointer_cast(%c65536_i64) : memref<832x8xi8, #hivm.address_space<ub>>
+        func.call @adc_func_outlined_vf_2(%21) {hivm.vector_function, no_inline} : (memref<832x8xi8, #hivm.address_space<ub>>) -> ()
+        %22 = hivm.hir.pointer_cast(%c72192_i64) : memref<832xf32, #hivm.address_space<ub>>
+        func.call @adc_func_outlined_vf_3(%22) {hivm.vector_function, no_inline} : (memref<832xf32, #hivm.address_space<ub>>) -> ()
+        %23 = arith.muli %arg9, %c46592_i32 : i32
+        %24 = arith.muli %6, %c832_i32 : i32
+        %25 = arith.addi %23, %24 : i32
+        %26 = arith.index_cast %25 : i32 to index
+        %27 = arith.subi %arg5, %24 : i32
+        %28 = arith.subi %27, %23 : i32
+        %29 = arith.minsi %28, %c832_i32 : i32
+        %30 = arith.index_cast %29 : i32 to index
+        %31 = scf.for %arg10 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg11 = %22) -> (memref<832xf32, #hivm.address_space<ub>>)  : i32 {
+          %32 = arith.index_cast %arg10 : i32 to index
+          %33 = affine.apply #map1()[%32]
+          %34 = arith.index_cast %33 : index to i64
+          %35 = arith.cmpi eq, %34, %c1_i64 : i64
+          %36 = arith.select %35, %3, %2 : memref<832x8xi8, #hivm.address_space<ub>>
+          %37 = arith.extui %35 : i1 to i64
+          %38 = arith.muli %arg10, %c8_i32 : i32
+          %39 = arith.index_cast %38 : i32 to index
+          %subview_7 = memref.subview %reinterpret_cast_1[%26, %39] [%30, 8] [1, 1] : memref<?x64xi8, strided<[64, 1]>, #hivm.address_space<gm>> to memref<?x8xi8, strided<[64, 1], offset: ?>, #hivm.address_space<gm>>
+          %subview_8 = memref.subview %36[0, 0] [%30, 8] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<?x8xi8, strided<[8, 1]>, #hivm.address_space<ub>>
+          hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE2>, %37]
+          %cast_9 = memref.cast %subview_7 : memref<?x8xi8, strided<[64, 1], offset: ?>, #hivm.address_space<gm>> to memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<gm>>
+          %cast_10 = memref.cast %subview_8 : memref<?x8xi8, strided<[8, 1]>, #hivm.address_space<ub>> to memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<ub>>
+          func.call @load_gm_to_ubuf_2d_int8_t(%cast_9, %cast_10, %c0_i32, %c0_i8, %c0, %c0_i32) : (memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<gm>>, memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<ub>>, i32, i8, index, i32) -> ()
+          hivm.hir.set_flag[<PIPE_MTE2>, <PIPE_V>, <EVENT_ID0>]
+          %subview_11 = memref.subview %21[0, 0] [%30, 8] [1, 1] : memref<832x8xi8, #hivm.address_space<ub>> to memref<?x8xi8, strided<[8, 1]>, #hivm.address_space<ub>>
+          %collapse_shape_12 = memref.collapse_shape %subview_8 [[0, 1]] : memref<?x8xi8, strided<[8, 1]>, #hivm.address_space<ub>> into memref<?xi8, strided<[1]>, #hivm.address_space<ub>>
+          %collapse_shape_13 = memref.collapse_shape %subview_11 [[0, 1]] : memref<?x8xi8, strided<[8, 1]>, #hivm.address_space<ub>> into memref<?xi8, strided<[1]>, #hivm.address_space<ub>>
+          hivm.hir.wait_flag[<PIPE_MTE2>, <PIPE_V>, <EVENT_ID0>]
+          %cast_14 = memref.cast %collapse_shape_12 : memref<?xi8, strided<[1]>, #hivm.address_space<ub>> to memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>
+          %cast_15 = memref.cast %collapse_shape_13 : memref<?xi8, strided<[1]>, #hivm.address_space<ub>> to memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>
+          func.call @copy_ubuf_to_ubuf_1d_int8_t(%cast_14, %cast_15) : (memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>, memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>) -> ()
+          hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE2>, %37]
+          %40 = hivm.hir.pointer_cast(%c82176_i64) : memref<8x832xi32, #hivm.address_space<ub>>
+          func.call @adc_func_outlined_vf_1(%21, %40) {hivm.vector_function, no_inline} : (memref<832x8xi8, #hivm.address_space<ub>>, memref<8x832xi32, #hivm.address_space<ub>>) -> ()
+          %41 = scf.for %arg12 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg13 = %arg11) -> (memref<832xf32, #hivm.address_space<ub>>)  : i32 {
+            %42 = arith.addi %38, %arg12 : i32
+            %43 = arith.index_cast %42 : i32 to index
+            %44 = arith.index_cast %arg12 : i32 to index
+            %45 = hivm.hir.pointer_cast(%c72192_i64) : memref<832xf32, #hivm.address_space<ub>>
+            func.call @adc_func_outlined_vf_0(%arg13, %40, %44, %7, %43, %45) {hivm.vector_function, no_inline} : (memref<832xf32, #hivm.address_space<ub>>, memref<8x832xi32, #hivm.address_space<ub>>, index, memref<64x256xf32, #hivm.address_space<ub>>, index, memref<832xf32, #hivm.address_space<ub>>) -> ()
+            scf.yield %45 : memref<832xf32, #hivm.address_space<ub>>
+          }
+          scf.yield %41 : memref<832xf32, #hivm.address_space<ub>>
+        }
+        hivm.hir.wait_flag[<PIPE_MTE3>, <PIPE_V>, %17]
+        func.call @adc_func_outlined_vf_4(%31, %16) {hivm.vector_function, no_inline} : (memref<832xf32, #hivm.address_space<ub>>, memref<832xf32, #hivm.address_space<ub>>) -> ()
+        hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE3>, <EVENT_ID0>]
+        %subview = memref.subview %16[0] [%30] [1] : memref<832xf32, #hivm.address_space<ub>> to memref<?xf32, strided<[1]>, #hivm.address_space<ub>>
+        %subview_4 = memref.subview %reinterpret_cast_0[%26] [%30] [1] : memref<?xf32, strided<[1]>, #hivm.address_space<gm>> to memref<?xf32, strided<[1], offset: ?>, #hivm.address_space<gm>>
+        hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE3>, <EVENT_ID0>]
+        hivm.hir.pipe_barrier[<PIPE_MTE3>]
+        %cast_5 = memref.cast %subview : memref<?xf32, strided<[1]>, #hivm.address_space<ub>> to memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>
+        %cast_6 = memref.cast %subview_4 : memref<?xf32, strided<[1], offset: ?>, #hivm.address_space<gm>> to memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>
+        func.call @store_ubuf_to_gm_1d_float(%cast_5, %cast_6, %c0_i32) : (memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>, memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>, i32) -> ()
+        hivm.hir.set_flag[<PIPE_MTE3>, <PIPE_V>, %17]
+      }
+    }
+    hivm.hir.pipe_barrier[<PIPE_ALL>]
+    hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID0>]
+    hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID1>]
+    hivm.hir.wait_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID0>]
+    hivm.hir.wait_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID1>]
+    return
+  }
+}
+
+
+// -----// IR Dump After ExpandStridedMetadata (expand-strided-metadata) //----- //
+#map = affine_map<()[s0] -> (s0 * 256)>
+#map1 = affine_map<()[s0, s1] -> (s0 * 832 + s1)>
+#map2 = affine_map<()[s0, s1] -> (s0 * 8 + s1)>
+#map3 = affine_map<(d0)[s0] -> (d0 + s0)>
+#map4 = affine_map<()[s0] -> (s0 * 8)>
+#map5 = affine_map<()[s0] -> (s0 mod 2)>
+#map6 = affine_map<()[s0, s1] -> (s0 * 64 + s1)>
+module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #hacc.target_device_spec<#dlti.dl_entry<"AI_CORE_COUNT", 28 : i32>, #dlti.dl_entry<"CUBE_CORE_COUNT", 28 : i32>, #dlti.dl_entry<"VECTOR_CORE_COUNT", 56 : i32>, #dlti.dl_entry<"UB_SIZE", 2031616 : i32>, #dlti.dl_entry<"L1_SIZE", 4194304 : i32>, #dlti.dl_entry<"L0A_SIZE", 524288 : i32>, #dlti.dl_entry<"L0B_SIZE", 524288 : i32>, #dlti.dl_entry<"L0C_SIZE", 2097152 : i32>, #dlti.dl_entry<"UB_ALIGN_SIZE", 256 : i32>, #dlti.dl_entry<"L1_ALIGN_SIZE", 256 : i32>, #dlti.dl_entry<"L0C_ALIGN_SIZE", 4096 : i32>, #dlti.dl_entry<"MINIMAL_D_CACHE_SIZE", 262144 : i32>, #dlti.dl_entry<"MAXIMUM_D_CACHE_SIZE", 983040 : i32>, #dlti.dl_entry<"ARCH", "dav-c310">>>, hacc.target = #hacc.target<"Ascend950PR_9579">, hivm.module_core_type = #hivm.module_core_type<AIV>, memref.memref_as_ptr} {
+  func.func @adc_func_outlined_vf_0(%arg0: memref<832xf32, #hivm.address_space<ub>>, %arg1: memref<8x832xi32, #hivm.address_space<ub>>, %arg2: index, %arg3: memref<64x256xf32, #hivm.address_space<ub>>, %arg4: index, %arg5: memref<832xf32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %c0 = arith.constant 0 : index
+    %c832 = arith.constant 832 : index
+    %c64 = arith.constant 64 : index
+    %0 = ave.hir.pge <ALL> {element_alignment_bit_width = 32 : i32} : vector<64xi1>
+    %base_buffer, %offset, %sizes:2, %strides:2 = memref.extract_strided_metadata %arg3 : memref<64x256xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index, index, index
+    %1 = affine.apply #map()[%arg4]
+    %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [%1], sizes: [256], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<256xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+    scf.for %arg6 = %c0 to %c832 step %c64 {
+      %base_buffer_0, %offset_1, %sizes_2, %strides_3 = memref.extract_strided_metadata %arg0 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+      %reinterpret_cast_4 = memref.reinterpret_cast %base_buffer_0 to offset: [%arg6], sizes: [64], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+      %base_buffer_5, %offset_6, %sizes_7:2, %strides_8:2 = memref.extract_strided_metadata %arg1 : memref<8x832xi32, #hivm.address_space<ub>> -> memref<i32, #hivm.address_space<ub>>, index, index, index, index, index
+      %2 = affine.apply #map1()[%arg2, %arg6]
+      %reinterpret_cast_9 = memref.reinterpret_cast %base_buffer_5 to offset: [%2], sizes: [64], strides: [1] : memref<i32, #hivm.address_space<ub>> to memref<64xi32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+      %base_buffer_10, %offset_11, %sizes_12, %strides_13 = memref.extract_strided_metadata %arg5 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+      %reinterpret_cast_14 = memref.reinterpret_cast %base_buffer_10 to offset: [%arg6], sizes: [64], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+      %res = ave.hir.vload <NORM> %reinterpret_cast_4[%c0] {element_alignment_bit_width = 32 : i32} : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> into vector<64xf32>
+      %res_15 = ave.hir.vload <NORM> %reinterpret_cast_9[%c0] {element_alignment_bit_width = 32 : i32} : memref<64xi32, strided<[1], offset: ?>, #hivm.address_space<ub>> into vector<64xi32>
+      %3 = ave.hir.vgather %reinterpret_cast[%c0] [%res_15], %0 {element_alignment_bit_width = 32 : i32} : memref<256xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>, vector<64xi32>, vector<64xi1> into vector<64xf32>
+      %4 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<64xi1>
+      %5 = ave.hir.vadd %res, %3, %4 {element_alignment_bit_width = 32 : i32} : vector<64xf32>, vector<64xi1>
+      %6 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<64xi1>
+      ave.hir.masked_store <NORM_B32> %reinterpret_cast_14[%c0], %6, %5 {element_alignment_bit_width = 32 : i32, hivm.is_continuous} : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>, vector<64xi1>, vector<64xf32>
+    } {element_alignment_bit_width = 32 : i32}
+    return
+  }
+  func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub>>, %arg1: memref<8x832xi32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %c1 = arith.constant 1 : index
+    %c8 = arith.constant 8 : index
+    %c64 = arith.constant 64 : index
+    %c832 = arith.constant 832 : index
+    %c0 = arith.constant 0 : index
+    scf.for %arg2 = %c0 to %c8 step %c1 {
+      scf.for %arg3 = %c0 to %c832 step %c64 {
+        %base_buffer, %offset, %sizes:2, %strides:2 = memref.extract_strided_metadata %arg0 : memref<832x8xi8, #hivm.address_space<ub>> -> memref<i8, #hivm.address_space<ub>>, index, index, index, index, index
+        %0 = affine.apply #map2()[%arg3, %arg2]
+        %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [%0], sizes: [64, 1], strides: [8, 1] : memref<i8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
+        %res = ave.hir.vload <NORM> %reinterpret_cast[%c0, %c0] {ave.unaligned_ub_access = #ave.unaligned_ub_access, element_alignment_bit_width = 32 : i32} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>> into vector<64xi8>
+        %1 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<64xi1>
+        %2 = ave.hir.vextsi %res, %1 {element_alignment_bit_width = 32 : i32, pp = #ave.vcvt_pp_type<pp0>} : vector<64xi8>, vector<64xi32>, vector<64xi1>
+        %base_buffer_0, %offset_1, %sizes_2:2, %strides_3:2 = memref.extract_strided_metadata %arg1 : memref<8x832xi32, #hivm.address_space<ub>> -> memref<i32, #hivm.address_space<ub>>, index, index, index, index, index
+        %3 = affine.apply #map1()[%arg2, %arg3]
+        %reinterpret_cast_4 = memref.reinterpret_cast %base_buffer_0 to offset: [%3], sizes: [64], strides: [1] : memref<i32, #hivm.address_space<ub>> to memref<64xi32, #map3, #hivm.address_space<ub>>
+        %4 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<64xi1>
+        ave.hir.masked_store <NORM_B32> %reinterpret_cast_4[%c0], %4, %2 {element_alignment_bit_width = 32 : i32, hivm.is_continuous} : memref<64xi32, #map3, #hivm.address_space<ub>>, vector<64xi1>, vector<64xi32>
+      } {element_alignment_bit_width = 32 : i32}
+    } {element_alignment_bit_width = 32 : i32}
+    return
+  }
+  func.func @adc_func_outlined_vf_2(%arg0: memref<832x8xi8, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 8 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %c0 = arith.constant 0 : index
+    %c832 = arith.constant 832 : index
+    %c1 = arith.constant 1 : index
+    %c0_i16 = arith.constant 0 : i16
+    %0 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<256xi1>
+    %1 = ave.hir.broadcast %c0_i16, %0 {element_alignment_bit_width = 8 : i32} : i16, vector<256xi1> -> vector<256xi8>
+    scf.for %arg1 = %c0 to %c832 step %c1 {
+      %2 = ave.hir.pge <VL8> {element_alignment_bit_width = -1 : i32, mask_op_idx = 0 : i32} : vector<256xi1>
+      %base_buffer, %offset, %sizes:2, %strides:2 = memref.extract_strided_metadata %arg0 : memref<832x8xi8, #hivm.address_space<ub>> -> memref<i8, #hivm.address_space<ub>>, index, index, index, index, index
+      %3 = affine.apply #map4()[%arg1]
+      %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [%3], sizes: [8], strides: [1] : memref<i8, #hivm.address_space<ub>> to memref<8xi8, #map3, #hivm.address_space<ub>>
+      ave.hir.masked_store <NORM_B8> %reinterpret_cast[%c0], %2, %1 {ave.unaligned_ub_access = #ave.unaligned_ub_access, element_alignment_bit_width = 8 : i32} : memref<8xi8, #map3, #hivm.address_space<ub>>, vector<256xi1>, vector<256xi8>
+    } {element_alignment_bit_width = -1 : i32}
+    return
+  }
+  func.func @adc_func_outlined_vf_3(%arg0: memref<832xf32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %c0 = arith.constant 0 : index
+    %c832 = arith.constant 832 : index
+    %c64 = arith.constant 64 : index
+    %cst = arith.constant 0.000000e+00 : f32
+    %0 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<64xi1>
+    %1 = ave.hir.broadcast %cst, %0 {element_alignment_bit_width = 32 : i32} : f32, vector<64xi1> -> vector<64xf32>
+    scf.for %arg1 = %c0 to %c832 step %c64 {
+      %base_buffer, %offset, %sizes, %strides = memref.extract_strided_metadata %arg0 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+      %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [%arg1], sizes: [64], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+      %2 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<64xi1>
+      ave.hir.masked_store <NORM_B32> %reinterpret_cast[%c0], %2, %1 {element_alignment_bit_width = 32 : i32, hivm.is_continuous} : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>, vector<64xi1>, vector<64xf32>
+    } {element_alignment_bit_width = -1 : i32}
+    return
+  }
+  func.func @adc_func_outlined_vf_4(%arg0: memref<832xf32, #hivm.address_space<ub>>, %arg1: memref<832xf32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %c64 = arith.constant 64 : index
+    %c832 = arith.constant 832 : index
+    %c0 = arith.constant 0 : index
+    scf.for %arg2 = %c0 to %c832 step %c64 {
+      %base_buffer, %offset, %sizes, %strides = memref.extract_strided_metadata %arg0 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+      %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [%arg2], sizes: [64], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+      %base_buffer_0, %offset_1, %sizes_2, %strides_3 = memref.extract_strided_metadata %arg1 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+      %reinterpret_cast_4 = memref.reinterpret_cast %base_buffer_0 to offset: [%arg2], sizes: [64], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+      %res = ave.hir.vload <NORM> %reinterpret_cast[%c0] {element_alignment_bit_width = 32 : i32} : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> into vector<64xf32>
+      %0 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<64xi1>
+      %1 = ave.hir.vsqrt %res, %0 {element_alignment_bit_width = 32 : i32} : vector<64xf32>, vector<64xi1>
+      %2 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<64xi1>
+      ave.hir.masked_store <NORM_B32> %reinterpret_cast_4[%c0], %2, %1 {element_alignment_bit_width = 32 : i32, hivm.is_continuous} : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>, vector<64xi1>, vector<64xf32>
+    } {element_alignment_bit_width = 32 : i32}
+    return
+  }
+  func.func private @load_gm_to_ubuf_1d_float(memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>, memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>, i32, f32, index, i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface}
+  func.func private @load_gm_to_ubuf_2d_int8_t(memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<gm>>, memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<ub>>, i32, i8, index, i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface}
+  func.func private @copy_ubuf_to_ubuf_1d_int8_t(memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>, memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface}
+  func.func private @store_ubuf_to_gm_1d_float(memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>, memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>, i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface}
+  func.func @adc_func(%arg0: memref<?xi8, #hivm.address_space<gm>> {hacc.arg_type = #hacc.arg_type<sync_block_lock>}, %arg1: memref<?xi8, #hivm.address_space<gm>> {hacc.arg_type = #hacc.arg_type<workspace>}, %arg2: memref<?xf32, #hivm.address_space<gm>>, %arg3: memref<?xi8, #hivm.address_space<gm>>, %arg4: memref<?xf32, #hivm.address_space<gm>>, %arg5: i32, %arg6: i32, %arg7: i32, %arg8: i32) attributes {SyncBlockLockArgIdx = 0 : i64, WorkspaceArgIdx = 1 : i64, func_dyn_memref_args = dense<[true, true, true, true, true, false, false, false, false]> : vector<9xi1>, hacc.entry, hacc.function_kind = #hacc.function_kind<DEVICE>, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vf_mode = #hivm.vf_mode<SIMD>, mix_mode = "aiv", parallel_mode = "simd"} {
+    %c0_i8 = arith.constant 0 : i8
+    %cst = arith.constant 0.000000e+00 : f32
+    %c0 = arith.constant 0 : index
+    %c0_i32 = arith.constant 0 : i32
+    %c46591_i32 = arith.constant 46591 : i32
+    %c46592_i32 = arith.constant 46592 : i32
+    %c56_i32 = arith.constant 56 : i32
+    %c831_i32 = arith.constant 831 : i32
+    %c832_i32 = arith.constant 832 : i32
+    %c8_i32 = arith.constant 8 : i32
+    %c1_i32 = arith.constant 1 : i32
+    %c0_i64 = arith.constant 0 : i64
+    %c65536_i64 = arith.constant 65536 : i64
+    %c72192_i64 = arith.constant 72192 : i64
+    %c82176_i64 = arith.constant 82176 : i64
+    %c1_i64 = arith.constant 1 : i64
+    %c112128_i64 = arith.constant 112128 : i64
+    %c75520_i64 = arith.constant 75520 : i64
+    %c108800_i64 = arith.constant 108800 : i64
+    %c118784_i64 = arith.constant 118784 : i64
+    %0 = hivm.hir.pointer_cast(%c108800_i64) : memref<832xf32, #hivm.address_space<ub>>
+    %1 = hivm.hir.pointer_cast(%c118784_i64) : memref<832xf32, #hivm.address_space<ub>>
+    %2 = hivm.hir.pointer_cast(%c75520_i64) : memref<832x8xi8, #hivm.address_space<ub>>
+    %3 = hivm.hir.pointer_cast(%c112128_i64) : memref<832x8xi8, #hivm.address_space<ub>>
+    hivm.hir.set_ctrl false at ctrl[60]
+    hivm.hir.set_ctrl true at ctrl[48]
+    %4 = hivm.hir.get_block_idx -> i64
+    %5 = arith.trunci %4 : i64 to i32
+    %6 = hivm.hir.pointer_cast(%c0_i64) : memref<64x256xf32, #hivm.address_space<ub>>
+    %base_buffer, %offset, %sizes, %strides = memref.extract_strided_metadata %arg2 : memref<?xf32, #hivm.address_space<gm>> -> memref<f32, #hivm.address_space<gm>>, index, index, index
+    %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [0], sizes: [16384], strides: [1] : memref<f32, #hivm.address_space<gm>> to memref<16384xf32, strided<[1]>, #hivm.address_space<gm>>
+    %base_buffer_0, %offset_1, %sizes_2:2, %strides_3:2 = memref.extract_strided_metadata %6 : memref<64x256xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index, index, index
+    %reinterpret_cast_4 = memref.reinterpret_cast %base_buffer_0 to offset: [0], sizes: [16384], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<16384xf32, #hivm.address_space<ub>>
+    hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID0>]
+    hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID1>]
+    hivm.hir.set_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID0>]
+    hivm.hir.set_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID1>]
+    %cast = memref.cast %reinterpret_cast : memref<16384xf32, strided<[1]>, #hivm.address_space<gm>> to memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>
+    %cast_5 = memref.cast %reinterpret_cast_4 : memref<16384xf32, #hivm.address_space<ub>> to memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>
+    call @load_gm_to_ubuf_1d_float(%cast, %cast_5, %c0_i32, %cst, %c0, %c0_i32) : (memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>, memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>, i32, f32, index, i32) -> ()
+    %7 = arith.addi %arg5, %c46591_i32 : i32
+    %8 = arith.divsi %7, %c46592_i32 : i32
+    %9 = arith.addi %arg5, %c831_i32 : i32
+    %10 = arith.divsi %9, %c832_i32 : i32
+    scf.for %arg9 = %c0_i32 to %8 step %c1_i32  : i32 {
+      %11 = arith.index_cast %arg9 : i32 to index
+      %12 = affine.apply #map5()[%11]
+      %13 = arith.index_cast %12 : index to i64
+      %14 = arith.cmpi eq, %13, %c1_i64 : i64
+      %15 = arith.select %14, %1, %0 : memref<832xf32, #hivm.address_space<ub>>
+      %16 = arith.extui %14 : i1 to i64
+      %17 = arith.muli %arg9, %c56_i32 : i32
+      %18 = arith.addi %17, %5 : i32
+      %19 = arith.cmpi slt, %18, %10 : i32
+      scf.if %19 {
+        %20 = hivm.hir.pointer_cast(%c65536_i64) : memref<832x8xi8, #hivm.address_space<ub>>
+        func.call @adc_func_outlined_vf_2(%20) {hivm.vector_function, no_inline} : (memref<832x8xi8, #hivm.address_space<ub>>) -> ()
+        %21 = hivm.hir.pointer_cast(%c72192_i64) : memref<832xf32, #hivm.address_space<ub>>
+        func.call @adc_func_outlined_vf_3(%21) {hivm.vector_function, no_inline} : (memref<832xf32, #hivm.address_space<ub>>) -> ()
+        %22 = arith.muli %arg9, %c46592_i32 : i32
+        %23 = arith.muli %5, %c832_i32 : i32
+        %24 = arith.addi %22, %23 : i32
+        %25 = arith.index_cast %24 : i32 to index
+        %26 = arith.subi %arg5, %23 : i32
+        %27 = arith.subi %26, %22 : i32
+        %28 = arith.minsi %27, %c832_i32 : i32
+        %29 = arith.index_cast %28 : i32 to index
+        %30 = scf.for %arg10 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg11 = %21) -> (memref<832xf32, #hivm.address_space<ub>>)  : i32 {
+          %31 = arith.index_cast %arg10 : i32 to index
+          %32 = affine.apply #map5()[%31]
+          %33 = arith.index_cast %32 : index to i64
+          %34 = arith.cmpi eq, %33, %c1_i64 : i64
+          %35 = arith.select %34, %3, %2 : memref<832x8xi8, #hivm.address_space<ub>>
+          %36 = arith.extui %34 : i1 to i64
+          %37 = arith.muli %arg10, %c8_i32 : i32
+          %38 = arith.index_cast %37 : i32 to index
+          %base_buffer_18, %offset_19, %sizes_20, %strides_21 = memref.extract_strided_metadata %arg3 : memref<?xi8, #hivm.address_space<gm>> -> memref<i8, #hivm.address_space<gm>>, index, index, index
+          %39 = affine.apply #map6()[%25, %38]
+          %reinterpret_cast_22 = memref.reinterpret_cast %base_buffer_18 to offset: [%39], sizes: [%29, 8], strides: [64, 1] : memref<i8, #hivm.address_space<gm>> to memref<?x8xi8, strided<[64, 1], offset: ?>, #hivm.address_space<gm>>
+          %base_buffer_23, %offset_24, %sizes_25:2, %strides_26:2 = memref.extract_strided_metadata %35 : memref<832x8xi8, #hivm.address_space<ub>> -> memref<i8, #hivm.address_space<ub>>, index, index, index, index, index
+          %reinterpret_cast_27 = memref.reinterpret_cast %base_buffer_23 to offset: [0], sizes: [%29, 8], strides: [8, 1] : memref<i8, #hivm.address_space<ub>> to memref<?x8xi8, strided<[8, 1]>, #hivm.address_space<ub>>
+          hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE2>, %36]
+          %cast_28 = memref.cast %reinterpret_cast_22 : memref<?x8xi8, strided<[64, 1], offset: ?>, #hivm.address_space<gm>> to memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<gm>>
+          %cast_29 = memref.cast %reinterpret_cast_27 : memref<?x8xi8, strided<[8, 1]>, #hivm.address_space<ub>> to memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<ub>>
+          func.call @load_gm_to_ubuf_2d_int8_t(%cast_28, %cast_29, %c0_i32, %c0_i8, %c0, %c0_i32) : (memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<gm>>, memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<ub>>, i32, i8, index, i32) -> ()
+          hivm.hir.set_flag[<PIPE_MTE2>, <PIPE_V>, <EVENT_ID0>]
+          %base_buffer_30, %offset_31, %sizes_32:2, %strides_33:2 = memref.extract_strided_metadata %35 : memref<832x8xi8, #hivm.address_space<ub>> -> memref<i8, #hivm.address_space<ub>>, index, index, index, index, index
+          %40 = affine.apply #map4()[%29]
+          %reinterpret_cast_34 = memref.reinterpret_cast %base_buffer_30 to offset: [0], sizes: [%40], strides: [1] : memref<i8, #hivm.address_space<ub>> to memref<?xi8, strided<[1]>, #hivm.address_space<ub>>
+          %base_buffer_35, %offset_36, %sizes_37:2, %strides_38:2 = memref.extract_strided_metadata %20 : memref<832x8xi8, #hivm.address_space<ub>> -> memref<i8, #hivm.address_space<ub>>, index, index, index, index, index
+          %41 = affine.apply #map4()[%29]
+          %reinterpret_cast_39 = memref.reinterpret_cast %base_buffer_35 to offset: [0], sizes: [%41], strides: [1] : memref<i8, #hivm.address_space<ub>> to memref<?xi8, strided<[1]>, #hivm.address_space<ub>>
+          hivm.hir.wait_flag[<PIPE_MTE2>, <PIPE_V>, <EVENT_ID0>]
+          %cast_40 = memref.cast %reinterpret_cast_34 : memref<?xi8, strided<[1]>, #hivm.address_space<ub>> to memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>
+          %cast_41 = memref.cast %reinterpret_cast_39 : memref<?xi8, strided<[1]>, #hivm.address_space<ub>> to memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>
+          func.call @copy_ubuf_to_ubuf_1d_int8_t(%cast_40, %cast_41) : (memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>, memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>) -> ()
+          hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE2>, %36]
+          %42 = hivm.hir.pointer_cast(%c82176_i64) : memref<8x832xi32, #hivm.address_space<ub>>
+          func.call @adc_func_outlined_vf_1(%20, %42) {hivm.vector_function, no_inline} : (memref<832x8xi8, #hivm.address_space<ub>>, memref<8x832xi32, #hivm.address_space<ub>>) -> ()
+          %43 = scf.for %arg12 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg13 = %arg11) -> (memref<832xf32, #hivm.address_space<ub>>)  : i32 {
+            %44 = arith.addi %37, %arg12 : i32
+            %45 = arith.index_cast %44 : i32 to index
+            %46 = arith.index_cast %arg12 : i32 to index
+            %47 = hivm.hir.pointer_cast(%c72192_i64) : memref<832xf32, #hivm.address_space<ub>>
+            func.call @adc_func_outlined_vf_0(%arg13, %42, %46, %6, %45, %47) {hivm.vector_function, no_inline} : (memref<832xf32, #hivm.address_space<ub>>, memref<8x832xi32, #hivm.address_space<ub>>, index, memref<64x256xf32, #hivm.address_space<ub>>, index, memref<832xf32, #hivm.address_space<ub>>) -> ()
+            scf.yield %47 : memref<832xf32, #hivm.address_space<ub>>
+          }
+          scf.yield %43 : memref<832xf32, #hivm.address_space<ub>>
+        }
+        hivm.hir.wait_flag[<PIPE_MTE3>, <PIPE_V>, %16]
+        func.call @adc_func_outlined_vf_4(%30, %15) {hivm.vector_function, no_inline} : (memref<832xf32, #hivm.address_space<ub>>, memref<832xf32, #hivm.address_space<ub>>) -> ()
+        hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE3>, <EVENT_ID0>]
+        %base_buffer_6, %offset_7, %sizes_8, %strides_9 = memref.extract_strided_metadata %15 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+        %reinterpret_cast_10 = memref.reinterpret_cast %base_buffer_6 to offset: [0], sizes: [%29], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<?xf32, strided<[1]>, #hivm.address_space<ub>>
+        %base_buffer_11, %offset_12, %sizes_13, %strides_14 = memref.extract_strided_metadata %arg4 : memref<?xf32, #hivm.address_space<gm>> -> memref<f32, #hivm.address_space<gm>>, index, index, index
+        %reinterpret_cast_15 = memref.reinterpret_cast %base_buffer_11 to offset: [%25], sizes: [%29], strides: [1] : memref<f32, #hivm.address_space<gm>> to memref<?xf32, strided<[1], offset: ?>, #hivm.address_space<gm>>
+        hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE3>, <EVENT_ID0>]
+        hivm.hir.pipe_barrier[<PIPE_MTE3>]
+        %cast_16 = memref.cast %reinterpret_cast_10 : memref<?xf32, strided<[1]>, #hivm.address_space<ub>> to memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>
+        %cast_17 = memref.cast %reinterpret_cast_15 : memref<?xf32, strided<[1], offset: ?>, #hivm.address_space<gm>> to memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>
+        func.call @store_ubuf_to_gm_1d_float(%cast_16, %cast_17, %c0_i32) : (memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>, memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>, i32) -> ()
+        hivm.hir.set_flag[<PIPE_MTE3>, <PIPE_V>, %16]
+      }
+    }
+    hivm.hir.pipe_barrier[<PIPE_ALL>]
+    hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID0>]
+    hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID1>]
+    hivm.hir.wait_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID0>]
+    hivm.hir.wait_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID1>]
+    return
+  }
+}
+
+
+// -----// IR Dump Before ConvertHIVMAVEToAVEIntrin (convert-hivmave-to-ave-intrin) //----- //
+#map = affine_map<()[s0] -> (s0 * 256)>
+#map1 = affine_map<()[s0, s1] -> (s0 * 832 + s1)>
+#map2 = affine_map<()[s0, s1] -> (s0 * 8 + s1)>
+#map3 = affine_map<(d0)[s0] -> (d0 + s0)>
+#map4 = affine_map<()[s0] -> (s0 * 8)>
+#map5 = affine_map<()[s0] -> (s0 mod 2)>
+#map6 = affine_map<()[s0, s1] -> (s0 * 64 + s1)>
+module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #hacc.target_device_spec<#dlti.dl_entry<"AI_CORE_COUNT", 28 : i32>, #dlti.dl_entry<"CUBE_CORE_COUNT", 28 : i32>, #dlti.dl_entry<"VECTOR_CORE_COUNT", 56 : i32>, #dlti.dl_entry<"UB_SIZE", 2031616 : i32>, #dlti.dl_entry<"L1_SIZE", 4194304 : i32>, #dlti.dl_entry<"L0A_SIZE", 524288 : i32>, #dlti.dl_entry<"L0B_SIZE", 524288 : i32>, #dlti.dl_entry<"L0C_SIZE", 2097152 : i32>, #dlti.dl_entry<"UB_ALIGN_SIZE", 256 : i32>, #dlti.dl_entry<"L1_ALIGN_SIZE", 256 : i32>, #dlti.dl_entry<"L0C_ALIGN_SIZE", 4096 : i32>, #dlti.dl_entry<"MINIMAL_D_CACHE_SIZE", 262144 : i32>, #dlti.dl_entry<"MAXIMUM_D_CACHE_SIZE", 983040 : i32>, #dlti.dl_entry<"ARCH", "dav-c310">>>, hacc.target = #hacc.target<"Ascend950PR_9579">, hivm.module_core_type = #hivm.module_core_type<AIV>, memref.memref_as_ptr} {
+  func.func @adc_func_outlined_vf_0(%arg0: memref<832xf32, #hivm.address_space<ub>>, %arg1: memref<8x832xi32, #hivm.address_space<ub>>, %arg2: index, %arg3: memref<64x256xf32, #hivm.address_space<ub>>, %arg4: index, %arg5: memref<832xf32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %c0 = arith.constant 0 : index
+    %c832 = arith.constant 832 : index
+    %c64 = arith.constant 64 : index
+    %0 = ave.hir.pge <ALL> {element_alignment_bit_width = 32 : i32} : vector<64xi1>
+    %base_buffer, %offset, %sizes:2, %strides:2 = memref.extract_strided_metadata %arg3 : memref<64x256xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index, index, index
+    %1 = affine.apply #map()[%arg4]
+    %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [%1], sizes: [256], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<256xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+    scf.for %arg6 = %c0 to %c832 step %c64 {
+      %base_buffer_0, %offset_1, %sizes_2, %strides_3 = memref.extract_strided_metadata %arg0 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+      %reinterpret_cast_4 = memref.reinterpret_cast %base_buffer_0 to offset: [%arg6], sizes: [64], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+      %base_buffer_5, %offset_6, %sizes_7:2, %strides_8:2 = memref.extract_strided_metadata %arg1 : memref<8x832xi32, #hivm.address_space<ub>> -> memref<i32, #hivm.address_space<ub>>, index, index, index, index, index
+      %2 = affine.apply #map1()[%arg2, %arg6]
+      %reinterpret_cast_9 = memref.reinterpret_cast %base_buffer_5 to offset: [%2], sizes: [64], strides: [1] : memref<i32, #hivm.address_space<ub>> to memref<64xi32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+      %base_buffer_10, %offset_11, %sizes_12, %strides_13 = memref.extract_strided_metadata %arg5 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+      %reinterpret_cast_14 = memref.reinterpret_cast %base_buffer_10 to offset: [%arg6], sizes: [64], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+      %res = ave.hir.vload <NORM> %reinterpret_cast_4[%c0] {element_alignment_bit_width = 32 : i32} : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> into vector<64xf32>
+      %res_15 = ave.hir.vload <NORM> %reinterpret_cast_9[%c0] {element_alignment_bit_width = 32 : i32} : memref<64xi32, strided<[1], offset: ?>, #hivm.address_space<ub>> into vector<64xi32>
+      %3 = ave.hir.vgather %reinterpret_cast[%c0] [%res_15], %0 {element_alignment_bit_width = 32 : i32} : memref<256xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>, vector<64xi32>, vector<64xi1> into vector<64xf32>
+      %4 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<64xi1>
+      %5 = ave.hir.vadd %res, %3, %4 {element_alignment_bit_width = 32 : i32} : vector<64xf32>, vector<64xi1>
+      %6 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<64xi1>
+      ave.hir.masked_store <NORM_B32> %reinterpret_cast_14[%c0], %6, %5 {element_alignment_bit_width = 32 : i32, hivm.is_continuous} : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>, vector<64xi1>, vector<64xf32>
+    } {element_alignment_bit_width = 32 : i32}
+    return
+  }
+  func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub>>, %arg1: memref<8x832xi32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %c1 = arith.constant 1 : index
+    %c8 = arith.constant 8 : index
+    %c64 = arith.constant 64 : index
+    %c832 = arith.constant 832 : index
+    %c0 = arith.constant 0 : index
+    scf.for %arg2 = %c0 to %c8 step %c1 {
+      scf.for %arg3 = %c0 to %c832 step %c64 {
+        %base_buffer, %offset, %sizes:2, %strides:2 = memref.extract_strided_metadata %arg0 : memref<832x8xi8, #hivm.address_space<ub>> -> memref<i8, #hivm.address_space<ub>>, index, index, index, index, index
+        %0 = affine.apply #map2()[%arg3, %arg2]
+        %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [%0], sizes: [64, 1], strides: [8, 1] : memref<i8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
+        %res = ave.hir.vload <NORM> %reinterpret_cast[%c0, %c0] {ave.unaligned_ub_access = #ave.unaligned_ub_access, element_alignment_bit_width = 32 : i32} : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>> into vector<64xi8>
+        %1 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<64xi1>
+        %2 = ave.hir.vextsi %res, %1 {element_alignment_bit_width = 32 : i32, pp = #ave.vcvt_pp_type<pp0>} : vector<64xi8>, vector<64xi32>, vector<64xi1>
+        %base_buffer_0, %offset_1, %sizes_2:2, %strides_3:2 = memref.extract_strided_metadata %arg1 : memref<8x832xi32, #hivm.address_space<ub>> -> memref<i32, #hivm.address_space<ub>>, index, index, index, index, index
+        %3 = affine.apply #map1()[%arg2, %arg3]
+        %reinterpret_cast_4 = memref.reinterpret_cast %base_buffer_0 to offset: [%3], sizes: [64], strides: [1] : memref<i32, #hivm.address_space<ub>> to memref<64xi32, #map3, #hivm.address_space<ub>>
+        %4 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<64xi1>
+        ave.hir.masked_store <NORM_B32> %reinterpret_cast_4[%c0], %4, %2 {element_alignment_bit_width = 32 : i32, hivm.is_continuous} : memref<64xi32, #map3, #hivm.address_space<ub>>, vector<64xi1>, vector<64xi32>
+      } {element_alignment_bit_width = 32 : i32}
+    } {element_alignment_bit_width = 32 : i32}
+    return
+  }
+  func.func @adc_func_outlined_vf_2(%arg0: memref<832x8xi8, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 8 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %c0 = arith.constant 0 : index
+    %c832 = arith.constant 832 : index
+    %c1 = arith.constant 1 : index
+    %c0_i16 = arith.constant 0 : i16
+    %0 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<256xi1>
+    %1 = ave.hir.broadcast %c0_i16, %0 {element_alignment_bit_width = 8 : i32} : i16, vector<256xi1> -> vector<256xi8>
+    scf.for %arg1 = %c0 to %c832 step %c1 {
+      %2 = ave.hir.pge <VL8> {element_alignment_bit_width = -1 : i32, mask_op_idx = 0 : i32} : vector<256xi1>
+      %base_buffer, %offset, %sizes:2, %strides:2 = memref.extract_strided_metadata %arg0 : memref<832x8xi8, #hivm.address_space<ub>> -> memref<i8, #hivm.address_space<ub>>, index, index, index, index, index
+      %3 = affine.apply #map4()[%arg1]
+      %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [%3], sizes: [8], strides: [1] : memref<i8, #hivm.address_space<ub>> to memref<8xi8, #map3, #hivm.address_space<ub>>
+      ave.hir.masked_store <NORM_B8> %reinterpret_cast[%c0], %2, %1 {ave.unaligned_ub_access = #ave.unaligned_ub_access, element_alignment_bit_width = 8 : i32} : memref<8xi8, #map3, #hivm.address_space<ub>>, vector<256xi1>, vector<256xi8>
+    } {element_alignment_bit_width = -1 : i32}
+    return
+  }
+  func.func @adc_func_outlined_vf_3(%arg0: memref<832xf32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %c0 = arith.constant 0 : index
+    %c832 = arith.constant 832 : index
+    %c64 = arith.constant 64 : index
+    %cst = arith.constant 0.000000e+00 : f32
+    %0 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<64xi1>
+    %1 = ave.hir.broadcast %cst, %0 {element_alignment_bit_width = 32 : i32} : f32, vector<64xi1> -> vector<64xf32>
+    scf.for %arg1 = %c0 to %c832 step %c64 {
+      %base_buffer, %offset, %sizes, %strides = memref.extract_strided_metadata %arg0 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+      %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [%arg1], sizes: [64], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+      %2 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<64xi1>
+      ave.hir.masked_store <NORM_B32> %reinterpret_cast[%c0], %2, %1 {element_alignment_bit_width = 32 : i32, hivm.is_continuous} : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>, vector<64xi1>, vector<64xf32>
+    } {element_alignment_bit_width = -1 : i32}
+    return
+  }
+  func.func @adc_func_outlined_vf_4(%arg0: memref<832xf32, #hivm.address_space<ub>>, %arg1: memref<832xf32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %c64 = arith.constant 64 : index
+    %c832 = arith.constant 832 : index
+    %c0 = arith.constant 0 : index
+    scf.for %arg2 = %c0 to %c832 step %c64 {
+      %base_buffer, %offset, %sizes, %strides = memref.extract_strided_metadata %arg0 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+      %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [%arg2], sizes: [64], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+      %base_buffer_0, %offset_1, %sizes_2, %strides_3 = memref.extract_strided_metadata %arg1 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+      %reinterpret_cast_4 = memref.reinterpret_cast %base_buffer_0 to offset: [%arg2], sizes: [64], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+      %res = ave.hir.vload <NORM> %reinterpret_cast[%c0] {element_alignment_bit_width = 32 : i32} : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> into vector<64xf32>
+      %0 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<64xi1>
+      %1 = ave.hir.vsqrt %res, %0 {element_alignment_bit_width = 32 : i32} : vector<64xf32>, vector<64xi1>
+      %2 = ave.hir.pge <ALL> {element_alignment_bit_width = -1 : i32} : vector<64xi1>
+      ave.hir.masked_store <NORM_B32> %reinterpret_cast_4[%c0], %2, %1 {element_alignment_bit_width = 32 : i32, hivm.is_continuous} : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>, vector<64xi1>, vector<64xf32>
+    } {element_alignment_bit_width = 32 : i32}
+    return
+  }
+  func.func private @load_gm_to_ubuf_1d_float(memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>, memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>, i32, f32, index, i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface}
+  func.func private @load_gm_to_ubuf_2d_int8_t(memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<gm>>, memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<ub>>, i32, i8, index, i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface}
+  func.func private @copy_ubuf_to_ubuf_1d_int8_t(memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>, memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface}
+  func.func private @store_ubuf_to_gm_1d_float(memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>, memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>, i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface}
+  func.func @adc_func(%arg0: memref<?xi8, #hivm.address_space<gm>> {hacc.arg_type = #hacc.arg_type<sync_block_lock>}, %arg1: memref<?xi8, #hivm.address_space<gm>> {hacc.arg_type = #hacc.arg_type<workspace>}, %arg2: memref<?xf32, #hivm.address_space<gm>>, %arg3: memref<?xi8, #hivm.address_space<gm>>, %arg4: memref<?xf32, #hivm.address_space<gm>>, %arg5: i32, %arg6: i32, %arg7: i32, %arg8: i32) attributes {SyncBlockLockArgIdx = 0 : i64, WorkspaceArgIdx = 1 : i64, func_dyn_memref_args = dense<[true, true, true, true, true, false, false, false, false]> : vector<9xi1>, hacc.entry, hacc.function_kind = #hacc.function_kind<DEVICE>, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vf_mode = #hivm.vf_mode<SIMD>, mix_mode = "aiv", parallel_mode = "simd"} {
+    %c0_i8 = arith.constant 0 : i8
+    %cst = arith.constant 0.000000e+00 : f32
+    %c0 = arith.constant 0 : index
+    %c0_i32 = arith.constant 0 : i32
+    %c46591_i32 = arith.constant 46591 : i32
+    %c46592_i32 = arith.constant 46592 : i32
+    %c56_i32 = arith.constant 56 : i32
+    %c831_i32 = arith.constant 831 : i32
+    %c832_i32 = arith.constant 832 : i32
+    %c8_i32 = arith.constant 8 : i32
+    %c1_i32 = arith.constant 1 : i32
+    %c0_i64 = arith.constant 0 : i64
+    %c65536_i64 = arith.constant 65536 : i64
+    %c72192_i64 = arith.constant 72192 : i64
+    %c82176_i64 = arith.constant 82176 : i64
+    %c1_i64 = arith.constant 1 : i64
+    %c112128_i64 = arith.constant 112128 : i64
+    %c75520_i64 = arith.constant 75520 : i64
+    %c108800_i64 = arith.constant 108800 : i64
+    %c118784_i64 = arith.constant 118784 : i64
+    %0 = hivm.hir.pointer_cast(%c108800_i64) : memref<832xf32, #hivm.address_space<ub>>
+    %1 = hivm.hir.pointer_cast(%c118784_i64) : memref<832xf32, #hivm.address_space<ub>>
+    %2 = hivm.hir.pointer_cast(%c75520_i64) : memref<832x8xi8, #hivm.address_space<ub>>
+    %3 = hivm.hir.pointer_cast(%c112128_i64) : memref<832x8xi8, #hivm.address_space<ub>>
+    hivm.hir.set_ctrl false at ctrl[60]
+    hivm.hir.set_ctrl true at ctrl[48]
+    %4 = hivm.hir.get_block_idx -> i64
+    %5 = arith.trunci %4 : i64 to i32
+    %6 = hivm.hir.pointer_cast(%c0_i64) : memref<64x256xf32, #hivm.address_space<ub>>
+    %base_buffer, %offset, %sizes, %strides = memref.extract_strided_metadata %arg2 : memref<?xf32, #hivm.address_space<gm>> -> memref<f32, #hivm.address_space<gm>>, index, index, index
+    %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [0], sizes: [16384], strides: [1] : memref<f32, #hivm.address_space<gm>> to memref<16384xf32, strided<[1]>, #hivm.address_space<gm>>
+    %base_buffer_0, %offset_1, %sizes_2:2, %strides_3:2 = memref.extract_strided_metadata %6 : memref<64x256xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index, index, index
+    %reinterpret_cast_4 = memref.reinterpret_cast %base_buffer_0 to offset: [0], sizes: [16384], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<16384xf32, #hivm.address_space<ub>>
+    hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID0>]
+    hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID1>]
+    hivm.hir.set_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID0>]
+    hivm.hir.set_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID1>]
+    %cast = memref.cast %reinterpret_cast : memref<16384xf32, strided<[1]>, #hivm.address_space<gm>> to memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>
+    %cast_5 = memref.cast %reinterpret_cast_4 : memref<16384xf32, #hivm.address_space<ub>> to memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>
+    call @load_gm_to_ubuf_1d_float(%cast, %cast_5, %c0_i32, %cst, %c0, %c0_i32) : (memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>, memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>, i32, f32, index, i32) -> ()
+    %7 = arith.addi %arg5, %c46591_i32 : i32
+    %8 = arith.divsi %7, %c46592_i32 : i32
+    %9 = arith.addi %arg5, %c831_i32 : i32
+    %10 = arith.divsi %9, %c832_i32 : i32
+    scf.for %arg9 = %c0_i32 to %8 step %c1_i32  : i32 {
+      %11 = arith.index_cast %arg9 : i32 to index
+      %12 = affine.apply #map5()[%11]
+      %13 = arith.index_cast %12 : index to i64
+      %14 = arith.cmpi eq, %13, %c1_i64 : i64
+      %15 = arith.select %14, %1, %0 : memref<832xf32, #hivm.address_space<ub>>
+      %16 = arith.extui %14 : i1 to i64
+      %17 = arith.muli %arg9, %c56_i32 : i32
+      %18 = arith.addi %17, %5 : i32
+      %19 = arith.cmpi slt, %18, %10 : i32
+      scf.if %19 {
+        %20 = hivm.hir.pointer_cast(%c65536_i64) : memref<832x8xi8, #hivm.address_space<ub>>
+        func.call @adc_func_outlined_vf_2(%20) {hivm.vector_function, no_inline} : (memref<832x8xi8, #hivm.address_space<ub>>) -> ()
+        %21 = hivm.hir.pointer_cast(%c72192_i64) : memref<832xf32, #hivm.address_space<ub>>
+        func.call @adc_func_outlined_vf_3(%21) {hivm.vector_function, no_inline} : (memref<832xf32, #hivm.address_space<ub>>) -> ()
+        %22 = arith.muli %arg9, %c46592_i32 : i32
+        %23 = arith.muli %5, %c832_i32 : i32
+        %24 = arith.addi %22, %23 : i32
+        %25 = arith.index_cast %24 : i32 to index
+        %26 = arith.subi %arg5, %23 : i32
+        %27 = arith.subi %26, %22 : i32
+        %28 = arith.minsi %27, %c832_i32 : i32
+        %29 = arith.index_cast %28 : i32 to index
+        %30 = scf.for %arg10 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg11 = %21) -> (memref<832xf32, #hivm.address_space<ub>>)  : i32 {
+          %31 = arith.index_cast %arg10 : i32 to index
+          %32 = affine.apply #map5()[%31]
+          %33 = arith.index_cast %32 : index to i64
+          %34 = arith.cmpi eq, %33, %c1_i64 : i64
+          %35 = arith.select %34, %3, %2 : memref<832x8xi8, #hivm.address_space<ub>>
+          %36 = arith.extui %34 : i1 to i64
+          %37 = arith.muli %arg10, %c8_i32 : i32
+          %38 = arith.index_cast %37 : i32 to index
+          %base_buffer_18, %offset_19, %sizes_20, %strides_21 = memref.extract_strided_metadata %arg3 : memref<?xi8, #hivm.address_space<gm>> -> memref<i8, #hivm.address_space<gm>>, index, index, index
+          %39 = affine.apply #map6()[%25, %38]
+          %reinterpret_cast_22 = memref.reinterpret_cast %base_buffer_18 to offset: [%39], sizes: [%29, 8], strides: [64, 1] : memref<i8, #hivm.address_space<gm>> to memref<?x8xi8, strided<[64, 1], offset: ?>, #hivm.address_space<gm>>
+          %base_buffer_23, %offset_24, %sizes_25:2, %strides_26:2 = memref.extract_strided_metadata %35 : memref<832x8xi8, #hivm.address_space<ub>> -> memref<i8, #hivm.address_space<ub>>, index, index, index, index, index
+          %reinterpret_cast_27 = memref.reinterpret_cast %base_buffer_23 to offset: [0], sizes: [%29, 8], strides: [8, 1] : memref<i8, #hivm.address_space<ub>> to memref<?x8xi8, strided<[8, 1]>, #hivm.address_space<ub>>
+          hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE2>, %36]
+          %cast_28 = memref.cast %reinterpret_cast_22 : memref<?x8xi8, strided<[64, 1], offset: ?>, #hivm.address_space<gm>> to memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<gm>>
+          %cast_29 = memref.cast %reinterpret_cast_27 : memref<?x8xi8, strided<[8, 1]>, #hivm.address_space<ub>> to memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<ub>>
+          func.call @load_gm_to_ubuf_2d_int8_t(%cast_28, %cast_29, %c0_i32, %c0_i8, %c0, %c0_i32) : (memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<gm>>, memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<ub>>, i32, i8, index, i32) -> ()
+          hivm.hir.set_flag[<PIPE_MTE2>, <PIPE_V>, <EVENT_ID0>]
+          %base_buffer_30, %offset_31, %sizes_32:2, %strides_33:2 = memref.extract_strided_metadata %35 : memref<832x8xi8, #hivm.address_space<ub>> -> memref<i8, #hivm.address_space<ub>>, index, index, index, index, index
+          %40 = affine.apply #map4()[%29]
+          %reinterpret_cast_34 = memref.reinterpret_cast %base_buffer_30 to offset: [0], sizes: [%40], strides: [1] : memref<i8, #hivm.address_space<ub>> to memref<?xi8, strided<[1]>, #hivm.address_space<ub>>
+          %base_buffer_35, %offset_36, %sizes_37:2, %strides_38:2 = memref.extract_strided_metadata %20 : memref<832x8xi8, #hivm.address_space<ub>> -> memref<i8, #hivm.address_space<ub>>, index, index, index, index, index
+          %41 = affine.apply #map4()[%29]
+          %reinterpret_cast_39 = memref.reinterpret_cast %base_buffer_35 to offset: [0], sizes: [%41], strides: [1] : memref<i8, #hivm.address_space<ub>> to memref<?xi8, strided<[1]>, #hivm.address_space<ub>>
+          hivm.hir.wait_flag[<PIPE_MTE2>, <PIPE_V>, <EVENT_ID0>]
+          %cast_40 = memref.cast %reinterpret_cast_34 : memref<?xi8, strided<[1]>, #hivm.address_space<ub>> to memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>
+          %cast_41 = memref.cast %reinterpret_cast_39 : memref<?xi8, strided<[1]>, #hivm.address_space<ub>> to memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>
+          func.call @copy_ubuf_to_ubuf_1d_int8_t(%cast_40, %cast_41) : (memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>, memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>) -> ()
+          hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE2>, %36]
+          %42 = hivm.hir.pointer_cast(%c82176_i64) : memref<8x832xi32, #hivm.address_space<ub>>
+          func.call @adc_func_outlined_vf_1(%20, %42) {hivm.vector_function, no_inline} : (memref<832x8xi8, #hivm.address_space<ub>>, memref<8x832xi32, #hivm.address_space<ub>>) -> ()
+          %43 = scf.for %arg12 = %c0_i32 to %c8_i32 step %c1_i32 iter_args(%arg13 = %arg11) -> (memref<832xf32, #hivm.address_space<ub>>)  : i32 {
+            %44 = arith.addi %37, %arg12 : i32
+            %45 = arith.index_cast %44 : i32 to index
+            %46 = arith.index_cast %arg12 : i32 to index
+            %47 = hivm.hir.pointer_cast(%c72192_i64) : memref<832xf32, #hivm.address_space<ub>>
+            func.call @adc_func_outlined_vf_0(%arg13, %42, %46, %6, %45, %47) {hivm.vector_function, no_inline} : (memref<832xf32, #hivm.address_space<ub>>, memref<8x832xi32, #hivm.address_space<ub>>, index, memref<64x256xf32, #hivm.address_space<ub>>, index, memref<832xf32, #hivm.address_space<ub>>) -> ()
+            scf.yield %47 : memref<832xf32, #hivm.address_space<ub>>
+          }
+          scf.yield %43 : memref<832xf32, #hivm.address_space<ub>>
+        }
+        hivm.hir.wait_flag[<PIPE_MTE3>, <PIPE_V>, %16]
+        func.call @adc_func_outlined_vf_4(%30, %15) {hivm.vector_function, no_inline} : (memref<832xf32, #hivm.address_space<ub>>, memref<832xf32, #hivm.address_space<ub>>) -> ()
+        hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE3>, <EVENT_ID0>]
+        %base_buffer_6, %offset_7, %sizes_8, %strides_9 = memref.extract_strided_metadata %15 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+        %reinterpret_cast_10 = memref.reinterpret_cast %base_buffer_6 to offset: [0], sizes: [%29], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<?xf32, strided<[1]>, #hivm.address_space<ub>>
+        %base_buffer_11, %offset_12, %sizes_13, %strides_14 = memref.extract_strided_metadata %arg4 : memref<?xf32, #hivm.address_space<gm>> -> memref<f32, #hivm.address_space<gm>>, index, index, index
+        %reinterpret_cast_15 = memref.reinterpret_cast %base_buffer_11 to offset: [%25], sizes: [%29], strides: [1] : memref<f32, #hivm.address_space<gm>> to memref<?xf32, strided<[1], offset: ?>, #hivm.address_space<gm>>
+        hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE3>, <EVENT_ID0>]
+        hivm.hir.pipe_barrier[<PIPE_MTE3>]
+        %cast_16 = memref.cast %reinterpret_cast_10 : memref<?xf32, strided<[1]>, #hivm.address_space<ub>> to memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>
+        %cast_17 = memref.cast %reinterpret_cast_15 : memref<?xf32, strided<[1], offset: ?>, #hivm.address_space<gm>> to memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>
+        func.call @store_ubuf_to_gm_1d_float(%cast_16, %cast_17, %c0_i32) : (memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>, memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>, i32) -> ()
+        hivm.hir.set_flag[<PIPE_MTE3>, <PIPE_V>, %16]
+      }
+    }
+    hivm.hir.pipe_barrier[<PIPE_ALL>]
+    hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID0>]
+    hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID1>]
+    hivm.hir.wait_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID0>]
+    hivm.hir.wait_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID1>]
+    return
+  }
+}
+
+
+// -----// IR Dump After ConvertHIVMAVEToAVEIntrin (convert-hivmave-to-ave-intrin) //----- //
+#map = affine_map<()[s0] -> (s0 * 256)>
+#map1 = affine_map<()[s0, s1] -> (s0 * 832 + s1)>
+#map2 = affine_map<()[s0, s1] -> (s0 * 8 + s1)>
+#map3 = affine_map<(d0)[s0] -> (d0 + s0)>
+#map4 = affine_map<()[s0] -> (s0 * 8)>
+#map5 = affine_map<()[s0] -> (s0 mod 2)>
+#map6 = affine_map<()[s0, s1] -> (s0 * 64 + s1)>
+module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #hacc.target_device_spec<#dlti.dl_entry<"AI_CORE_COUNT", 28 : i32>, #dlti.dl_entry<"CUBE_CORE_COUNT", 28 : i32>, #dlti.dl_entry<"VECTOR_CORE_COUNT", 56 : i32>, #dlti.dl_entry<"UB_SIZE", 2031616 : i32>, #dlti.dl_entry<"L1_SIZE", 4194304 : i32>, #dlti.dl_entry<"L0A_SIZE", 524288 : i32>, #dlti.dl_entry<"L0B_SIZE", 524288 : i32>, #dlti.dl_entry<"L0C_SIZE", 2097152 : i32>, #dlti.dl_entry<"UB_ALIGN_SIZE", 256 : i32>, #dlti.dl_entry<"L1_ALIGN_SIZE", 256 : i32>, #dlti.dl_entry<"L0C_ALIGN_SIZE", 4096 : i32>, #dlti.dl_entry<"MINIMAL_D_CACHE_SIZE", 262144 : i32>, #dlti.dl_entry<"MAXIMUM_D_CACHE_SIZE", 983040 : i32>, #dlti.dl_entry<"ARCH", "dav-c310">>>, hacc.target = #hacc.target<"Ascend950PR_9579">, hivm.module_core_type = #hivm.module_core_type<AIV>, memref.memref_as_ptr} {
+  func.func @adc_func_outlined_vf_0(%arg0: memref<832xf32, #hivm.address_space<ub>>, %arg1: memref<8x832xi32, #hivm.address_space<ub>>, %arg2: index, %arg3: memref<64x256xf32, #hivm.address_space<ub>>, %arg4: index, %arg5: memref<832xf32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %0 = llvm.mlir.constant(64 : i32) : i32
+    %1 = llvm.mlir.constant(832 : i32) : i32
+    %2 = llvm.mlir.constant(0 : i32) : i32
+    %3 = llvm.mlir.constant(0 : index) : i64
+    %4 = llvm.mlir.constant(8 : i32) : i32
+    %5 = llvm.mlir.constant(0 : i32) : i32
+    %6 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%4, %5) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+    %7 = builtin.unrealized_conversion_cast %6 : vector<256xi1> to vector<64xi1>
+    %base_buffer, %offset, %sizes:2, %strides:2 = memref.extract_strided_metadata %arg3 : memref<64x256xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index, index, index
+    %8 = affine.apply #map()[%arg4]
+    %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [%8], sizes: [256], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<256xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+    %9 = builtin.unrealized_conversion_cast %reinterpret_cast : memref<256xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    scf.for %arg6 = %2 to %1 step %0  : i32 {
+      %10 = llvm.sext %arg6 : i32 to i64
+      %11 = builtin.unrealized_conversion_cast %10 : i64 to index
+      %base_buffer_0, %offset_1, %sizes_2, %strides_3 = memref.extract_strided_metadata %arg0 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+      %reinterpret_cast_4 = memref.reinterpret_cast %base_buffer_0 to offset: [%11], sizes: [64], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+      %12 = builtin.unrealized_conversion_cast %reinterpret_cast_4 : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+      %base_buffer_5, %offset_6, %sizes_7:2, %strides_8:2 = memref.extract_strided_metadata %arg1 : memref<8x832xi32, #hivm.address_space<ub>> -> memref<i32, #hivm.address_space<ub>>, index, index, index, index, index
+      %13 = affine.apply #map1()[%arg2, %11]
+      %reinterpret_cast_9 = memref.reinterpret_cast %base_buffer_5 to offset: [%13], sizes: [64], strides: [1] : memref<i32, #hivm.address_space<ub>> to memref<64xi32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+      %14 = builtin.unrealized_conversion_cast %reinterpret_cast_9 : memref<64xi32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+      %base_buffer_10, %offset_11, %sizes_12, %strides_13 = memref.extract_strided_metadata %arg5 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+      %reinterpret_cast_14 = memref.reinterpret_cast %base_buffer_10 to offset: [%11], sizes: [64], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+      %15 = builtin.unrealized_conversion_cast %reinterpret_cast_14 : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+      %16 = llvm.extractvalue %12[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %17 = llvm.extractvalue %12[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %18 = llvm.getelementptr %16[%17] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+      %19 = llvm.getelementptr %18[%3] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+      %20 = llvm.mlir.constant(0 : i32) : i32
+      %21 = llvm.mlir.constant(0 : i32) : i32
+      %22 = llvm.mlir.constant(0 : i32) : i32
+      %23 = "hivm_regbaseintrins.intr.hivm.vldsx1.v64f32"(%19, %20, %22, %21) : (!llvm.ptr<6>, i32, i32, i32) -> vector<64xf32>
+      %24 = llvm.extractvalue %14[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %25 = llvm.extractvalue %14[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %26 = llvm.getelementptr %24[%25] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i32
+      %27 = llvm.getelementptr %26[%3] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i32
+      %28 = llvm.mlir.constant(0 : i32) : i32
+      %29 = llvm.mlir.constant(0 : i32) : i32
+      %30 = llvm.mlir.constant(0 : i32) : i32
+      %31 = "hivm_regbaseintrins.intr.hivm.vldsx1.v64s32"(%27, %28, %30, %29) : (!llvm.ptr<6>, i32, i32, i32) -> vector<64xi32>
+      %32 = llvm.extractvalue %9[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %33 = llvm.extractvalue %9[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %34 = llvm.getelementptr %32[%33] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+      %35 = llvm.getelementptr %34[%3] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+      %36 = builtin.unrealized_conversion_cast %7 : vector<64xi1> to vector<256xi1>
+      %37 = "hivm_regbaseintrins.intr.hivm.vgather2_v300.v64f32"(%35, %31, %36) : (!llvm.ptr<6>, vector<64xi32>, vector<256xi1>) -> vector<64xf32>
+      %38 = llvm.mlir.constant(8 : i32) : i32
+      %39 = llvm.mlir.constant(0 : i32) : i32
+      %40 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%38, %39) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+      %41 = builtin.unrealized_conversion_cast %40 : vector<256xi1> to vector<64xi1>
+      %42 = builtin.unrealized_conversion_cast %41 : vector<64xi1> to vector<256xi1>
+      %43 = "hivm_regbaseintrins.intr.hivm.vadd.s.x"(%23, %37, %42) : (vector<64xf32>, vector<64xf32>, vector<256xi1>) -> vector<64xf32>
+      %44 = llvm.mlir.constant(8 : i32) : i32
+      %45 = llvm.mlir.constant(0 : i32) : i32
+      %46 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%44, %45) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+      %47 = builtin.unrealized_conversion_cast %46 : vector<256xi1> to vector<64xi1>
+      %48 = llvm.extractvalue %15[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %49 = llvm.extractvalue %15[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %50 = llvm.getelementptr %48[%49] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+      %51 = llvm.getelementptr %50[%3] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+      %52 = llvm.mlir.constant(0 : i32) : i32
+      %53 = llvm.mlir.constant(0 : i32) : i32
+      %54 = llvm.mlir.constant(2 : i32) : i32
+      %55 = builtin.unrealized_conversion_cast %47 : vector<64xi1> to vector<256xi1>
+      "hivm_regbaseintrins.intr.hivm.vstsx1.v64f32"(%43, %51, %52, %54, %53, %55) : (vector<64xf32>, !llvm.ptr<6>, i32, i32, i32, vector<256xi1>) -> ()
+    } {element_alignment_bit_width = 32 : i32}
+    return
+  }
+  func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub>>, %arg1: memref<8x832xi32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %0 = llvm.mlir.constant(64 : i32) : i32
+    %1 = llvm.mlir.constant(832 : i32) : i32
+    %2 = llvm.mlir.constant(0 : index) : i64
+    %3 = llvm.mlir.constant(0 : i32) : i32
+    %4 = llvm.mlir.constant(8 : i32) : i32
+    %5 = llvm.mlir.constant(1 : i32) : i32
+    scf.for %arg2 = %3 to %4 step %5  : i32 {
+      %6 = llvm.sext %arg2 : i32 to i64
+      %7 = builtin.unrealized_conversion_cast %6 : i64 to index
+      scf.for %arg3 = %3 to %1 step %0  : i32 {
+        %8 = llvm.sext %arg3 : i32 to i64
+        %9 = builtin.unrealized_conversion_cast %8 : i64 to index
+        %base_buffer, %offset, %sizes:2, %strides:2 = memref.extract_strided_metadata %arg0 : memref<832x8xi8, #hivm.address_space<ub>> -> memref<i8, #hivm.address_space<ub>>, index, index, index, index, index
+        %10 = affine.apply #map2()[%9, %7]
+        %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [%10], sizes: [64, 1], strides: [8, 1] : memref<i8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
+        %11 = builtin.unrealized_conversion_cast %reinterpret_cast : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+        %12 = llvm.extractvalue %11[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+        %13 = llvm.extractvalue %11[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+        %14 = llvm.getelementptr %12[%13] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i8
+        %15 = llvm.mlir.constant(8 : index) : i64
+        %16 = llvm.mul %2, %15 : i64
+        %17 = llvm.add %16, %2 : i64
+        %18 = llvm.getelementptr %14[%17] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i8
+        %19 = llvm.mlir.constant(0 : i32) : i32
+        %20 = llvm.mlir.constant(0 : i32) : i32
+        %21 = llvm.mlir.constant(0 : i32) : i32
+        %22 = llvm.mlir.constant(20 : i32) : i32
+        %23 = "hivm_regbaseintrins.intr.hivm.vldas"(%18) : (!llvm.ptr<6>) -> vector<32xi8>
+        %24 = llvm.mlir.constant(0 : i32) : i32
+        %25 = "hivm_regbaseintrins.intr.hivm.vldus.post.s8"(%18, %23, %24) : (!llvm.ptr<6>, vector<32xi8>, i32) -> !llvm.struct<(vector<256xi8>, vector<32xi8>, ptr<6>)>
+        %26 = llvm.extractvalue %25[0] : !llvm.struct<(vector<256xi8>, vector<32xi8>, ptr<6>)> 
+        %27 = llvm.mlir.constant(0 : i16) : i16
+        %28 = llvm.mlir.constant(0 : i8) : i8
+        %29 = "hivm_regbaseintrins.intr.hivm.vbr"(%28) : (i8) -> vector<256xi8>
+        %30 = "hivm_regbaseintrins.intr.hivm.vintlv"(%26, %29) : (vector<256xi8>, vector<256xi8>) -> !llvm.struct<(vector<256xi8>, vector<256xi8>)>
+        %31 = llvm.extractvalue %30[0] : !llvm.struct<(vector<256xi8>, vector<256xi8>)> 
+        %32 = "hivm_regbaseintrins.intr.hivm.vintlv"(%31, %29) : (vector<256xi8>, vector<256xi8>) -> !llvm.struct<(vector<256xi8>, vector<256xi8>)>
+        %33 = llvm.extractvalue %32[0] : !llvm.struct<(vector<256xi8>, vector<256xi8>)> 
+        %34 = builtin.unrealized_conversion_cast %33 : vector<256xi8> to vector<64xi8>
+        %35 = llvm.mlir.constant(8 : i32) : i32
+        %36 = llvm.mlir.constant(0 : i32) : i32
+        %37 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%35, %36) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+        %38 = builtin.unrealized_conversion_cast %37 : vector<256xi1> to vector<64xi1>
+        %39 = builtin.unrealized_conversion_cast %34 : vector<64xi8> to vector<256xi8>
+        %40 = llvm.mlir.constant(0 : i32) : i32
+        %41 = builtin.unrealized_conversion_cast %38 : vector<64xi1> to vector<256xi1>
+        %42 = llvm.mlir.constant(0 : i32) : i32
+        %43 = "hivm_regbaseintrins.intr.hivm.vcvtii.s82s32.x"(%39, %41, %42) : (vector<256xi8>, vector<256xi1>, i32) -> vector<64xi32>
+        %44 = builtin.unrealized_conversion_cast %43 : vector<64xi32> to vector<64xi32>
+        %base_buffer_0, %offset_1, %sizes_2:2, %strides_3:2 = memref.extract_strided_metadata %arg1 : memref<8x832xi32, #hivm.address_space<ub>> -> memref<i32, #hivm.address_space<ub>>, index, index, index, index, index
+        %45 = affine.apply #map1()[%7, %9]
+        %reinterpret_cast_4 = memref.reinterpret_cast %base_buffer_0 to offset: [%45], sizes: [64], strides: [1] : memref<i32, #hivm.address_space<ub>> to memref<64xi32, #map3, #hivm.address_space<ub>>
+        %46 = builtin.unrealized_conversion_cast %reinterpret_cast_4 : memref<64xi32, #map3, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+        %47 = llvm.mlir.constant(8 : i32) : i32
+        %48 = llvm.mlir.constant(0 : i32) : i32
+        %49 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%47, %48) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+        %50 = builtin.unrealized_conversion_cast %49 : vector<256xi1> to vector<64xi1>
+        %51 = llvm.extractvalue %46[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+        %52 = llvm.extractvalue %46[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+        %53 = llvm.getelementptr %51[%52] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i32
+        %54 = llvm.getelementptr %53[%2] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i32
+        %55 = llvm.mlir.constant(0 : i32) : i32
+        %56 = llvm.mlir.constant(0 : i32) : i32
+        %57 = llvm.mlir.constant(2 : i32) : i32
+        %58 = builtin.unrealized_conversion_cast %50 : vector<64xi1> to vector<256xi1>
+        "hivm_regbaseintrins.intr.hivm.vstsx1.v64s32"(%44, %54, %55, %57, %56, %58) : (vector<64xi32>, !llvm.ptr<6>, i32, i32, i32, vector<256xi1>) -> ()
+      } {element_alignment_bit_width = 32 : i32}
+    } {element_alignment_bit_width = 32 : i32}
+    return
+  }
+  func.func @adc_func_outlined_vf_2(%arg0: memref<832x8xi8, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 8 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %0 = llvm.mlir.constant(1 : i32) : i32
+    %1 = llvm.mlir.constant(832 : i32) : i32
+    %2 = llvm.mlir.constant(0 : i32) : i32
+    %3 = llvm.mlir.constant(0 : index) : i64
+    %4 = llvm.mlir.constant(0 : i16) : i16
+    %5 = llvm.mlir.constant(0 : i32) : i32
+    %6 = llvm.mlir.constant(0 : i32) : i32
+    %7 = "hivm_regbaseintrins.intr.hivm.pge.b8"(%5, %6) {mask_bit_width = 8 : i32} : (i32, i32) -> vector<256xi1>
+    %8 = llvm.mlir.constant(1 : i32) : i32
+    %9 = llvm.mlir.constant(0 : i8) : i8
+    %10 = "hivm_regbaseintrins.intr.hivm.vdups.z"(%9, %7, %8) : (i8, vector<256xi1>, i32) -> vector<256xi8>
+    scf.for %arg1 = %2 to %1 step %0  : i32 {
+      %11 = llvm.sext %arg1 : i32 to i64
+      %12 = builtin.unrealized_conversion_cast %11 : i64 to index
+      %13 = llvm.mlir.constant(5 : i32) : i32
+      %14 = llvm.mlir.constant(0 : i32) : i32
+      %15 = "hivm_regbaseintrins.intr.hivm.pge.b8"(%13, %14) {mask_bit_width = 8 : i32, mask_op_idx = 0 : i32} : (i32, i32) -> vector<256xi1>
+      %base_buffer, %offset, %sizes:2, %strides:2 = memref.extract_strided_metadata %arg0 : memref<832x8xi8, #hivm.address_space<ub>> -> memref<i8, #hivm.address_space<ub>>, index, index, index, index, index
+      %16 = affine.apply #map4()[%12]
+      %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [%16], sizes: [8], strides: [1] : memref<i8, #hivm.address_space<ub>> to memref<8xi8, #map3, #hivm.address_space<ub>>
+      %17 = builtin.unrealized_conversion_cast %reinterpret_cast : memref<8xi8, #map3, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+      %18 = llvm.extractvalue %17[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %19 = llvm.extractvalue %17[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %20 = llvm.getelementptr %18[%19] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i8
+      %21 = llvm.getelementptr %20[%3] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i8
+      %22 = llvm.mlir.constant(0 : i32) : i32
+      %23 = llvm.mlir.constant(0 : i32) : i32
+      %24 = llvm.mlir.constant(0 : i32) : i32
+      %25 = llvm.mlir.constant(8 : i32) : i32
+      %26 = "hivm_regbaseintrins.intr.hivm.init.vector.align.data"() : () -> vector<32xi8>
+      %27 = "hivm_regbaseintrins.intr.hivm.vstus.post.s8"(%10, %21, %25, %26) : (vector<256xi8>, !llvm.ptr<6>, i32, vector<32xi8>) -> !llvm.struct<(vector<32xi8>, ptr<6>)>
+      %28 = llvm.extractvalue %27[0] : !llvm.struct<(vector<32xi8>, ptr<6>)> 
+      %29 = llvm.extractvalue %27[1] : !llvm.struct<(vector<32xi8>, ptr<6>)> 
+      %30 = llvm.mlir.constant(0 : i32) : i32
+      "hivm_regbaseintrins.intr.hivm.vstas"(%28, %29, %30, %30) : (vector<32xi8>, !llvm.ptr<6>, i32, i32) -> ()
+    } {element_alignment_bit_width = -1 : i32}
+    return
+  }
+  func.func @adc_func_outlined_vf_3(%arg0: memref<832xf32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %0 = llvm.mlir.constant(64 : i32) : i32
+    %1 = llvm.mlir.constant(832 : i32) : i32
+    %2 = llvm.mlir.constant(0 : i32) : i32
+    %3 = llvm.mlir.constant(0 : index) : i64
+    %4 = llvm.mlir.constant(0.000000e+00 : f32) : f32
+    %5 = llvm.mlir.constant(8 : i32) : i32
+    %6 = llvm.mlir.constant(0 : i32) : i32
+    %7 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%5, %6) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+    %8 = builtin.unrealized_conversion_cast %7 : vector<256xi1> to vector<64xi1>
+    %9 = builtin.unrealized_conversion_cast %8 : vector<64xi1> to vector<256xi1>
+    %10 = llvm.mlir.constant(1 : i32) : i32
+    %11 = "hivm_regbaseintrins.intr.hivm.vdups.z"(%4, %9, %10) : (f32, vector<256xi1>, i32) -> vector<64xf32>
+    scf.for %arg1 = %2 to %1 step %0  : i32 {
+      %12 = llvm.sext %arg1 : i32 to i64
+      %13 = builtin.unrealized_conversion_cast %12 : i64 to index
+      %base_buffer, %offset, %sizes, %strides = memref.extract_strided_metadata %arg0 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+      %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [%13], sizes: [64], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+      %14 = builtin.unrealized_conversion_cast %reinterpret_cast : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+      %15 = llvm.mlir.constant(8 : i32) : i32
+      %16 = llvm.mlir.constant(0 : i32) : i32
+      %17 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%15, %16) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+      %18 = builtin.unrealized_conversion_cast %17 : vector<256xi1> to vector<64xi1>
+      %19 = llvm.extractvalue %14[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %20 = llvm.extractvalue %14[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %21 = llvm.getelementptr %19[%20] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+      %22 = llvm.getelementptr %21[%3] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+      %23 = llvm.mlir.constant(0 : i32) : i32
+      %24 = llvm.mlir.constant(0 : i32) : i32
+      %25 = llvm.mlir.constant(2 : i32) : i32
+      %26 = builtin.unrealized_conversion_cast %18 : vector<64xi1> to vector<256xi1>
+      "hivm_regbaseintrins.intr.hivm.vstsx1.v64f32"(%11, %22, %23, %25, %24, %26) : (vector<64xf32>, !llvm.ptr<6>, i32, i32, i32, vector<256xi1>) -> ()
+    } {element_alignment_bit_width = -1 : i32}
+    return
+  }
+  func.func @adc_func_outlined_vf_4(%arg0: memref<832xf32, #hivm.address_space<ub>>, %arg1: memref<832xf32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %0 = llvm.mlir.constant(0 : index) : i64
+    %1 = llvm.mlir.constant(0 : i32) : i32
+    %2 = llvm.mlir.constant(832 : i32) : i32
+    %3 = llvm.mlir.constant(64 : i32) : i32
+    scf.for %arg2 = %1 to %2 step %3  : i32 {
+      %4 = llvm.sext %arg2 : i32 to i64
+      %5 = builtin.unrealized_conversion_cast %4 : i64 to index
+      %base_buffer, %offset, %sizes, %strides = memref.extract_strided_metadata %arg0 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+      %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [%5], sizes: [64], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+      %6 = builtin.unrealized_conversion_cast %reinterpret_cast : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+      %base_buffer_0, %offset_1, %sizes_2, %strides_3 = memref.extract_strided_metadata %arg1 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+      %reinterpret_cast_4 = memref.reinterpret_cast %base_buffer_0 to offset: [%5], sizes: [64], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+      %7 = builtin.unrealized_conversion_cast %reinterpret_cast_4 : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+      %8 = llvm.extractvalue %6[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %9 = llvm.extractvalue %6[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %10 = llvm.getelementptr %8[%9] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+      %11 = llvm.getelementptr %10[%0] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+      %12 = llvm.mlir.constant(0 : i32) : i32
+      %13 = llvm.mlir.constant(0 : i32) : i32
+      %14 = llvm.mlir.constant(0 : i32) : i32
+      %15 = "hivm_regbaseintrins.intr.hivm.vldsx1.v64f32"(%11, %12, %14, %13) : (!llvm.ptr<6>, i32, i32, i32) -> vector<64xf32>
+      %16 = llvm.mlir.constant(8 : i32) : i32
+      %17 = llvm.mlir.constant(0 : i32) : i32
+      %18 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%16, %17) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+      %19 = builtin.unrealized_conversion_cast %18 : vector<256xi1> to vector<64xi1>
+      %20 = builtin.unrealized_conversion_cast %19 : vector<64xi1> to vector<256xi1>
+      %21 = "hivm_regbaseintrins.intr.hivm.vsqrt.x"(%15, %20) : (vector<64xf32>, vector<256xi1>) -> vector<64xf32>
+      %22 = llvm.mlir.constant(8 : i32) : i32
+      %23 = llvm.mlir.constant(0 : i32) : i32
+      %24 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%22, %23) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+      %25 = builtin.unrealized_conversion_cast %24 : vector<256xi1> to vector<64xi1>
+      %26 = llvm.extractvalue %7[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %27 = llvm.extractvalue %7[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %28 = llvm.getelementptr %26[%27] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+      %29 = llvm.getelementptr %28[%0] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+      %30 = llvm.mlir.constant(0 : i32) : i32
+      %31 = llvm.mlir.constant(0 : i32) : i32
+      %32 = llvm.mlir.constant(2 : i32) : i32
+      %33 = builtin.unrealized_conversion_cast %25 : vector<64xi1> to vector<256xi1>
+      "hivm_regbaseintrins.intr.hivm.vstsx1.v64f32"(%21, %29, %30, %32, %31, %33) : (vector<64xf32>, !llvm.ptr<6>, i32, i32, i32, vector<256xi1>) -> ()
+    } {element_alignment_bit_width = 32 : i32}
+    return
+  }
+  func.func private @load_gm_to_ubuf_1d_float(memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>, memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>, i32, f32, index, i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface}
+  func.func private @load_gm_to_ubuf_2d_int8_t(memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<gm>>, memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<ub>>, i32, i8, index, i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface}
+  func.func private @copy_ubuf_to_ubuf_1d_int8_t(memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>, memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface}
+  func.func private @store_ubuf_to_gm_1d_float(memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>, memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>, i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface}
+  func.func @adc_func(%arg0: memref<?xi8, #hivm.address_space<gm>> {hacc.arg_type = #hacc.arg_type<sync_block_lock>}, %arg1: memref<?xi8, #hivm.address_space<gm>> {hacc.arg_type = #hacc.arg_type<workspace>}, %arg2: memref<?xf32, #hivm.address_space<gm>>, %arg3: memref<?xi8, #hivm.address_space<gm>>, %arg4: memref<?xf32, #hivm.address_space<gm>>, %arg5: i32, %arg6: i32, %arg7: i32, %arg8: i32) attributes {SyncBlockLockArgIdx = 0 : i64, WorkspaceArgIdx = 1 : i64, func_dyn_memref_args = dense<[true, true, true, true, true, false, false, false, false]> : vector<9xi1>, hacc.entry, hacc.function_kind = #hacc.function_kind<DEVICE>, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vf_mode = #hivm.vf_mode<SIMD>, hivm_regbaseintrins.target = #hivm_regbaseintrins.target<"dav-c310">, mix_mode = "aiv", parallel_mode = "simd"} {
+    %0 = llvm.mlir.constant(0 : i8) : i8
+    %1 = llvm.mlir.constant(0.000000e+00 : f32) : f32
+    %2 = llvm.mlir.constant(0 : index) : i64
+    %3 = builtin.unrealized_conversion_cast %2 : i64 to index
+    %4 = llvm.mlir.constant(0 : i32) : i32
+    %5 = llvm.mlir.constant(46591 : i32) : i32
+    %6 = llvm.mlir.constant(46592 : i32) : i32
+    %7 = llvm.mlir.constant(56 : i32) : i32
+    %8 = llvm.mlir.constant(831 : i32) : i32
+    %9 = llvm.mlir.constant(832 : i32) : i32
+    %10 = llvm.mlir.constant(8 : i32) : i32
+    %11 = llvm.mlir.constant(1 : i32) : i32
+    %12 = llvm.mlir.constant(0 : i64) : i64
+    %13 = llvm.mlir.constant(65536 : i64) : i64
+    %14 = llvm.mlir.constant(72192 : i64) : i64
+    %15 = llvm.mlir.constant(82176 : i64) : i64
+    %16 = llvm.mlir.constant(1 : i64) : i64
+    %17 = llvm.mlir.constant(112128 : i64) : i64
+    %18 = llvm.mlir.constant(75520 : i64) : i64
+    %19 = llvm.mlir.constant(108800 : i64) : i64
+    %20 = llvm.mlir.constant(118784 : i64) : i64
+    %21 = hivm.hir.pointer_cast(%19) : memref<832xf32, #hivm.address_space<ub>>
+    %22 = builtin.unrealized_conversion_cast %21 : memref<832xf32, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %23 = hivm.hir.pointer_cast(%20) : memref<832xf32, #hivm.address_space<ub>>
+    %24 = builtin.unrealized_conversion_cast %23 : memref<832xf32, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %25 = hivm.hir.pointer_cast(%18) : memref<832x8xi8, #hivm.address_space<ub>>
+    %26 = builtin.unrealized_conversion_cast %25 : memref<832x8xi8, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %27 = hivm.hir.pointer_cast(%17) : memref<832x8xi8, #hivm.address_space<ub>>
+    %28 = builtin.unrealized_conversion_cast %27 : memref<832x8xi8, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    hivm.hir.set_ctrl false at ctrl[60]
+    hivm.hir.set_ctrl true at ctrl[48]
+    %29 = hivm.hir.get_block_idx -> i64
+    %30 = llvm.trunc %29 : i64 to i32
+    %31 = hivm.hir.pointer_cast(%12) : memref<64x256xf32, #hivm.address_space<ub>>
+    %base_buffer, %offset, %sizes, %strides = memref.extract_strided_metadata %arg2 : memref<?xf32, #hivm.address_space<gm>> -> memref<f32, #hivm.address_space<gm>>, index, index, index
+    %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [0], sizes: [16384], strides: [1] : memref<f32, #hivm.address_space<gm>> to memref<16384xf32, strided<[1]>, #hivm.address_space<gm>>
+    %base_buffer_0, %offset_1, %sizes_2:2, %strides_3:2 = memref.extract_strided_metadata %31 : memref<64x256xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index, index, index
+    %reinterpret_cast_4 = memref.reinterpret_cast %base_buffer_0 to offset: [0], sizes: [16384], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<16384xf32, #hivm.address_space<ub>>
+    hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID0>]
+    hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID1>]
+    hivm.hir.set_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID0>]
+    hivm.hir.set_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID1>]
+    %cast = memref.cast %reinterpret_cast : memref<16384xf32, strided<[1]>, #hivm.address_space<gm>> to memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>
+    %cast_5 = memref.cast %reinterpret_cast_4 : memref<16384xf32, #hivm.address_space<ub>> to memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>
+    call @load_gm_to_ubuf_1d_float(%cast, %cast_5, %4, %1, %3, %4) : (memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>, memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>, i32, f32, index, i32) -> ()
+    %32 = llvm.add %arg5, %5 : i32
+    %33 = llvm.sdiv %32, %6  : i32
+    %34 = llvm.add %arg5, %8 : i32
+    %35 = llvm.sdiv %34, %9  : i32
+    scf.for %arg9 = %4 to %33 step %11  : i32 {
+      %36 = llvm.sext %arg9 : i32 to i64
+      %37 = builtin.unrealized_conversion_cast %36 : i64 to index
+      %38 = affine.apply #map5()[%37]
+      %39 = builtin.unrealized_conversion_cast %38 : index to i64
+      %40 = llvm.icmp "eq" %39, %16 : i64
+      %41 = llvm.select %40, %24, %22 : i1, !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+      %42 = builtin.unrealized_conversion_cast %41 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> to memref<832xf32, #hivm.address_space<ub>>
+      %43 = llvm.zext %40 : i1 to i64
+      %44 = llvm.mul %arg9, %7 : i32
+      %45 = llvm.add %44, %30 : i32
+      %46 = llvm.icmp "slt" %45, %35 : i32
+      scf.if %46 {
+        %47 = hivm.hir.pointer_cast(%13) : memref<832x8xi8, #hivm.address_space<ub>>
+        func.call @adc_func_outlined_vf_2(%47) {hivm.vector_function, no_inline} : (memref<832x8xi8, #hivm.address_space<ub>>) -> ()
+        %48 = hivm.hir.pointer_cast(%14) : memref<832xf32, #hivm.address_space<ub>>
+        func.call @adc_func_outlined_vf_3(%48) {hivm.vector_function, no_inline} : (memref<832xf32, #hivm.address_space<ub>>) -> ()
+        %49 = llvm.mul %arg9, %6 : i32
+        %50 = llvm.mul %30, %9 : i32
+        %51 = llvm.add %49, %50 : i32
+        %52 = llvm.sext %51 : i32 to i64
+        %53 = builtin.unrealized_conversion_cast %52 : i64 to index
+        %54 = llvm.sub %arg5, %50 : i32
+        %55 = llvm.sub %54, %49 : i32
+        %56 = llvm.intr.smin(%55, %9)  : (i32, i32) -> i32
+        %57 = llvm.sext %56 : i32 to i64
+        %58 = builtin.unrealized_conversion_cast %57 : i64 to index
+        %59 = scf.for %arg10 = %4 to %10 step %11 iter_args(%arg11 = %48) -> (memref<832xf32, #hivm.address_space<ub>>)  : i32 {
+          %60 = llvm.sext %arg10 : i32 to i64
+          %61 = builtin.unrealized_conversion_cast %60 : i64 to index
+          %62 = affine.apply #map5()[%61]
+          %63 = builtin.unrealized_conversion_cast %62 : index to i64
+          %64 = llvm.icmp "eq" %63, %16 : i64
+          %65 = llvm.select %64, %28, %26 : i1, !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+          %66 = builtin.unrealized_conversion_cast %65 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> to memref<832x8xi8, #hivm.address_space<ub>>
+          %67 = llvm.zext %64 : i1 to i64
+          %68 = llvm.mul %arg10, %10 : i32
+          %69 = llvm.sext %68 : i32 to i64
+          %70 = builtin.unrealized_conversion_cast %69 : i64 to index
+          %base_buffer_18, %offset_19, %sizes_20, %strides_21 = memref.extract_strided_metadata %arg3 : memref<?xi8, #hivm.address_space<gm>> -> memref<i8, #hivm.address_space<gm>>, index, index, index
+          %71 = affine.apply #map6()[%53, %70]
+          %reinterpret_cast_22 = memref.reinterpret_cast %base_buffer_18 to offset: [%71], sizes: [%58, 8], strides: [64, 1] : memref<i8, #hivm.address_space<gm>> to memref<?x8xi8, strided<[64, 1], offset: ?>, #hivm.address_space<gm>>
+          %base_buffer_23, %offset_24, %sizes_25:2, %strides_26:2 = memref.extract_strided_metadata %66 : memref<832x8xi8, #hivm.address_space<ub>> -> memref<i8, #hivm.address_space<ub>>, index, index, index, index, index
+          %reinterpret_cast_27 = memref.reinterpret_cast %base_buffer_23 to offset: [0], sizes: [%58, 8], strides: [8, 1] : memref<i8, #hivm.address_space<ub>> to memref<?x8xi8, strided<[8, 1]>, #hivm.address_space<ub>>
+          hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE2>, %67]
+          %cast_28 = memref.cast %reinterpret_cast_22 : memref<?x8xi8, strided<[64, 1], offset: ?>, #hivm.address_space<gm>> to memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<gm>>
+          %cast_29 = memref.cast %reinterpret_cast_27 : memref<?x8xi8, strided<[8, 1]>, #hivm.address_space<ub>> to memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<ub>>
+          func.call @load_gm_to_ubuf_2d_int8_t(%cast_28, %cast_29, %4, %0, %3, %4) : (memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<gm>>, memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<ub>>, i32, i8, index, i32) -> ()
+          hivm.hir.set_flag[<PIPE_MTE2>, <PIPE_V>, <EVENT_ID0>]
+          %base_buffer_30, %offset_31, %sizes_32:2, %strides_33:2 = memref.extract_strided_metadata %66 : memref<832x8xi8, #hivm.address_space<ub>> -> memref<i8, #hivm.address_space<ub>>, index, index, index, index, index
+          %72 = affine.apply #map4()[%58]
+          %reinterpret_cast_34 = memref.reinterpret_cast %base_buffer_30 to offset: [0], sizes: [%72], strides: [1] : memref<i8, #hivm.address_space<ub>> to memref<?xi8, strided<[1]>, #hivm.address_space<ub>>
+          %base_buffer_35, %offset_36, %sizes_37:2, %strides_38:2 = memref.extract_strided_metadata %47 : memref<832x8xi8, #hivm.address_space<ub>> -> memref<i8, #hivm.address_space<ub>>, index, index, index, index, index
+          %73 = affine.apply #map4()[%58]
+          %reinterpret_cast_39 = memref.reinterpret_cast %base_buffer_35 to offset: [0], sizes: [%73], strides: [1] : memref<i8, #hivm.address_space<ub>> to memref<?xi8, strided<[1]>, #hivm.address_space<ub>>
+          hivm.hir.wait_flag[<PIPE_MTE2>, <PIPE_V>, <EVENT_ID0>]
+          %cast_40 = memref.cast %reinterpret_cast_34 : memref<?xi8, strided<[1]>, #hivm.address_space<ub>> to memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>
+          %cast_41 = memref.cast %reinterpret_cast_39 : memref<?xi8, strided<[1]>, #hivm.address_space<ub>> to memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>
+          func.call @copy_ubuf_to_ubuf_1d_int8_t(%cast_40, %cast_41) : (memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>, memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>) -> ()
+          hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE2>, %67]
+          %74 = hivm.hir.pointer_cast(%15) : memref<8x832xi32, #hivm.address_space<ub>>
+          func.call @adc_func_outlined_vf_1(%47, %74) {hivm.vector_function, no_inline} : (memref<832x8xi8, #hivm.address_space<ub>>, memref<8x832xi32, #hivm.address_space<ub>>) -> ()
+          %75 = scf.for %arg12 = %4 to %10 step %11 iter_args(%arg13 = %arg11) -> (memref<832xf32, #hivm.address_space<ub>>)  : i32 {
+            %76 = llvm.add %68, %arg12 : i32
+            %77 = llvm.sext %76 : i32 to i64
+            %78 = builtin.unrealized_conversion_cast %77 : i64 to index
+            %79 = llvm.sext %arg12 : i32 to i64
+            %80 = builtin.unrealized_conversion_cast %79 : i64 to index
+            %81 = hivm.hir.pointer_cast(%14) : memref<832xf32, #hivm.address_space<ub>>
+            func.call @adc_func_outlined_vf_0(%arg13, %74, %80, %31, %78, %81) {hivm.vector_function, no_inline} : (memref<832xf32, #hivm.address_space<ub>>, memref<8x832xi32, #hivm.address_space<ub>>, index, memref<64x256xf32, #hivm.address_space<ub>>, index, memref<832xf32, #hivm.address_space<ub>>) -> ()
+            scf.yield %81 : memref<832xf32, #hivm.address_space<ub>>
+          }
+          scf.yield %75 : memref<832xf32, #hivm.address_space<ub>>
+        }
+        hivm.hir.wait_flag[<PIPE_MTE3>, <PIPE_V>, %43]
+        func.call @adc_func_outlined_vf_4(%59, %42) {hivm.vector_function, no_inline} : (memref<832xf32, #hivm.address_space<ub>>, memref<832xf32, #hivm.address_space<ub>>) -> ()
+        hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE3>, <EVENT_ID0>]
+        %base_buffer_6, %offset_7, %sizes_8, %strides_9 = memref.extract_strided_metadata %42 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+        %reinterpret_cast_10 = memref.reinterpret_cast %base_buffer_6 to offset: [0], sizes: [%58], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<?xf32, strided<[1]>, #hivm.address_space<ub>>
+        %base_buffer_11, %offset_12, %sizes_13, %strides_14 = memref.extract_strided_metadata %arg4 : memref<?xf32, #hivm.address_space<gm>> -> memref<f32, #hivm.address_space<gm>>, index, index, index
+        %reinterpret_cast_15 = memref.reinterpret_cast %base_buffer_11 to offset: [%53], sizes: [%58], strides: [1] : memref<f32, #hivm.address_space<gm>> to memref<?xf32, strided<[1], offset: ?>, #hivm.address_space<gm>>
+        hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE3>, <EVENT_ID0>]
+        hivm.hir.pipe_barrier[<PIPE_MTE3>]
+        %cast_16 = memref.cast %reinterpret_cast_10 : memref<?xf32, strided<[1]>, #hivm.address_space<ub>> to memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>
+        %cast_17 = memref.cast %reinterpret_cast_15 : memref<?xf32, strided<[1], offset: ?>, #hivm.address_space<gm>> to memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>
+        func.call @store_ubuf_to_gm_1d_float(%cast_16, %cast_17, %4) : (memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>, memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>, i32) -> ()
+        hivm.hir.set_flag[<PIPE_MTE3>, <PIPE_V>, %43]
+      }
+    }
+    hivm.hir.pipe_barrier[<PIPE_ALL>]
+    hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID0>]
+    hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID1>]
+    hivm.hir.wait_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID0>]
+    hivm.hir.wait_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID1>]
+    return
+  }
+}
+
+
+// -----// IR Dump Before HoistVstas (hoist-vstas) //----- //
+func.func @adc_func_outlined_vf_0(%arg0: memref<832xf32, #hivm.address_space<ub>>, %arg1: memref<8x832xi32, #hivm.address_space<ub>>, %arg2: index, %arg3: memref<64x256xf32, #hivm.address_space<ub>>, %arg4: index, %arg5: memref<832xf32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+  %0 = llvm.mlir.constant(64 : i32) : i32
+  %1 = llvm.mlir.constant(832 : i32) : i32
+  %2 = llvm.mlir.constant(0 : i32) : i32
+  %3 = llvm.mlir.constant(0 : index) : i64
+  %4 = llvm.mlir.constant(8 : i32) : i32
+  %5 = llvm.mlir.constant(0 : i32) : i32
+  %6 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%4, %5) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+  %7 = builtin.unrealized_conversion_cast %6 : vector<256xi1> to vector<64xi1>
+  %base_buffer, %offset, %sizes:2, %strides:2 = memref.extract_strided_metadata %arg3 : memref<64x256xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index, index, index
+  %8 = affine.apply affine_map<()[s0] -> (s0 * 256)>()[%arg4]
+  %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [%8], sizes: [256], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<256xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+  %9 = builtin.unrealized_conversion_cast %reinterpret_cast : memref<256xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+  scf.for %arg6 = %2 to %1 step %0  : i32 {
+    %10 = llvm.sext %arg6 : i32 to i64
+    %11 = builtin.unrealized_conversion_cast %10 : i64 to index
+    %base_buffer_0, %offset_1, %sizes_2, %strides_3 = memref.extract_strided_metadata %arg0 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+    %reinterpret_cast_4 = memref.reinterpret_cast %base_buffer_0 to offset: [%11], sizes: [64], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+    %12 = builtin.unrealized_conversion_cast %reinterpret_cast_4 : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %base_buffer_5, %offset_6, %sizes_7:2, %strides_8:2 = memref.extract_strided_metadata %arg1 : memref<8x832xi32, #hivm.address_space<ub>> -> memref<i32, #hivm.address_space<ub>>, index, index, index, index, index
+    %13 = affine.apply affine_map<()[s0, s1] -> (s0 * 832 + s1)>()[%arg2, %11]
+    %reinterpret_cast_9 = memref.reinterpret_cast %base_buffer_5 to offset: [%13], sizes: [64], strides: [1] : memref<i32, #hivm.address_space<ub>> to memref<64xi32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+    %14 = builtin.unrealized_conversion_cast %reinterpret_cast_9 : memref<64xi32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %base_buffer_10, %offset_11, %sizes_12, %strides_13 = memref.extract_strided_metadata %arg5 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+    %reinterpret_cast_14 = memref.reinterpret_cast %base_buffer_10 to offset: [%11], sizes: [64], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+    %15 = builtin.unrealized_conversion_cast %reinterpret_cast_14 : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %16 = llvm.extractvalue %12[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %17 = llvm.extractvalue %12[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %18 = llvm.getelementptr %16[%17] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+    %19 = llvm.getelementptr %18[%3] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+    %20 = llvm.mlir.constant(0 : i32) : i32
+    %21 = llvm.mlir.constant(0 : i32) : i32
+    %22 = llvm.mlir.constant(0 : i32) : i32
+    %23 = "hivm_regbaseintrins.intr.hivm.vldsx1.v64f32"(%19, %20, %22, %21) : (!llvm.ptr<6>, i32, i32, i32) -> vector<64xf32>
+    %24 = llvm.extractvalue %14[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %25 = llvm.extractvalue %14[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %26 = llvm.getelementptr %24[%25] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i32
+    %27 = llvm.getelementptr %26[%3] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i32
+    %28 = llvm.mlir.constant(0 : i32) : i32
+    %29 = llvm.mlir.constant(0 : i32) : i32
+    %30 = llvm.mlir.constant(0 : i32) : i32
+    %31 = "hivm_regbaseintrins.intr.hivm.vldsx1.v64s32"(%27, %28, %30, %29) : (!llvm.ptr<6>, i32, i32, i32) -> vector<64xi32>
+    %32 = llvm.extractvalue %9[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %33 = llvm.extractvalue %9[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %34 = llvm.getelementptr %32[%33] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+    %35 = llvm.getelementptr %34[%3] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+    %36 = builtin.unrealized_conversion_cast %7 : vector<64xi1> to vector<256xi1>
+    %37 = "hivm_regbaseintrins.intr.hivm.vgather2_v300.v64f32"(%35, %31, %36) : (!llvm.ptr<6>, vector<64xi32>, vector<256xi1>) -> vector<64xf32>
+    %38 = llvm.mlir.constant(8 : i32) : i32
+    %39 = llvm.mlir.constant(0 : i32) : i32
+    %40 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%38, %39) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+    %41 = builtin.unrealized_conversion_cast %40 : vector<256xi1> to vector<64xi1>
+    %42 = builtin.unrealized_conversion_cast %41 : vector<64xi1> to vector<256xi1>
+    %43 = "hivm_regbaseintrins.intr.hivm.vadd.s.x"(%23, %37, %42) : (vector<64xf32>, vector<64xf32>, vector<256xi1>) -> vector<64xf32>
+    %44 = llvm.mlir.constant(8 : i32) : i32
+    %45 = llvm.mlir.constant(0 : i32) : i32
+    %46 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%44, %45) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+    %47 = builtin.unrealized_conversion_cast %46 : vector<256xi1> to vector<64xi1>
+    %48 = llvm.extractvalue %15[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %49 = llvm.extractvalue %15[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %50 = llvm.getelementptr %48[%49] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+    %51 = llvm.getelementptr %50[%3] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+    %52 = llvm.mlir.constant(0 : i32) : i32
+    %53 = llvm.mlir.constant(0 : i32) : i32
+    %54 = llvm.mlir.constant(2 : i32) : i32
+    %55 = builtin.unrealized_conversion_cast %47 : vector<64xi1> to vector<256xi1>
+    "hivm_regbaseintrins.intr.hivm.vstsx1.v64f32"(%43, %51, %52, %54, %53, %55) : (vector<64xf32>, !llvm.ptr<6>, i32, i32, i32, vector<256xi1>) -> ()
+  } {element_alignment_bit_width = 32 : i32}
+  return
+}
+
+// -----// IR Dump After HoistVstas (hoist-vstas) //----- //
+func.func @adc_func_outlined_vf_0(%arg0: memref<832xf32, #hivm.address_space<ub>>, %arg1: memref<8x832xi32, #hivm.address_space<ub>>, %arg2: index, %arg3: memref<64x256xf32, #hivm.address_space<ub>>, %arg4: index, %arg5: memref<832xf32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+  %0 = llvm.mlir.constant(2 : i32) : i32
+  %1 = llvm.mlir.constant(64 : i32) : i32
+  %2 = llvm.mlir.constant(832 : i32) : i32
+  %3 = llvm.mlir.constant(0 : i32) : i32
+  %4 = llvm.mlir.constant(8 : i32) : i32
+  %5 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%4, %3) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+  %base_buffer, %offset, %sizes:2, %strides:2 = memref.extract_strided_metadata %arg3 : memref<64x256xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index, index, index
+  %6 = affine.apply affine_map<()[s0] -> (s0 * 256)>()[%arg4]
+  %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [%6], sizes: [256], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<256xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+  %7 = builtin.unrealized_conversion_cast %reinterpret_cast : memref<256xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+  scf.for %arg6 = %3 to %2 step %1  : i32 {
+    %8 = llvm.sext %arg6 : i32 to i64
+    %9 = builtin.unrealized_conversion_cast %8 : i64 to index
+    %base_buffer_0, %offset_1, %sizes_2, %strides_3 = memref.extract_strided_metadata %arg0 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+    %reinterpret_cast_4 = memref.reinterpret_cast %base_buffer_0 to offset: [%9], sizes: [64], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+    %10 = builtin.unrealized_conversion_cast %reinterpret_cast_4 : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %base_buffer_5, %offset_6, %sizes_7:2, %strides_8:2 = memref.extract_strided_metadata %arg1 : memref<8x832xi32, #hivm.address_space<ub>> -> memref<i32, #hivm.address_space<ub>>, index, index, index, index, index
+    %11 = affine.apply affine_map<()[s0, s1] -> (s0 * 832 + s1)>()[%arg2, %9]
+    %reinterpret_cast_9 = memref.reinterpret_cast %base_buffer_5 to offset: [%11], sizes: [64], strides: [1] : memref<i32, #hivm.address_space<ub>> to memref<64xi32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+    %12 = builtin.unrealized_conversion_cast %reinterpret_cast_9 : memref<64xi32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %base_buffer_10, %offset_11, %sizes_12, %strides_13 = memref.extract_strided_metadata %arg5 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+    %reinterpret_cast_14 = memref.reinterpret_cast %base_buffer_10 to offset: [%9], sizes: [64], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+    %13 = builtin.unrealized_conversion_cast %reinterpret_cast_14 : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %14 = llvm.extractvalue %10[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %15 = llvm.extractvalue %10[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %16 = llvm.getelementptr %14[%15] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+    %17 = "hivm_regbaseintrins.intr.hivm.vldsx1.v64f32"(%16, %3, %3, %3) : (!llvm.ptr<6>, i32, i32, i32) -> vector<64xf32>
+    %18 = llvm.extractvalue %12[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %19 = llvm.extractvalue %12[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %20 = llvm.getelementptr %18[%19] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i32
+    %21 = "hivm_regbaseintrins.intr.hivm.vldsx1.v64s32"(%20, %3, %3, %3) : (!llvm.ptr<6>, i32, i32, i32) -> vector<64xi32>
+    %22 = llvm.extractvalue %7[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %23 = llvm.extractvalue %7[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %24 = llvm.getelementptr %22[%23] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+    %25 = "hivm_regbaseintrins.intr.hivm.vgather2_v300.v64f32"(%24, %21, %5) : (!llvm.ptr<6>, vector<64xi32>, vector<256xi1>) -> vector<64xf32>
+    %26 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%4, %3) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+    %27 = "hivm_regbaseintrins.intr.hivm.vadd.s.x"(%17, %25, %26) : (vector<64xf32>, vector<64xf32>, vector<256xi1>) -> vector<64xf32>
+    %28 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%4, %3) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+    %29 = llvm.extractvalue %13[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %30 = llvm.extractvalue %13[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %31 = llvm.getelementptr %29[%30] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+    "hivm_regbaseintrins.intr.hivm.vstsx1.v64f32"(%27, %31, %3, %0, %3, %28) : (vector<64xf32>, !llvm.ptr<6>, i32, i32, i32, vector<256xi1>) -> ()
+  } {element_alignment_bit_width = 32 : i32}
+  return
+}
+
+// -----// IR Dump Before HoistVstas (hoist-vstas) //----- //
+func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub>>, %arg1: memref<8x832xi32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+  %0 = llvm.mlir.constant(64 : i32) : i32
+  %1 = llvm.mlir.constant(832 : i32) : i32
+  %2 = llvm.mlir.constant(0 : index) : i64
+  %3 = llvm.mlir.constant(0 : i32) : i32
+  %4 = llvm.mlir.constant(8 : i32) : i32
+  %5 = llvm.mlir.constant(1 : i32) : i32
+  scf.for %arg2 = %3 to %4 step %5  : i32 {
+    %6 = llvm.sext %arg2 : i32 to i64
+    %7 = builtin.unrealized_conversion_cast %6 : i64 to index
+    scf.for %arg3 = %3 to %1 step %0  : i32 {
+      %8 = llvm.sext %arg3 : i32 to i64
+      %9 = builtin.unrealized_conversion_cast %8 : i64 to index
+      %base_buffer, %offset, %sizes:2, %strides:2 = memref.extract_strided_metadata %arg0 : memref<832x8xi8, #hivm.address_space<ub>> -> memref<i8, #hivm.address_space<ub>>, index, index, index, index, index
+      %10 = affine.apply affine_map<()[s0, s1] -> (s0 * 8 + s1)>()[%9, %7]
+      %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [%10], sizes: [64, 1], strides: [8, 1] : memref<i8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
+      %11 = builtin.unrealized_conversion_cast %reinterpret_cast : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+      %12 = llvm.extractvalue %11[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+      %13 = llvm.extractvalue %11[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+      %14 = llvm.getelementptr %12[%13] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i8
+      %15 = llvm.mlir.constant(8 : index) : i64
+      %16 = llvm.mul %2, %15 : i64
+      %17 = llvm.add %16, %2 : i64
+      %18 = llvm.getelementptr %14[%17] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i8
+      %19 = llvm.mlir.constant(0 : i32) : i32
+      %20 = llvm.mlir.constant(0 : i32) : i32
+      %21 = llvm.mlir.constant(0 : i32) : i32
+      %22 = llvm.mlir.constant(20 : i32) : i32
+      %23 = "hivm_regbaseintrins.intr.hivm.vldas"(%18) : (!llvm.ptr<6>) -> vector<32xi8>
+      %24 = llvm.mlir.constant(0 : i32) : i32
+      %25 = "hivm_regbaseintrins.intr.hivm.vldus.post.s8"(%18, %23, %24) : (!llvm.ptr<6>, vector<32xi8>, i32) -> !llvm.struct<(vector<256xi8>, vector<32xi8>, ptr<6>)>
+      %26 = llvm.extractvalue %25[0] : !llvm.struct<(vector<256xi8>, vector<32xi8>, ptr<6>)> 
+      %27 = llvm.mlir.constant(0 : i16) : i16
+      %28 = llvm.mlir.constant(0 : i8) : i8
+      %29 = "hivm_regbaseintrins.intr.hivm.vbr"(%28) : (i8) -> vector<256xi8>
+      %30 = "hivm_regbaseintrins.intr.hivm.vintlv"(%26, %29) : (vector<256xi8>, vector<256xi8>) -> !llvm.struct<(vector<256xi8>, vector<256xi8>)>
+      %31 = llvm.extractvalue %30[0] : !llvm.struct<(vector<256xi8>, vector<256xi8>)> 
+      %32 = "hivm_regbaseintrins.intr.hivm.vintlv"(%31, %29) : (vector<256xi8>, vector<256xi8>) -> !llvm.struct<(vector<256xi8>, vector<256xi8>)>
+      %33 = llvm.extractvalue %32[0] : !llvm.struct<(vector<256xi8>, vector<256xi8>)> 
+      %34 = builtin.unrealized_conversion_cast %33 : vector<256xi8> to vector<64xi8>
+      %35 = llvm.mlir.constant(8 : i32) : i32
+      %36 = llvm.mlir.constant(0 : i32) : i32
+      %37 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%35, %36) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+      %38 = builtin.unrealized_conversion_cast %37 : vector<256xi1> to vector<64xi1>
+      %39 = builtin.unrealized_conversion_cast %34 : vector<64xi8> to vector<256xi8>
+      %40 = llvm.mlir.constant(0 : i32) : i32
+      %41 = builtin.unrealized_conversion_cast %38 : vector<64xi1> to vector<256xi1>
+      %42 = llvm.mlir.constant(0 : i32) : i32
+      %43 = "hivm_regbaseintrins.intr.hivm.vcvtii.s82s32.x"(%39, %41, %42) : (vector<256xi8>, vector<256xi1>, i32) -> vector<64xi32>
+      %44 = builtin.unrealized_conversion_cast %43 : vector<64xi32> to vector<64xi32>
+      %base_buffer_0, %offset_1, %sizes_2:2, %strides_3:2 = memref.extract_strided_metadata %arg1 : memref<8x832xi32, #hivm.address_space<ub>> -> memref<i32, #hivm.address_space<ub>>, index, index, index, index, index
+      %45 = affine.apply affine_map<()[s0, s1] -> (s0 * 832 + s1)>()[%7, %9]
+      %reinterpret_cast_4 = memref.reinterpret_cast %base_buffer_0 to offset: [%45], sizes: [64], strides: [1] : memref<i32, #hivm.address_space<ub>> to memref<64xi32, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>
+      %46 = builtin.unrealized_conversion_cast %reinterpret_cast_4 : memref<64xi32, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+      %47 = llvm.mlir.constant(8 : i32) : i32
+      %48 = llvm.mlir.constant(0 : i32) : i32
+      %49 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%47, %48) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+      %50 = builtin.unrealized_conversion_cast %49 : vector<256xi1> to vector<64xi1>
+      %51 = llvm.extractvalue %46[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %52 = llvm.extractvalue %46[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %53 = llvm.getelementptr %51[%52] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i32
+      %54 = llvm.getelementptr %53[%2] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i32
+      %55 = llvm.mlir.constant(0 : i32) : i32
+      %56 = llvm.mlir.constant(0 : i32) : i32
+      %57 = llvm.mlir.constant(2 : i32) : i32
+      %58 = builtin.unrealized_conversion_cast %50 : vector<64xi1> to vector<256xi1>
+      "hivm_regbaseintrins.intr.hivm.vstsx1.v64s32"(%44, %54, %55, %57, %56, %58) : (vector<64xi32>, !llvm.ptr<6>, i32, i32, i32, vector<256xi1>) -> ()
+    } {element_alignment_bit_width = 32 : i32}
+  } {element_alignment_bit_width = 32 : i32}
+  return
+}
+
+// -----// IR Dump After HoistVstas (hoist-vstas) //----- //
+func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub>>, %arg1: memref<8x832xi32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+  %0 = llvm.mlir.constant(2 : i32) : i32
+  %1 = llvm.mlir.constant(0 : i8) : i8
+  %2 = llvm.mlir.constant(8 : index) : i64
+  %3 = llvm.mlir.constant(64 : i32) : i32
+  %4 = llvm.mlir.constant(832 : i32) : i32
+  %5 = llvm.mlir.constant(0 : index) : i64
+  %6 = llvm.mlir.constant(0 : i32) : i32
+  %7 = llvm.mlir.constant(8 : i32) : i32
+  %8 = llvm.mlir.constant(1 : i32) : i32
+  scf.for %arg2 = %6 to %7 step %8  : i32 {
+    %9 = llvm.sext %arg2 : i32 to i64
+    %10 = builtin.unrealized_conversion_cast %9 : i64 to index
+    scf.for %arg3 = %6 to %4 step %3  : i32 {
+      %11 = llvm.sext %arg3 : i32 to i64
+      %12 = builtin.unrealized_conversion_cast %11 : i64 to index
+      %base_buffer, %offset, %sizes:2, %strides:2 = memref.extract_strided_metadata %arg0 : memref<832x8xi8, #hivm.address_space<ub>> -> memref<i8, #hivm.address_space<ub>>, index, index, index, index, index
+      %13 = affine.apply affine_map<()[s0, s1] -> (s0 * 8 + s1)>()[%12, %10]
+      %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [%13], sizes: [64, 1], strides: [8, 1] : memref<i8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
+      %14 = builtin.unrealized_conversion_cast %reinterpret_cast : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+      %15 = llvm.extractvalue %14[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+      %16 = llvm.extractvalue %14[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+      %17 = llvm.getelementptr %15[%16] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i8
+      %18 = llvm.mul %5, %2 : i64
+      %19 = llvm.add %18, %5 : i64
+      %20 = llvm.getelementptr %17[%19] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i8
+      %21 = "hivm_regbaseintrins.intr.hivm.vldas"(%20) : (!llvm.ptr<6>) -> vector<32xi8>
+      %22 = "hivm_regbaseintrins.intr.hivm.vldus.post.s8"(%20, %21, %6) : (!llvm.ptr<6>, vector<32xi8>, i32) -> !llvm.struct<(vector<256xi8>, vector<32xi8>, ptr<6>)>
+      %23 = llvm.extractvalue %22[0] : !llvm.struct<(vector<256xi8>, vector<32xi8>, ptr<6>)> 
+      %24 = "hivm_regbaseintrins.intr.hivm.vbr"(%1) : (i8) -> vector<256xi8>
+      %25 = "hivm_regbaseintrins.intr.hivm.vintlv"(%23, %24) : (vector<256xi8>, vector<256xi8>) -> !llvm.struct<(vector<256xi8>, vector<256xi8>)>
+      %26 = llvm.extractvalue %25[0] : !llvm.struct<(vector<256xi8>, vector<256xi8>)> 
+      %27 = "hivm_regbaseintrins.intr.hivm.vintlv"(%26, %24) : (vector<256xi8>, vector<256xi8>) -> !llvm.struct<(vector<256xi8>, vector<256xi8>)>
+      %28 = llvm.extractvalue %27[0] : !llvm.struct<(vector<256xi8>, vector<256xi8>)> 
+      %29 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%7, %6) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+      %30 = "hivm_regbaseintrins.intr.hivm.vcvtii.s82s32.x"(%28, %29, %6) : (vector<256xi8>, vector<256xi1>, i32) -> vector<64xi32>
+      %base_buffer_0, %offset_1, %sizes_2:2, %strides_3:2 = memref.extract_strided_metadata %arg1 : memref<8x832xi32, #hivm.address_space<ub>> -> memref<i32, #hivm.address_space<ub>>, index, index, index, index, index
+      %31 = affine.apply affine_map<()[s0, s1] -> (s0 * 832 + s1)>()[%10, %12]
+      %reinterpret_cast_4 = memref.reinterpret_cast %base_buffer_0 to offset: [%31], sizes: [64], strides: [1] : memref<i32, #hivm.address_space<ub>> to memref<64xi32, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>
+      %32 = builtin.unrealized_conversion_cast %reinterpret_cast_4 : memref<64xi32, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+      %33 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%7, %6) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+      %34 = llvm.extractvalue %32[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %35 = llvm.extractvalue %32[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %36 = llvm.getelementptr %34[%35] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i32
+      "hivm_regbaseintrins.intr.hivm.vstsx1.v64s32"(%30, %36, %6, %0, %6, %33) : (vector<64xi32>, !llvm.ptr<6>, i32, i32, i32, vector<256xi1>) -> ()
+    } {element_alignment_bit_width = 32 : i32}
+  } {element_alignment_bit_width = 32 : i32}
+  return
+}
+
+// -----// IR Dump Before HoistVstas (hoist-vstas) //----- //
+func.func @adc_func_outlined_vf_2(%arg0: memref<832x8xi8, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 8 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+  %0 = llvm.mlir.constant(1 : i32) : i32
+  %1 = llvm.mlir.constant(832 : i32) : i32
+  %2 = llvm.mlir.constant(0 : i32) : i32
+  %3 = llvm.mlir.constant(0 : index) : i64
+  %4 = llvm.mlir.constant(0 : i16) : i16
+  %5 = llvm.mlir.constant(0 : i32) : i32
+  %6 = llvm.mlir.constant(0 : i32) : i32
+  %7 = "hivm_regbaseintrins.intr.hivm.pge.b8"(%5, %6) {mask_bit_width = 8 : i32} : (i32, i32) -> vector<256xi1>
+  %8 = llvm.mlir.constant(1 : i32) : i32
+  %9 = llvm.mlir.constant(0 : i8) : i8
+  %10 = "hivm_regbaseintrins.intr.hivm.vdups.z"(%9, %7, %8) : (i8, vector<256xi1>, i32) -> vector<256xi8>
+  scf.for %arg1 = %2 to %1 step %0  : i32 {
+    %11 = llvm.sext %arg1 : i32 to i64
+    %12 = builtin.unrealized_conversion_cast %11 : i64 to index
+    %13 = llvm.mlir.constant(5 : i32) : i32
+    %14 = llvm.mlir.constant(0 : i32) : i32
+    %15 = "hivm_regbaseintrins.intr.hivm.pge.b8"(%13, %14) {mask_bit_width = 8 : i32, mask_op_idx = 0 : i32} : (i32, i32) -> vector<256xi1>
+    %base_buffer, %offset, %sizes:2, %strides:2 = memref.extract_strided_metadata %arg0 : memref<832x8xi8, #hivm.address_space<ub>> -> memref<i8, #hivm.address_space<ub>>, index, index, index, index, index
+    %16 = affine.apply affine_map<()[s0] -> (s0 * 8)>()[%12]
+    %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [%16], sizes: [8], strides: [1] : memref<i8, #hivm.address_space<ub>> to memref<8xi8, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>
+    %17 = builtin.unrealized_conversion_cast %reinterpret_cast : memref<8xi8, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %18 = llvm.extractvalue %17[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %19 = llvm.extractvalue %17[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %20 = llvm.getelementptr %18[%19] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i8
+    %21 = llvm.getelementptr %20[%3] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i8
+    %22 = llvm.mlir.constant(0 : i32) : i32
+    %23 = llvm.mlir.constant(0 : i32) : i32
+    %24 = llvm.mlir.constant(0 : i32) : i32
+    %25 = llvm.mlir.constant(8 : i32) : i32
+    %26 = "hivm_regbaseintrins.intr.hivm.init.vector.align.data"() : () -> vector<32xi8>
+    %27 = "hivm_regbaseintrins.intr.hivm.vstus.post.s8"(%10, %21, %25, %26) : (vector<256xi8>, !llvm.ptr<6>, i32, vector<32xi8>) -> !llvm.struct<(vector<32xi8>, ptr<6>)>
+    %28 = llvm.extractvalue %27[0] : !llvm.struct<(vector<32xi8>, ptr<6>)> 
+    %29 = llvm.extractvalue %27[1] : !llvm.struct<(vector<32xi8>, ptr<6>)> 
+    %30 = llvm.mlir.constant(0 : i32) : i32
+    "hivm_regbaseintrins.intr.hivm.vstas"(%28, %29, %30, %30) : (vector<32xi8>, !llvm.ptr<6>, i32, i32) -> ()
+  } {element_alignment_bit_width = -1 : i32}
+  return
+}
+
+// -----// IR Dump After HoistVstas (hoist-vstas) //----- //
+func.func @adc_func_outlined_vf_2(%arg0: memref<832x8xi8, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 8 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+  %0 = llvm.mlir.constant(8 : i32) : i32
+  %1 = llvm.mlir.constant(5 : i32) : i32
+  %2 = llvm.mlir.constant(0 : i8) : i8
+  %3 = llvm.mlir.constant(1 : i32) : i32
+  %4 = llvm.mlir.constant(832 : i32) : i32
+  %5 = llvm.mlir.constant(0 : i32) : i32
+  %6 = "hivm_regbaseintrins.intr.hivm.pge.b8"(%5, %5) {mask_bit_width = 8 : i32} : (i32, i32) -> vector<256xi1>
+  %7 = "hivm_regbaseintrins.intr.hivm.vdups.z"(%2, %6, %3) : (i8, vector<256xi1>, i32) -> vector<256xi8>
+  scf.for %arg1 = %5 to %4 step %3  : i32 {
+    %8 = llvm.sext %arg1 : i32 to i64
+    %9 = builtin.unrealized_conversion_cast %8 : i64 to index
+    %10 = "hivm_regbaseintrins.intr.hivm.pge.b8"(%1, %5) {mask_bit_width = 8 : i32, mask_op_idx = 0 : i32} : (i32, i32) -> vector<256xi1>
+    %base_buffer, %offset, %sizes:2, %strides:2 = memref.extract_strided_metadata %arg0 : memref<832x8xi8, #hivm.address_space<ub>> -> memref<i8, #hivm.address_space<ub>>, index, index, index, index, index
+    %11 = affine.apply affine_map<()[s0] -> (s0 * 8)>()[%9]
+    %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [%11], sizes: [8], strides: [1] : memref<i8, #hivm.address_space<ub>> to memref<8xi8, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>
+    %12 = builtin.unrealized_conversion_cast %reinterpret_cast : memref<8xi8, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %13 = llvm.extractvalue %12[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %14 = llvm.extractvalue %12[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %15 = llvm.getelementptr %13[%14] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i8
+    %16 = "hivm_regbaseintrins.intr.hivm.init.vector.align.data"() : () -> vector<32xi8>
+    %17 = "hivm_regbaseintrins.intr.hivm.vstus.post.s8"(%7, %15, %0, %16) : (vector<256xi8>, !llvm.ptr<6>, i32, vector<32xi8>) -> !llvm.struct<(vector<32xi8>, ptr<6>)>
+    %18 = llvm.extractvalue %17[0] : !llvm.struct<(vector<32xi8>, ptr<6>)> 
+    %19 = llvm.extractvalue %17[1] : !llvm.struct<(vector<32xi8>, ptr<6>)> 
+    "hivm_regbaseintrins.intr.hivm.vstas"(%18, %19, %5, %5) : (vector<32xi8>, !llvm.ptr<6>, i32, i32) -> ()
+  } {element_alignment_bit_width = -1 : i32}
+  return
+}
+
+// -----// IR Dump Before HoistVstas (hoist-vstas) //----- //
+func.func @adc_func_outlined_vf_3(%arg0: memref<832xf32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+  %0 = llvm.mlir.constant(64 : i32) : i32
+  %1 = llvm.mlir.constant(832 : i32) : i32
+  %2 = llvm.mlir.constant(0 : i32) : i32
+  %3 = llvm.mlir.constant(0 : index) : i64
+  %4 = llvm.mlir.constant(0.000000e+00 : f32) : f32
+  %5 = llvm.mlir.constant(8 : i32) : i32
+  %6 = llvm.mlir.constant(0 : i32) : i32
+  %7 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%5, %6) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+  %8 = builtin.unrealized_conversion_cast %7 : vector<256xi1> to vector<64xi1>
+  %9 = builtin.unrealized_conversion_cast %8 : vector<64xi1> to vector<256xi1>
+  %10 = llvm.mlir.constant(1 : i32) : i32
+  %11 = "hivm_regbaseintrins.intr.hivm.vdups.z"(%4, %9, %10) : (f32, vector<256xi1>, i32) -> vector<64xf32>
+  scf.for %arg1 = %2 to %1 step %0  : i32 {
+    %12 = llvm.sext %arg1 : i32 to i64
+    %13 = builtin.unrealized_conversion_cast %12 : i64 to index
+    %base_buffer, %offset, %sizes, %strides = memref.extract_strided_metadata %arg0 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+    %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [%13], sizes: [64], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+    %14 = builtin.unrealized_conversion_cast %reinterpret_cast : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %15 = llvm.mlir.constant(8 : i32) : i32
+    %16 = llvm.mlir.constant(0 : i32) : i32
+    %17 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%15, %16) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+    %18 = builtin.unrealized_conversion_cast %17 : vector<256xi1> to vector<64xi1>
+    %19 = llvm.extractvalue %14[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %20 = llvm.extractvalue %14[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %21 = llvm.getelementptr %19[%20] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+    %22 = llvm.getelementptr %21[%3] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+    %23 = llvm.mlir.constant(0 : i32) : i32
+    %24 = llvm.mlir.constant(0 : i32) : i32
+    %25 = llvm.mlir.constant(2 : i32) : i32
+    %26 = builtin.unrealized_conversion_cast %18 : vector<64xi1> to vector<256xi1>
+    "hivm_regbaseintrins.intr.hivm.vstsx1.v64f32"(%11, %22, %23, %25, %24, %26) : (vector<64xf32>, !llvm.ptr<6>, i32, i32, i32, vector<256xi1>) -> ()
+  } {element_alignment_bit_width = -1 : i32}
+  return
+}
+
+// -----// IR Dump After HoistVstas (hoist-vstas) //----- //
+func.func @adc_func_outlined_vf_3(%arg0: memref<832xf32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+  %0 = llvm.mlir.constant(2 : i32) : i32
+  %1 = llvm.mlir.constant(1 : i32) : i32
+  %2 = llvm.mlir.constant(64 : i32) : i32
+  %3 = llvm.mlir.constant(832 : i32) : i32
+  %4 = llvm.mlir.constant(0 : i32) : i32
+  %5 = llvm.mlir.constant(0.000000e+00 : f32) : f32
+  %6 = llvm.mlir.constant(8 : i32) : i32
+  %7 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%6, %4) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+  %8 = "hivm_regbaseintrins.intr.hivm.vdups.z"(%5, %7, %1) : (f32, vector<256xi1>, i32) -> vector<64xf32>
+  scf.for %arg1 = %4 to %3 step %2  : i32 {
+    %9 = llvm.sext %arg1 : i32 to i64
+    %10 = builtin.unrealized_conversion_cast %9 : i64 to index
+    %base_buffer, %offset, %sizes, %strides = memref.extract_strided_metadata %arg0 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+    %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [%10], sizes: [64], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+    %11 = builtin.unrealized_conversion_cast %reinterpret_cast : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %12 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%6, %4) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+    %13 = llvm.extractvalue %11[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %14 = llvm.extractvalue %11[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %15 = llvm.getelementptr %13[%14] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+    "hivm_regbaseintrins.intr.hivm.vstsx1.v64f32"(%8, %15, %4, %0, %4, %12) : (vector<64xf32>, !llvm.ptr<6>, i32, i32, i32, vector<256xi1>) -> ()
+  } {element_alignment_bit_width = -1 : i32}
+  return
+}
+
+// -----// IR Dump Before HoistVstas (hoist-vstas) //----- //
+func.func @adc_func_outlined_vf_4(%arg0: memref<832xf32, #hivm.address_space<ub>>, %arg1: memref<832xf32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+  %0 = llvm.mlir.constant(0 : index) : i64
+  %1 = llvm.mlir.constant(0 : i32) : i32
+  %2 = llvm.mlir.constant(832 : i32) : i32
+  %3 = llvm.mlir.constant(64 : i32) : i32
+  scf.for %arg2 = %1 to %2 step %3  : i32 {
+    %4 = llvm.sext %arg2 : i32 to i64
+    %5 = builtin.unrealized_conversion_cast %4 : i64 to index
+    %base_buffer, %offset, %sizes, %strides = memref.extract_strided_metadata %arg0 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+    %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [%5], sizes: [64], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+    %6 = builtin.unrealized_conversion_cast %reinterpret_cast : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %base_buffer_0, %offset_1, %sizes_2, %strides_3 = memref.extract_strided_metadata %arg1 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+    %reinterpret_cast_4 = memref.reinterpret_cast %base_buffer_0 to offset: [%5], sizes: [64], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+    %7 = builtin.unrealized_conversion_cast %reinterpret_cast_4 : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %8 = llvm.extractvalue %6[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %9 = llvm.extractvalue %6[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %10 = llvm.getelementptr %8[%9] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+    %11 = llvm.getelementptr %10[%0] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+    %12 = llvm.mlir.constant(0 : i32) : i32
+    %13 = llvm.mlir.constant(0 : i32) : i32
+    %14 = llvm.mlir.constant(0 : i32) : i32
+    %15 = "hivm_regbaseintrins.intr.hivm.vldsx1.v64f32"(%11, %12, %14, %13) : (!llvm.ptr<6>, i32, i32, i32) -> vector<64xf32>
+    %16 = llvm.mlir.constant(8 : i32) : i32
+    %17 = llvm.mlir.constant(0 : i32) : i32
+    %18 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%16, %17) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+    %19 = builtin.unrealized_conversion_cast %18 : vector<256xi1> to vector<64xi1>
+    %20 = builtin.unrealized_conversion_cast %19 : vector<64xi1> to vector<256xi1>
+    %21 = "hivm_regbaseintrins.intr.hivm.vsqrt.x"(%15, %20) : (vector<64xf32>, vector<256xi1>) -> vector<64xf32>
+    %22 = llvm.mlir.constant(8 : i32) : i32
+    %23 = llvm.mlir.constant(0 : i32) : i32
+    %24 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%22, %23) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+    %25 = builtin.unrealized_conversion_cast %24 : vector<256xi1> to vector<64xi1>
+    %26 = llvm.extractvalue %7[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %27 = llvm.extractvalue %7[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %28 = llvm.getelementptr %26[%27] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+    %29 = llvm.getelementptr %28[%0] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+    %30 = llvm.mlir.constant(0 : i32) : i32
+    %31 = llvm.mlir.constant(0 : i32) : i32
+    %32 = llvm.mlir.constant(2 : i32) : i32
+    %33 = builtin.unrealized_conversion_cast %25 : vector<64xi1> to vector<256xi1>
+    "hivm_regbaseintrins.intr.hivm.vstsx1.v64f32"(%21, %29, %30, %32, %31, %33) : (vector<64xf32>, !llvm.ptr<6>, i32, i32, i32, vector<256xi1>) -> ()
+  } {element_alignment_bit_width = 32 : i32}
+  return
+}
+
+// -----// IR Dump After HoistVstas (hoist-vstas) //----- //
+func.func @adc_func_outlined_vf_4(%arg0: memref<832xf32, #hivm.address_space<ub>>, %arg1: memref<832xf32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+  %0 = llvm.mlir.constant(2 : i32) : i32
+  %1 = llvm.mlir.constant(8 : i32) : i32
+  %2 = llvm.mlir.constant(0 : i32) : i32
+  %3 = llvm.mlir.constant(832 : i32) : i32
+  %4 = llvm.mlir.constant(64 : i32) : i32
+  scf.for %arg2 = %2 to %3 step %4  : i32 {
+    %5 = llvm.sext %arg2 : i32 to i64
+    %6 = builtin.unrealized_conversion_cast %5 : i64 to index
+    %base_buffer, %offset, %sizes, %strides = memref.extract_strided_metadata %arg0 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+    %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [%6], sizes: [64], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+    %7 = builtin.unrealized_conversion_cast %reinterpret_cast : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %base_buffer_0, %offset_1, %sizes_2, %strides_3 = memref.extract_strided_metadata %arg1 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+    %reinterpret_cast_4 = memref.reinterpret_cast %base_buffer_0 to offset: [%6], sizes: [64], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+    %8 = builtin.unrealized_conversion_cast %reinterpret_cast_4 : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %9 = llvm.extractvalue %7[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %10 = llvm.extractvalue %7[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %11 = llvm.getelementptr %9[%10] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+    %12 = "hivm_regbaseintrins.intr.hivm.vldsx1.v64f32"(%11, %2, %2, %2) : (!llvm.ptr<6>, i32, i32, i32) -> vector<64xf32>
+    %13 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%1, %2) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+    %14 = "hivm_regbaseintrins.intr.hivm.vsqrt.x"(%12, %13) : (vector<64xf32>, vector<256xi1>) -> vector<64xf32>
+    %15 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%1, %2) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+    %16 = llvm.extractvalue %8[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %17 = llvm.extractvalue %8[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %18 = llvm.getelementptr %16[%17] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+    "hivm_regbaseintrins.intr.hivm.vstsx1.v64f32"(%14, %18, %2, %0, %2, %15) : (vector<64xf32>, !llvm.ptr<6>, i32, i32, i32, vector<256xi1>) -> ()
+  } {element_alignment_bit_width = 32 : i32}
+  return
+}
+
+// -----// IR Dump Before HoistVstas (hoist-vstas) //----- //
+func.func private @load_gm_to_ubuf_1d_float(memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>, memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>, i32, f32, index, i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface}
+
+// -----// IR Dump After HoistVstas (hoist-vstas) //----- //
+func.func private @load_gm_to_ubuf_1d_float(memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>, memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>, i32, f32, index, i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface}
+
+// -----// IR Dump Before HoistVstas (hoist-vstas) //----- //
+func.func private @load_gm_to_ubuf_2d_int8_t(memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<gm>>, memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<ub>>, i32, i8, index, i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface}
+
+// -----// IR Dump After HoistVstas (hoist-vstas) //----- //
+func.func private @load_gm_to_ubuf_2d_int8_t(memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<gm>>, memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<ub>>, i32, i8, index, i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface}
+
+// -----// IR Dump Before HoistVstas (hoist-vstas) //----- //
+func.func private @copy_ubuf_to_ubuf_1d_int8_t(memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>, memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface}
+
+// -----// IR Dump After HoistVstas (hoist-vstas) //----- //
+func.func private @copy_ubuf_to_ubuf_1d_int8_t(memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>, memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface}
+
+// -----// IR Dump Before HoistVstas (hoist-vstas) //----- //
+func.func private @store_ubuf_to_gm_1d_float(memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>, memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>, i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface}
+
+// -----// IR Dump After HoistVstas (hoist-vstas) //----- //
+func.func private @store_ubuf_to_gm_1d_float(memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>, memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>, i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface}
+
+// -----// IR Dump Before HoistVstas (hoist-vstas) //----- //
+func.func @adc_func(%arg0: memref<?xi8, #hivm.address_space<gm>> {hacc.arg_type = #hacc.arg_type<sync_block_lock>}, %arg1: memref<?xi8, #hivm.address_space<gm>> {hacc.arg_type = #hacc.arg_type<workspace>}, %arg2: memref<?xf32, #hivm.address_space<gm>>, %arg3: memref<?xi8, #hivm.address_space<gm>>, %arg4: memref<?xf32, #hivm.address_space<gm>>, %arg5: i32, %arg6: i32, %arg7: i32, %arg8: i32) attributes {SyncBlockLockArgIdx = 0 : i64, WorkspaceArgIdx = 1 : i64, func_dyn_memref_args = dense<[true, true, true, true, true, false, false, false, false]> : vector<9xi1>, hacc.entry, hacc.function_kind = #hacc.function_kind<DEVICE>, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vf_mode = #hivm.vf_mode<SIMD>, hivm_regbaseintrins.target = #hivm_regbaseintrins.target<"dav-c310">, mix_mode = "aiv", parallel_mode = "simd"} {
+  %0 = llvm.mlir.constant(0 : i8) : i8
+  %1 = llvm.mlir.constant(0.000000e+00 : f32) : f32
+  %2 = llvm.mlir.constant(0 : index) : i64
+  %3 = builtin.unrealized_conversion_cast %2 : i64 to index
+  %4 = llvm.mlir.constant(0 : i32) : i32
+  %5 = llvm.mlir.constant(46591 : i32) : i32
+  %6 = llvm.mlir.constant(46592 : i32) : i32
+  %7 = llvm.mlir.constant(56 : i32) : i32
+  %8 = llvm.mlir.constant(831 : i32) : i32
+  %9 = llvm.mlir.constant(832 : i32) : i32
+  %10 = llvm.mlir.constant(8 : i32) : i32
+  %11 = llvm.mlir.constant(1 : i32) : i32
+  %12 = llvm.mlir.constant(0 : i64) : i64
+  %13 = llvm.mlir.constant(65536 : i64) : i64
+  %14 = llvm.mlir.constant(72192 : i64) : i64
+  %15 = llvm.mlir.constant(82176 : i64) : i64
+  %16 = llvm.mlir.constant(1 : i64) : i64
+  %17 = llvm.mlir.constant(112128 : i64) : i64
+  %18 = llvm.mlir.constant(75520 : i64) : i64
+  %19 = llvm.mlir.constant(108800 : i64) : i64
+  %20 = llvm.mlir.constant(118784 : i64) : i64
+  %21 = hivm.hir.pointer_cast(%19) : memref<832xf32, #hivm.address_space<ub>>
+  %22 = builtin.unrealized_conversion_cast %21 : memref<832xf32, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+  %23 = hivm.hir.pointer_cast(%20) : memref<832xf32, #hivm.address_space<ub>>
+  %24 = builtin.unrealized_conversion_cast %23 : memref<832xf32, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+  %25 = hivm.hir.pointer_cast(%18) : memref<832x8xi8, #hivm.address_space<ub>>
+  %26 = builtin.unrealized_conversion_cast %25 : memref<832x8xi8, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+  %27 = hivm.hir.pointer_cast(%17) : memref<832x8xi8, #hivm.address_space<ub>>
+  %28 = builtin.unrealized_conversion_cast %27 : memref<832x8xi8, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+  hivm.hir.set_ctrl false at ctrl[60]
+  hivm.hir.set_ctrl true at ctrl[48]
+  %29 = hivm.hir.get_block_idx -> i64
+  %30 = llvm.trunc %29 : i64 to i32
+  %31 = hivm.hir.pointer_cast(%12) : memref<64x256xf32, #hivm.address_space<ub>>
+  %base_buffer, %offset, %sizes, %strides = memref.extract_strided_metadata %arg2 : memref<?xf32, #hivm.address_space<gm>> -> memref<f32, #hivm.address_space<gm>>, index, index, index
+  %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [0], sizes: [16384], strides: [1] : memref<f32, #hivm.address_space<gm>> to memref<16384xf32, strided<[1]>, #hivm.address_space<gm>>
+  %base_buffer_0, %offset_1, %sizes_2:2, %strides_3:2 = memref.extract_strided_metadata %31 : memref<64x256xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index, index, index
+  %reinterpret_cast_4 = memref.reinterpret_cast %base_buffer_0 to offset: [0], sizes: [16384], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<16384xf32, #hivm.address_space<ub>>
+  hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID0>]
+  hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID1>]
+  hivm.hir.set_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID0>]
+  hivm.hir.set_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID1>]
+  %cast = memref.cast %reinterpret_cast : memref<16384xf32, strided<[1]>, #hivm.address_space<gm>> to memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>
+  %cast_5 = memref.cast %reinterpret_cast_4 : memref<16384xf32, #hivm.address_space<ub>> to memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>
+  call @load_gm_to_ubuf_1d_float(%cast, %cast_5, %4, %1, %3, %4) : (memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>, memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>, i32, f32, index, i32) -> ()
+  %32 = llvm.add %arg5, %5 : i32
+  %33 = llvm.sdiv %32, %6  : i32
+  %34 = llvm.add %arg5, %8 : i32
+  %35 = llvm.sdiv %34, %9  : i32
+  scf.for %arg9 = %4 to %33 step %11  : i32 {
+    %36 = llvm.sext %arg9 : i32 to i64
+    %37 = builtin.unrealized_conversion_cast %36 : i64 to index
+    %38 = affine.apply affine_map<()[s0] -> (s0 mod 2)>()[%37]
+    %39 = builtin.unrealized_conversion_cast %38 : index to i64
+    %40 = llvm.icmp "eq" %39, %16 : i64
+    %41 = llvm.select %40, %24, %22 : i1, !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %42 = builtin.unrealized_conversion_cast %41 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> to memref<832xf32, #hivm.address_space<ub>>
+    %43 = llvm.zext %40 : i1 to i64
+    %44 = llvm.mul %arg9, %7 : i32
+    %45 = llvm.add %44, %30 : i32
+    %46 = llvm.icmp "slt" %45, %35 : i32
+    scf.if %46 {
+      %47 = hivm.hir.pointer_cast(%13) : memref<832x8xi8, #hivm.address_space<ub>>
+      func.call @adc_func_outlined_vf_2(%47) {hivm.vector_function, no_inline} : (memref<832x8xi8, #hivm.address_space<ub>>) -> ()
+      %48 = hivm.hir.pointer_cast(%14) : memref<832xf32, #hivm.address_space<ub>>
+      func.call @adc_func_outlined_vf_3(%48) {hivm.vector_function, no_inline} : (memref<832xf32, #hivm.address_space<ub>>) -> ()
+      %49 = llvm.mul %arg9, %6 : i32
+      %50 = llvm.mul %30, %9 : i32
+      %51 = llvm.add %49, %50 : i32
+      %52 = llvm.sext %51 : i32 to i64
+      %53 = builtin.unrealized_conversion_cast %52 : i64 to index
+      %54 = llvm.sub %arg5, %50 : i32
+      %55 = llvm.sub %54, %49 : i32
+      %56 = llvm.intr.smin(%55, %9)  : (i32, i32) -> i32
+      %57 = llvm.sext %56 : i32 to i64
+      %58 = builtin.unrealized_conversion_cast %57 : i64 to index
+      %59 = scf.for %arg10 = %4 to %10 step %11 iter_args(%arg11 = %48) -> (memref<832xf32, #hivm.address_space<ub>>)  : i32 {
+        %60 = llvm.sext %arg10 : i32 to i64
+        %61 = builtin.unrealized_conversion_cast %60 : i64 to index
+        %62 = affine.apply affine_map<()[s0] -> (s0 mod 2)>()[%61]
+        %63 = builtin.unrealized_conversion_cast %62 : index to i64
+        %64 = llvm.icmp "eq" %63, %16 : i64
+        %65 = llvm.select %64, %28, %26 : i1, !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+        %66 = builtin.unrealized_conversion_cast %65 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> to memref<832x8xi8, #hivm.address_space<ub>>
+        %67 = llvm.zext %64 : i1 to i64
+        %68 = llvm.mul %arg10, %10 : i32
+        %69 = llvm.sext %68 : i32 to i64
+        %70 = builtin.unrealized_conversion_cast %69 : i64 to index
+        %base_buffer_18, %offset_19, %sizes_20, %strides_21 = memref.extract_strided_metadata %arg3 : memref<?xi8, #hivm.address_space<gm>> -> memref<i8, #hivm.address_space<gm>>, index, index, index
+        %71 = affine.apply affine_map<()[s0, s1] -> (s0 * 64 + s1)>()[%53, %70]
+        %reinterpret_cast_22 = memref.reinterpret_cast %base_buffer_18 to offset: [%71], sizes: [%58, 8], strides: [64, 1] : memref<i8, #hivm.address_space<gm>> to memref<?x8xi8, strided<[64, 1], offset: ?>, #hivm.address_space<gm>>
+        %base_buffer_23, %offset_24, %sizes_25:2, %strides_26:2 = memref.extract_strided_metadata %66 : memref<832x8xi8, #hivm.address_space<ub>> -> memref<i8, #hivm.address_space<ub>>, index, index, index, index, index
+        %reinterpret_cast_27 = memref.reinterpret_cast %base_buffer_23 to offset: [0], sizes: [%58, 8], strides: [8, 1] : memref<i8, #hivm.address_space<ub>> to memref<?x8xi8, strided<[8, 1]>, #hivm.address_space<ub>>
+        hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE2>, %67]
+        %cast_28 = memref.cast %reinterpret_cast_22 : memref<?x8xi8, strided<[64, 1], offset: ?>, #hivm.address_space<gm>> to memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<gm>>
+        %cast_29 = memref.cast %reinterpret_cast_27 : memref<?x8xi8, strided<[8, 1]>, #hivm.address_space<ub>> to memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<ub>>
+        func.call @load_gm_to_ubuf_2d_int8_t(%cast_28, %cast_29, %4, %0, %3, %4) : (memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<gm>>, memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<ub>>, i32, i8, index, i32) -> ()
+        hivm.hir.set_flag[<PIPE_MTE2>, <PIPE_V>, <EVENT_ID0>]
+        %base_buffer_30, %offset_31, %sizes_32:2, %strides_33:2 = memref.extract_strided_metadata %66 : memref<832x8xi8, #hivm.address_space<ub>> -> memref<i8, #hivm.address_space<ub>>, index, index, index, index, index
+        %72 = affine.apply affine_map<()[s0] -> (s0 * 8)>()[%58]
+        %reinterpret_cast_34 = memref.reinterpret_cast %base_buffer_30 to offset: [0], sizes: [%72], strides: [1] : memref<i8, #hivm.address_space<ub>> to memref<?xi8, strided<[1]>, #hivm.address_space<ub>>
+        %base_buffer_35, %offset_36, %sizes_37:2, %strides_38:2 = memref.extract_strided_metadata %47 : memref<832x8xi8, #hivm.address_space<ub>> -> memref<i8, #hivm.address_space<ub>>, index, index, index, index, index
+        %73 = affine.apply affine_map<()[s0] -> (s0 * 8)>()[%58]
+        %reinterpret_cast_39 = memref.reinterpret_cast %base_buffer_35 to offset: [0], sizes: [%73], strides: [1] : memref<i8, #hivm.address_space<ub>> to memref<?xi8, strided<[1]>, #hivm.address_space<ub>>
+        hivm.hir.wait_flag[<PIPE_MTE2>, <PIPE_V>, <EVENT_ID0>]
+        %cast_40 = memref.cast %reinterpret_cast_34 : memref<?xi8, strided<[1]>, #hivm.address_space<ub>> to memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>
+        %cast_41 = memref.cast %reinterpret_cast_39 : memref<?xi8, strided<[1]>, #hivm.address_space<ub>> to memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>
+        func.call @copy_ubuf_to_ubuf_1d_int8_t(%cast_40, %cast_41) : (memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>, memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>) -> ()
+        hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE2>, %67]
+        %74 = hivm.hir.pointer_cast(%15) : memref<8x832xi32, #hivm.address_space<ub>>
+        func.call @adc_func_outlined_vf_1(%47, %74) {hivm.vector_function, no_inline} : (memref<832x8xi8, #hivm.address_space<ub>>, memref<8x832xi32, #hivm.address_space<ub>>) -> ()
+        %75 = scf.for %arg12 = %4 to %10 step %11 iter_args(%arg13 = %arg11) -> (memref<832xf32, #hivm.address_space<ub>>)  : i32 {
+          %76 = llvm.add %68, %arg12 : i32
+          %77 = llvm.sext %76 : i32 to i64
+          %78 = builtin.unrealized_conversion_cast %77 : i64 to index
+          %79 = llvm.sext %arg12 : i32 to i64
+          %80 = builtin.unrealized_conversion_cast %79 : i64 to index
+          %81 = hivm.hir.pointer_cast(%14) : memref<832xf32, #hivm.address_space<ub>>
+          func.call @adc_func_outlined_vf_0(%arg13, %74, %80, %31, %78, %81) {hivm.vector_function, no_inline} : (memref<832xf32, #hivm.address_space<ub>>, memref<8x832xi32, #hivm.address_space<ub>>, index, memref<64x256xf32, #hivm.address_space<ub>>, index, memref<832xf32, #hivm.address_space<ub>>) -> ()
+          scf.yield %81 : memref<832xf32, #hivm.address_space<ub>>
+        }
+        scf.yield %75 : memref<832xf32, #hivm.address_space<ub>>
+      }
+      hivm.hir.wait_flag[<PIPE_MTE3>, <PIPE_V>, %43]
+      func.call @adc_func_outlined_vf_4(%59, %42) {hivm.vector_function, no_inline} : (memref<832xf32, #hivm.address_space<ub>>, memref<832xf32, #hivm.address_space<ub>>) -> ()
+      hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE3>, <EVENT_ID0>]
+      %base_buffer_6, %offset_7, %sizes_8, %strides_9 = memref.extract_strided_metadata %42 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+      %reinterpret_cast_10 = memref.reinterpret_cast %base_buffer_6 to offset: [0], sizes: [%58], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<?xf32, strided<[1]>, #hivm.address_space<ub>>
+      %base_buffer_11, %offset_12, %sizes_13, %strides_14 = memref.extract_strided_metadata %arg4 : memref<?xf32, #hivm.address_space<gm>> -> memref<f32, #hivm.address_space<gm>>, index, index, index
+      %reinterpret_cast_15 = memref.reinterpret_cast %base_buffer_11 to offset: [%53], sizes: [%58], strides: [1] : memref<f32, #hivm.address_space<gm>> to memref<?xf32, strided<[1], offset: ?>, #hivm.address_space<gm>>
+      hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE3>, <EVENT_ID0>]
+      hivm.hir.pipe_barrier[<PIPE_MTE3>]
+      %cast_16 = memref.cast %reinterpret_cast_10 : memref<?xf32, strided<[1]>, #hivm.address_space<ub>> to memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>
+      %cast_17 = memref.cast %reinterpret_cast_15 : memref<?xf32, strided<[1], offset: ?>, #hivm.address_space<gm>> to memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>
+      func.call @store_ubuf_to_gm_1d_float(%cast_16, %cast_17, %4) : (memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>, memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>, i32) -> ()
+      hivm.hir.set_flag[<PIPE_MTE3>, <PIPE_V>, %43]
+    }
+  }
+  hivm.hir.pipe_barrier[<PIPE_ALL>]
+  hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID0>]
+  hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID1>]
+  hivm.hir.wait_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID0>]
+  hivm.hir.wait_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID1>]
+  return
+}
+
+// -----// IR Dump After HoistVstas (hoist-vstas) //----- //
+func.func @adc_func(%arg0: memref<?xi8, #hivm.address_space<gm>> {hacc.arg_type = #hacc.arg_type<sync_block_lock>}, %arg1: memref<?xi8, #hivm.address_space<gm>> {hacc.arg_type = #hacc.arg_type<workspace>}, %arg2: memref<?xf32, #hivm.address_space<gm>>, %arg3: memref<?xi8, #hivm.address_space<gm>>, %arg4: memref<?xf32, #hivm.address_space<gm>>, %arg5: i32, %arg6: i32, %arg7: i32, %arg8: i32) attributes {SyncBlockLockArgIdx = 0 : i64, WorkspaceArgIdx = 1 : i64, func_dyn_memref_args = dense<[true, true, true, true, true, false, false, false, false]> : vector<9xi1>, hacc.entry, hacc.function_kind = #hacc.function_kind<DEVICE>, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vf_mode = #hivm.vf_mode<SIMD>, hivm_regbaseintrins.target = #hivm_regbaseintrins.target<"dav-c310">, mix_mode = "aiv", parallel_mode = "simd"} {
+  %0 = llvm.mlir.constant(118784 : i64) : i64
+  %1 = llvm.mlir.constant(108800 : i64) : i64
+  %2 = llvm.mlir.constant(75520 : i64) : i64
+  %3 = llvm.mlir.constant(112128 : i64) : i64
+  %4 = llvm.mlir.constant(1 : i64) : i64
+  %5 = llvm.mlir.constant(82176 : i64) : i64
+  %6 = llvm.mlir.constant(72192 : i64) : i64
+  %7 = llvm.mlir.constant(65536 : i64) : i64
+  %8 = llvm.mlir.constant(0 : i64) : i64
+  %9 = llvm.mlir.constant(1 : i32) : i32
+  %10 = llvm.mlir.constant(8 : i32) : i32
+  %11 = llvm.mlir.constant(832 : i32) : i32
+  %12 = llvm.mlir.constant(831 : i32) : i32
+  %13 = llvm.mlir.constant(56 : i32) : i32
+  %14 = llvm.mlir.constant(46592 : i32) : i32
+  %15 = llvm.mlir.constant(46591 : i32) : i32
+  %16 = llvm.mlir.constant(0 : i32) : i32
+  %17 = llvm.mlir.constant(0 : i8) : i8
+  %18 = llvm.mlir.constant(0.000000e+00 : f32) : f32
+  %19 = llvm.mlir.constant(0 : index) : i64
+  %20 = builtin.unrealized_conversion_cast %19 : i64 to index
+  %21 = hivm.hir.pointer_cast(%1) : memref<832xf32, #hivm.address_space<ub>>
+  %22 = builtin.unrealized_conversion_cast %21 : memref<832xf32, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+  %23 = hivm.hir.pointer_cast(%0) : memref<832xf32, #hivm.address_space<ub>>
+  %24 = builtin.unrealized_conversion_cast %23 : memref<832xf32, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+  %25 = hivm.hir.pointer_cast(%2) : memref<832x8xi8, #hivm.address_space<ub>>
+  %26 = builtin.unrealized_conversion_cast %25 : memref<832x8xi8, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+  %27 = hivm.hir.pointer_cast(%3) : memref<832x8xi8, #hivm.address_space<ub>>
+  %28 = builtin.unrealized_conversion_cast %27 : memref<832x8xi8, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+  hivm.hir.set_ctrl false at ctrl[60]
+  hivm.hir.set_ctrl true at ctrl[48]
+  %29 = hivm.hir.get_block_idx -> i64
+  %30 = llvm.trunc %29 : i64 to i32
+  %31 = hivm.hir.pointer_cast(%8) : memref<64x256xf32, #hivm.address_space<ub>>
+  %base_buffer, %offset, %sizes, %strides = memref.extract_strided_metadata %arg2 : memref<?xf32, #hivm.address_space<gm>> -> memref<f32, #hivm.address_space<gm>>, index, index, index
+  %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [0], sizes: [16384], strides: [1] : memref<f32, #hivm.address_space<gm>> to memref<16384xf32, strided<[1]>, #hivm.address_space<gm>>
+  %base_buffer_0, %offset_1, %sizes_2:2, %strides_3:2 = memref.extract_strided_metadata %31 : memref<64x256xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index, index, index
+  %reinterpret_cast_4 = memref.reinterpret_cast %base_buffer_0 to offset: [0], sizes: [16384], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<16384xf32, #hivm.address_space<ub>>
+  hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID0>]
+  hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID1>]
+  hivm.hir.set_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID0>]
+  hivm.hir.set_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID1>]
+  %cast = memref.cast %reinterpret_cast : memref<16384xf32, strided<[1]>, #hivm.address_space<gm>> to memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>
+  %cast_5 = memref.cast %reinterpret_cast_4 : memref<16384xf32, #hivm.address_space<ub>> to memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>
+  call @load_gm_to_ubuf_1d_float(%cast, %cast_5, %16, %18, %20, %16) : (memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>, memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>, i32, f32, index, i32) -> ()
+  %32 = llvm.add %arg5, %15 : i32
+  %33 = llvm.sdiv %32, %14  : i32
+  %34 = llvm.add %arg5, %12 : i32
+  %35 = llvm.sdiv %34, %11  : i32
+  scf.for %arg9 = %16 to %33 step %9  : i32 {
+    %36 = llvm.sext %arg9 : i32 to i64
+    %37 = builtin.unrealized_conversion_cast %36 : i64 to index
+    %38 = affine.apply affine_map<()[s0] -> (s0 mod 2)>()[%37]
+    %39 = builtin.unrealized_conversion_cast %38 : index to i64
+    %40 = llvm.icmp "eq" %39, %4 : i64
+    %41 = llvm.select %40, %24, %22 : i1, !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %42 = builtin.unrealized_conversion_cast %41 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> to memref<832xf32, #hivm.address_space<ub>>
+    %43 = llvm.zext %40 : i1 to i64
+    %44 = llvm.mul %arg9, %13 : i32
+    %45 = llvm.add %44, %30 : i32
+    %46 = llvm.icmp "slt" %45, %35 : i32
+    scf.if %46 {
+      %47 = hivm.hir.pointer_cast(%7) : memref<832x8xi8, #hivm.address_space<ub>>
+      func.call @adc_func_outlined_vf_2(%47) {hivm.vector_function, no_inline} : (memref<832x8xi8, #hivm.address_space<ub>>) -> ()
+      %48 = hivm.hir.pointer_cast(%6) : memref<832xf32, #hivm.address_space<ub>>
+      func.call @adc_func_outlined_vf_3(%48) {hivm.vector_function, no_inline} : (memref<832xf32, #hivm.address_space<ub>>) -> ()
+      %49 = llvm.mul %arg9, %14 : i32
+      %50 = llvm.mul %30, %11 : i32
+      %51 = llvm.add %49, %50 : i32
+      %52 = llvm.sext %51 : i32 to i64
+      %53 = builtin.unrealized_conversion_cast %52 : i64 to index
+      %54 = llvm.sub %arg5, %50 : i32
+      %55 = llvm.sub %54, %49 : i32
+      %56 = llvm.intr.smin(%55, %11)  : (i32, i32) -> i32
+      %57 = llvm.sext %56 : i32 to i64
+      %58 = builtin.unrealized_conversion_cast %57 : i64 to index
+      %59 = scf.for %arg10 = %16 to %10 step %9 iter_args(%arg11 = %48) -> (memref<832xf32, #hivm.address_space<ub>>)  : i32 {
+        %60 = llvm.sext %arg10 : i32 to i64
+        %61 = builtin.unrealized_conversion_cast %60 : i64 to index
+        %62 = affine.apply affine_map<()[s0] -> (s0 mod 2)>()[%61]
+        %63 = builtin.unrealized_conversion_cast %62 : index to i64
+        %64 = llvm.icmp "eq" %63, %4 : i64
+        %65 = llvm.select %64, %28, %26 : i1, !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+        %66 = builtin.unrealized_conversion_cast %65 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> to memref<832x8xi8, #hivm.address_space<ub>>
+        %67 = llvm.zext %64 : i1 to i64
+        %68 = llvm.mul %arg10, %10 : i32
+        %69 = llvm.sext %68 : i32 to i64
+        %70 = builtin.unrealized_conversion_cast %69 : i64 to index
+        %base_buffer_18, %offset_19, %sizes_20, %strides_21 = memref.extract_strided_metadata %arg3 : memref<?xi8, #hivm.address_space<gm>> -> memref<i8, #hivm.address_space<gm>>, index, index, index
+        %71 = affine.apply affine_map<()[s0, s1] -> (s0 * 64 + s1)>()[%53, %70]
+        %reinterpret_cast_22 = memref.reinterpret_cast %base_buffer_18 to offset: [%71], sizes: [%58, 8], strides: [64, 1] : memref<i8, #hivm.address_space<gm>> to memref<?x8xi8, strided<[64, 1], offset: ?>, #hivm.address_space<gm>>
+        %base_buffer_23, %offset_24, %sizes_25:2, %strides_26:2 = memref.extract_strided_metadata %66 : memref<832x8xi8, #hivm.address_space<ub>> -> memref<i8, #hivm.address_space<ub>>, index, index, index, index, index
+        %reinterpret_cast_27 = memref.reinterpret_cast %base_buffer_23 to offset: [0], sizes: [%58, 8], strides: [8, 1] : memref<i8, #hivm.address_space<ub>> to memref<?x8xi8, strided<[8, 1]>, #hivm.address_space<ub>>
+        hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE2>, %67]
+        %cast_28 = memref.cast %reinterpret_cast_22 : memref<?x8xi8, strided<[64, 1], offset: ?>, #hivm.address_space<gm>> to memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<gm>>
+        %cast_29 = memref.cast %reinterpret_cast_27 : memref<?x8xi8, strided<[8, 1]>, #hivm.address_space<ub>> to memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<ub>>
+        func.call @load_gm_to_ubuf_2d_int8_t(%cast_28, %cast_29, %16, %17, %20, %16) : (memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<gm>>, memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<ub>>, i32, i8, index, i32) -> ()
+        hivm.hir.set_flag[<PIPE_MTE2>, <PIPE_V>, <EVENT_ID0>]
+        %base_buffer_30, %offset_31, %sizes_32:2, %strides_33:2 = memref.extract_strided_metadata %66 : memref<832x8xi8, #hivm.address_space<ub>> -> memref<i8, #hivm.address_space<ub>>, index, index, index, index, index
+        %72 = affine.apply affine_map<()[s0] -> (s0 * 8)>()[%58]
+        %reinterpret_cast_34 = memref.reinterpret_cast %base_buffer_30 to offset: [0], sizes: [%72], strides: [1] : memref<i8, #hivm.address_space<ub>> to memref<?xi8, strided<[1]>, #hivm.address_space<ub>>
+        %base_buffer_35, %offset_36, %sizes_37:2, %strides_38:2 = memref.extract_strided_metadata %47 : memref<832x8xi8, #hivm.address_space<ub>> -> memref<i8, #hivm.address_space<ub>>, index, index, index, index, index
+        %73 = affine.apply affine_map<()[s0] -> (s0 * 8)>()[%58]
+        %reinterpret_cast_39 = memref.reinterpret_cast %base_buffer_35 to offset: [0], sizes: [%73], strides: [1] : memref<i8, #hivm.address_space<ub>> to memref<?xi8, strided<[1]>, #hivm.address_space<ub>>
+        hivm.hir.wait_flag[<PIPE_MTE2>, <PIPE_V>, <EVENT_ID0>]
+        %cast_40 = memref.cast %reinterpret_cast_34 : memref<?xi8, strided<[1]>, #hivm.address_space<ub>> to memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>
+        %cast_41 = memref.cast %reinterpret_cast_39 : memref<?xi8, strided<[1]>, #hivm.address_space<ub>> to memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>
+        func.call @copy_ubuf_to_ubuf_1d_int8_t(%cast_40, %cast_41) : (memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>, memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>) -> ()
+        hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE2>, %67]
+        %74 = hivm.hir.pointer_cast(%5) : memref<8x832xi32, #hivm.address_space<ub>>
+        func.call @adc_func_outlined_vf_1(%47, %74) {hivm.vector_function, no_inline} : (memref<832x8xi8, #hivm.address_space<ub>>, memref<8x832xi32, #hivm.address_space<ub>>) -> ()
+        %75 = scf.for %arg12 = %16 to %10 step %9 iter_args(%arg13 = %arg11) -> (memref<832xf32, #hivm.address_space<ub>>)  : i32 {
+          %76 = llvm.add %68, %arg12 : i32
+          %77 = llvm.sext %76 : i32 to i64
+          %78 = builtin.unrealized_conversion_cast %77 : i64 to index
+          %79 = llvm.sext %arg12 : i32 to i64
+          %80 = builtin.unrealized_conversion_cast %79 : i64 to index
+          %81 = hivm.hir.pointer_cast(%6) : memref<832xf32, #hivm.address_space<ub>>
+          func.call @adc_func_outlined_vf_0(%arg13, %74, %80, %31, %78, %81) {hivm.vector_function, no_inline} : (memref<832xf32, #hivm.address_space<ub>>, memref<8x832xi32, #hivm.address_space<ub>>, index, memref<64x256xf32, #hivm.address_space<ub>>, index, memref<832xf32, #hivm.address_space<ub>>) -> ()
+          scf.yield %81 : memref<832xf32, #hivm.address_space<ub>>
+        }
+        scf.yield %75 : memref<832xf32, #hivm.address_space<ub>>
+      }
+      hivm.hir.wait_flag[<PIPE_MTE3>, <PIPE_V>, %43]
+      func.call @adc_func_outlined_vf_4(%59, %42) {hivm.vector_function, no_inline} : (memref<832xf32, #hivm.address_space<ub>>, memref<832xf32, #hivm.address_space<ub>>) -> ()
+      hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE3>, <EVENT_ID0>]
+      %base_buffer_6, %offset_7, %sizes_8, %strides_9 = memref.extract_strided_metadata %42 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+      %reinterpret_cast_10 = memref.reinterpret_cast %base_buffer_6 to offset: [0], sizes: [%58], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<?xf32, strided<[1]>, #hivm.address_space<ub>>
+      %base_buffer_11, %offset_12, %sizes_13, %strides_14 = memref.extract_strided_metadata %arg4 : memref<?xf32, #hivm.address_space<gm>> -> memref<f32, #hivm.address_space<gm>>, index, index, index
+      %reinterpret_cast_15 = memref.reinterpret_cast %base_buffer_11 to offset: [%53], sizes: [%58], strides: [1] : memref<f32, #hivm.address_space<gm>> to memref<?xf32, strided<[1], offset: ?>, #hivm.address_space<gm>>
+      hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE3>, <EVENT_ID0>]
+      hivm.hir.pipe_barrier[<PIPE_MTE3>]
+      %cast_16 = memref.cast %reinterpret_cast_10 : memref<?xf32, strided<[1]>, #hivm.address_space<ub>> to memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>
+      %cast_17 = memref.cast %reinterpret_cast_15 : memref<?xf32, strided<[1], offset: ?>, #hivm.address_space<gm>> to memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>
+      func.call @store_ubuf_to_gm_1d_float(%cast_16, %cast_17, %16) : (memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>, memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>, i32) -> ()
+      hivm.hir.set_flag[<PIPE_MTE3>, <PIPE_V>, %43]
+    }
+  }
+  hivm.hir.pipe_barrier[<PIPE_ALL>]
+  hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID0>]
+  hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID1>]
+  hivm.hir.wait_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID0>]
+  hivm.hir.wait_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID1>]
+  return
+}
+
+// -----// IR Dump Before ConvertAscendDPXToHIVMRegbaseIntrins (convert-ascend-dpx-to-hivmregbaseintrins) //----- //
+#map = affine_map<()[s0] -> (s0 * 256)>
+#map1 = affine_map<()[s0, s1] -> (s0 * 832 + s1)>
+#map2 = affine_map<()[s0, s1] -> (s0 * 8 + s1)>
+#map3 = affine_map<(d0)[s0] -> (d0 + s0)>
+#map4 = affine_map<()[s0] -> (s0 * 8)>
+#map5 = affine_map<()[s0] -> (s0 mod 2)>
+#map6 = affine_map<()[s0, s1] -> (s0 * 64 + s1)>
+module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #hacc.target_device_spec<#dlti.dl_entry<"AI_CORE_COUNT", 28 : i32>, #dlti.dl_entry<"CUBE_CORE_COUNT", 28 : i32>, #dlti.dl_entry<"VECTOR_CORE_COUNT", 56 : i32>, #dlti.dl_entry<"UB_SIZE", 2031616 : i32>, #dlti.dl_entry<"L1_SIZE", 4194304 : i32>, #dlti.dl_entry<"L0A_SIZE", 524288 : i32>, #dlti.dl_entry<"L0B_SIZE", 524288 : i32>, #dlti.dl_entry<"L0C_SIZE", 2097152 : i32>, #dlti.dl_entry<"UB_ALIGN_SIZE", 256 : i32>, #dlti.dl_entry<"L1_ALIGN_SIZE", 256 : i32>, #dlti.dl_entry<"L0C_ALIGN_SIZE", 4096 : i32>, #dlti.dl_entry<"MINIMAL_D_CACHE_SIZE", 262144 : i32>, #dlti.dl_entry<"MAXIMUM_D_CACHE_SIZE", 983040 : i32>, #dlti.dl_entry<"ARCH", "dav-c310">>>, hacc.target = #hacc.target<"Ascend950PR_9579">, hivm.module_core_type = #hivm.module_core_type<AIV>, memref.memref_as_ptr} {
+  func.func @adc_func_outlined_vf_0(%arg0: memref<832xf32, #hivm.address_space<ub>>, %arg1: memref<8x832xi32, #hivm.address_space<ub>>, %arg2: index, %arg3: memref<64x256xf32, #hivm.address_space<ub>>, %arg4: index, %arg5: memref<832xf32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %0 = llvm.mlir.constant(2 : i32) : i32
+    %1 = llvm.mlir.constant(64 : i32) : i32
+    %2 = llvm.mlir.constant(832 : i32) : i32
+    %3 = llvm.mlir.constant(0 : i32) : i32
+    %4 = llvm.mlir.constant(8 : i32) : i32
+    %5 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%4, %3) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+    %base_buffer, %offset, %sizes:2, %strides:2 = memref.extract_strided_metadata %arg3 : memref<64x256xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index, index, index
+    %6 = affine.apply #map()[%arg4]
+    %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [%6], sizes: [256], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<256xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+    %7 = builtin.unrealized_conversion_cast %reinterpret_cast : memref<256xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    scf.for %arg6 = %3 to %2 step %1  : i32 {
+      %8 = llvm.sext %arg6 : i32 to i64
+      %9 = builtin.unrealized_conversion_cast %8 : i64 to index
+      %base_buffer_0, %offset_1, %sizes_2, %strides_3 = memref.extract_strided_metadata %arg0 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+      %reinterpret_cast_4 = memref.reinterpret_cast %base_buffer_0 to offset: [%9], sizes: [64], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+      %10 = builtin.unrealized_conversion_cast %reinterpret_cast_4 : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+      %base_buffer_5, %offset_6, %sizes_7:2, %strides_8:2 = memref.extract_strided_metadata %arg1 : memref<8x832xi32, #hivm.address_space<ub>> -> memref<i32, #hivm.address_space<ub>>, index, index, index, index, index
+      %11 = affine.apply #map1()[%arg2, %9]
+      %reinterpret_cast_9 = memref.reinterpret_cast %base_buffer_5 to offset: [%11], sizes: [64], strides: [1] : memref<i32, #hivm.address_space<ub>> to memref<64xi32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+      %12 = builtin.unrealized_conversion_cast %reinterpret_cast_9 : memref<64xi32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+      %base_buffer_10, %offset_11, %sizes_12, %strides_13 = memref.extract_strided_metadata %arg5 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+      %reinterpret_cast_14 = memref.reinterpret_cast %base_buffer_10 to offset: [%9], sizes: [64], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+      %13 = builtin.unrealized_conversion_cast %reinterpret_cast_14 : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+      %14 = llvm.extractvalue %10[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %15 = llvm.extractvalue %10[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %16 = llvm.getelementptr %14[%15] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+      %17 = "hivm_regbaseintrins.intr.hivm.vldsx1.v64f32"(%16, %3, %3, %3) : (!llvm.ptr<6>, i32, i32, i32) -> vector<64xf32>
+      %18 = llvm.extractvalue %12[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %19 = llvm.extractvalue %12[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %20 = llvm.getelementptr %18[%19] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i32
+      %21 = "hivm_regbaseintrins.intr.hivm.vldsx1.v64s32"(%20, %3, %3, %3) : (!llvm.ptr<6>, i32, i32, i32) -> vector<64xi32>
+      %22 = llvm.extractvalue %7[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %23 = llvm.extractvalue %7[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %24 = llvm.getelementptr %22[%23] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+      %25 = "hivm_regbaseintrins.intr.hivm.vgather2_v300.v64f32"(%24, %21, %5) : (!llvm.ptr<6>, vector<64xi32>, vector<256xi1>) -> vector<64xf32>
+      %26 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%4, %3) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+      %27 = "hivm_regbaseintrins.intr.hivm.vadd.s.x"(%17, %25, %26) : (vector<64xf32>, vector<64xf32>, vector<256xi1>) -> vector<64xf32>
+      %28 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%4, %3) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+      %29 = llvm.extractvalue %13[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %30 = llvm.extractvalue %13[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %31 = llvm.getelementptr %29[%30] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+      "hivm_regbaseintrins.intr.hivm.vstsx1.v64f32"(%27, %31, %3, %0, %3, %28) : (vector<64xf32>, !llvm.ptr<6>, i32, i32, i32, vector<256xi1>) -> ()
+    } {element_alignment_bit_width = 32 : i32}
+    return
+  }
+  func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub>>, %arg1: memref<8x832xi32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %0 = llvm.mlir.constant(2 : i32) : i32
+    %1 = llvm.mlir.constant(0 : i8) : i8
+    %2 = llvm.mlir.constant(8 : index) : i64
+    %3 = llvm.mlir.constant(64 : i32) : i32
+    %4 = llvm.mlir.constant(832 : i32) : i32
+    %5 = llvm.mlir.constant(0 : index) : i64
+    %6 = llvm.mlir.constant(0 : i32) : i32
+    %7 = llvm.mlir.constant(8 : i32) : i32
+    %8 = llvm.mlir.constant(1 : i32) : i32
+    scf.for %arg2 = %6 to %7 step %8  : i32 {
+      %9 = llvm.sext %arg2 : i32 to i64
+      %10 = builtin.unrealized_conversion_cast %9 : i64 to index
+      scf.for %arg3 = %6 to %4 step %3  : i32 {
+        %11 = llvm.sext %arg3 : i32 to i64
+        %12 = builtin.unrealized_conversion_cast %11 : i64 to index
+        %base_buffer, %offset, %sizes:2, %strides:2 = memref.extract_strided_metadata %arg0 : memref<832x8xi8, #hivm.address_space<ub>> -> memref<i8, #hivm.address_space<ub>>, index, index, index, index, index
+        %13 = affine.apply #map2()[%12, %10]
+        %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [%13], sizes: [64, 1], strides: [8, 1] : memref<i8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
+        %14 = builtin.unrealized_conversion_cast %reinterpret_cast : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+        %15 = llvm.extractvalue %14[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+        %16 = llvm.extractvalue %14[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+        %17 = llvm.getelementptr %15[%16] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i8
+        %18 = llvm.mul %5, %2 : i64
+        %19 = llvm.add %18, %5 : i64
+        %20 = llvm.getelementptr %17[%19] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i8
+        %21 = "hivm_regbaseintrins.intr.hivm.vldas"(%20) : (!llvm.ptr<6>) -> vector<32xi8>
+        %22 = "hivm_regbaseintrins.intr.hivm.vldus.post.s8"(%20, %21, %6) : (!llvm.ptr<6>, vector<32xi8>, i32) -> !llvm.struct<(vector<256xi8>, vector<32xi8>, ptr<6>)>
+        %23 = llvm.extractvalue %22[0] : !llvm.struct<(vector<256xi8>, vector<32xi8>, ptr<6>)> 
+        %24 = "hivm_regbaseintrins.intr.hivm.vbr"(%1) : (i8) -> vector<256xi8>
+        %25 = "hivm_regbaseintrins.intr.hivm.vintlv"(%23, %24) : (vector<256xi8>, vector<256xi8>) -> !llvm.struct<(vector<256xi8>, vector<256xi8>)>
+        %26 = llvm.extractvalue %25[0] : !llvm.struct<(vector<256xi8>, vector<256xi8>)> 
+        %27 = "hivm_regbaseintrins.intr.hivm.vintlv"(%26, %24) : (vector<256xi8>, vector<256xi8>) -> !llvm.struct<(vector<256xi8>, vector<256xi8>)>
+        %28 = llvm.extractvalue %27[0] : !llvm.struct<(vector<256xi8>, vector<256xi8>)> 
+        %29 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%7, %6) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+        %30 = "hivm_regbaseintrins.intr.hivm.vcvtii.s82s32.x"(%28, %29, %6) : (vector<256xi8>, vector<256xi1>, i32) -> vector<64xi32>
+        %base_buffer_0, %offset_1, %sizes_2:2, %strides_3:2 = memref.extract_strided_metadata %arg1 : memref<8x832xi32, #hivm.address_space<ub>> -> memref<i32, #hivm.address_space<ub>>, index, index, index, index, index
+        %31 = affine.apply #map1()[%10, %12]
+        %reinterpret_cast_4 = memref.reinterpret_cast %base_buffer_0 to offset: [%31], sizes: [64], strides: [1] : memref<i32, #hivm.address_space<ub>> to memref<64xi32, #map3, #hivm.address_space<ub>>
+        %32 = builtin.unrealized_conversion_cast %reinterpret_cast_4 : memref<64xi32, #map3, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+        %33 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%7, %6) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+        %34 = llvm.extractvalue %32[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+        %35 = llvm.extractvalue %32[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+        %36 = llvm.getelementptr %34[%35] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i32
+        "hivm_regbaseintrins.intr.hivm.vstsx1.v64s32"(%30, %36, %6, %0, %6, %33) : (vector<64xi32>, !llvm.ptr<6>, i32, i32, i32, vector<256xi1>) -> ()
+      } {element_alignment_bit_width = 32 : i32}
+    } {element_alignment_bit_width = 32 : i32}
+    return
+  }
+  func.func @adc_func_outlined_vf_2(%arg0: memref<832x8xi8, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 8 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %0 = llvm.mlir.constant(8 : i32) : i32
+    %1 = llvm.mlir.constant(5 : i32) : i32
+    %2 = llvm.mlir.constant(0 : i8) : i8
+    %3 = llvm.mlir.constant(1 : i32) : i32
+    %4 = llvm.mlir.constant(832 : i32) : i32
+    %5 = llvm.mlir.constant(0 : i32) : i32
+    %6 = "hivm_regbaseintrins.intr.hivm.pge.b8"(%5, %5) {mask_bit_width = 8 : i32} : (i32, i32) -> vector<256xi1>
+    %7 = "hivm_regbaseintrins.intr.hivm.vdups.z"(%2, %6, %3) : (i8, vector<256xi1>, i32) -> vector<256xi8>
+    scf.for %arg1 = %5 to %4 step %3  : i32 {
+      %8 = llvm.sext %arg1 : i32 to i64
+      %9 = builtin.unrealized_conversion_cast %8 : i64 to index
+      %10 = "hivm_regbaseintrins.intr.hivm.pge.b8"(%1, %5) {mask_bit_width = 8 : i32, mask_op_idx = 0 : i32} : (i32, i32) -> vector<256xi1>
+      %base_buffer, %offset, %sizes:2, %strides:2 = memref.extract_strided_metadata %arg0 : memref<832x8xi8, #hivm.address_space<ub>> -> memref<i8, #hivm.address_space<ub>>, index, index, index, index, index
+      %11 = affine.apply #map4()[%9]
+      %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [%11], sizes: [8], strides: [1] : memref<i8, #hivm.address_space<ub>> to memref<8xi8, #map3, #hivm.address_space<ub>>
+      %12 = builtin.unrealized_conversion_cast %reinterpret_cast : memref<8xi8, #map3, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+      %13 = llvm.extractvalue %12[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %14 = llvm.extractvalue %12[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %15 = llvm.getelementptr %13[%14] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i8
+      %16 = "hivm_regbaseintrins.intr.hivm.init.vector.align.data"() : () -> vector<32xi8>
+      %17 = "hivm_regbaseintrins.intr.hivm.vstus.post.s8"(%7, %15, %0, %16) : (vector<256xi8>, !llvm.ptr<6>, i32, vector<32xi8>) -> !llvm.struct<(vector<32xi8>, ptr<6>)>
+      %18 = llvm.extractvalue %17[0] : !llvm.struct<(vector<32xi8>, ptr<6>)> 
+      %19 = llvm.extractvalue %17[1] : !llvm.struct<(vector<32xi8>, ptr<6>)> 
+      "hivm_regbaseintrins.intr.hivm.vstas"(%18, %19, %5, %5) : (vector<32xi8>, !llvm.ptr<6>, i32, i32) -> ()
+    } {element_alignment_bit_width = -1 : i32}
+    return
+  }
+  func.func @adc_func_outlined_vf_3(%arg0: memref<832xf32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %0 = llvm.mlir.constant(2 : i32) : i32
+    %1 = llvm.mlir.constant(1 : i32) : i32
+    %2 = llvm.mlir.constant(64 : i32) : i32
+    %3 = llvm.mlir.constant(832 : i32) : i32
+    %4 = llvm.mlir.constant(0 : i32) : i32
+    %5 = llvm.mlir.constant(0.000000e+00 : f32) : f32
+    %6 = llvm.mlir.constant(8 : i32) : i32
+    %7 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%6, %4) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+    %8 = "hivm_regbaseintrins.intr.hivm.vdups.z"(%5, %7, %1) : (f32, vector<256xi1>, i32) -> vector<64xf32>
+    scf.for %arg1 = %4 to %3 step %2  : i32 {
+      %9 = llvm.sext %arg1 : i32 to i64
+      %10 = builtin.unrealized_conversion_cast %9 : i64 to index
+      %base_buffer, %offset, %sizes, %strides = memref.extract_strided_metadata %arg0 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+      %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [%10], sizes: [64], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+      %11 = builtin.unrealized_conversion_cast %reinterpret_cast : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+      %12 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%6, %4) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+      %13 = llvm.extractvalue %11[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %14 = llvm.extractvalue %11[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %15 = llvm.getelementptr %13[%14] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+      "hivm_regbaseintrins.intr.hivm.vstsx1.v64f32"(%8, %15, %4, %0, %4, %12) : (vector<64xf32>, !llvm.ptr<6>, i32, i32, i32, vector<256xi1>) -> ()
+    } {element_alignment_bit_width = -1 : i32}
+    return
+  }
+  func.func @adc_func_outlined_vf_4(%arg0: memref<832xf32, #hivm.address_space<ub>>, %arg1: memref<832xf32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %0 = llvm.mlir.constant(2 : i32) : i32
+    %1 = llvm.mlir.constant(8 : i32) : i32
+    %2 = llvm.mlir.constant(0 : i32) : i32
+    %3 = llvm.mlir.constant(832 : i32) : i32
+    %4 = llvm.mlir.constant(64 : i32) : i32
+    scf.for %arg2 = %2 to %3 step %4  : i32 {
+      %5 = llvm.sext %arg2 : i32 to i64
+      %6 = builtin.unrealized_conversion_cast %5 : i64 to index
+      %base_buffer, %offset, %sizes, %strides = memref.extract_strided_metadata %arg0 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+      %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [%6], sizes: [64], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+      %7 = builtin.unrealized_conversion_cast %reinterpret_cast : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+      %base_buffer_0, %offset_1, %sizes_2, %strides_3 = memref.extract_strided_metadata %arg1 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+      %reinterpret_cast_4 = memref.reinterpret_cast %base_buffer_0 to offset: [%6], sizes: [64], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+      %8 = builtin.unrealized_conversion_cast %reinterpret_cast_4 : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+      %9 = llvm.extractvalue %7[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %10 = llvm.extractvalue %7[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %11 = llvm.getelementptr %9[%10] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+      %12 = "hivm_regbaseintrins.intr.hivm.vldsx1.v64f32"(%11, %2, %2, %2) : (!llvm.ptr<6>, i32, i32, i32) -> vector<64xf32>
+      %13 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%1, %2) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+      %14 = "hivm_regbaseintrins.intr.hivm.vsqrt.x"(%12, %13) : (vector<64xf32>, vector<256xi1>) -> vector<64xf32>
+      %15 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%1, %2) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+      %16 = llvm.extractvalue %8[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %17 = llvm.extractvalue %8[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %18 = llvm.getelementptr %16[%17] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+      "hivm_regbaseintrins.intr.hivm.vstsx1.v64f32"(%14, %18, %2, %0, %2, %15) : (vector<64xf32>, !llvm.ptr<6>, i32, i32, i32, vector<256xi1>) -> ()
+    } {element_alignment_bit_width = 32 : i32}
+    return
+  }
+  func.func private @load_gm_to_ubuf_1d_float(memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>, memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>, i32, f32, index, i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface}
+  func.func private @load_gm_to_ubuf_2d_int8_t(memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<gm>>, memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<ub>>, i32, i8, index, i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface}
+  func.func private @copy_ubuf_to_ubuf_1d_int8_t(memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>, memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface}
+  func.func private @store_ubuf_to_gm_1d_float(memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>, memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>, i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface}
+  func.func @adc_func(%arg0: memref<?xi8, #hivm.address_space<gm>> {hacc.arg_type = #hacc.arg_type<sync_block_lock>}, %arg1: memref<?xi8, #hivm.address_space<gm>> {hacc.arg_type = #hacc.arg_type<workspace>}, %arg2: memref<?xf32, #hivm.address_space<gm>>, %arg3: memref<?xi8, #hivm.address_space<gm>>, %arg4: memref<?xf32, #hivm.address_space<gm>>, %arg5: i32, %arg6: i32, %arg7: i32, %arg8: i32) attributes {SyncBlockLockArgIdx = 0 : i64, WorkspaceArgIdx = 1 : i64, func_dyn_memref_args = dense<[true, true, true, true, true, false, false, false, false]> : vector<9xi1>, hacc.entry, hacc.function_kind = #hacc.function_kind<DEVICE>, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vf_mode = #hivm.vf_mode<SIMD>, hivm_regbaseintrins.target = #hivm_regbaseintrins.target<"dav-c310">, mix_mode = "aiv", parallel_mode = "simd"} {
+    %0 = llvm.mlir.constant(118784 : i64) : i64
+    %1 = llvm.mlir.constant(108800 : i64) : i64
+    %2 = llvm.mlir.constant(75520 : i64) : i64
+    %3 = llvm.mlir.constant(112128 : i64) : i64
+    %4 = llvm.mlir.constant(1 : i64) : i64
+    %5 = llvm.mlir.constant(82176 : i64) : i64
+    %6 = llvm.mlir.constant(72192 : i64) : i64
+    %7 = llvm.mlir.constant(65536 : i64) : i64
+    %8 = llvm.mlir.constant(0 : i64) : i64
+    %9 = llvm.mlir.constant(1 : i32) : i32
+    %10 = llvm.mlir.constant(8 : i32) : i32
+    %11 = llvm.mlir.constant(832 : i32) : i32
+    %12 = llvm.mlir.constant(831 : i32) : i32
+    %13 = llvm.mlir.constant(56 : i32) : i32
+    %14 = llvm.mlir.constant(46592 : i32) : i32
+    %15 = llvm.mlir.constant(46591 : i32) : i32
+    %16 = llvm.mlir.constant(0 : i32) : i32
+    %17 = llvm.mlir.constant(0 : i8) : i8
+    %18 = llvm.mlir.constant(0.000000e+00 : f32) : f32
+    %19 = llvm.mlir.constant(0 : index) : i64
+    %20 = builtin.unrealized_conversion_cast %19 : i64 to index
+    %21 = hivm.hir.pointer_cast(%1) : memref<832xf32, #hivm.address_space<ub>>
+    %22 = builtin.unrealized_conversion_cast %21 : memref<832xf32, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %23 = hivm.hir.pointer_cast(%0) : memref<832xf32, #hivm.address_space<ub>>
+    %24 = builtin.unrealized_conversion_cast %23 : memref<832xf32, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %25 = hivm.hir.pointer_cast(%2) : memref<832x8xi8, #hivm.address_space<ub>>
+    %26 = builtin.unrealized_conversion_cast %25 : memref<832x8xi8, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %27 = hivm.hir.pointer_cast(%3) : memref<832x8xi8, #hivm.address_space<ub>>
+    %28 = builtin.unrealized_conversion_cast %27 : memref<832x8xi8, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    hivm.hir.set_ctrl false at ctrl[60]
+    hivm.hir.set_ctrl true at ctrl[48]
+    %29 = hivm.hir.get_block_idx -> i64
+    %30 = llvm.trunc %29 : i64 to i32
+    %31 = hivm.hir.pointer_cast(%8) : memref<64x256xf32, #hivm.address_space<ub>>
+    %base_buffer, %offset, %sizes, %strides = memref.extract_strided_metadata %arg2 : memref<?xf32, #hivm.address_space<gm>> -> memref<f32, #hivm.address_space<gm>>, index, index, index
+    %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [0], sizes: [16384], strides: [1] : memref<f32, #hivm.address_space<gm>> to memref<16384xf32, strided<[1]>, #hivm.address_space<gm>>
+    %base_buffer_0, %offset_1, %sizes_2:2, %strides_3:2 = memref.extract_strided_metadata %31 : memref<64x256xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index, index, index
+    %reinterpret_cast_4 = memref.reinterpret_cast %base_buffer_0 to offset: [0], sizes: [16384], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<16384xf32, #hivm.address_space<ub>>
+    hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID0>]
+    hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID1>]
+    hivm.hir.set_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID0>]
+    hivm.hir.set_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID1>]
+    %cast = memref.cast %reinterpret_cast : memref<16384xf32, strided<[1]>, #hivm.address_space<gm>> to memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>
+    %cast_5 = memref.cast %reinterpret_cast_4 : memref<16384xf32, #hivm.address_space<ub>> to memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>
+    call @load_gm_to_ubuf_1d_float(%cast, %cast_5, %16, %18, %20, %16) : (memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>, memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>, i32, f32, index, i32) -> ()
+    %32 = llvm.add %arg5, %15 : i32
+    %33 = llvm.sdiv %32, %14  : i32
+    %34 = llvm.add %arg5, %12 : i32
+    %35 = llvm.sdiv %34, %11  : i32
+    scf.for %arg9 = %16 to %33 step %9  : i32 {
+      %36 = llvm.sext %arg9 : i32 to i64
+      %37 = builtin.unrealized_conversion_cast %36 : i64 to index
+      %38 = affine.apply #map5()[%37]
+      %39 = builtin.unrealized_conversion_cast %38 : index to i64
+      %40 = llvm.icmp "eq" %39, %4 : i64
+      %41 = llvm.select %40, %24, %22 : i1, !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+      %42 = builtin.unrealized_conversion_cast %41 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> to memref<832xf32, #hivm.address_space<ub>>
+      %43 = llvm.zext %40 : i1 to i64
+      %44 = llvm.mul %arg9, %13 : i32
+      %45 = llvm.add %44, %30 : i32
+      %46 = llvm.icmp "slt" %45, %35 : i32
+      scf.if %46 {
+        %47 = hivm.hir.pointer_cast(%7) : memref<832x8xi8, #hivm.address_space<ub>>
+        func.call @adc_func_outlined_vf_2(%47) {hivm.vector_function, no_inline} : (memref<832x8xi8, #hivm.address_space<ub>>) -> ()
+        %48 = hivm.hir.pointer_cast(%6) : memref<832xf32, #hivm.address_space<ub>>
+        func.call @adc_func_outlined_vf_3(%48) {hivm.vector_function, no_inline} : (memref<832xf32, #hivm.address_space<ub>>) -> ()
+        %49 = llvm.mul %arg9, %14 : i32
+        %50 = llvm.mul %30, %11 : i32
+        %51 = llvm.add %49, %50 : i32
+        %52 = llvm.sext %51 : i32 to i64
+        %53 = builtin.unrealized_conversion_cast %52 : i64 to index
+        %54 = llvm.sub %arg5, %50 : i32
+        %55 = llvm.sub %54, %49 : i32
+        %56 = llvm.intr.smin(%55, %11)  : (i32, i32) -> i32
+        %57 = llvm.sext %56 : i32 to i64
+        %58 = builtin.unrealized_conversion_cast %57 : i64 to index
+        %59 = scf.for %arg10 = %16 to %10 step %9 iter_args(%arg11 = %48) -> (memref<832xf32, #hivm.address_space<ub>>)  : i32 {
+          %60 = llvm.sext %arg10 : i32 to i64
+          %61 = builtin.unrealized_conversion_cast %60 : i64 to index
+          %62 = affine.apply #map5()[%61]
+          %63 = builtin.unrealized_conversion_cast %62 : index to i64
+          %64 = llvm.icmp "eq" %63, %4 : i64
+          %65 = llvm.select %64, %28, %26 : i1, !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+          %66 = builtin.unrealized_conversion_cast %65 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> to memref<832x8xi8, #hivm.address_space<ub>>
+          %67 = llvm.zext %64 : i1 to i64
+          %68 = llvm.mul %arg10, %10 : i32
+          %69 = llvm.sext %68 : i32 to i64
+          %70 = builtin.unrealized_conversion_cast %69 : i64 to index
+          %base_buffer_18, %offset_19, %sizes_20, %strides_21 = memref.extract_strided_metadata %arg3 : memref<?xi8, #hivm.address_space<gm>> -> memref<i8, #hivm.address_space<gm>>, index, index, index
+          %71 = affine.apply #map6()[%53, %70]
+          %reinterpret_cast_22 = memref.reinterpret_cast %base_buffer_18 to offset: [%71], sizes: [%58, 8], strides: [64, 1] : memref<i8, #hivm.address_space<gm>> to memref<?x8xi8, strided<[64, 1], offset: ?>, #hivm.address_space<gm>>
+          %base_buffer_23, %offset_24, %sizes_25:2, %strides_26:2 = memref.extract_strided_metadata %66 : memref<832x8xi8, #hivm.address_space<ub>> -> memref<i8, #hivm.address_space<ub>>, index, index, index, index, index
+          %reinterpret_cast_27 = memref.reinterpret_cast %base_buffer_23 to offset: [0], sizes: [%58, 8], strides: [8, 1] : memref<i8, #hivm.address_space<ub>> to memref<?x8xi8, strided<[8, 1]>, #hivm.address_space<ub>>
+          hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE2>, %67]
+          %cast_28 = memref.cast %reinterpret_cast_22 : memref<?x8xi8, strided<[64, 1], offset: ?>, #hivm.address_space<gm>> to memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<gm>>
+          %cast_29 = memref.cast %reinterpret_cast_27 : memref<?x8xi8, strided<[8, 1]>, #hivm.address_space<ub>> to memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<ub>>
+          func.call @load_gm_to_ubuf_2d_int8_t(%cast_28, %cast_29, %16, %17, %20, %16) : (memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<gm>>, memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<ub>>, i32, i8, index, i32) -> ()
+          hivm.hir.set_flag[<PIPE_MTE2>, <PIPE_V>, <EVENT_ID0>]
+          %base_buffer_30, %offset_31, %sizes_32:2, %strides_33:2 = memref.extract_strided_metadata %66 : memref<832x8xi8, #hivm.address_space<ub>> -> memref<i8, #hivm.address_space<ub>>, index, index, index, index, index
+          %72 = affine.apply #map4()[%58]
+          %reinterpret_cast_34 = memref.reinterpret_cast %base_buffer_30 to offset: [0], sizes: [%72], strides: [1] : memref<i8, #hivm.address_space<ub>> to memref<?xi8, strided<[1]>, #hivm.address_space<ub>>
+          %base_buffer_35, %offset_36, %sizes_37:2, %strides_38:2 = memref.extract_strided_metadata %47 : memref<832x8xi8, #hivm.address_space<ub>> -> memref<i8, #hivm.address_space<ub>>, index, index, index, index, index
+          %73 = affine.apply #map4()[%58]
+          %reinterpret_cast_39 = memref.reinterpret_cast %base_buffer_35 to offset: [0], sizes: [%73], strides: [1] : memref<i8, #hivm.address_space<ub>> to memref<?xi8, strided<[1]>, #hivm.address_space<ub>>
+          hivm.hir.wait_flag[<PIPE_MTE2>, <PIPE_V>, <EVENT_ID0>]
+          %cast_40 = memref.cast %reinterpret_cast_34 : memref<?xi8, strided<[1]>, #hivm.address_space<ub>> to memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>
+          %cast_41 = memref.cast %reinterpret_cast_39 : memref<?xi8, strided<[1]>, #hivm.address_space<ub>> to memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>
+          func.call @copy_ubuf_to_ubuf_1d_int8_t(%cast_40, %cast_41) : (memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>, memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>) -> ()
+          hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE2>, %67]
+          %74 = hivm.hir.pointer_cast(%5) : memref<8x832xi32, #hivm.address_space<ub>>
+          func.call @adc_func_outlined_vf_1(%47, %74) {hivm.vector_function, no_inline} : (memref<832x8xi8, #hivm.address_space<ub>>, memref<8x832xi32, #hivm.address_space<ub>>) -> ()
+          %75 = scf.for %arg12 = %16 to %10 step %9 iter_args(%arg13 = %arg11) -> (memref<832xf32, #hivm.address_space<ub>>)  : i32 {
+            %76 = llvm.add %68, %arg12 : i32
+            %77 = llvm.sext %76 : i32 to i64
+            %78 = builtin.unrealized_conversion_cast %77 : i64 to index
+            %79 = llvm.sext %arg12 : i32 to i64
+            %80 = builtin.unrealized_conversion_cast %79 : i64 to index
+            %81 = hivm.hir.pointer_cast(%6) : memref<832xf32, #hivm.address_space<ub>>
+            func.call @adc_func_outlined_vf_0(%arg13, %74, %80, %31, %78, %81) {hivm.vector_function, no_inline} : (memref<832xf32, #hivm.address_space<ub>>, memref<8x832xi32, #hivm.address_space<ub>>, index, memref<64x256xf32, #hivm.address_space<ub>>, index, memref<832xf32, #hivm.address_space<ub>>) -> ()
+            scf.yield %81 : memref<832xf32, #hivm.address_space<ub>>
+          }
+          scf.yield %75 : memref<832xf32, #hivm.address_space<ub>>
+        }
+        hivm.hir.wait_flag[<PIPE_MTE3>, <PIPE_V>, %43]
+        func.call @adc_func_outlined_vf_4(%59, %42) {hivm.vector_function, no_inline} : (memref<832xf32, #hivm.address_space<ub>>, memref<832xf32, #hivm.address_space<ub>>) -> ()
+        hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE3>, <EVENT_ID0>]
+        %base_buffer_6, %offset_7, %sizes_8, %strides_9 = memref.extract_strided_metadata %42 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+        %reinterpret_cast_10 = memref.reinterpret_cast %base_buffer_6 to offset: [0], sizes: [%58], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<?xf32, strided<[1]>, #hivm.address_space<ub>>
+        %base_buffer_11, %offset_12, %sizes_13, %strides_14 = memref.extract_strided_metadata %arg4 : memref<?xf32, #hivm.address_space<gm>> -> memref<f32, #hivm.address_space<gm>>, index, index, index
+        %reinterpret_cast_15 = memref.reinterpret_cast %base_buffer_11 to offset: [%53], sizes: [%58], strides: [1] : memref<f32, #hivm.address_space<gm>> to memref<?xf32, strided<[1], offset: ?>, #hivm.address_space<gm>>
+        hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE3>, <EVENT_ID0>]
+        hivm.hir.pipe_barrier[<PIPE_MTE3>]
+        %cast_16 = memref.cast %reinterpret_cast_10 : memref<?xf32, strided<[1]>, #hivm.address_space<ub>> to memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>
+        %cast_17 = memref.cast %reinterpret_cast_15 : memref<?xf32, strided<[1], offset: ?>, #hivm.address_space<gm>> to memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>
+        func.call @store_ubuf_to_gm_1d_float(%cast_16, %cast_17, %16) : (memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>, memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>, i32) -> ()
+        hivm.hir.set_flag[<PIPE_MTE3>, <PIPE_V>, %43]
+      }
+    }
+    hivm.hir.pipe_barrier[<PIPE_ALL>]
+    hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID0>]
+    hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID1>]
+    hivm.hir.wait_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID0>]
+    hivm.hir.wait_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID1>]
+    return
+  }
+}
+
+
+// -----// IR Dump After ConvertAscendDPXToHIVMRegbaseIntrins (convert-ascend-dpx-to-hivmregbaseintrins) //----- //
+#map = affine_map<()[s0] -> (s0 * 256)>
+#map1 = affine_map<()[s0, s1] -> (s0 * 832 + s1)>
+#map2 = affine_map<()[s0, s1] -> (s0 * 8 + s1)>
+#map3 = affine_map<(d0)[s0] -> (d0 + s0)>
+#map4 = affine_map<()[s0] -> (s0 * 8)>
+#map5 = affine_map<()[s0] -> (s0 mod 2)>
+#map6 = affine_map<()[s0, s1] -> (s0 * 64 + s1)>
+module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #hacc.target_device_spec<#dlti.dl_entry<"AI_CORE_COUNT", 28 : i32>, #dlti.dl_entry<"CUBE_CORE_COUNT", 28 : i32>, #dlti.dl_entry<"VECTOR_CORE_COUNT", 56 : i32>, #dlti.dl_entry<"UB_SIZE", 2031616 : i32>, #dlti.dl_entry<"L1_SIZE", 4194304 : i32>, #dlti.dl_entry<"L0A_SIZE", 524288 : i32>, #dlti.dl_entry<"L0B_SIZE", 524288 : i32>, #dlti.dl_entry<"L0C_SIZE", 2097152 : i32>, #dlti.dl_entry<"UB_ALIGN_SIZE", 256 : i32>, #dlti.dl_entry<"L1_ALIGN_SIZE", 256 : i32>, #dlti.dl_entry<"L0C_ALIGN_SIZE", 4096 : i32>, #dlti.dl_entry<"MINIMAL_D_CACHE_SIZE", 262144 : i32>, #dlti.dl_entry<"MAXIMUM_D_CACHE_SIZE", 983040 : i32>, #dlti.dl_entry<"ARCH", "dav-c310">>>, hacc.target = #hacc.target<"Ascend950PR_9579">, hivm.module_core_type = #hivm.module_core_type<AIV>, memref.memref_as_ptr} {
+  func.func @adc_func_outlined_vf_0(%arg0: memref<832xf32, #hivm.address_space<ub>>, %arg1: memref<8x832xi32, #hivm.address_space<ub>>, %arg2: index, %arg3: memref<64x256xf32, #hivm.address_space<ub>>, %arg4: index, %arg5: memref<832xf32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %0 = llvm.mlir.constant(2 : i32) : i32
+    %1 = llvm.mlir.constant(64 : i32) : i32
+    %2 = llvm.mlir.constant(832 : i32) : i32
+    %3 = llvm.mlir.constant(0 : i32) : i32
+    %4 = llvm.mlir.constant(8 : i32) : i32
+    %5 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%4, %3) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+    %base_buffer, %offset, %sizes:2, %strides:2 = memref.extract_strided_metadata %arg3 : memref<64x256xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index, index, index
+    %6 = affine.apply #map()[%arg4]
+    %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [%6], sizes: [256], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<256xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+    %7 = builtin.unrealized_conversion_cast %reinterpret_cast : memref<256xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    scf.for %arg6 = %3 to %2 step %1  : i32 {
+      %8 = llvm.sext %arg6 : i32 to i64
+      %9 = builtin.unrealized_conversion_cast %8 : i64 to index
+      %base_buffer_0, %offset_1, %sizes_2, %strides_3 = memref.extract_strided_metadata %arg0 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+      %reinterpret_cast_4 = memref.reinterpret_cast %base_buffer_0 to offset: [%9], sizes: [64], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+      %10 = builtin.unrealized_conversion_cast %reinterpret_cast_4 : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+      %base_buffer_5, %offset_6, %sizes_7:2, %strides_8:2 = memref.extract_strided_metadata %arg1 : memref<8x832xi32, #hivm.address_space<ub>> -> memref<i32, #hivm.address_space<ub>>, index, index, index, index, index
+      %11 = affine.apply #map1()[%arg2, %9]
+      %reinterpret_cast_9 = memref.reinterpret_cast %base_buffer_5 to offset: [%11], sizes: [64], strides: [1] : memref<i32, #hivm.address_space<ub>> to memref<64xi32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+      %12 = builtin.unrealized_conversion_cast %reinterpret_cast_9 : memref<64xi32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+      %base_buffer_10, %offset_11, %sizes_12, %strides_13 = memref.extract_strided_metadata %arg5 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+      %reinterpret_cast_14 = memref.reinterpret_cast %base_buffer_10 to offset: [%9], sizes: [64], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+      %13 = builtin.unrealized_conversion_cast %reinterpret_cast_14 : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+      %14 = llvm.extractvalue %10[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %15 = llvm.extractvalue %10[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %16 = llvm.getelementptr %14[%15] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+      %17 = "hivm_regbaseintrins.intr.hivm.vldsx1.v64f32"(%16, %3, %3, %3) : (!llvm.ptr<6>, i32, i32, i32) -> vector<64xf32>
+      %18 = llvm.extractvalue %12[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %19 = llvm.extractvalue %12[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %20 = llvm.getelementptr %18[%19] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i32
+      %21 = "hivm_regbaseintrins.intr.hivm.vldsx1.v64s32"(%20, %3, %3, %3) : (!llvm.ptr<6>, i32, i32, i32) -> vector<64xi32>
+      %22 = llvm.extractvalue %7[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %23 = llvm.extractvalue %7[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %24 = llvm.getelementptr %22[%23] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+      %25 = "hivm_regbaseintrins.intr.hivm.vgather2_v300.v64f32"(%24, %21, %5) : (!llvm.ptr<6>, vector<64xi32>, vector<256xi1>) -> vector<64xf32>
+      %26 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%4, %3) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+      %27 = "hivm_regbaseintrins.intr.hivm.vadd.s.x"(%17, %25, %26) : (vector<64xf32>, vector<64xf32>, vector<256xi1>) -> vector<64xf32>
+      %28 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%4, %3) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+      %29 = llvm.extractvalue %13[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %30 = llvm.extractvalue %13[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %31 = llvm.getelementptr %29[%30] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+      "hivm_regbaseintrins.intr.hivm.vstsx1.v64f32"(%27, %31, %3, %0, %3, %28) : (vector<64xf32>, !llvm.ptr<6>, i32, i32, i32, vector<256xi1>) -> ()
+    } {element_alignment_bit_width = 32 : i32}
+    return
+  }
+  func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub>>, %arg1: memref<8x832xi32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %0 = llvm.mlir.constant(2 : i32) : i32
+    %1 = llvm.mlir.constant(0 : i8) : i8
+    %2 = llvm.mlir.constant(8 : index) : i64
+    %3 = llvm.mlir.constant(64 : i32) : i32
+    %4 = llvm.mlir.constant(832 : i32) : i32
+    %5 = llvm.mlir.constant(0 : index) : i64
+    %6 = llvm.mlir.constant(0 : i32) : i32
+    %7 = llvm.mlir.constant(8 : i32) : i32
+    %8 = llvm.mlir.constant(1 : i32) : i32
+    scf.for %arg2 = %6 to %7 step %8  : i32 {
+      %9 = llvm.sext %arg2 : i32 to i64
+      %10 = builtin.unrealized_conversion_cast %9 : i64 to index
+      scf.for %arg3 = %6 to %4 step %3  : i32 {
+        %11 = llvm.sext %arg3 : i32 to i64
+        %12 = builtin.unrealized_conversion_cast %11 : i64 to index
+        %base_buffer, %offset, %sizes:2, %strides:2 = memref.extract_strided_metadata %arg0 : memref<832x8xi8, #hivm.address_space<ub>> -> memref<i8, #hivm.address_space<ub>>, index, index, index, index, index
+        %13 = affine.apply #map2()[%12, %10]
+        %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [%13], sizes: [64, 1], strides: [8, 1] : memref<i8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
+        %14 = builtin.unrealized_conversion_cast %reinterpret_cast : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+        %15 = llvm.extractvalue %14[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+        %16 = llvm.extractvalue %14[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+        %17 = llvm.getelementptr %15[%16] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i8
+        %18 = llvm.mul %5, %2 : i64
+        %19 = llvm.add %18, %5 : i64
+        %20 = llvm.getelementptr %17[%19] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i8
+        %21 = "hivm_regbaseintrins.intr.hivm.vldas"(%20) : (!llvm.ptr<6>) -> vector<32xi8>
+        %22 = "hivm_regbaseintrins.intr.hivm.vldus.post.s8"(%20, %21, %6) : (!llvm.ptr<6>, vector<32xi8>, i32) -> !llvm.struct<(vector<256xi8>, vector<32xi8>, ptr<6>)>
+        %23 = llvm.extractvalue %22[0] : !llvm.struct<(vector<256xi8>, vector<32xi8>, ptr<6>)> 
+        %24 = "hivm_regbaseintrins.intr.hivm.vbr"(%1) : (i8) -> vector<256xi8>
+        %25 = "hivm_regbaseintrins.intr.hivm.vintlv"(%23, %24) : (vector<256xi8>, vector<256xi8>) -> !llvm.struct<(vector<256xi8>, vector<256xi8>)>
+        %26 = llvm.extractvalue %25[0] : !llvm.struct<(vector<256xi8>, vector<256xi8>)> 
+        %27 = "hivm_regbaseintrins.intr.hivm.vintlv"(%26, %24) : (vector<256xi8>, vector<256xi8>) -> !llvm.struct<(vector<256xi8>, vector<256xi8>)>
+        %28 = llvm.extractvalue %27[0] : !llvm.struct<(vector<256xi8>, vector<256xi8>)> 
+        %29 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%7, %6) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+        %30 = "hivm_regbaseintrins.intr.hivm.vcvtii.s82s32.x"(%28, %29, %6) : (vector<256xi8>, vector<256xi1>, i32) -> vector<64xi32>
+        %base_buffer_0, %offset_1, %sizes_2:2, %strides_3:2 = memref.extract_strided_metadata %arg1 : memref<8x832xi32, #hivm.address_space<ub>> -> memref<i32, #hivm.address_space<ub>>, index, index, index, index, index
+        %31 = affine.apply #map1()[%10, %12]
+        %reinterpret_cast_4 = memref.reinterpret_cast %base_buffer_0 to offset: [%31], sizes: [64], strides: [1] : memref<i32, #hivm.address_space<ub>> to memref<64xi32, #map3, #hivm.address_space<ub>>
+        %32 = builtin.unrealized_conversion_cast %reinterpret_cast_4 : memref<64xi32, #map3, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+        %33 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%7, %6) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+        %34 = llvm.extractvalue %32[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+        %35 = llvm.extractvalue %32[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+        %36 = llvm.getelementptr %34[%35] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i32
+        "hivm_regbaseintrins.intr.hivm.vstsx1.v64s32"(%30, %36, %6, %0, %6, %33) : (vector<64xi32>, !llvm.ptr<6>, i32, i32, i32, vector<256xi1>) -> ()
+      } {element_alignment_bit_width = 32 : i32}
+    } {element_alignment_bit_width = 32 : i32}
+    return
+  }
+  func.func @adc_func_outlined_vf_2(%arg0: memref<832x8xi8, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 8 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %0 = llvm.mlir.constant(8 : i32) : i32
+    %1 = llvm.mlir.constant(5 : i32) : i32
+    %2 = llvm.mlir.constant(0 : i8) : i8
+    %3 = llvm.mlir.constant(1 : i32) : i32
+    %4 = llvm.mlir.constant(832 : i32) : i32
+    %5 = llvm.mlir.constant(0 : i32) : i32
+    %6 = "hivm_regbaseintrins.intr.hivm.pge.b8"(%5, %5) {mask_bit_width = 8 : i32} : (i32, i32) -> vector<256xi1>
+    %7 = "hivm_regbaseintrins.intr.hivm.vdups.z"(%2, %6, %3) : (i8, vector<256xi1>, i32) -> vector<256xi8>
+    scf.for %arg1 = %5 to %4 step %3  : i32 {
+      %8 = llvm.sext %arg1 : i32 to i64
+      %9 = builtin.unrealized_conversion_cast %8 : i64 to index
+      %10 = "hivm_regbaseintrins.intr.hivm.pge.b8"(%1, %5) {mask_bit_width = 8 : i32, mask_op_idx = 0 : i32} : (i32, i32) -> vector<256xi1>
+      %base_buffer, %offset, %sizes:2, %strides:2 = memref.extract_strided_metadata %arg0 : memref<832x8xi8, #hivm.address_space<ub>> -> memref<i8, #hivm.address_space<ub>>, index, index, index, index, index
+      %11 = affine.apply #map4()[%9]
+      %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [%11], sizes: [8], strides: [1] : memref<i8, #hivm.address_space<ub>> to memref<8xi8, #map3, #hivm.address_space<ub>>
+      %12 = builtin.unrealized_conversion_cast %reinterpret_cast : memref<8xi8, #map3, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+      %13 = llvm.extractvalue %12[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %14 = llvm.extractvalue %12[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %15 = llvm.getelementptr %13[%14] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i8
+      %16 = "hivm_regbaseintrins.intr.hivm.init.vector.align.data"() : () -> vector<32xi8>
+      %17 = "hivm_regbaseintrins.intr.hivm.vstus.post.s8"(%7, %15, %0, %16) : (vector<256xi8>, !llvm.ptr<6>, i32, vector<32xi8>) -> !llvm.struct<(vector<32xi8>, ptr<6>)>
+      %18 = llvm.extractvalue %17[0] : !llvm.struct<(vector<32xi8>, ptr<6>)> 
+      %19 = llvm.extractvalue %17[1] : !llvm.struct<(vector<32xi8>, ptr<6>)> 
+      "hivm_regbaseintrins.intr.hivm.vstas"(%18, %19, %5, %5) : (vector<32xi8>, !llvm.ptr<6>, i32, i32) -> ()
+    } {element_alignment_bit_width = -1 : i32}
+    return
+  }
+  func.func @adc_func_outlined_vf_3(%arg0: memref<832xf32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %0 = llvm.mlir.constant(2 : i32) : i32
+    %1 = llvm.mlir.constant(1 : i32) : i32
+    %2 = llvm.mlir.constant(64 : i32) : i32
+    %3 = llvm.mlir.constant(832 : i32) : i32
+    %4 = llvm.mlir.constant(0 : i32) : i32
+    %5 = llvm.mlir.constant(0.000000e+00 : f32) : f32
+    %6 = llvm.mlir.constant(8 : i32) : i32
+    %7 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%6, %4) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+    %8 = "hivm_regbaseintrins.intr.hivm.vdups.z"(%5, %7, %1) : (f32, vector<256xi1>, i32) -> vector<64xf32>
+    scf.for %arg1 = %4 to %3 step %2  : i32 {
+      %9 = llvm.sext %arg1 : i32 to i64
+      %10 = builtin.unrealized_conversion_cast %9 : i64 to index
+      %base_buffer, %offset, %sizes, %strides = memref.extract_strided_metadata %arg0 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+      %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [%10], sizes: [64], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+      %11 = builtin.unrealized_conversion_cast %reinterpret_cast : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+      %12 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%6, %4) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+      %13 = llvm.extractvalue %11[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %14 = llvm.extractvalue %11[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %15 = llvm.getelementptr %13[%14] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+      "hivm_regbaseintrins.intr.hivm.vstsx1.v64f32"(%8, %15, %4, %0, %4, %12) : (vector<64xf32>, !llvm.ptr<6>, i32, i32, i32, vector<256xi1>) -> ()
+    } {element_alignment_bit_width = -1 : i32}
+    return
+  }
+  func.func @adc_func_outlined_vf_4(%arg0: memref<832xf32, #hivm.address_space<ub>>, %arg1: memref<832xf32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %0 = llvm.mlir.constant(2 : i32) : i32
+    %1 = llvm.mlir.constant(8 : i32) : i32
+    %2 = llvm.mlir.constant(0 : i32) : i32
+    %3 = llvm.mlir.constant(832 : i32) : i32
+    %4 = llvm.mlir.constant(64 : i32) : i32
+    scf.for %arg2 = %2 to %3 step %4  : i32 {
+      %5 = llvm.sext %arg2 : i32 to i64
+      %6 = builtin.unrealized_conversion_cast %5 : i64 to index
+      %base_buffer, %offset, %sizes, %strides = memref.extract_strided_metadata %arg0 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+      %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [%6], sizes: [64], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+      %7 = builtin.unrealized_conversion_cast %reinterpret_cast : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+      %base_buffer_0, %offset_1, %sizes_2, %strides_3 = memref.extract_strided_metadata %arg1 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+      %reinterpret_cast_4 = memref.reinterpret_cast %base_buffer_0 to offset: [%6], sizes: [64], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+      %8 = builtin.unrealized_conversion_cast %reinterpret_cast_4 : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+      %9 = llvm.extractvalue %7[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %10 = llvm.extractvalue %7[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %11 = llvm.getelementptr %9[%10] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+      %12 = "hivm_regbaseintrins.intr.hivm.vldsx1.v64f32"(%11, %2, %2, %2) : (!llvm.ptr<6>, i32, i32, i32) -> vector<64xf32>
+      %13 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%1, %2) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+      %14 = "hivm_regbaseintrins.intr.hivm.vsqrt.x"(%12, %13) : (vector<64xf32>, vector<256xi1>) -> vector<64xf32>
+      %15 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%1, %2) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+      %16 = llvm.extractvalue %8[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %17 = llvm.extractvalue %8[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %18 = llvm.getelementptr %16[%17] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+      "hivm_regbaseintrins.intr.hivm.vstsx1.v64f32"(%14, %18, %2, %0, %2, %15) : (vector<64xf32>, !llvm.ptr<6>, i32, i32, i32, vector<256xi1>) -> ()
+    } {element_alignment_bit_width = 32 : i32}
+    return
+  }
+  func.func private @load_gm_to_ubuf_1d_float(memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>, memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>, i32, f32, index, i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface}
+  func.func private @load_gm_to_ubuf_2d_int8_t(memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<gm>>, memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<ub>>, i32, i8, index, i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface}
+  func.func private @copy_ubuf_to_ubuf_1d_int8_t(memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>, memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface}
+  func.func private @store_ubuf_to_gm_1d_float(memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>, memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>, i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface}
+  func.func @adc_func(%arg0: memref<?xi8, #hivm.address_space<gm>> {hacc.arg_type = #hacc.arg_type<sync_block_lock>}, %arg1: memref<?xi8, #hivm.address_space<gm>> {hacc.arg_type = #hacc.arg_type<workspace>}, %arg2: memref<?xf32, #hivm.address_space<gm>>, %arg3: memref<?xi8, #hivm.address_space<gm>>, %arg4: memref<?xf32, #hivm.address_space<gm>>, %arg5: i32, %arg6: i32, %arg7: i32, %arg8: i32) attributes {SyncBlockLockArgIdx = 0 : i64, WorkspaceArgIdx = 1 : i64, func_dyn_memref_args = dense<[true, true, true, true, true, false, false, false, false]> : vector<9xi1>, hacc.entry, hacc.function_kind = #hacc.function_kind<DEVICE>, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vf_mode = #hivm.vf_mode<SIMD>, hivm_regbaseintrins.target = #hivm_regbaseintrins.target<"dav-c310">, mix_mode = "aiv", parallel_mode = "simd"} {
+    %0 = llvm.mlir.constant(118784 : i64) : i64
+    %1 = llvm.mlir.constant(108800 : i64) : i64
+    %2 = llvm.mlir.constant(75520 : i64) : i64
+    %3 = llvm.mlir.constant(112128 : i64) : i64
+    %4 = llvm.mlir.constant(1 : i64) : i64
+    %5 = llvm.mlir.constant(82176 : i64) : i64
+    %6 = llvm.mlir.constant(72192 : i64) : i64
+    %7 = llvm.mlir.constant(65536 : i64) : i64
+    %8 = llvm.mlir.constant(0 : i64) : i64
+    %9 = llvm.mlir.constant(1 : i32) : i32
+    %10 = llvm.mlir.constant(8 : i32) : i32
+    %11 = llvm.mlir.constant(832 : i32) : i32
+    %12 = llvm.mlir.constant(831 : i32) : i32
+    %13 = llvm.mlir.constant(56 : i32) : i32
+    %14 = llvm.mlir.constant(46592 : i32) : i32
+    %15 = llvm.mlir.constant(46591 : i32) : i32
+    %16 = llvm.mlir.constant(0 : i32) : i32
+    %17 = llvm.mlir.constant(0 : i8) : i8
+    %18 = llvm.mlir.constant(0.000000e+00 : f32) : f32
+    %19 = llvm.mlir.constant(0 : index) : i64
+    %20 = builtin.unrealized_conversion_cast %19 : i64 to index
+    %21 = hivm.hir.pointer_cast(%1) : memref<832xf32, #hivm.address_space<ub>>
+    %22 = builtin.unrealized_conversion_cast %21 : memref<832xf32, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %23 = hivm.hir.pointer_cast(%0) : memref<832xf32, #hivm.address_space<ub>>
+    %24 = builtin.unrealized_conversion_cast %23 : memref<832xf32, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %25 = hivm.hir.pointer_cast(%2) : memref<832x8xi8, #hivm.address_space<ub>>
+    %26 = builtin.unrealized_conversion_cast %25 : memref<832x8xi8, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %27 = hivm.hir.pointer_cast(%3) : memref<832x8xi8, #hivm.address_space<ub>>
+    %28 = builtin.unrealized_conversion_cast %27 : memref<832x8xi8, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    hivm.hir.set_ctrl false at ctrl[60]
+    hivm.hir.set_ctrl true at ctrl[48]
+    %29 = hivm.hir.get_block_idx -> i64
+    %30 = llvm.trunc %29 : i64 to i32
+    %31 = hivm.hir.pointer_cast(%8) : memref<64x256xf32, #hivm.address_space<ub>>
+    %base_buffer, %offset, %sizes, %strides = memref.extract_strided_metadata %arg2 : memref<?xf32, #hivm.address_space<gm>> -> memref<f32, #hivm.address_space<gm>>, index, index, index
+    %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [0], sizes: [16384], strides: [1] : memref<f32, #hivm.address_space<gm>> to memref<16384xf32, strided<[1]>, #hivm.address_space<gm>>
+    %base_buffer_0, %offset_1, %sizes_2:2, %strides_3:2 = memref.extract_strided_metadata %31 : memref<64x256xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index, index, index
+    %reinterpret_cast_4 = memref.reinterpret_cast %base_buffer_0 to offset: [0], sizes: [16384], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<16384xf32, #hivm.address_space<ub>>
+    hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID0>]
+    hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID1>]
+    hivm.hir.set_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID0>]
+    hivm.hir.set_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID1>]
+    %cast = memref.cast %reinterpret_cast : memref<16384xf32, strided<[1]>, #hivm.address_space<gm>> to memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>
+    %cast_5 = memref.cast %reinterpret_cast_4 : memref<16384xf32, #hivm.address_space<ub>> to memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>
+    call @load_gm_to_ubuf_1d_float(%cast, %cast_5, %16, %18, %20, %16) : (memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>, memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>, i32, f32, index, i32) -> ()
+    %32 = llvm.add %arg5, %15 : i32
+    %33 = llvm.sdiv %32, %14  : i32
+    %34 = llvm.add %arg5, %12 : i32
+    %35 = llvm.sdiv %34, %11  : i32
+    scf.for %arg9 = %16 to %33 step %9  : i32 {
+      %36 = llvm.sext %arg9 : i32 to i64
+      %37 = builtin.unrealized_conversion_cast %36 : i64 to index
+      %38 = affine.apply #map5()[%37]
+      %39 = builtin.unrealized_conversion_cast %38 : index to i64
+      %40 = llvm.icmp "eq" %39, %4 : i64
+      %41 = llvm.select %40, %24, %22 : i1, !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+      %42 = builtin.unrealized_conversion_cast %41 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> to memref<832xf32, #hivm.address_space<ub>>
+      %43 = llvm.zext %40 : i1 to i64
+      %44 = llvm.mul %arg9, %13 : i32
+      %45 = llvm.add %44, %30 : i32
+      %46 = llvm.icmp "slt" %45, %35 : i32
+      scf.if %46 {
+        %47 = hivm.hir.pointer_cast(%7) : memref<832x8xi8, #hivm.address_space<ub>>
+        func.call @adc_func_outlined_vf_2(%47) {hivm.vector_function, no_inline} : (memref<832x8xi8, #hivm.address_space<ub>>) -> ()
+        %48 = hivm.hir.pointer_cast(%6) : memref<832xf32, #hivm.address_space<ub>>
+        func.call @adc_func_outlined_vf_3(%48) {hivm.vector_function, no_inline} : (memref<832xf32, #hivm.address_space<ub>>) -> ()
+        %49 = llvm.mul %arg9, %14 : i32
+        %50 = llvm.mul %30, %11 : i32
+        %51 = llvm.add %49, %50 : i32
+        %52 = llvm.sext %51 : i32 to i64
+        %53 = builtin.unrealized_conversion_cast %52 : i64 to index
+        %54 = llvm.sub %arg5, %50 : i32
+        %55 = llvm.sub %54, %49 : i32
+        %56 = llvm.intr.smin(%55, %11)  : (i32, i32) -> i32
+        %57 = llvm.sext %56 : i32 to i64
+        %58 = builtin.unrealized_conversion_cast %57 : i64 to index
+        %59 = scf.for %arg10 = %16 to %10 step %9 iter_args(%arg11 = %48) -> (memref<832xf32, #hivm.address_space<ub>>)  : i32 {
+          %60 = llvm.sext %arg10 : i32 to i64
+          %61 = builtin.unrealized_conversion_cast %60 : i64 to index
+          %62 = affine.apply #map5()[%61]
+          %63 = builtin.unrealized_conversion_cast %62 : index to i64
+          %64 = llvm.icmp "eq" %63, %4 : i64
+          %65 = llvm.select %64, %28, %26 : i1, !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+          %66 = builtin.unrealized_conversion_cast %65 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> to memref<832x8xi8, #hivm.address_space<ub>>
+          %67 = llvm.zext %64 : i1 to i64
+          %68 = llvm.mul %arg10, %10 : i32
+          %69 = llvm.sext %68 : i32 to i64
+          %70 = builtin.unrealized_conversion_cast %69 : i64 to index
+          %base_buffer_18, %offset_19, %sizes_20, %strides_21 = memref.extract_strided_metadata %arg3 : memref<?xi8, #hivm.address_space<gm>> -> memref<i8, #hivm.address_space<gm>>, index, index, index
+          %71 = affine.apply #map6()[%53, %70]
+          %reinterpret_cast_22 = memref.reinterpret_cast %base_buffer_18 to offset: [%71], sizes: [%58, 8], strides: [64, 1] : memref<i8, #hivm.address_space<gm>> to memref<?x8xi8, strided<[64, 1], offset: ?>, #hivm.address_space<gm>>
+          %base_buffer_23, %offset_24, %sizes_25:2, %strides_26:2 = memref.extract_strided_metadata %66 : memref<832x8xi8, #hivm.address_space<ub>> -> memref<i8, #hivm.address_space<ub>>, index, index, index, index, index
+          %reinterpret_cast_27 = memref.reinterpret_cast %base_buffer_23 to offset: [0], sizes: [%58, 8], strides: [8, 1] : memref<i8, #hivm.address_space<ub>> to memref<?x8xi8, strided<[8, 1]>, #hivm.address_space<ub>>
+          hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE2>, %67]
+          %cast_28 = memref.cast %reinterpret_cast_22 : memref<?x8xi8, strided<[64, 1], offset: ?>, #hivm.address_space<gm>> to memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<gm>>
+          %cast_29 = memref.cast %reinterpret_cast_27 : memref<?x8xi8, strided<[8, 1]>, #hivm.address_space<ub>> to memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<ub>>
+          func.call @load_gm_to_ubuf_2d_int8_t(%cast_28, %cast_29, %16, %17, %20, %16) : (memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<gm>>, memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<ub>>, i32, i8, index, i32) -> ()
+          hivm.hir.set_flag[<PIPE_MTE2>, <PIPE_V>, <EVENT_ID0>]
+          %base_buffer_30, %offset_31, %sizes_32:2, %strides_33:2 = memref.extract_strided_metadata %66 : memref<832x8xi8, #hivm.address_space<ub>> -> memref<i8, #hivm.address_space<ub>>, index, index, index, index, index
+          %72 = affine.apply #map4()[%58]
+          %reinterpret_cast_34 = memref.reinterpret_cast %base_buffer_30 to offset: [0], sizes: [%72], strides: [1] : memref<i8, #hivm.address_space<ub>> to memref<?xi8, strided<[1]>, #hivm.address_space<ub>>
+          %base_buffer_35, %offset_36, %sizes_37:2, %strides_38:2 = memref.extract_strided_metadata %47 : memref<832x8xi8, #hivm.address_space<ub>> -> memref<i8, #hivm.address_space<ub>>, index, index, index, index, index
+          %73 = affine.apply #map4()[%58]
+          %reinterpret_cast_39 = memref.reinterpret_cast %base_buffer_35 to offset: [0], sizes: [%73], strides: [1] : memref<i8, #hivm.address_space<ub>> to memref<?xi8, strided<[1]>, #hivm.address_space<ub>>
+          hivm.hir.wait_flag[<PIPE_MTE2>, <PIPE_V>, <EVENT_ID0>]
+          %cast_40 = memref.cast %reinterpret_cast_34 : memref<?xi8, strided<[1]>, #hivm.address_space<ub>> to memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>
+          %cast_41 = memref.cast %reinterpret_cast_39 : memref<?xi8, strided<[1]>, #hivm.address_space<ub>> to memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>
+          func.call @copy_ubuf_to_ubuf_1d_int8_t(%cast_40, %cast_41) : (memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>, memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>) -> ()
+          hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE2>, %67]
+          %74 = hivm.hir.pointer_cast(%5) : memref<8x832xi32, #hivm.address_space<ub>>
+          func.call @adc_func_outlined_vf_1(%47, %74) {hivm.vector_function, no_inline} : (memref<832x8xi8, #hivm.address_space<ub>>, memref<8x832xi32, #hivm.address_space<ub>>) -> ()
+          %75 = scf.for %arg12 = %16 to %10 step %9 iter_args(%arg13 = %arg11) -> (memref<832xf32, #hivm.address_space<ub>>)  : i32 {
+            %76 = llvm.add %68, %arg12 : i32
+            %77 = llvm.sext %76 : i32 to i64
+            %78 = builtin.unrealized_conversion_cast %77 : i64 to index
+            %79 = llvm.sext %arg12 : i32 to i64
+            %80 = builtin.unrealized_conversion_cast %79 : i64 to index
+            %81 = hivm.hir.pointer_cast(%6) : memref<832xf32, #hivm.address_space<ub>>
+            func.call @adc_func_outlined_vf_0(%arg13, %74, %80, %31, %78, %81) {hivm.vector_function, no_inline} : (memref<832xf32, #hivm.address_space<ub>>, memref<8x832xi32, #hivm.address_space<ub>>, index, memref<64x256xf32, #hivm.address_space<ub>>, index, memref<832xf32, #hivm.address_space<ub>>) -> ()
+            scf.yield %81 : memref<832xf32, #hivm.address_space<ub>>
+          }
+          scf.yield %75 : memref<832xf32, #hivm.address_space<ub>>
+        }
+        hivm.hir.wait_flag[<PIPE_MTE3>, <PIPE_V>, %43]
+        func.call @adc_func_outlined_vf_4(%59, %42) {hivm.vector_function, no_inline} : (memref<832xf32, #hivm.address_space<ub>>, memref<832xf32, #hivm.address_space<ub>>) -> ()
+        hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE3>, <EVENT_ID0>]
+        %base_buffer_6, %offset_7, %sizes_8, %strides_9 = memref.extract_strided_metadata %42 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+        %reinterpret_cast_10 = memref.reinterpret_cast %base_buffer_6 to offset: [0], sizes: [%58], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<?xf32, strided<[1]>, #hivm.address_space<ub>>
+        %base_buffer_11, %offset_12, %sizes_13, %strides_14 = memref.extract_strided_metadata %arg4 : memref<?xf32, #hivm.address_space<gm>> -> memref<f32, #hivm.address_space<gm>>, index, index, index
+        %reinterpret_cast_15 = memref.reinterpret_cast %base_buffer_11 to offset: [%53], sizes: [%58], strides: [1] : memref<f32, #hivm.address_space<gm>> to memref<?xf32, strided<[1], offset: ?>, #hivm.address_space<gm>>
+        hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE3>, <EVENT_ID0>]
+        hivm.hir.pipe_barrier[<PIPE_MTE3>]
+        %cast_16 = memref.cast %reinterpret_cast_10 : memref<?xf32, strided<[1]>, #hivm.address_space<ub>> to memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>
+        %cast_17 = memref.cast %reinterpret_cast_15 : memref<?xf32, strided<[1], offset: ?>, #hivm.address_space<gm>> to memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>
+        func.call @store_ubuf_to_gm_1d_float(%cast_16, %cast_17, %16) : (memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>, memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>, i32) -> ()
+        hivm.hir.set_flag[<PIPE_MTE3>, <PIPE_V>, %43]
+      }
+    }
+    hivm.hir.pipe_barrier[<PIPE_ALL>]
+    hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID0>]
+    hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID1>]
+    hivm.hir.wait_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID0>]
+    hivm.hir.wait_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID1>]
+    return
+  }
+}
+
+
+// -----// IR Dump Before DecomposeFRem (decompose-frem) //----- //
+#map = affine_map<()[s0] -> (s0 * 256)>
+#map1 = affine_map<()[s0, s1] -> (s0 * 832 + s1)>
+#map2 = affine_map<()[s0, s1] -> (s0 * 8 + s1)>
+#map3 = affine_map<(d0)[s0] -> (d0 + s0)>
+#map4 = affine_map<()[s0] -> (s0 * 8)>
+#map5 = affine_map<()[s0] -> (s0 mod 2)>
+#map6 = affine_map<()[s0, s1] -> (s0 * 64 + s1)>
+module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #hacc.target_device_spec<#dlti.dl_entry<"AI_CORE_COUNT", 28 : i32>, #dlti.dl_entry<"CUBE_CORE_COUNT", 28 : i32>, #dlti.dl_entry<"VECTOR_CORE_COUNT", 56 : i32>, #dlti.dl_entry<"UB_SIZE", 2031616 : i32>, #dlti.dl_entry<"L1_SIZE", 4194304 : i32>, #dlti.dl_entry<"L0A_SIZE", 524288 : i32>, #dlti.dl_entry<"L0B_SIZE", 524288 : i32>, #dlti.dl_entry<"L0C_SIZE", 2097152 : i32>, #dlti.dl_entry<"UB_ALIGN_SIZE", 256 : i32>, #dlti.dl_entry<"L1_ALIGN_SIZE", 256 : i32>, #dlti.dl_entry<"L0C_ALIGN_SIZE", 4096 : i32>, #dlti.dl_entry<"MINIMAL_D_CACHE_SIZE", 262144 : i32>, #dlti.dl_entry<"MAXIMUM_D_CACHE_SIZE", 983040 : i32>, #dlti.dl_entry<"ARCH", "dav-c310">>>, hacc.target = #hacc.target<"Ascend950PR_9579">, hivm.module_core_type = #hivm.module_core_type<AIV>, memref.memref_as_ptr} {
+  func.func @adc_func_outlined_vf_0(%arg0: memref<832xf32, #hivm.address_space<ub>>, %arg1: memref<8x832xi32, #hivm.address_space<ub>>, %arg2: index, %arg3: memref<64x256xf32, #hivm.address_space<ub>>, %arg4: index, %arg5: memref<832xf32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %0 = llvm.mlir.constant(2 : i32) : i32
+    %1 = llvm.mlir.constant(64 : i32) : i32
+    %2 = llvm.mlir.constant(832 : i32) : i32
+    %3 = llvm.mlir.constant(0 : i32) : i32
+    %4 = llvm.mlir.constant(8 : i32) : i32
+    %5 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%4, %3) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+    %base_buffer, %offset, %sizes:2, %strides:2 = memref.extract_strided_metadata %arg3 : memref<64x256xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index, index, index
+    %6 = affine.apply #map()[%arg4]
+    %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [%6], sizes: [256], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<256xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+    %7 = builtin.unrealized_conversion_cast %reinterpret_cast : memref<256xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    scf.for %arg6 = %3 to %2 step %1  : i32 {
+      %8 = llvm.sext %arg6 : i32 to i64
+      %9 = builtin.unrealized_conversion_cast %8 : i64 to index
+      %base_buffer_0, %offset_1, %sizes_2, %strides_3 = memref.extract_strided_metadata %arg0 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+      %reinterpret_cast_4 = memref.reinterpret_cast %base_buffer_0 to offset: [%9], sizes: [64], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+      %10 = builtin.unrealized_conversion_cast %reinterpret_cast_4 : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+      %base_buffer_5, %offset_6, %sizes_7:2, %strides_8:2 = memref.extract_strided_metadata %arg1 : memref<8x832xi32, #hivm.address_space<ub>> -> memref<i32, #hivm.address_space<ub>>, index, index, index, index, index
+      %11 = affine.apply #map1()[%arg2, %9]
+      %reinterpret_cast_9 = memref.reinterpret_cast %base_buffer_5 to offset: [%11], sizes: [64], strides: [1] : memref<i32, #hivm.address_space<ub>> to memref<64xi32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+      %12 = builtin.unrealized_conversion_cast %reinterpret_cast_9 : memref<64xi32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+      %base_buffer_10, %offset_11, %sizes_12, %strides_13 = memref.extract_strided_metadata %arg5 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+      %reinterpret_cast_14 = memref.reinterpret_cast %base_buffer_10 to offset: [%9], sizes: [64], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+      %13 = builtin.unrealized_conversion_cast %reinterpret_cast_14 : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+      %14 = llvm.extractvalue %10[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %15 = llvm.extractvalue %10[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %16 = llvm.getelementptr %14[%15] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+      %17 = "hivm_regbaseintrins.intr.hivm.vldsx1.v64f32"(%16, %3, %3, %3) : (!llvm.ptr<6>, i32, i32, i32) -> vector<64xf32>
+      %18 = llvm.extractvalue %12[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %19 = llvm.extractvalue %12[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %20 = llvm.getelementptr %18[%19] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i32
+      %21 = "hivm_regbaseintrins.intr.hivm.vldsx1.v64s32"(%20, %3, %3, %3) : (!llvm.ptr<6>, i32, i32, i32) -> vector<64xi32>
+      %22 = llvm.extractvalue %7[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %23 = llvm.extractvalue %7[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %24 = llvm.getelementptr %22[%23] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+      %25 = "hivm_regbaseintrins.intr.hivm.vgather2_v300.v64f32"(%24, %21, %5) : (!llvm.ptr<6>, vector<64xi32>, vector<256xi1>) -> vector<64xf32>
+      %26 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%4, %3) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+      %27 = "hivm_regbaseintrins.intr.hivm.vadd.s.x"(%17, %25, %26) : (vector<64xf32>, vector<64xf32>, vector<256xi1>) -> vector<64xf32>
+      %28 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%4, %3) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+      %29 = llvm.extractvalue %13[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %30 = llvm.extractvalue %13[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %31 = llvm.getelementptr %29[%30] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+      "hivm_regbaseintrins.intr.hivm.vstsx1.v64f32"(%27, %31, %3, %0, %3, %28) : (vector<64xf32>, !llvm.ptr<6>, i32, i32, i32, vector<256xi1>) -> ()
+    } {element_alignment_bit_width = 32 : i32}
+    return
+  }
+  func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub>>, %arg1: memref<8x832xi32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %0 = llvm.mlir.constant(2 : i32) : i32
+    %1 = llvm.mlir.constant(0 : i8) : i8
+    %2 = llvm.mlir.constant(8 : index) : i64
+    %3 = llvm.mlir.constant(64 : i32) : i32
+    %4 = llvm.mlir.constant(832 : i32) : i32
+    %5 = llvm.mlir.constant(0 : index) : i64
+    %6 = llvm.mlir.constant(0 : i32) : i32
+    %7 = llvm.mlir.constant(8 : i32) : i32
+    %8 = llvm.mlir.constant(1 : i32) : i32
+    scf.for %arg2 = %6 to %7 step %8  : i32 {
+      %9 = llvm.sext %arg2 : i32 to i64
+      %10 = builtin.unrealized_conversion_cast %9 : i64 to index
+      scf.for %arg3 = %6 to %4 step %3  : i32 {
+        %11 = llvm.sext %arg3 : i32 to i64
+        %12 = builtin.unrealized_conversion_cast %11 : i64 to index
+        %base_buffer, %offset, %sizes:2, %strides:2 = memref.extract_strided_metadata %arg0 : memref<832x8xi8, #hivm.address_space<ub>> -> memref<i8, #hivm.address_space<ub>>, index, index, index, index, index
+        %13 = affine.apply #map2()[%12, %10]
+        %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [%13], sizes: [64, 1], strides: [8, 1] : memref<i8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
+        %14 = builtin.unrealized_conversion_cast %reinterpret_cast : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+        %15 = llvm.extractvalue %14[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+        %16 = llvm.extractvalue %14[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+        %17 = llvm.getelementptr %15[%16] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i8
+        %18 = llvm.mul %5, %2 : i64
+        %19 = llvm.add %18, %5 : i64
+        %20 = llvm.getelementptr %17[%19] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i8
+        %21 = "hivm_regbaseintrins.intr.hivm.vldas"(%20) : (!llvm.ptr<6>) -> vector<32xi8>
+        %22 = "hivm_regbaseintrins.intr.hivm.vldus.post.s8"(%20, %21, %6) : (!llvm.ptr<6>, vector<32xi8>, i32) -> !llvm.struct<(vector<256xi8>, vector<32xi8>, ptr<6>)>
+        %23 = llvm.extractvalue %22[0] : !llvm.struct<(vector<256xi8>, vector<32xi8>, ptr<6>)> 
+        %24 = "hivm_regbaseintrins.intr.hivm.vbr"(%1) : (i8) -> vector<256xi8>
+        %25 = "hivm_regbaseintrins.intr.hivm.vintlv"(%23, %24) : (vector<256xi8>, vector<256xi8>) -> !llvm.struct<(vector<256xi8>, vector<256xi8>)>
+        %26 = llvm.extractvalue %25[0] : !llvm.struct<(vector<256xi8>, vector<256xi8>)> 
+        %27 = "hivm_regbaseintrins.intr.hivm.vintlv"(%26, %24) : (vector<256xi8>, vector<256xi8>) -> !llvm.struct<(vector<256xi8>, vector<256xi8>)>
+        %28 = llvm.extractvalue %27[0] : !llvm.struct<(vector<256xi8>, vector<256xi8>)> 
+        %29 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%7, %6) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+        %30 = "hivm_regbaseintrins.intr.hivm.vcvtii.s82s32.x"(%28, %29, %6) : (vector<256xi8>, vector<256xi1>, i32) -> vector<64xi32>
+        %base_buffer_0, %offset_1, %sizes_2:2, %strides_3:2 = memref.extract_strided_metadata %arg1 : memref<8x832xi32, #hivm.address_space<ub>> -> memref<i32, #hivm.address_space<ub>>, index, index, index, index, index
+        %31 = affine.apply #map1()[%10, %12]
+        %reinterpret_cast_4 = memref.reinterpret_cast %base_buffer_0 to offset: [%31], sizes: [64], strides: [1] : memref<i32, #hivm.address_space<ub>> to memref<64xi32, #map3, #hivm.address_space<ub>>
+        %32 = builtin.unrealized_conversion_cast %reinterpret_cast_4 : memref<64xi32, #map3, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+        %33 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%7, %6) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+        %34 = llvm.extractvalue %32[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+        %35 = llvm.extractvalue %32[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+        %36 = llvm.getelementptr %34[%35] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i32
+        "hivm_regbaseintrins.intr.hivm.vstsx1.v64s32"(%30, %36, %6, %0, %6, %33) : (vector<64xi32>, !llvm.ptr<6>, i32, i32, i32, vector<256xi1>) -> ()
+      } {element_alignment_bit_width = 32 : i32}
+    } {element_alignment_bit_width = 32 : i32}
+    return
+  }
+  func.func @adc_func_outlined_vf_2(%arg0: memref<832x8xi8, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 8 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %0 = llvm.mlir.constant(8 : i32) : i32
+    %1 = llvm.mlir.constant(5 : i32) : i32
+    %2 = llvm.mlir.constant(0 : i8) : i8
+    %3 = llvm.mlir.constant(1 : i32) : i32
+    %4 = llvm.mlir.constant(832 : i32) : i32
+    %5 = llvm.mlir.constant(0 : i32) : i32
+    %6 = "hivm_regbaseintrins.intr.hivm.pge.b8"(%5, %5) {mask_bit_width = 8 : i32} : (i32, i32) -> vector<256xi1>
+    %7 = "hivm_regbaseintrins.intr.hivm.vdups.z"(%2, %6, %3) : (i8, vector<256xi1>, i32) -> vector<256xi8>
+    scf.for %arg1 = %5 to %4 step %3  : i32 {
+      %8 = llvm.sext %arg1 : i32 to i64
+      %9 = builtin.unrealized_conversion_cast %8 : i64 to index
+      %10 = "hivm_regbaseintrins.intr.hivm.pge.b8"(%1, %5) {mask_bit_width = 8 : i32, mask_op_idx = 0 : i32} : (i32, i32) -> vector<256xi1>
+      %base_buffer, %offset, %sizes:2, %strides:2 = memref.extract_strided_metadata %arg0 : memref<832x8xi8, #hivm.address_space<ub>> -> memref<i8, #hivm.address_space<ub>>, index, index, index, index, index
+      %11 = affine.apply #map4()[%9]
+      %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [%11], sizes: [8], strides: [1] : memref<i8, #hivm.address_space<ub>> to memref<8xi8, #map3, #hivm.address_space<ub>>
+      %12 = builtin.unrealized_conversion_cast %reinterpret_cast : memref<8xi8, #map3, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+      %13 = llvm.extractvalue %12[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %14 = llvm.extractvalue %12[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %15 = llvm.getelementptr %13[%14] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i8
+      %16 = "hivm_regbaseintrins.intr.hivm.init.vector.align.data"() : () -> vector<32xi8>
+      %17 = "hivm_regbaseintrins.intr.hivm.vstus.post.s8"(%7, %15, %0, %16) : (vector<256xi8>, !llvm.ptr<6>, i32, vector<32xi8>) -> !llvm.struct<(vector<32xi8>, ptr<6>)>
+      %18 = llvm.extractvalue %17[0] : !llvm.struct<(vector<32xi8>, ptr<6>)> 
+      %19 = llvm.extractvalue %17[1] : !llvm.struct<(vector<32xi8>, ptr<6>)> 
+      "hivm_regbaseintrins.intr.hivm.vstas"(%18, %19, %5, %5) : (vector<32xi8>, !llvm.ptr<6>, i32, i32) -> ()
+    } {element_alignment_bit_width = -1 : i32}
+    return
+  }
+  func.func @adc_func_outlined_vf_3(%arg0: memref<832xf32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %0 = llvm.mlir.constant(2 : i32) : i32
+    %1 = llvm.mlir.constant(1 : i32) : i32
+    %2 = llvm.mlir.constant(64 : i32) : i32
+    %3 = llvm.mlir.constant(832 : i32) : i32
+    %4 = llvm.mlir.constant(0 : i32) : i32
+    %5 = llvm.mlir.constant(0.000000e+00 : f32) : f32
+    %6 = llvm.mlir.constant(8 : i32) : i32
+    %7 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%6, %4) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+    %8 = "hivm_regbaseintrins.intr.hivm.vdups.z"(%5, %7, %1) : (f32, vector<256xi1>, i32) -> vector<64xf32>
+    scf.for %arg1 = %4 to %3 step %2  : i32 {
+      %9 = llvm.sext %arg1 : i32 to i64
+      %10 = builtin.unrealized_conversion_cast %9 : i64 to index
+      %base_buffer, %offset, %sizes, %strides = memref.extract_strided_metadata %arg0 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+      %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [%10], sizes: [64], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+      %11 = builtin.unrealized_conversion_cast %reinterpret_cast : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+      %12 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%6, %4) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+      %13 = llvm.extractvalue %11[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %14 = llvm.extractvalue %11[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %15 = llvm.getelementptr %13[%14] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+      "hivm_regbaseintrins.intr.hivm.vstsx1.v64f32"(%8, %15, %4, %0, %4, %12) : (vector<64xf32>, !llvm.ptr<6>, i32, i32, i32, vector<256xi1>) -> ()
+    } {element_alignment_bit_width = -1 : i32}
+    return
+  }
+  func.func @adc_func_outlined_vf_4(%arg0: memref<832xf32, #hivm.address_space<ub>>, %arg1: memref<832xf32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %0 = llvm.mlir.constant(2 : i32) : i32
+    %1 = llvm.mlir.constant(8 : i32) : i32
+    %2 = llvm.mlir.constant(0 : i32) : i32
+    %3 = llvm.mlir.constant(832 : i32) : i32
+    %4 = llvm.mlir.constant(64 : i32) : i32
+    scf.for %arg2 = %2 to %3 step %4  : i32 {
+      %5 = llvm.sext %arg2 : i32 to i64
+      %6 = builtin.unrealized_conversion_cast %5 : i64 to index
+      %base_buffer, %offset, %sizes, %strides = memref.extract_strided_metadata %arg0 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+      %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [%6], sizes: [64], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+      %7 = builtin.unrealized_conversion_cast %reinterpret_cast : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+      %base_buffer_0, %offset_1, %sizes_2, %strides_3 = memref.extract_strided_metadata %arg1 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+      %reinterpret_cast_4 = memref.reinterpret_cast %base_buffer_0 to offset: [%6], sizes: [64], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+      %8 = builtin.unrealized_conversion_cast %reinterpret_cast_4 : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+      %9 = llvm.extractvalue %7[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %10 = llvm.extractvalue %7[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %11 = llvm.getelementptr %9[%10] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+      %12 = "hivm_regbaseintrins.intr.hivm.vldsx1.v64f32"(%11, %2, %2, %2) : (!llvm.ptr<6>, i32, i32, i32) -> vector<64xf32>
+      %13 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%1, %2) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+      %14 = "hivm_regbaseintrins.intr.hivm.vsqrt.x"(%12, %13) : (vector<64xf32>, vector<256xi1>) -> vector<64xf32>
+      %15 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%1, %2) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+      %16 = llvm.extractvalue %8[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %17 = llvm.extractvalue %8[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %18 = llvm.getelementptr %16[%17] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+      "hivm_regbaseintrins.intr.hivm.vstsx1.v64f32"(%14, %18, %2, %0, %2, %15) : (vector<64xf32>, !llvm.ptr<6>, i32, i32, i32, vector<256xi1>) -> ()
+    } {element_alignment_bit_width = 32 : i32}
+    return
+  }
+  func.func private @load_gm_to_ubuf_1d_float(memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>, memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>, i32, f32, index, i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface}
+  func.func private @load_gm_to_ubuf_2d_int8_t(memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<gm>>, memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<ub>>, i32, i8, index, i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface}
+  func.func private @copy_ubuf_to_ubuf_1d_int8_t(memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>, memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface}
+  func.func private @store_ubuf_to_gm_1d_float(memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>, memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>, i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface}
+  func.func @adc_func(%arg0: memref<?xi8, #hivm.address_space<gm>> {hacc.arg_type = #hacc.arg_type<sync_block_lock>}, %arg1: memref<?xi8, #hivm.address_space<gm>> {hacc.arg_type = #hacc.arg_type<workspace>}, %arg2: memref<?xf32, #hivm.address_space<gm>>, %arg3: memref<?xi8, #hivm.address_space<gm>>, %arg4: memref<?xf32, #hivm.address_space<gm>>, %arg5: i32, %arg6: i32, %arg7: i32, %arg8: i32) attributes {SyncBlockLockArgIdx = 0 : i64, WorkspaceArgIdx = 1 : i64, func_dyn_memref_args = dense<[true, true, true, true, true, false, false, false, false]> : vector<9xi1>, hacc.entry, hacc.function_kind = #hacc.function_kind<DEVICE>, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vf_mode = #hivm.vf_mode<SIMD>, hivm_regbaseintrins.target = #hivm_regbaseintrins.target<"dav-c310">, mix_mode = "aiv", parallel_mode = "simd"} {
+    %0 = llvm.mlir.constant(118784 : i64) : i64
+    %1 = llvm.mlir.constant(108800 : i64) : i64
+    %2 = llvm.mlir.constant(75520 : i64) : i64
+    %3 = llvm.mlir.constant(112128 : i64) : i64
+    %4 = llvm.mlir.constant(1 : i64) : i64
+    %5 = llvm.mlir.constant(82176 : i64) : i64
+    %6 = llvm.mlir.constant(72192 : i64) : i64
+    %7 = llvm.mlir.constant(65536 : i64) : i64
+    %8 = llvm.mlir.constant(0 : i64) : i64
+    %9 = llvm.mlir.constant(1 : i32) : i32
+    %10 = llvm.mlir.constant(8 : i32) : i32
+    %11 = llvm.mlir.constant(832 : i32) : i32
+    %12 = llvm.mlir.constant(831 : i32) : i32
+    %13 = llvm.mlir.constant(56 : i32) : i32
+    %14 = llvm.mlir.constant(46592 : i32) : i32
+    %15 = llvm.mlir.constant(46591 : i32) : i32
+    %16 = llvm.mlir.constant(0 : i32) : i32
+    %17 = llvm.mlir.constant(0 : i8) : i8
+    %18 = llvm.mlir.constant(0.000000e+00 : f32) : f32
+    %19 = llvm.mlir.constant(0 : index) : i64
+    %20 = builtin.unrealized_conversion_cast %19 : i64 to index
+    %21 = hivm.hir.pointer_cast(%1) : memref<832xf32, #hivm.address_space<ub>>
+    %22 = builtin.unrealized_conversion_cast %21 : memref<832xf32, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %23 = hivm.hir.pointer_cast(%0) : memref<832xf32, #hivm.address_space<ub>>
+    %24 = builtin.unrealized_conversion_cast %23 : memref<832xf32, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %25 = hivm.hir.pointer_cast(%2) : memref<832x8xi8, #hivm.address_space<ub>>
+    %26 = builtin.unrealized_conversion_cast %25 : memref<832x8xi8, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %27 = hivm.hir.pointer_cast(%3) : memref<832x8xi8, #hivm.address_space<ub>>
+    %28 = builtin.unrealized_conversion_cast %27 : memref<832x8xi8, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    hivm.hir.set_ctrl false at ctrl[60]
+    hivm.hir.set_ctrl true at ctrl[48]
+    %29 = hivm.hir.get_block_idx -> i64
+    %30 = llvm.trunc %29 : i64 to i32
+    %31 = hivm.hir.pointer_cast(%8) : memref<64x256xf32, #hivm.address_space<ub>>
+    %base_buffer, %offset, %sizes, %strides = memref.extract_strided_metadata %arg2 : memref<?xf32, #hivm.address_space<gm>> -> memref<f32, #hivm.address_space<gm>>, index, index, index
+    %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [0], sizes: [16384], strides: [1] : memref<f32, #hivm.address_space<gm>> to memref<16384xf32, strided<[1]>, #hivm.address_space<gm>>
+    %base_buffer_0, %offset_1, %sizes_2:2, %strides_3:2 = memref.extract_strided_metadata %31 : memref<64x256xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index, index, index
+    %reinterpret_cast_4 = memref.reinterpret_cast %base_buffer_0 to offset: [0], sizes: [16384], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<16384xf32, #hivm.address_space<ub>>
+    hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID0>]
+    hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID1>]
+    hivm.hir.set_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID0>]
+    hivm.hir.set_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID1>]
+    %cast = memref.cast %reinterpret_cast : memref<16384xf32, strided<[1]>, #hivm.address_space<gm>> to memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>
+    %cast_5 = memref.cast %reinterpret_cast_4 : memref<16384xf32, #hivm.address_space<ub>> to memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>
+    call @load_gm_to_ubuf_1d_float(%cast, %cast_5, %16, %18, %20, %16) : (memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>, memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>, i32, f32, index, i32) -> ()
+    %32 = llvm.add %arg5, %15 : i32
+    %33 = llvm.sdiv %32, %14  : i32
+    %34 = llvm.add %arg5, %12 : i32
+    %35 = llvm.sdiv %34, %11  : i32
+    scf.for %arg9 = %16 to %33 step %9  : i32 {
+      %36 = llvm.sext %arg9 : i32 to i64
+      %37 = builtin.unrealized_conversion_cast %36 : i64 to index
+      %38 = affine.apply #map5()[%37]
+      %39 = builtin.unrealized_conversion_cast %38 : index to i64
+      %40 = llvm.icmp "eq" %39, %4 : i64
+      %41 = llvm.select %40, %24, %22 : i1, !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+      %42 = builtin.unrealized_conversion_cast %41 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> to memref<832xf32, #hivm.address_space<ub>>
+      %43 = llvm.zext %40 : i1 to i64
+      %44 = llvm.mul %arg9, %13 : i32
+      %45 = llvm.add %44, %30 : i32
+      %46 = llvm.icmp "slt" %45, %35 : i32
+      scf.if %46 {
+        %47 = hivm.hir.pointer_cast(%7) : memref<832x8xi8, #hivm.address_space<ub>>
+        func.call @adc_func_outlined_vf_2(%47) {hivm.vector_function, no_inline} : (memref<832x8xi8, #hivm.address_space<ub>>) -> ()
+        %48 = hivm.hir.pointer_cast(%6) : memref<832xf32, #hivm.address_space<ub>>
+        func.call @adc_func_outlined_vf_3(%48) {hivm.vector_function, no_inline} : (memref<832xf32, #hivm.address_space<ub>>) -> ()
+        %49 = llvm.mul %arg9, %14 : i32
+        %50 = llvm.mul %30, %11 : i32
+        %51 = llvm.add %49, %50 : i32
+        %52 = llvm.sext %51 : i32 to i64
+        %53 = builtin.unrealized_conversion_cast %52 : i64 to index
+        %54 = llvm.sub %arg5, %50 : i32
+        %55 = llvm.sub %54, %49 : i32
+        %56 = llvm.intr.smin(%55, %11)  : (i32, i32) -> i32
+        %57 = llvm.sext %56 : i32 to i64
+        %58 = builtin.unrealized_conversion_cast %57 : i64 to index
+        %59 = scf.for %arg10 = %16 to %10 step %9 iter_args(%arg11 = %48) -> (memref<832xf32, #hivm.address_space<ub>>)  : i32 {
+          %60 = llvm.sext %arg10 : i32 to i64
+          %61 = builtin.unrealized_conversion_cast %60 : i64 to index
+          %62 = affine.apply #map5()[%61]
+          %63 = builtin.unrealized_conversion_cast %62 : index to i64
+          %64 = llvm.icmp "eq" %63, %4 : i64
+          %65 = llvm.select %64, %28, %26 : i1, !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+          %66 = builtin.unrealized_conversion_cast %65 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> to memref<832x8xi8, #hivm.address_space<ub>>
+          %67 = llvm.zext %64 : i1 to i64
+          %68 = llvm.mul %arg10, %10 : i32
+          %69 = llvm.sext %68 : i32 to i64
+          %70 = builtin.unrealized_conversion_cast %69 : i64 to index
+          %base_buffer_18, %offset_19, %sizes_20, %strides_21 = memref.extract_strided_metadata %arg3 : memref<?xi8, #hivm.address_space<gm>> -> memref<i8, #hivm.address_space<gm>>, index, index, index
+          %71 = affine.apply #map6()[%53, %70]
+          %reinterpret_cast_22 = memref.reinterpret_cast %base_buffer_18 to offset: [%71], sizes: [%58, 8], strides: [64, 1] : memref<i8, #hivm.address_space<gm>> to memref<?x8xi8, strided<[64, 1], offset: ?>, #hivm.address_space<gm>>
+          %base_buffer_23, %offset_24, %sizes_25:2, %strides_26:2 = memref.extract_strided_metadata %66 : memref<832x8xi8, #hivm.address_space<ub>> -> memref<i8, #hivm.address_space<ub>>, index, index, index, index, index
+          %reinterpret_cast_27 = memref.reinterpret_cast %base_buffer_23 to offset: [0], sizes: [%58, 8], strides: [8, 1] : memref<i8, #hivm.address_space<ub>> to memref<?x8xi8, strided<[8, 1]>, #hivm.address_space<ub>>
+          hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE2>, %67]
+          %cast_28 = memref.cast %reinterpret_cast_22 : memref<?x8xi8, strided<[64, 1], offset: ?>, #hivm.address_space<gm>> to memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<gm>>
+          %cast_29 = memref.cast %reinterpret_cast_27 : memref<?x8xi8, strided<[8, 1]>, #hivm.address_space<ub>> to memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<ub>>
+          func.call @load_gm_to_ubuf_2d_int8_t(%cast_28, %cast_29, %16, %17, %20, %16) : (memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<gm>>, memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<ub>>, i32, i8, index, i32) -> ()
+          hivm.hir.set_flag[<PIPE_MTE2>, <PIPE_V>, <EVENT_ID0>]
+          %base_buffer_30, %offset_31, %sizes_32:2, %strides_33:2 = memref.extract_strided_metadata %66 : memref<832x8xi8, #hivm.address_space<ub>> -> memref<i8, #hivm.address_space<ub>>, index, index, index, index, index
+          %72 = affine.apply #map4()[%58]
+          %reinterpret_cast_34 = memref.reinterpret_cast %base_buffer_30 to offset: [0], sizes: [%72], strides: [1] : memref<i8, #hivm.address_space<ub>> to memref<?xi8, strided<[1]>, #hivm.address_space<ub>>
+          %base_buffer_35, %offset_36, %sizes_37:2, %strides_38:2 = memref.extract_strided_metadata %47 : memref<832x8xi8, #hivm.address_space<ub>> -> memref<i8, #hivm.address_space<ub>>, index, index, index, index, index
+          %73 = affine.apply #map4()[%58]
+          %reinterpret_cast_39 = memref.reinterpret_cast %base_buffer_35 to offset: [0], sizes: [%73], strides: [1] : memref<i8, #hivm.address_space<ub>> to memref<?xi8, strided<[1]>, #hivm.address_space<ub>>
+          hivm.hir.wait_flag[<PIPE_MTE2>, <PIPE_V>, <EVENT_ID0>]
+          %cast_40 = memref.cast %reinterpret_cast_34 : memref<?xi8, strided<[1]>, #hivm.address_space<ub>> to memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>
+          %cast_41 = memref.cast %reinterpret_cast_39 : memref<?xi8, strided<[1]>, #hivm.address_space<ub>> to memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>
+          func.call @copy_ubuf_to_ubuf_1d_int8_t(%cast_40, %cast_41) : (memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>, memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>) -> ()
+          hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE2>, %67]
+          %74 = hivm.hir.pointer_cast(%5) : memref<8x832xi32, #hivm.address_space<ub>>
+          func.call @adc_func_outlined_vf_1(%47, %74) {hivm.vector_function, no_inline} : (memref<832x8xi8, #hivm.address_space<ub>>, memref<8x832xi32, #hivm.address_space<ub>>) -> ()
+          %75 = scf.for %arg12 = %16 to %10 step %9 iter_args(%arg13 = %arg11) -> (memref<832xf32, #hivm.address_space<ub>>)  : i32 {
+            %76 = llvm.add %68, %arg12 : i32
+            %77 = llvm.sext %76 : i32 to i64
+            %78 = builtin.unrealized_conversion_cast %77 : i64 to index
+            %79 = llvm.sext %arg12 : i32 to i64
+            %80 = builtin.unrealized_conversion_cast %79 : i64 to index
+            %81 = hivm.hir.pointer_cast(%6) : memref<832xf32, #hivm.address_space<ub>>
+            func.call @adc_func_outlined_vf_0(%arg13, %74, %80, %31, %78, %81) {hivm.vector_function, no_inline} : (memref<832xf32, #hivm.address_space<ub>>, memref<8x832xi32, #hivm.address_space<ub>>, index, memref<64x256xf32, #hivm.address_space<ub>>, index, memref<832xf32, #hivm.address_space<ub>>) -> ()
+            scf.yield %81 : memref<832xf32, #hivm.address_space<ub>>
+          }
+          scf.yield %75 : memref<832xf32, #hivm.address_space<ub>>
+        }
+        hivm.hir.wait_flag[<PIPE_MTE3>, <PIPE_V>, %43]
+        func.call @adc_func_outlined_vf_4(%59, %42) {hivm.vector_function, no_inline} : (memref<832xf32, #hivm.address_space<ub>>, memref<832xf32, #hivm.address_space<ub>>) -> ()
+        hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE3>, <EVENT_ID0>]
+        %base_buffer_6, %offset_7, %sizes_8, %strides_9 = memref.extract_strided_metadata %42 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+        %reinterpret_cast_10 = memref.reinterpret_cast %base_buffer_6 to offset: [0], sizes: [%58], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<?xf32, strided<[1]>, #hivm.address_space<ub>>
+        %base_buffer_11, %offset_12, %sizes_13, %strides_14 = memref.extract_strided_metadata %arg4 : memref<?xf32, #hivm.address_space<gm>> -> memref<f32, #hivm.address_space<gm>>, index, index, index
+        %reinterpret_cast_15 = memref.reinterpret_cast %base_buffer_11 to offset: [%53], sizes: [%58], strides: [1] : memref<f32, #hivm.address_space<gm>> to memref<?xf32, strided<[1], offset: ?>, #hivm.address_space<gm>>
+        hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE3>, <EVENT_ID0>]
+        hivm.hir.pipe_barrier[<PIPE_MTE3>]
+        %cast_16 = memref.cast %reinterpret_cast_10 : memref<?xf32, strided<[1]>, #hivm.address_space<ub>> to memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>
+        %cast_17 = memref.cast %reinterpret_cast_15 : memref<?xf32, strided<[1], offset: ?>, #hivm.address_space<gm>> to memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>
+        func.call @store_ubuf_to_gm_1d_float(%cast_16, %cast_17, %16) : (memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>, memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>, i32) -> ()
+        hivm.hir.set_flag[<PIPE_MTE3>, <PIPE_V>, %43]
+      }
+    }
+    hivm.hir.pipe_barrier[<PIPE_ALL>]
+    hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID0>]
+    hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID1>]
+    hivm.hir.wait_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID0>]
+    hivm.hir.wait_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID1>]
+    return
+  }
+}
+
+
+// -----// IR Dump After DecomposeFRem (decompose-frem) //----- //
+#map = affine_map<()[s0] -> (s0 * 256)>
+#map1 = affine_map<()[s0, s1] -> (s0 * 832 + s1)>
+#map2 = affine_map<()[s0, s1] -> (s0 * 8 + s1)>
+#map3 = affine_map<(d0)[s0] -> (d0 + s0)>
+#map4 = affine_map<()[s0] -> (s0 * 8)>
+#map5 = affine_map<()[s0] -> (s0 mod 2)>
+#map6 = affine_map<()[s0, s1] -> (s0 * 64 + s1)>
+module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #hacc.target_device_spec<#dlti.dl_entry<"AI_CORE_COUNT", 28 : i32>, #dlti.dl_entry<"CUBE_CORE_COUNT", 28 : i32>, #dlti.dl_entry<"VECTOR_CORE_COUNT", 56 : i32>, #dlti.dl_entry<"UB_SIZE", 2031616 : i32>, #dlti.dl_entry<"L1_SIZE", 4194304 : i32>, #dlti.dl_entry<"L0A_SIZE", 524288 : i32>, #dlti.dl_entry<"L0B_SIZE", 524288 : i32>, #dlti.dl_entry<"L0C_SIZE", 2097152 : i32>, #dlti.dl_entry<"UB_ALIGN_SIZE", 256 : i32>, #dlti.dl_entry<"L1_ALIGN_SIZE", 256 : i32>, #dlti.dl_entry<"L0C_ALIGN_SIZE", 4096 : i32>, #dlti.dl_entry<"MINIMAL_D_CACHE_SIZE", 262144 : i32>, #dlti.dl_entry<"MAXIMUM_D_CACHE_SIZE", 983040 : i32>, #dlti.dl_entry<"ARCH", "dav-c310">>>, hacc.target = #hacc.target<"Ascend950PR_9579">, hivm.module_core_type = #hivm.module_core_type<AIV>, memref.memref_as_ptr} {
+  func.func @adc_func_outlined_vf_0(%arg0: memref<832xf32, #hivm.address_space<ub>>, %arg1: memref<8x832xi32, #hivm.address_space<ub>>, %arg2: index, %arg3: memref<64x256xf32, #hivm.address_space<ub>>, %arg4: index, %arg5: memref<832xf32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %0 = llvm.mlir.constant(2 : i32) : i32
+    %1 = llvm.mlir.constant(64 : i32) : i32
+    %2 = llvm.mlir.constant(832 : i32) : i32
+    %3 = llvm.mlir.constant(0 : i32) : i32
+    %4 = llvm.mlir.constant(8 : i32) : i32
+    %5 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%4, %3) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+    %base_buffer, %offset, %sizes:2, %strides:2 = memref.extract_strided_metadata %arg3 : memref<64x256xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index, index, index
+    %6 = affine.apply #map()[%arg4]
+    %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [%6], sizes: [256], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<256xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+    %7 = builtin.unrealized_conversion_cast %reinterpret_cast : memref<256xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    scf.for %arg6 = %3 to %2 step %1  : i32 {
+      %8 = llvm.sext %arg6 : i32 to i64
+      %9 = builtin.unrealized_conversion_cast %8 : i64 to index
+      %base_buffer_0, %offset_1, %sizes_2, %strides_3 = memref.extract_strided_metadata %arg0 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+      %reinterpret_cast_4 = memref.reinterpret_cast %base_buffer_0 to offset: [%9], sizes: [64], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+      %10 = builtin.unrealized_conversion_cast %reinterpret_cast_4 : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+      %base_buffer_5, %offset_6, %sizes_7:2, %strides_8:2 = memref.extract_strided_metadata %arg1 : memref<8x832xi32, #hivm.address_space<ub>> -> memref<i32, #hivm.address_space<ub>>, index, index, index, index, index
+      %11 = affine.apply #map1()[%arg2, %9]
+      %reinterpret_cast_9 = memref.reinterpret_cast %base_buffer_5 to offset: [%11], sizes: [64], strides: [1] : memref<i32, #hivm.address_space<ub>> to memref<64xi32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+      %12 = builtin.unrealized_conversion_cast %reinterpret_cast_9 : memref<64xi32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+      %base_buffer_10, %offset_11, %sizes_12, %strides_13 = memref.extract_strided_metadata %arg5 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+      %reinterpret_cast_14 = memref.reinterpret_cast %base_buffer_10 to offset: [%9], sizes: [64], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+      %13 = builtin.unrealized_conversion_cast %reinterpret_cast_14 : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+      %14 = llvm.extractvalue %10[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %15 = llvm.extractvalue %10[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %16 = llvm.getelementptr %14[%15] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+      %17 = "hivm_regbaseintrins.intr.hivm.vldsx1.v64f32"(%16, %3, %3, %3) : (!llvm.ptr<6>, i32, i32, i32) -> vector<64xf32>
+      %18 = llvm.extractvalue %12[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %19 = llvm.extractvalue %12[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %20 = llvm.getelementptr %18[%19] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i32
+      %21 = "hivm_regbaseintrins.intr.hivm.vldsx1.v64s32"(%20, %3, %3, %3) : (!llvm.ptr<6>, i32, i32, i32) -> vector<64xi32>
+      %22 = llvm.extractvalue %7[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %23 = llvm.extractvalue %7[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %24 = llvm.getelementptr %22[%23] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+      %25 = "hivm_regbaseintrins.intr.hivm.vgather2_v300.v64f32"(%24, %21, %5) : (!llvm.ptr<6>, vector<64xi32>, vector<256xi1>) -> vector<64xf32>
+      %26 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%4, %3) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+      %27 = "hivm_regbaseintrins.intr.hivm.vadd.s.x"(%17, %25, %26) : (vector<64xf32>, vector<64xf32>, vector<256xi1>) -> vector<64xf32>
+      %28 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%4, %3) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+      %29 = llvm.extractvalue %13[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %30 = llvm.extractvalue %13[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %31 = llvm.getelementptr %29[%30] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+      "hivm_regbaseintrins.intr.hivm.vstsx1.v64f32"(%27, %31, %3, %0, %3, %28) : (vector<64xf32>, !llvm.ptr<6>, i32, i32, i32, vector<256xi1>) -> ()
+    } {element_alignment_bit_width = 32 : i32}
+    return
+  }
+  func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub>>, %arg1: memref<8x832xi32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %0 = llvm.mlir.constant(2 : i32) : i32
+    %1 = llvm.mlir.constant(0 : i8) : i8
+    %2 = llvm.mlir.constant(8 : index) : i64
+    %3 = llvm.mlir.constant(64 : i32) : i32
+    %4 = llvm.mlir.constant(832 : i32) : i32
+    %5 = llvm.mlir.constant(0 : index) : i64
+    %6 = llvm.mlir.constant(0 : i32) : i32
+    %7 = llvm.mlir.constant(8 : i32) : i32
+    %8 = llvm.mlir.constant(1 : i32) : i32
+    scf.for %arg2 = %6 to %7 step %8  : i32 {
+      %9 = llvm.sext %arg2 : i32 to i64
+      %10 = builtin.unrealized_conversion_cast %9 : i64 to index
+      scf.for %arg3 = %6 to %4 step %3  : i32 {
+        %11 = llvm.sext %arg3 : i32 to i64
+        %12 = builtin.unrealized_conversion_cast %11 : i64 to index
+        %base_buffer, %offset, %sizes:2, %strides:2 = memref.extract_strided_metadata %arg0 : memref<832x8xi8, #hivm.address_space<ub>> -> memref<i8, #hivm.address_space<ub>>, index, index, index, index, index
+        %13 = affine.apply #map2()[%12, %10]
+        %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [%13], sizes: [64, 1], strides: [8, 1] : memref<i8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
+        %14 = builtin.unrealized_conversion_cast %reinterpret_cast : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+        %15 = llvm.extractvalue %14[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+        %16 = llvm.extractvalue %14[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+        %17 = llvm.getelementptr %15[%16] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i8
+        %18 = llvm.mul %5, %2 : i64
+        %19 = llvm.add %18, %5 : i64
+        %20 = llvm.getelementptr %17[%19] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i8
+        %21 = "hivm_regbaseintrins.intr.hivm.vldas"(%20) : (!llvm.ptr<6>) -> vector<32xi8>
+        %22 = "hivm_regbaseintrins.intr.hivm.vldus.post.s8"(%20, %21, %6) : (!llvm.ptr<6>, vector<32xi8>, i32) -> !llvm.struct<(vector<256xi8>, vector<32xi8>, ptr<6>)>
+        %23 = llvm.extractvalue %22[0] : !llvm.struct<(vector<256xi8>, vector<32xi8>, ptr<6>)> 
+        %24 = "hivm_regbaseintrins.intr.hivm.vbr"(%1) : (i8) -> vector<256xi8>
+        %25 = "hivm_regbaseintrins.intr.hivm.vintlv"(%23, %24) : (vector<256xi8>, vector<256xi8>) -> !llvm.struct<(vector<256xi8>, vector<256xi8>)>
+        %26 = llvm.extractvalue %25[0] : !llvm.struct<(vector<256xi8>, vector<256xi8>)> 
+        %27 = "hivm_regbaseintrins.intr.hivm.vintlv"(%26, %24) : (vector<256xi8>, vector<256xi8>) -> !llvm.struct<(vector<256xi8>, vector<256xi8>)>
+        %28 = llvm.extractvalue %27[0] : !llvm.struct<(vector<256xi8>, vector<256xi8>)> 
+        %29 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%7, %6) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+        %30 = "hivm_regbaseintrins.intr.hivm.vcvtii.s82s32.x"(%28, %29, %6) : (vector<256xi8>, vector<256xi1>, i32) -> vector<64xi32>
+        %base_buffer_0, %offset_1, %sizes_2:2, %strides_3:2 = memref.extract_strided_metadata %arg1 : memref<8x832xi32, #hivm.address_space<ub>> -> memref<i32, #hivm.address_space<ub>>, index, index, index, index, index
+        %31 = affine.apply #map1()[%10, %12]
+        %reinterpret_cast_4 = memref.reinterpret_cast %base_buffer_0 to offset: [%31], sizes: [64], strides: [1] : memref<i32, #hivm.address_space<ub>> to memref<64xi32, #map3, #hivm.address_space<ub>>
+        %32 = builtin.unrealized_conversion_cast %reinterpret_cast_4 : memref<64xi32, #map3, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+        %33 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%7, %6) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+        %34 = llvm.extractvalue %32[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+        %35 = llvm.extractvalue %32[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+        %36 = llvm.getelementptr %34[%35] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i32
+        "hivm_regbaseintrins.intr.hivm.vstsx1.v64s32"(%30, %36, %6, %0, %6, %33) : (vector<64xi32>, !llvm.ptr<6>, i32, i32, i32, vector<256xi1>) -> ()
+      } {element_alignment_bit_width = 32 : i32}
+    } {element_alignment_bit_width = 32 : i32}
+    return
+  }
+  func.func @adc_func_outlined_vf_2(%arg0: memref<832x8xi8, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 8 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %0 = llvm.mlir.constant(8 : i32) : i32
+    %1 = llvm.mlir.constant(5 : i32) : i32
+    %2 = llvm.mlir.constant(0 : i8) : i8
+    %3 = llvm.mlir.constant(1 : i32) : i32
+    %4 = llvm.mlir.constant(832 : i32) : i32
+    %5 = llvm.mlir.constant(0 : i32) : i32
+    %6 = "hivm_regbaseintrins.intr.hivm.pge.b8"(%5, %5) {mask_bit_width = 8 : i32} : (i32, i32) -> vector<256xi1>
+    %7 = "hivm_regbaseintrins.intr.hivm.vdups.z"(%2, %6, %3) : (i8, vector<256xi1>, i32) -> vector<256xi8>
+    scf.for %arg1 = %5 to %4 step %3  : i32 {
+      %8 = llvm.sext %arg1 : i32 to i64
+      %9 = builtin.unrealized_conversion_cast %8 : i64 to index
+      %10 = "hivm_regbaseintrins.intr.hivm.pge.b8"(%1, %5) {mask_bit_width = 8 : i32, mask_op_idx = 0 : i32} : (i32, i32) -> vector<256xi1>
+      %base_buffer, %offset, %sizes:2, %strides:2 = memref.extract_strided_metadata %arg0 : memref<832x8xi8, #hivm.address_space<ub>> -> memref<i8, #hivm.address_space<ub>>, index, index, index, index, index
+      %11 = affine.apply #map4()[%9]
+      %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [%11], sizes: [8], strides: [1] : memref<i8, #hivm.address_space<ub>> to memref<8xi8, #map3, #hivm.address_space<ub>>
+      %12 = builtin.unrealized_conversion_cast %reinterpret_cast : memref<8xi8, #map3, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+      %13 = llvm.extractvalue %12[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %14 = llvm.extractvalue %12[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %15 = llvm.getelementptr %13[%14] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i8
+      %16 = "hivm_regbaseintrins.intr.hivm.init.vector.align.data"() : () -> vector<32xi8>
+      %17 = "hivm_regbaseintrins.intr.hivm.vstus.post.s8"(%7, %15, %0, %16) : (vector<256xi8>, !llvm.ptr<6>, i32, vector<32xi8>) -> !llvm.struct<(vector<32xi8>, ptr<6>)>
+      %18 = llvm.extractvalue %17[0] : !llvm.struct<(vector<32xi8>, ptr<6>)> 
+      %19 = llvm.extractvalue %17[1] : !llvm.struct<(vector<32xi8>, ptr<6>)> 
+      "hivm_regbaseintrins.intr.hivm.vstas"(%18, %19, %5, %5) : (vector<32xi8>, !llvm.ptr<6>, i32, i32) -> ()
+    } {element_alignment_bit_width = -1 : i32}
+    return
+  }
+  func.func @adc_func_outlined_vf_3(%arg0: memref<832xf32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %0 = llvm.mlir.constant(2 : i32) : i32
+    %1 = llvm.mlir.constant(1 : i32) : i32
+    %2 = llvm.mlir.constant(64 : i32) : i32
+    %3 = llvm.mlir.constant(832 : i32) : i32
+    %4 = llvm.mlir.constant(0 : i32) : i32
+    %5 = llvm.mlir.constant(0.000000e+00 : f32) : f32
+    %6 = llvm.mlir.constant(8 : i32) : i32
+    %7 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%6, %4) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+    %8 = "hivm_regbaseintrins.intr.hivm.vdups.z"(%5, %7, %1) : (f32, vector<256xi1>, i32) -> vector<64xf32>
+    scf.for %arg1 = %4 to %3 step %2  : i32 {
+      %9 = llvm.sext %arg1 : i32 to i64
+      %10 = builtin.unrealized_conversion_cast %9 : i64 to index
+      %base_buffer, %offset, %sizes, %strides = memref.extract_strided_metadata %arg0 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+      %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [%10], sizes: [64], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+      %11 = builtin.unrealized_conversion_cast %reinterpret_cast : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+      %12 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%6, %4) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+      %13 = llvm.extractvalue %11[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %14 = llvm.extractvalue %11[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %15 = llvm.getelementptr %13[%14] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+      "hivm_regbaseintrins.intr.hivm.vstsx1.v64f32"(%8, %15, %4, %0, %4, %12) : (vector<64xf32>, !llvm.ptr<6>, i32, i32, i32, vector<256xi1>) -> ()
+    } {element_alignment_bit_width = -1 : i32}
+    return
+  }
+  func.func @adc_func_outlined_vf_4(%arg0: memref<832xf32, #hivm.address_space<ub>>, %arg1: memref<832xf32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %0 = llvm.mlir.constant(2 : i32) : i32
+    %1 = llvm.mlir.constant(8 : i32) : i32
+    %2 = llvm.mlir.constant(0 : i32) : i32
+    %3 = llvm.mlir.constant(832 : i32) : i32
+    %4 = llvm.mlir.constant(64 : i32) : i32
+    scf.for %arg2 = %2 to %3 step %4  : i32 {
+      %5 = llvm.sext %arg2 : i32 to i64
+      %6 = builtin.unrealized_conversion_cast %5 : i64 to index
+      %base_buffer, %offset, %sizes, %strides = memref.extract_strided_metadata %arg0 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+      %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [%6], sizes: [64], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+      %7 = builtin.unrealized_conversion_cast %reinterpret_cast : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+      %base_buffer_0, %offset_1, %sizes_2, %strides_3 = memref.extract_strided_metadata %arg1 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+      %reinterpret_cast_4 = memref.reinterpret_cast %base_buffer_0 to offset: [%6], sizes: [64], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+      %8 = builtin.unrealized_conversion_cast %reinterpret_cast_4 : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+      %9 = llvm.extractvalue %7[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %10 = llvm.extractvalue %7[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %11 = llvm.getelementptr %9[%10] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+      %12 = "hivm_regbaseintrins.intr.hivm.vldsx1.v64f32"(%11, %2, %2, %2) : (!llvm.ptr<6>, i32, i32, i32) -> vector<64xf32>
+      %13 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%1, %2) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+      %14 = "hivm_regbaseintrins.intr.hivm.vsqrt.x"(%12, %13) : (vector<64xf32>, vector<256xi1>) -> vector<64xf32>
+      %15 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%1, %2) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+      %16 = llvm.extractvalue %8[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %17 = llvm.extractvalue %8[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %18 = llvm.getelementptr %16[%17] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+      "hivm_regbaseintrins.intr.hivm.vstsx1.v64f32"(%14, %18, %2, %0, %2, %15) : (vector<64xf32>, !llvm.ptr<6>, i32, i32, i32, vector<256xi1>) -> ()
+    } {element_alignment_bit_width = 32 : i32}
+    return
+  }
+  func.func private @load_gm_to_ubuf_1d_float(memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>, memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>, i32, f32, index, i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface}
+  func.func private @load_gm_to_ubuf_2d_int8_t(memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<gm>>, memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<ub>>, i32, i8, index, i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface}
+  func.func private @copy_ubuf_to_ubuf_1d_int8_t(memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>, memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface}
+  func.func private @store_ubuf_to_gm_1d_float(memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>, memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>, i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface}
+  func.func @adc_func(%arg0: memref<?xi8, #hivm.address_space<gm>> {hacc.arg_type = #hacc.arg_type<sync_block_lock>}, %arg1: memref<?xi8, #hivm.address_space<gm>> {hacc.arg_type = #hacc.arg_type<workspace>}, %arg2: memref<?xf32, #hivm.address_space<gm>>, %arg3: memref<?xi8, #hivm.address_space<gm>>, %arg4: memref<?xf32, #hivm.address_space<gm>>, %arg5: i32, %arg6: i32, %arg7: i32, %arg8: i32) attributes {SyncBlockLockArgIdx = 0 : i64, WorkspaceArgIdx = 1 : i64, func_dyn_memref_args = dense<[true, true, true, true, true, false, false, false, false]> : vector<9xi1>, hacc.entry, hacc.function_kind = #hacc.function_kind<DEVICE>, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vf_mode = #hivm.vf_mode<SIMD>, hivm_regbaseintrins.target = #hivm_regbaseintrins.target<"dav-c310">, mix_mode = "aiv", parallel_mode = "simd"} {
+    %0 = llvm.mlir.constant(118784 : i64) : i64
+    %1 = llvm.mlir.constant(108800 : i64) : i64
+    %2 = llvm.mlir.constant(75520 : i64) : i64
+    %3 = llvm.mlir.constant(112128 : i64) : i64
+    %4 = llvm.mlir.constant(1 : i64) : i64
+    %5 = llvm.mlir.constant(82176 : i64) : i64
+    %6 = llvm.mlir.constant(72192 : i64) : i64
+    %7 = llvm.mlir.constant(65536 : i64) : i64
+    %8 = llvm.mlir.constant(0 : i64) : i64
+    %9 = llvm.mlir.constant(1 : i32) : i32
+    %10 = llvm.mlir.constant(8 : i32) : i32
+    %11 = llvm.mlir.constant(832 : i32) : i32
+    %12 = llvm.mlir.constant(831 : i32) : i32
+    %13 = llvm.mlir.constant(56 : i32) : i32
+    %14 = llvm.mlir.constant(46592 : i32) : i32
+    %15 = llvm.mlir.constant(46591 : i32) : i32
+    %16 = llvm.mlir.constant(0 : i32) : i32
+    %17 = llvm.mlir.constant(0 : i8) : i8
+    %18 = llvm.mlir.constant(0.000000e+00 : f32) : f32
+    %19 = llvm.mlir.constant(0 : index) : i64
+    %20 = builtin.unrealized_conversion_cast %19 : i64 to index
+    %21 = hivm.hir.pointer_cast(%1) : memref<832xf32, #hivm.address_space<ub>>
+    %22 = builtin.unrealized_conversion_cast %21 : memref<832xf32, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %23 = hivm.hir.pointer_cast(%0) : memref<832xf32, #hivm.address_space<ub>>
+    %24 = builtin.unrealized_conversion_cast %23 : memref<832xf32, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %25 = hivm.hir.pointer_cast(%2) : memref<832x8xi8, #hivm.address_space<ub>>
+    %26 = builtin.unrealized_conversion_cast %25 : memref<832x8xi8, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %27 = hivm.hir.pointer_cast(%3) : memref<832x8xi8, #hivm.address_space<ub>>
+    %28 = builtin.unrealized_conversion_cast %27 : memref<832x8xi8, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    hivm.hir.set_ctrl false at ctrl[60]
+    hivm.hir.set_ctrl true at ctrl[48]
+    %29 = hivm.hir.get_block_idx -> i64
+    %30 = llvm.trunc %29 : i64 to i32
+    %31 = hivm.hir.pointer_cast(%8) : memref<64x256xf32, #hivm.address_space<ub>>
+    %base_buffer, %offset, %sizes, %strides = memref.extract_strided_metadata %arg2 : memref<?xf32, #hivm.address_space<gm>> -> memref<f32, #hivm.address_space<gm>>, index, index, index
+    %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [0], sizes: [16384], strides: [1] : memref<f32, #hivm.address_space<gm>> to memref<16384xf32, strided<[1]>, #hivm.address_space<gm>>
+    %base_buffer_0, %offset_1, %sizes_2:2, %strides_3:2 = memref.extract_strided_metadata %31 : memref<64x256xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index, index, index
+    %reinterpret_cast_4 = memref.reinterpret_cast %base_buffer_0 to offset: [0], sizes: [16384], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<16384xf32, #hivm.address_space<ub>>
+    hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID0>]
+    hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID1>]
+    hivm.hir.set_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID0>]
+    hivm.hir.set_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID1>]
+    %cast = memref.cast %reinterpret_cast : memref<16384xf32, strided<[1]>, #hivm.address_space<gm>> to memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>
+    %cast_5 = memref.cast %reinterpret_cast_4 : memref<16384xf32, #hivm.address_space<ub>> to memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>
+    call @load_gm_to_ubuf_1d_float(%cast, %cast_5, %16, %18, %20, %16) : (memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>, memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>, i32, f32, index, i32) -> ()
+    %32 = llvm.add %arg5, %15 : i32
+    %33 = llvm.sdiv %32, %14  : i32
+    %34 = llvm.add %arg5, %12 : i32
+    %35 = llvm.sdiv %34, %11  : i32
+    scf.for %arg9 = %16 to %33 step %9  : i32 {
+      %36 = llvm.sext %arg9 : i32 to i64
+      %37 = builtin.unrealized_conversion_cast %36 : i64 to index
+      %38 = affine.apply #map5()[%37]
+      %39 = builtin.unrealized_conversion_cast %38 : index to i64
+      %40 = llvm.icmp "eq" %39, %4 : i64
+      %41 = llvm.select %40, %24, %22 : i1, !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+      %42 = builtin.unrealized_conversion_cast %41 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> to memref<832xf32, #hivm.address_space<ub>>
+      %43 = llvm.zext %40 : i1 to i64
+      %44 = llvm.mul %arg9, %13 : i32
+      %45 = llvm.add %44, %30 : i32
+      %46 = llvm.icmp "slt" %45, %35 : i32
+      scf.if %46 {
+        %47 = hivm.hir.pointer_cast(%7) : memref<832x8xi8, #hivm.address_space<ub>>
+        func.call @adc_func_outlined_vf_2(%47) {hivm.vector_function, no_inline} : (memref<832x8xi8, #hivm.address_space<ub>>) -> ()
+        %48 = hivm.hir.pointer_cast(%6) : memref<832xf32, #hivm.address_space<ub>>
+        func.call @adc_func_outlined_vf_3(%48) {hivm.vector_function, no_inline} : (memref<832xf32, #hivm.address_space<ub>>) -> ()
+        %49 = llvm.mul %arg9, %14 : i32
+        %50 = llvm.mul %30, %11 : i32
+        %51 = llvm.add %49, %50 : i32
+        %52 = llvm.sext %51 : i32 to i64
+        %53 = builtin.unrealized_conversion_cast %52 : i64 to index
+        %54 = llvm.sub %arg5, %50 : i32
+        %55 = llvm.sub %54, %49 : i32
+        %56 = llvm.intr.smin(%55, %11)  : (i32, i32) -> i32
+        %57 = llvm.sext %56 : i32 to i64
+        %58 = builtin.unrealized_conversion_cast %57 : i64 to index
+        %59 = scf.for %arg10 = %16 to %10 step %9 iter_args(%arg11 = %48) -> (memref<832xf32, #hivm.address_space<ub>>)  : i32 {
+          %60 = llvm.sext %arg10 : i32 to i64
+          %61 = builtin.unrealized_conversion_cast %60 : i64 to index
+          %62 = affine.apply #map5()[%61]
+          %63 = builtin.unrealized_conversion_cast %62 : index to i64
+          %64 = llvm.icmp "eq" %63, %4 : i64
+          %65 = llvm.select %64, %28, %26 : i1, !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+          %66 = builtin.unrealized_conversion_cast %65 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> to memref<832x8xi8, #hivm.address_space<ub>>
+          %67 = llvm.zext %64 : i1 to i64
+          %68 = llvm.mul %arg10, %10 : i32
+          %69 = llvm.sext %68 : i32 to i64
+          %70 = builtin.unrealized_conversion_cast %69 : i64 to index
+          %base_buffer_18, %offset_19, %sizes_20, %strides_21 = memref.extract_strided_metadata %arg3 : memref<?xi8, #hivm.address_space<gm>> -> memref<i8, #hivm.address_space<gm>>, index, index, index
+          %71 = affine.apply #map6()[%53, %70]
+          %reinterpret_cast_22 = memref.reinterpret_cast %base_buffer_18 to offset: [%71], sizes: [%58, 8], strides: [64, 1] : memref<i8, #hivm.address_space<gm>> to memref<?x8xi8, strided<[64, 1], offset: ?>, #hivm.address_space<gm>>
+          %base_buffer_23, %offset_24, %sizes_25:2, %strides_26:2 = memref.extract_strided_metadata %66 : memref<832x8xi8, #hivm.address_space<ub>> -> memref<i8, #hivm.address_space<ub>>, index, index, index, index, index
+          %reinterpret_cast_27 = memref.reinterpret_cast %base_buffer_23 to offset: [0], sizes: [%58, 8], strides: [8, 1] : memref<i8, #hivm.address_space<ub>> to memref<?x8xi8, strided<[8, 1]>, #hivm.address_space<ub>>
+          hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE2>, %67]
+          %cast_28 = memref.cast %reinterpret_cast_22 : memref<?x8xi8, strided<[64, 1], offset: ?>, #hivm.address_space<gm>> to memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<gm>>
+          %cast_29 = memref.cast %reinterpret_cast_27 : memref<?x8xi8, strided<[8, 1]>, #hivm.address_space<ub>> to memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<ub>>
+          func.call @load_gm_to_ubuf_2d_int8_t(%cast_28, %cast_29, %16, %17, %20, %16) : (memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<gm>>, memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<ub>>, i32, i8, index, i32) -> ()
+          hivm.hir.set_flag[<PIPE_MTE2>, <PIPE_V>, <EVENT_ID0>]
+          %base_buffer_30, %offset_31, %sizes_32:2, %strides_33:2 = memref.extract_strided_metadata %66 : memref<832x8xi8, #hivm.address_space<ub>> -> memref<i8, #hivm.address_space<ub>>, index, index, index, index, index
+          %72 = affine.apply #map4()[%58]
+          %reinterpret_cast_34 = memref.reinterpret_cast %base_buffer_30 to offset: [0], sizes: [%72], strides: [1] : memref<i8, #hivm.address_space<ub>> to memref<?xi8, strided<[1]>, #hivm.address_space<ub>>
+          %base_buffer_35, %offset_36, %sizes_37:2, %strides_38:2 = memref.extract_strided_metadata %47 : memref<832x8xi8, #hivm.address_space<ub>> -> memref<i8, #hivm.address_space<ub>>, index, index, index, index, index
+          %73 = affine.apply #map4()[%58]
+          %reinterpret_cast_39 = memref.reinterpret_cast %base_buffer_35 to offset: [0], sizes: [%73], strides: [1] : memref<i8, #hivm.address_space<ub>> to memref<?xi8, strided<[1]>, #hivm.address_space<ub>>
+          hivm.hir.wait_flag[<PIPE_MTE2>, <PIPE_V>, <EVENT_ID0>]
+          %cast_40 = memref.cast %reinterpret_cast_34 : memref<?xi8, strided<[1]>, #hivm.address_space<ub>> to memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>
+          %cast_41 = memref.cast %reinterpret_cast_39 : memref<?xi8, strided<[1]>, #hivm.address_space<ub>> to memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>
+          func.call @copy_ubuf_to_ubuf_1d_int8_t(%cast_40, %cast_41) : (memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>, memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>) -> ()
+          hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE2>, %67]
+          %74 = hivm.hir.pointer_cast(%5) : memref<8x832xi32, #hivm.address_space<ub>>
+          func.call @adc_func_outlined_vf_1(%47, %74) {hivm.vector_function, no_inline} : (memref<832x8xi8, #hivm.address_space<ub>>, memref<8x832xi32, #hivm.address_space<ub>>) -> ()
+          %75 = scf.for %arg12 = %16 to %10 step %9 iter_args(%arg13 = %arg11) -> (memref<832xf32, #hivm.address_space<ub>>)  : i32 {
+            %76 = llvm.add %68, %arg12 : i32
+            %77 = llvm.sext %76 : i32 to i64
+            %78 = builtin.unrealized_conversion_cast %77 : i64 to index
+            %79 = llvm.sext %arg12 : i32 to i64
+            %80 = builtin.unrealized_conversion_cast %79 : i64 to index
+            %81 = hivm.hir.pointer_cast(%6) : memref<832xf32, #hivm.address_space<ub>>
+            func.call @adc_func_outlined_vf_0(%arg13, %74, %80, %31, %78, %81) {hivm.vector_function, no_inline} : (memref<832xf32, #hivm.address_space<ub>>, memref<8x832xi32, #hivm.address_space<ub>>, index, memref<64x256xf32, #hivm.address_space<ub>>, index, memref<832xf32, #hivm.address_space<ub>>) -> ()
+            scf.yield %81 : memref<832xf32, #hivm.address_space<ub>>
+          }
+          scf.yield %75 : memref<832xf32, #hivm.address_space<ub>>
+        }
+        hivm.hir.wait_flag[<PIPE_MTE3>, <PIPE_V>, %43]
+        func.call @adc_func_outlined_vf_4(%59, %42) {hivm.vector_function, no_inline} : (memref<832xf32, #hivm.address_space<ub>>, memref<832xf32, #hivm.address_space<ub>>) -> ()
+        hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE3>, <EVENT_ID0>]
+        %base_buffer_6, %offset_7, %sizes_8, %strides_9 = memref.extract_strided_metadata %42 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+        %reinterpret_cast_10 = memref.reinterpret_cast %base_buffer_6 to offset: [0], sizes: [%58], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<?xf32, strided<[1]>, #hivm.address_space<ub>>
+        %base_buffer_11, %offset_12, %sizes_13, %strides_14 = memref.extract_strided_metadata %arg4 : memref<?xf32, #hivm.address_space<gm>> -> memref<f32, #hivm.address_space<gm>>, index, index, index
+        %reinterpret_cast_15 = memref.reinterpret_cast %base_buffer_11 to offset: [%53], sizes: [%58], strides: [1] : memref<f32, #hivm.address_space<gm>> to memref<?xf32, strided<[1], offset: ?>, #hivm.address_space<gm>>
+        hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE3>, <EVENT_ID0>]
+        hivm.hir.pipe_barrier[<PIPE_MTE3>]
+        %cast_16 = memref.cast %reinterpret_cast_10 : memref<?xf32, strided<[1]>, #hivm.address_space<ub>> to memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>
+        %cast_17 = memref.cast %reinterpret_cast_15 : memref<?xf32, strided<[1], offset: ?>, #hivm.address_space<gm>> to memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>
+        func.call @store_ubuf_to_gm_1d_float(%cast_16, %cast_17, %16) : (memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>, memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>, i32) -> ()
+        hivm.hir.set_flag[<PIPE_MTE3>, <PIPE_V>, %43]
+      }
+    }
+    hivm.hir.pipe_barrier[<PIPE_ALL>]
+    hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID0>]
+    hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID1>]
+    hivm.hir.wait_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID0>]
+    hivm.hir.wait_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID1>]
+    return
+  }
+}
+
+
+// -----// IR Dump Before SCFToControlFlow (convert-scf-to-cf) //----- //
+#map = affine_map<()[s0] -> (s0 * 256)>
+#map1 = affine_map<()[s0, s1] -> (s0 * 832 + s1)>
+#map2 = affine_map<()[s0, s1] -> (s0 * 8 + s1)>
+#map3 = affine_map<(d0)[s0] -> (d0 + s0)>
+#map4 = affine_map<()[s0] -> (s0 * 8)>
+#map5 = affine_map<()[s0] -> (s0 mod 2)>
+#map6 = affine_map<()[s0, s1] -> (s0 * 64 + s1)>
+module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #hacc.target_device_spec<#dlti.dl_entry<"AI_CORE_COUNT", 28 : i32>, #dlti.dl_entry<"CUBE_CORE_COUNT", 28 : i32>, #dlti.dl_entry<"VECTOR_CORE_COUNT", 56 : i32>, #dlti.dl_entry<"UB_SIZE", 2031616 : i32>, #dlti.dl_entry<"L1_SIZE", 4194304 : i32>, #dlti.dl_entry<"L0A_SIZE", 524288 : i32>, #dlti.dl_entry<"L0B_SIZE", 524288 : i32>, #dlti.dl_entry<"L0C_SIZE", 2097152 : i32>, #dlti.dl_entry<"UB_ALIGN_SIZE", 256 : i32>, #dlti.dl_entry<"L1_ALIGN_SIZE", 256 : i32>, #dlti.dl_entry<"L0C_ALIGN_SIZE", 4096 : i32>, #dlti.dl_entry<"MINIMAL_D_CACHE_SIZE", 262144 : i32>, #dlti.dl_entry<"MAXIMUM_D_CACHE_SIZE", 983040 : i32>, #dlti.dl_entry<"ARCH", "dav-c310">>>, hacc.target = #hacc.target<"Ascend950PR_9579">, hivm.module_core_type = #hivm.module_core_type<AIV>, memref.memref_as_ptr} {
+  func.func @adc_func_outlined_vf_0(%arg0: memref<832xf32, #hivm.address_space<ub>>, %arg1: memref<8x832xi32, #hivm.address_space<ub>>, %arg2: index, %arg3: memref<64x256xf32, #hivm.address_space<ub>>, %arg4: index, %arg5: memref<832xf32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %0 = llvm.mlir.constant(2 : i32) : i32
+    %1 = llvm.mlir.constant(64 : i32) : i32
+    %2 = llvm.mlir.constant(832 : i32) : i32
+    %3 = llvm.mlir.constant(0 : i32) : i32
+    %4 = llvm.mlir.constant(8 : i32) : i32
+    %5 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%4, %3) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+    %base_buffer, %offset, %sizes:2, %strides:2 = memref.extract_strided_metadata %arg3 : memref<64x256xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index, index, index
+    %6 = affine.apply #map()[%arg4]
+    %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [%6], sizes: [256], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<256xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+    %7 = builtin.unrealized_conversion_cast %reinterpret_cast : memref<256xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    scf.for %arg6 = %3 to %2 step %1  : i32 {
+      %8 = llvm.sext %arg6 : i32 to i64
+      %9 = builtin.unrealized_conversion_cast %8 : i64 to index
+      %base_buffer_0, %offset_1, %sizes_2, %strides_3 = memref.extract_strided_metadata %arg0 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+      %reinterpret_cast_4 = memref.reinterpret_cast %base_buffer_0 to offset: [%9], sizes: [64], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+      %10 = builtin.unrealized_conversion_cast %reinterpret_cast_4 : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+      %base_buffer_5, %offset_6, %sizes_7:2, %strides_8:2 = memref.extract_strided_metadata %arg1 : memref<8x832xi32, #hivm.address_space<ub>> -> memref<i32, #hivm.address_space<ub>>, index, index, index, index, index
+      %11 = affine.apply #map1()[%arg2, %9]
+      %reinterpret_cast_9 = memref.reinterpret_cast %base_buffer_5 to offset: [%11], sizes: [64], strides: [1] : memref<i32, #hivm.address_space<ub>> to memref<64xi32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+      %12 = builtin.unrealized_conversion_cast %reinterpret_cast_9 : memref<64xi32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+      %base_buffer_10, %offset_11, %sizes_12, %strides_13 = memref.extract_strided_metadata %arg5 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+      %reinterpret_cast_14 = memref.reinterpret_cast %base_buffer_10 to offset: [%9], sizes: [64], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+      %13 = builtin.unrealized_conversion_cast %reinterpret_cast_14 : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+      %14 = llvm.extractvalue %10[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %15 = llvm.extractvalue %10[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %16 = llvm.getelementptr %14[%15] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+      %17 = "hivm_regbaseintrins.intr.hivm.vldsx1.v64f32"(%16, %3, %3, %3) : (!llvm.ptr<6>, i32, i32, i32) -> vector<64xf32>
+      %18 = llvm.extractvalue %12[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %19 = llvm.extractvalue %12[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %20 = llvm.getelementptr %18[%19] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i32
+      %21 = "hivm_regbaseintrins.intr.hivm.vldsx1.v64s32"(%20, %3, %3, %3) : (!llvm.ptr<6>, i32, i32, i32) -> vector<64xi32>
+      %22 = llvm.extractvalue %7[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %23 = llvm.extractvalue %7[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %24 = llvm.getelementptr %22[%23] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+      %25 = "hivm_regbaseintrins.intr.hivm.vgather2_v300.v64f32"(%24, %21, %5) : (!llvm.ptr<6>, vector<64xi32>, vector<256xi1>) -> vector<64xf32>
+      %26 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%4, %3) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+      %27 = "hivm_regbaseintrins.intr.hivm.vadd.s.x"(%17, %25, %26) : (vector<64xf32>, vector<64xf32>, vector<256xi1>) -> vector<64xf32>
+      %28 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%4, %3) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+      %29 = llvm.extractvalue %13[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %30 = llvm.extractvalue %13[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %31 = llvm.getelementptr %29[%30] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+      "hivm_regbaseintrins.intr.hivm.vstsx1.v64f32"(%27, %31, %3, %0, %3, %28) : (vector<64xf32>, !llvm.ptr<6>, i32, i32, i32, vector<256xi1>) -> ()
+    } {element_alignment_bit_width = 32 : i32}
+    return
+  }
+  func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub>>, %arg1: memref<8x832xi32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %0 = llvm.mlir.constant(2 : i32) : i32
+    %1 = llvm.mlir.constant(0 : i8) : i8
+    %2 = llvm.mlir.constant(8 : index) : i64
+    %3 = llvm.mlir.constant(64 : i32) : i32
+    %4 = llvm.mlir.constant(832 : i32) : i32
+    %5 = llvm.mlir.constant(0 : index) : i64
+    %6 = llvm.mlir.constant(0 : i32) : i32
+    %7 = llvm.mlir.constant(8 : i32) : i32
+    %8 = llvm.mlir.constant(1 : i32) : i32
+    scf.for %arg2 = %6 to %7 step %8  : i32 {
+      %9 = llvm.sext %arg2 : i32 to i64
+      %10 = builtin.unrealized_conversion_cast %9 : i64 to index
+      scf.for %arg3 = %6 to %4 step %3  : i32 {
+        %11 = llvm.sext %arg3 : i32 to i64
+        %12 = builtin.unrealized_conversion_cast %11 : i64 to index
+        %base_buffer, %offset, %sizes:2, %strides:2 = memref.extract_strided_metadata %arg0 : memref<832x8xi8, #hivm.address_space<ub>> -> memref<i8, #hivm.address_space<ub>>, index, index, index, index, index
+        %13 = affine.apply #map2()[%12, %10]
+        %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [%13], sizes: [64, 1], strides: [8, 1] : memref<i8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
+        %14 = builtin.unrealized_conversion_cast %reinterpret_cast : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+        %15 = llvm.extractvalue %14[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+        %16 = llvm.extractvalue %14[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+        %17 = llvm.getelementptr %15[%16] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i8
+        %18 = llvm.mul %5, %2 : i64
+        %19 = llvm.add %18, %5 : i64
+        %20 = llvm.getelementptr %17[%19] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i8
+        %21 = "hivm_regbaseintrins.intr.hivm.vldas"(%20) : (!llvm.ptr<6>) -> vector<32xi8>
+        %22 = "hivm_regbaseintrins.intr.hivm.vldus.post.s8"(%20, %21, %6) : (!llvm.ptr<6>, vector<32xi8>, i32) -> !llvm.struct<(vector<256xi8>, vector<32xi8>, ptr<6>)>
+        %23 = llvm.extractvalue %22[0] : !llvm.struct<(vector<256xi8>, vector<32xi8>, ptr<6>)> 
+        %24 = "hivm_regbaseintrins.intr.hivm.vbr"(%1) : (i8) -> vector<256xi8>
+        %25 = "hivm_regbaseintrins.intr.hivm.vintlv"(%23, %24) : (vector<256xi8>, vector<256xi8>) -> !llvm.struct<(vector<256xi8>, vector<256xi8>)>
+        %26 = llvm.extractvalue %25[0] : !llvm.struct<(vector<256xi8>, vector<256xi8>)> 
+        %27 = "hivm_regbaseintrins.intr.hivm.vintlv"(%26, %24) : (vector<256xi8>, vector<256xi8>) -> !llvm.struct<(vector<256xi8>, vector<256xi8>)>
+        %28 = llvm.extractvalue %27[0] : !llvm.struct<(vector<256xi8>, vector<256xi8>)> 
+        %29 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%7, %6) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+        %30 = "hivm_regbaseintrins.intr.hivm.vcvtii.s82s32.x"(%28, %29, %6) : (vector<256xi8>, vector<256xi1>, i32) -> vector<64xi32>
+        %base_buffer_0, %offset_1, %sizes_2:2, %strides_3:2 = memref.extract_strided_metadata %arg1 : memref<8x832xi32, #hivm.address_space<ub>> -> memref<i32, #hivm.address_space<ub>>, index, index, index, index, index
+        %31 = affine.apply #map1()[%10, %12]
+        %reinterpret_cast_4 = memref.reinterpret_cast %base_buffer_0 to offset: [%31], sizes: [64], strides: [1] : memref<i32, #hivm.address_space<ub>> to memref<64xi32, #map3, #hivm.address_space<ub>>
+        %32 = builtin.unrealized_conversion_cast %reinterpret_cast_4 : memref<64xi32, #map3, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+        %33 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%7, %6) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+        %34 = llvm.extractvalue %32[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+        %35 = llvm.extractvalue %32[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+        %36 = llvm.getelementptr %34[%35] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i32
+        "hivm_regbaseintrins.intr.hivm.vstsx1.v64s32"(%30, %36, %6, %0, %6, %33) : (vector<64xi32>, !llvm.ptr<6>, i32, i32, i32, vector<256xi1>) -> ()
+      } {element_alignment_bit_width = 32 : i32}
+    } {element_alignment_bit_width = 32 : i32}
+    return
+  }
+  func.func @adc_func_outlined_vf_2(%arg0: memref<832x8xi8, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 8 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %0 = llvm.mlir.constant(8 : i32) : i32
+    %1 = llvm.mlir.constant(5 : i32) : i32
+    %2 = llvm.mlir.constant(0 : i8) : i8
+    %3 = llvm.mlir.constant(1 : i32) : i32
+    %4 = llvm.mlir.constant(832 : i32) : i32
+    %5 = llvm.mlir.constant(0 : i32) : i32
+    %6 = "hivm_regbaseintrins.intr.hivm.pge.b8"(%5, %5) {mask_bit_width = 8 : i32} : (i32, i32) -> vector<256xi1>
+    %7 = "hivm_regbaseintrins.intr.hivm.vdups.z"(%2, %6, %3) : (i8, vector<256xi1>, i32) -> vector<256xi8>
+    scf.for %arg1 = %5 to %4 step %3  : i32 {
+      %8 = llvm.sext %arg1 : i32 to i64
+      %9 = builtin.unrealized_conversion_cast %8 : i64 to index
+      %10 = "hivm_regbaseintrins.intr.hivm.pge.b8"(%1, %5) {mask_bit_width = 8 : i32, mask_op_idx = 0 : i32} : (i32, i32) -> vector<256xi1>
+      %base_buffer, %offset, %sizes:2, %strides:2 = memref.extract_strided_metadata %arg0 : memref<832x8xi8, #hivm.address_space<ub>> -> memref<i8, #hivm.address_space<ub>>, index, index, index, index, index
+      %11 = affine.apply #map4()[%9]
+      %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [%11], sizes: [8], strides: [1] : memref<i8, #hivm.address_space<ub>> to memref<8xi8, #map3, #hivm.address_space<ub>>
+      %12 = builtin.unrealized_conversion_cast %reinterpret_cast : memref<8xi8, #map3, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+      %13 = llvm.extractvalue %12[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %14 = llvm.extractvalue %12[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %15 = llvm.getelementptr %13[%14] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i8
+      %16 = "hivm_regbaseintrins.intr.hivm.init.vector.align.data"() : () -> vector<32xi8>
+      %17 = "hivm_regbaseintrins.intr.hivm.vstus.post.s8"(%7, %15, %0, %16) : (vector<256xi8>, !llvm.ptr<6>, i32, vector<32xi8>) -> !llvm.struct<(vector<32xi8>, ptr<6>)>
+      %18 = llvm.extractvalue %17[0] : !llvm.struct<(vector<32xi8>, ptr<6>)> 
+      %19 = llvm.extractvalue %17[1] : !llvm.struct<(vector<32xi8>, ptr<6>)> 
+      "hivm_regbaseintrins.intr.hivm.vstas"(%18, %19, %5, %5) : (vector<32xi8>, !llvm.ptr<6>, i32, i32) -> ()
+    } {element_alignment_bit_width = -1 : i32}
+    return
+  }
+  func.func @adc_func_outlined_vf_3(%arg0: memref<832xf32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %0 = llvm.mlir.constant(2 : i32) : i32
+    %1 = llvm.mlir.constant(1 : i32) : i32
+    %2 = llvm.mlir.constant(64 : i32) : i32
+    %3 = llvm.mlir.constant(832 : i32) : i32
+    %4 = llvm.mlir.constant(0 : i32) : i32
+    %5 = llvm.mlir.constant(0.000000e+00 : f32) : f32
+    %6 = llvm.mlir.constant(8 : i32) : i32
+    %7 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%6, %4) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+    %8 = "hivm_regbaseintrins.intr.hivm.vdups.z"(%5, %7, %1) : (f32, vector<256xi1>, i32) -> vector<64xf32>
+    scf.for %arg1 = %4 to %3 step %2  : i32 {
+      %9 = llvm.sext %arg1 : i32 to i64
+      %10 = builtin.unrealized_conversion_cast %9 : i64 to index
+      %base_buffer, %offset, %sizes, %strides = memref.extract_strided_metadata %arg0 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+      %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [%10], sizes: [64], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+      %11 = builtin.unrealized_conversion_cast %reinterpret_cast : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+      %12 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%6, %4) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+      %13 = llvm.extractvalue %11[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %14 = llvm.extractvalue %11[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %15 = llvm.getelementptr %13[%14] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+      "hivm_regbaseintrins.intr.hivm.vstsx1.v64f32"(%8, %15, %4, %0, %4, %12) : (vector<64xf32>, !llvm.ptr<6>, i32, i32, i32, vector<256xi1>) -> ()
+    } {element_alignment_bit_width = -1 : i32}
+    return
+  }
+  func.func @adc_func_outlined_vf_4(%arg0: memref<832xf32, #hivm.address_space<ub>>, %arg1: memref<832xf32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %0 = llvm.mlir.constant(2 : i32) : i32
+    %1 = llvm.mlir.constant(8 : i32) : i32
+    %2 = llvm.mlir.constant(0 : i32) : i32
+    %3 = llvm.mlir.constant(832 : i32) : i32
+    %4 = llvm.mlir.constant(64 : i32) : i32
+    scf.for %arg2 = %2 to %3 step %4  : i32 {
+      %5 = llvm.sext %arg2 : i32 to i64
+      %6 = builtin.unrealized_conversion_cast %5 : i64 to index
+      %base_buffer, %offset, %sizes, %strides = memref.extract_strided_metadata %arg0 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+      %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [%6], sizes: [64], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+      %7 = builtin.unrealized_conversion_cast %reinterpret_cast : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+      %base_buffer_0, %offset_1, %sizes_2, %strides_3 = memref.extract_strided_metadata %arg1 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+      %reinterpret_cast_4 = memref.reinterpret_cast %base_buffer_0 to offset: [%6], sizes: [64], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+      %8 = builtin.unrealized_conversion_cast %reinterpret_cast_4 : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+      %9 = llvm.extractvalue %7[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %10 = llvm.extractvalue %7[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %11 = llvm.getelementptr %9[%10] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+      %12 = "hivm_regbaseintrins.intr.hivm.vldsx1.v64f32"(%11, %2, %2, %2) : (!llvm.ptr<6>, i32, i32, i32) -> vector<64xf32>
+      %13 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%1, %2) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+      %14 = "hivm_regbaseintrins.intr.hivm.vsqrt.x"(%12, %13) : (vector<64xf32>, vector<256xi1>) -> vector<64xf32>
+      %15 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%1, %2) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+      %16 = llvm.extractvalue %8[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %17 = llvm.extractvalue %8[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+      %18 = llvm.getelementptr %16[%17] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+      "hivm_regbaseintrins.intr.hivm.vstsx1.v64f32"(%14, %18, %2, %0, %2, %15) : (vector<64xf32>, !llvm.ptr<6>, i32, i32, i32, vector<256xi1>) -> ()
+    } {element_alignment_bit_width = 32 : i32}
+    return
+  }
+  func.func private @load_gm_to_ubuf_1d_float(memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>, memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>, i32, f32, index, i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface}
+  func.func private @load_gm_to_ubuf_2d_int8_t(memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<gm>>, memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<ub>>, i32, i8, index, i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface}
+  func.func private @copy_ubuf_to_ubuf_1d_int8_t(memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>, memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface}
+  func.func private @store_ubuf_to_gm_1d_float(memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>, memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>, i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface}
+  func.func @adc_func(%arg0: memref<?xi8, #hivm.address_space<gm>> {hacc.arg_type = #hacc.arg_type<sync_block_lock>}, %arg1: memref<?xi8, #hivm.address_space<gm>> {hacc.arg_type = #hacc.arg_type<workspace>}, %arg2: memref<?xf32, #hivm.address_space<gm>>, %arg3: memref<?xi8, #hivm.address_space<gm>>, %arg4: memref<?xf32, #hivm.address_space<gm>>, %arg5: i32, %arg6: i32, %arg7: i32, %arg8: i32) attributes {SyncBlockLockArgIdx = 0 : i64, WorkspaceArgIdx = 1 : i64, func_dyn_memref_args = dense<[true, true, true, true, true, false, false, false, false]> : vector<9xi1>, hacc.entry, hacc.function_kind = #hacc.function_kind<DEVICE>, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vf_mode = #hivm.vf_mode<SIMD>, hivm_regbaseintrins.target = #hivm_regbaseintrins.target<"dav-c310">, mix_mode = "aiv", parallel_mode = "simd"} {
+    %0 = llvm.mlir.constant(118784 : i64) : i64
+    %1 = llvm.mlir.constant(108800 : i64) : i64
+    %2 = llvm.mlir.constant(75520 : i64) : i64
+    %3 = llvm.mlir.constant(112128 : i64) : i64
+    %4 = llvm.mlir.constant(1 : i64) : i64
+    %5 = llvm.mlir.constant(82176 : i64) : i64
+    %6 = llvm.mlir.constant(72192 : i64) : i64
+    %7 = llvm.mlir.constant(65536 : i64) : i64
+    %8 = llvm.mlir.constant(0 : i64) : i64
+    %9 = llvm.mlir.constant(1 : i32) : i32
+    %10 = llvm.mlir.constant(8 : i32) : i32
+    %11 = llvm.mlir.constant(832 : i32) : i32
+    %12 = llvm.mlir.constant(831 : i32) : i32
+    %13 = llvm.mlir.constant(56 : i32) : i32
+    %14 = llvm.mlir.constant(46592 : i32) : i32
+    %15 = llvm.mlir.constant(46591 : i32) : i32
+    %16 = llvm.mlir.constant(0 : i32) : i32
+    %17 = llvm.mlir.constant(0 : i8) : i8
+    %18 = llvm.mlir.constant(0.000000e+00 : f32) : f32
+    %19 = llvm.mlir.constant(0 : index) : i64
+    %20 = builtin.unrealized_conversion_cast %19 : i64 to index
+    %21 = hivm.hir.pointer_cast(%1) : memref<832xf32, #hivm.address_space<ub>>
+    %22 = builtin.unrealized_conversion_cast %21 : memref<832xf32, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %23 = hivm.hir.pointer_cast(%0) : memref<832xf32, #hivm.address_space<ub>>
+    %24 = builtin.unrealized_conversion_cast %23 : memref<832xf32, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %25 = hivm.hir.pointer_cast(%2) : memref<832x8xi8, #hivm.address_space<ub>>
+    %26 = builtin.unrealized_conversion_cast %25 : memref<832x8xi8, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %27 = hivm.hir.pointer_cast(%3) : memref<832x8xi8, #hivm.address_space<ub>>
+    %28 = builtin.unrealized_conversion_cast %27 : memref<832x8xi8, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    hivm.hir.set_ctrl false at ctrl[60]
+    hivm.hir.set_ctrl true at ctrl[48]
+    %29 = hivm.hir.get_block_idx -> i64
+    %30 = llvm.trunc %29 : i64 to i32
+    %31 = hivm.hir.pointer_cast(%8) : memref<64x256xf32, #hivm.address_space<ub>>
+    %base_buffer, %offset, %sizes, %strides = memref.extract_strided_metadata %arg2 : memref<?xf32, #hivm.address_space<gm>> -> memref<f32, #hivm.address_space<gm>>, index, index, index
+    %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [0], sizes: [16384], strides: [1] : memref<f32, #hivm.address_space<gm>> to memref<16384xf32, strided<[1]>, #hivm.address_space<gm>>
+    %base_buffer_0, %offset_1, %sizes_2:2, %strides_3:2 = memref.extract_strided_metadata %31 : memref<64x256xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index, index, index
+    %reinterpret_cast_4 = memref.reinterpret_cast %base_buffer_0 to offset: [0], sizes: [16384], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<16384xf32, #hivm.address_space<ub>>
+    hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID0>]
+    hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID1>]
+    hivm.hir.set_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID0>]
+    hivm.hir.set_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID1>]
+    %cast = memref.cast %reinterpret_cast : memref<16384xf32, strided<[1]>, #hivm.address_space<gm>> to memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>
+    %cast_5 = memref.cast %reinterpret_cast_4 : memref<16384xf32, #hivm.address_space<ub>> to memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>
+    call @load_gm_to_ubuf_1d_float(%cast, %cast_5, %16, %18, %20, %16) : (memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>, memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>, i32, f32, index, i32) -> ()
+    %32 = llvm.add %arg5, %15 : i32
+    %33 = llvm.sdiv %32, %14  : i32
+    %34 = llvm.add %arg5, %12 : i32
+    %35 = llvm.sdiv %34, %11  : i32
+    scf.for %arg9 = %16 to %33 step %9  : i32 {
+      %36 = llvm.sext %arg9 : i32 to i64
+      %37 = builtin.unrealized_conversion_cast %36 : i64 to index
+      %38 = affine.apply #map5()[%37]
+      %39 = builtin.unrealized_conversion_cast %38 : index to i64
+      %40 = llvm.icmp "eq" %39, %4 : i64
+      %41 = llvm.select %40, %24, %22 : i1, !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+      %42 = builtin.unrealized_conversion_cast %41 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> to memref<832xf32, #hivm.address_space<ub>>
+      %43 = llvm.zext %40 : i1 to i64
+      %44 = llvm.mul %arg9, %13 : i32
+      %45 = llvm.add %44, %30 : i32
+      %46 = llvm.icmp "slt" %45, %35 : i32
+      scf.if %46 {
+        %47 = hivm.hir.pointer_cast(%7) : memref<832x8xi8, #hivm.address_space<ub>>
+        func.call @adc_func_outlined_vf_2(%47) {hivm.vector_function, no_inline} : (memref<832x8xi8, #hivm.address_space<ub>>) -> ()
+        %48 = hivm.hir.pointer_cast(%6) : memref<832xf32, #hivm.address_space<ub>>
+        func.call @adc_func_outlined_vf_3(%48) {hivm.vector_function, no_inline} : (memref<832xf32, #hivm.address_space<ub>>) -> ()
+        %49 = llvm.mul %arg9, %14 : i32
+        %50 = llvm.mul %30, %11 : i32
+        %51 = llvm.add %49, %50 : i32
+        %52 = llvm.sext %51 : i32 to i64
+        %53 = builtin.unrealized_conversion_cast %52 : i64 to index
+        %54 = llvm.sub %arg5, %50 : i32
+        %55 = llvm.sub %54, %49 : i32
+        %56 = llvm.intr.smin(%55, %11)  : (i32, i32) -> i32
+        %57 = llvm.sext %56 : i32 to i64
+        %58 = builtin.unrealized_conversion_cast %57 : i64 to index
+        %59 = scf.for %arg10 = %16 to %10 step %9 iter_args(%arg11 = %48) -> (memref<832xf32, #hivm.address_space<ub>>)  : i32 {
+          %60 = llvm.sext %arg10 : i32 to i64
+          %61 = builtin.unrealized_conversion_cast %60 : i64 to index
+          %62 = affine.apply #map5()[%61]
+          %63 = builtin.unrealized_conversion_cast %62 : index to i64
+          %64 = llvm.icmp "eq" %63, %4 : i64
+          %65 = llvm.select %64, %28, %26 : i1, !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+          %66 = builtin.unrealized_conversion_cast %65 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> to memref<832x8xi8, #hivm.address_space<ub>>
+          %67 = llvm.zext %64 : i1 to i64
+          %68 = llvm.mul %arg10, %10 : i32
+          %69 = llvm.sext %68 : i32 to i64
+          %70 = builtin.unrealized_conversion_cast %69 : i64 to index
+          %base_buffer_18, %offset_19, %sizes_20, %strides_21 = memref.extract_strided_metadata %arg3 : memref<?xi8, #hivm.address_space<gm>> -> memref<i8, #hivm.address_space<gm>>, index, index, index
+          %71 = affine.apply #map6()[%53, %70]
+          %reinterpret_cast_22 = memref.reinterpret_cast %base_buffer_18 to offset: [%71], sizes: [%58, 8], strides: [64, 1] : memref<i8, #hivm.address_space<gm>> to memref<?x8xi8, strided<[64, 1], offset: ?>, #hivm.address_space<gm>>
+          %base_buffer_23, %offset_24, %sizes_25:2, %strides_26:2 = memref.extract_strided_metadata %66 : memref<832x8xi8, #hivm.address_space<ub>> -> memref<i8, #hivm.address_space<ub>>, index, index, index, index, index
+          %reinterpret_cast_27 = memref.reinterpret_cast %base_buffer_23 to offset: [0], sizes: [%58, 8], strides: [8, 1] : memref<i8, #hivm.address_space<ub>> to memref<?x8xi8, strided<[8, 1]>, #hivm.address_space<ub>>
+          hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE2>, %67]
+          %cast_28 = memref.cast %reinterpret_cast_22 : memref<?x8xi8, strided<[64, 1], offset: ?>, #hivm.address_space<gm>> to memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<gm>>
+          %cast_29 = memref.cast %reinterpret_cast_27 : memref<?x8xi8, strided<[8, 1]>, #hivm.address_space<ub>> to memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<ub>>
+          func.call @load_gm_to_ubuf_2d_int8_t(%cast_28, %cast_29, %16, %17, %20, %16) : (memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<gm>>, memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<ub>>, i32, i8, index, i32) -> ()
+          hivm.hir.set_flag[<PIPE_MTE2>, <PIPE_V>, <EVENT_ID0>]
+          %base_buffer_30, %offset_31, %sizes_32:2, %strides_33:2 = memref.extract_strided_metadata %66 : memref<832x8xi8, #hivm.address_space<ub>> -> memref<i8, #hivm.address_space<ub>>, index, index, index, index, index
+          %72 = affine.apply #map4()[%58]
+          %reinterpret_cast_34 = memref.reinterpret_cast %base_buffer_30 to offset: [0], sizes: [%72], strides: [1] : memref<i8, #hivm.address_space<ub>> to memref<?xi8, strided<[1]>, #hivm.address_space<ub>>
+          %base_buffer_35, %offset_36, %sizes_37:2, %strides_38:2 = memref.extract_strided_metadata %47 : memref<832x8xi8, #hivm.address_space<ub>> -> memref<i8, #hivm.address_space<ub>>, index, index, index, index, index
+          %73 = affine.apply #map4()[%58]
+          %reinterpret_cast_39 = memref.reinterpret_cast %base_buffer_35 to offset: [0], sizes: [%73], strides: [1] : memref<i8, #hivm.address_space<ub>> to memref<?xi8, strided<[1]>, #hivm.address_space<ub>>
+          hivm.hir.wait_flag[<PIPE_MTE2>, <PIPE_V>, <EVENT_ID0>]
+          %cast_40 = memref.cast %reinterpret_cast_34 : memref<?xi8, strided<[1]>, #hivm.address_space<ub>> to memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>
+          %cast_41 = memref.cast %reinterpret_cast_39 : memref<?xi8, strided<[1]>, #hivm.address_space<ub>> to memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>
+          func.call @copy_ubuf_to_ubuf_1d_int8_t(%cast_40, %cast_41) : (memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>, memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>) -> ()
+          hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE2>, %67]
+          %74 = hivm.hir.pointer_cast(%5) : memref<8x832xi32, #hivm.address_space<ub>>
+          func.call @adc_func_outlined_vf_1(%47, %74) {hivm.vector_function, no_inline} : (memref<832x8xi8, #hivm.address_space<ub>>, memref<8x832xi32, #hivm.address_space<ub>>) -> ()
+          %75 = scf.for %arg12 = %16 to %10 step %9 iter_args(%arg13 = %arg11) -> (memref<832xf32, #hivm.address_space<ub>>)  : i32 {
+            %76 = llvm.add %68, %arg12 : i32
+            %77 = llvm.sext %76 : i32 to i64
+            %78 = builtin.unrealized_conversion_cast %77 : i64 to index
+            %79 = llvm.sext %arg12 : i32 to i64
+            %80 = builtin.unrealized_conversion_cast %79 : i64 to index
+            %81 = hivm.hir.pointer_cast(%6) : memref<832xf32, #hivm.address_space<ub>>
+            func.call @adc_func_outlined_vf_0(%arg13, %74, %80, %31, %78, %81) {hivm.vector_function, no_inline} : (memref<832xf32, #hivm.address_space<ub>>, memref<8x832xi32, #hivm.address_space<ub>>, index, memref<64x256xf32, #hivm.address_space<ub>>, index, memref<832xf32, #hivm.address_space<ub>>) -> ()
+            scf.yield %81 : memref<832xf32, #hivm.address_space<ub>>
+          }
+          scf.yield %75 : memref<832xf32, #hivm.address_space<ub>>
+        }
+        hivm.hir.wait_flag[<PIPE_MTE3>, <PIPE_V>, %43]
+        func.call @adc_func_outlined_vf_4(%59, %42) {hivm.vector_function, no_inline} : (memref<832xf32, #hivm.address_space<ub>>, memref<832xf32, #hivm.address_space<ub>>) -> ()
+        hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE3>, <EVENT_ID0>]
+        %base_buffer_6, %offset_7, %sizes_8, %strides_9 = memref.extract_strided_metadata %42 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+        %reinterpret_cast_10 = memref.reinterpret_cast %base_buffer_6 to offset: [0], sizes: [%58], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<?xf32, strided<[1]>, #hivm.address_space<ub>>
+        %base_buffer_11, %offset_12, %sizes_13, %strides_14 = memref.extract_strided_metadata %arg4 : memref<?xf32, #hivm.address_space<gm>> -> memref<f32, #hivm.address_space<gm>>, index, index, index
+        %reinterpret_cast_15 = memref.reinterpret_cast %base_buffer_11 to offset: [%53], sizes: [%58], strides: [1] : memref<f32, #hivm.address_space<gm>> to memref<?xf32, strided<[1], offset: ?>, #hivm.address_space<gm>>
+        hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE3>, <EVENT_ID0>]
+        hivm.hir.pipe_barrier[<PIPE_MTE3>]
+        %cast_16 = memref.cast %reinterpret_cast_10 : memref<?xf32, strided<[1]>, #hivm.address_space<ub>> to memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>
+        %cast_17 = memref.cast %reinterpret_cast_15 : memref<?xf32, strided<[1], offset: ?>, #hivm.address_space<gm>> to memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>
+        func.call @store_ubuf_to_gm_1d_float(%cast_16, %cast_17, %16) : (memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>, memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>, i32) -> ()
+        hivm.hir.set_flag[<PIPE_MTE3>, <PIPE_V>, %43]
+      }
+    }
+    hivm.hir.pipe_barrier[<PIPE_ALL>]
+    hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID0>]
+    hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID1>]
+    hivm.hir.wait_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID0>]
+    hivm.hir.wait_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID1>]
+    return
+  }
+}
+
+
+// -----// IR Dump After SCFToControlFlow (convert-scf-to-cf) //----- //
+#map = affine_map<()[s0] -> (s0 * 256)>
+#map1 = affine_map<()[s0, s1] -> (s0 * 832 + s1)>
+#map2 = affine_map<()[s0, s1] -> (s0 * 8 + s1)>
+#map3 = affine_map<(d0)[s0] -> (d0 + s0)>
+#map4 = affine_map<()[s0] -> (s0 * 8)>
+#map5 = affine_map<()[s0] -> (s0 mod 2)>
+#map6 = affine_map<()[s0, s1] -> (s0 * 64 + s1)>
+module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #hacc.target_device_spec<#dlti.dl_entry<"AI_CORE_COUNT", 28 : i32>, #dlti.dl_entry<"CUBE_CORE_COUNT", 28 : i32>, #dlti.dl_entry<"VECTOR_CORE_COUNT", 56 : i32>, #dlti.dl_entry<"UB_SIZE", 2031616 : i32>, #dlti.dl_entry<"L1_SIZE", 4194304 : i32>, #dlti.dl_entry<"L0A_SIZE", 524288 : i32>, #dlti.dl_entry<"L0B_SIZE", 524288 : i32>, #dlti.dl_entry<"L0C_SIZE", 2097152 : i32>, #dlti.dl_entry<"UB_ALIGN_SIZE", 256 : i32>, #dlti.dl_entry<"L1_ALIGN_SIZE", 256 : i32>, #dlti.dl_entry<"L0C_ALIGN_SIZE", 4096 : i32>, #dlti.dl_entry<"MINIMAL_D_CACHE_SIZE", 262144 : i32>, #dlti.dl_entry<"MAXIMUM_D_CACHE_SIZE", 983040 : i32>, #dlti.dl_entry<"ARCH", "dav-c310">>>, hacc.target = #hacc.target<"Ascend950PR_9579">, hivm.module_core_type = #hivm.module_core_type<AIV>, memref.memref_as_ptr} {
+  func.func @adc_func_outlined_vf_0(%arg0: memref<832xf32, #hivm.address_space<ub>>, %arg1: memref<8x832xi32, #hivm.address_space<ub>>, %arg2: index, %arg3: memref<64x256xf32, #hivm.address_space<ub>>, %arg4: index, %arg5: memref<832xf32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %0 = llvm.mlir.constant(2 : i32) : i32
+    %1 = llvm.mlir.constant(64 : i32) : i32
+    %2 = llvm.mlir.constant(832 : i32) : i32
+    %3 = llvm.mlir.constant(0 : i32) : i32
+    %4 = llvm.mlir.constant(8 : i32) : i32
+    %5 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%4, %3) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+    %base_buffer, %offset, %sizes:2, %strides:2 = memref.extract_strided_metadata %arg3 : memref<64x256xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index, index, index
+    %6 = affine.apply #map()[%arg4]
+    %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [%6], sizes: [256], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<256xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+    %7 = builtin.unrealized_conversion_cast %reinterpret_cast : memref<256xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    cf.br ^bb1(%3 : i32)
+  ^bb1(%8: i32):  // 2 preds: ^bb0, ^bb2
+    %9 = arith.cmpi slt, %8, %2 : i32
+    cf.cond_br %9, ^bb2, ^bb3
+  ^bb2:  // pred: ^bb1
+    %10 = llvm.sext %8 : i32 to i64
+    %11 = builtin.unrealized_conversion_cast %10 : i64 to index
+    %base_buffer_0, %offset_1, %sizes_2, %strides_3 = memref.extract_strided_metadata %arg0 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+    %reinterpret_cast_4 = memref.reinterpret_cast %base_buffer_0 to offset: [%11], sizes: [64], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+    %12 = builtin.unrealized_conversion_cast %reinterpret_cast_4 : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %base_buffer_5, %offset_6, %sizes_7:2, %strides_8:2 = memref.extract_strided_metadata %arg1 : memref<8x832xi32, #hivm.address_space<ub>> -> memref<i32, #hivm.address_space<ub>>, index, index, index, index, index
+    %13 = affine.apply #map1()[%arg2, %11]
+    %reinterpret_cast_9 = memref.reinterpret_cast %base_buffer_5 to offset: [%13], sizes: [64], strides: [1] : memref<i32, #hivm.address_space<ub>> to memref<64xi32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+    %14 = builtin.unrealized_conversion_cast %reinterpret_cast_9 : memref<64xi32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %base_buffer_10, %offset_11, %sizes_12, %strides_13 = memref.extract_strided_metadata %arg5 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+    %reinterpret_cast_14 = memref.reinterpret_cast %base_buffer_10 to offset: [%11], sizes: [64], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+    %15 = builtin.unrealized_conversion_cast %reinterpret_cast_14 : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %16 = llvm.extractvalue %12[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %17 = llvm.extractvalue %12[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %18 = llvm.getelementptr %16[%17] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+    %19 = "hivm_regbaseintrins.intr.hivm.vldsx1.v64f32"(%18, %3, %3, %3) : (!llvm.ptr<6>, i32, i32, i32) -> vector<64xf32>
+    %20 = llvm.extractvalue %14[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %21 = llvm.extractvalue %14[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %22 = llvm.getelementptr %20[%21] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i32
+    %23 = "hivm_regbaseintrins.intr.hivm.vldsx1.v64s32"(%22, %3, %3, %3) : (!llvm.ptr<6>, i32, i32, i32) -> vector<64xi32>
+    %24 = llvm.extractvalue %7[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %25 = llvm.extractvalue %7[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %26 = llvm.getelementptr %24[%25] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+    %27 = "hivm_regbaseintrins.intr.hivm.vgather2_v300.v64f32"(%26, %23, %5) : (!llvm.ptr<6>, vector<64xi32>, vector<256xi1>) -> vector<64xf32>
+    %28 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%4, %3) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+    %29 = "hivm_regbaseintrins.intr.hivm.vadd.s.x"(%19, %27, %28) : (vector<64xf32>, vector<64xf32>, vector<256xi1>) -> vector<64xf32>
+    %30 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%4, %3) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+    %31 = llvm.extractvalue %15[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %32 = llvm.extractvalue %15[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %33 = llvm.getelementptr %31[%32] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+    "hivm_regbaseintrins.intr.hivm.vstsx1.v64f32"(%29, %33, %3, %0, %3, %30) : (vector<64xf32>, !llvm.ptr<6>, i32, i32, i32, vector<256xi1>) -> ()
+    %34 = arith.addi %8, %1 overflow<nsw> : i32
+    cf.br ^bb1(%34 : i32)
+  ^bb3:  // pred: ^bb1
+    return
+  }
+  func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub>>, %arg1: memref<8x832xi32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %0 = llvm.mlir.constant(2 : i32) : i32
+    %1 = llvm.mlir.constant(0 : i8) : i8
+    %2 = llvm.mlir.constant(8 : index) : i64
+    %3 = llvm.mlir.constant(64 : i32) : i32
+    %4 = llvm.mlir.constant(832 : i32) : i32
+    %5 = llvm.mlir.constant(0 : index) : i64
+    %6 = llvm.mlir.constant(0 : i32) : i32
+    %7 = llvm.mlir.constant(8 : i32) : i32
+    %8 = llvm.mlir.constant(1 : i32) : i32
+    cf.br ^bb1(%6 : i32)
+  ^bb1(%9: i32):  // 2 preds: ^bb0, ^bb5
+    %10 = arith.cmpi slt, %9, %7 : i32
+    cf.cond_br %10, ^bb2, ^bb6
+  ^bb2:  // pred: ^bb1
+    %11 = llvm.sext %9 : i32 to i64
+    %12 = builtin.unrealized_conversion_cast %11 : i64 to index
+    cf.br ^bb3(%6 : i32)
+  ^bb3(%13: i32):  // 2 preds: ^bb2, ^bb4
+    %14 = arith.cmpi slt, %13, %4 : i32
+    cf.cond_br %14, ^bb4, ^bb5
+  ^bb4:  // pred: ^bb3
+    %15 = llvm.sext %13 : i32 to i64
+    %16 = builtin.unrealized_conversion_cast %15 : i64 to index
+    %base_buffer, %offset, %sizes:2, %strides:2 = memref.extract_strided_metadata %arg0 : memref<832x8xi8, #hivm.address_space<ub>> -> memref<i8, #hivm.address_space<ub>>, index, index, index, index, index
+    %17 = affine.apply #map2()[%16, %12]
+    %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [%17], sizes: [64, 1], strides: [8, 1] : memref<i8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
+    %18 = builtin.unrealized_conversion_cast %reinterpret_cast : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %19 = llvm.extractvalue %18[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %20 = llvm.extractvalue %18[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %21 = llvm.getelementptr %19[%20] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i8
+    %22 = llvm.mul %5, %2 : i64
+    %23 = llvm.add %22, %5 : i64
+    %24 = llvm.getelementptr %21[%23] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i8
+    %25 = "hivm_regbaseintrins.intr.hivm.vldas"(%24) : (!llvm.ptr<6>) -> vector<32xi8>
+    %26 = "hivm_regbaseintrins.intr.hivm.vldus.post.s8"(%24, %25, %6) : (!llvm.ptr<6>, vector<32xi8>, i32) -> !llvm.struct<(vector<256xi8>, vector<32xi8>, ptr<6>)>
+    %27 = llvm.extractvalue %26[0] : !llvm.struct<(vector<256xi8>, vector<32xi8>, ptr<6>)> 
+    %28 = "hivm_regbaseintrins.intr.hivm.vbr"(%1) : (i8) -> vector<256xi8>
+    %29 = "hivm_regbaseintrins.intr.hivm.vintlv"(%27, %28) : (vector<256xi8>, vector<256xi8>) -> !llvm.struct<(vector<256xi8>, vector<256xi8>)>
+    %30 = llvm.extractvalue %29[0] : !llvm.struct<(vector<256xi8>, vector<256xi8>)> 
+    %31 = "hivm_regbaseintrins.intr.hivm.vintlv"(%30, %28) : (vector<256xi8>, vector<256xi8>) -> !llvm.struct<(vector<256xi8>, vector<256xi8>)>
+    %32 = llvm.extractvalue %31[0] : !llvm.struct<(vector<256xi8>, vector<256xi8>)> 
+    %33 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%7, %6) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+    %34 = "hivm_regbaseintrins.intr.hivm.vcvtii.s82s32.x"(%32, %33, %6) : (vector<256xi8>, vector<256xi1>, i32) -> vector<64xi32>
+    %base_buffer_0, %offset_1, %sizes_2:2, %strides_3:2 = memref.extract_strided_metadata %arg1 : memref<8x832xi32, #hivm.address_space<ub>> -> memref<i32, #hivm.address_space<ub>>, index, index, index, index, index
+    %35 = affine.apply #map1()[%12, %16]
+    %reinterpret_cast_4 = memref.reinterpret_cast %base_buffer_0 to offset: [%35], sizes: [64], strides: [1] : memref<i32, #hivm.address_space<ub>> to memref<64xi32, #map3, #hivm.address_space<ub>>
+    %36 = builtin.unrealized_conversion_cast %reinterpret_cast_4 : memref<64xi32, #map3, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %37 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%7, %6) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+    %38 = llvm.extractvalue %36[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %39 = llvm.extractvalue %36[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %40 = llvm.getelementptr %38[%39] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i32
+    "hivm_regbaseintrins.intr.hivm.vstsx1.v64s32"(%34, %40, %6, %0, %6, %37) : (vector<64xi32>, !llvm.ptr<6>, i32, i32, i32, vector<256xi1>) -> ()
+    %41 = arith.addi %13, %3 overflow<nsw> : i32
+    cf.br ^bb3(%41 : i32)
+  ^bb5:  // pred: ^bb3
+    %42 = arith.addi %9, %8 overflow<nsw> : i32
+    cf.br ^bb1(%42 : i32)
+  ^bb6:  // pred: ^bb1
+    return
+  }
+  func.func @adc_func_outlined_vf_2(%arg0: memref<832x8xi8, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 8 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %0 = llvm.mlir.constant(8 : i32) : i32
+    %1 = llvm.mlir.constant(5 : i32) : i32
+    %2 = llvm.mlir.constant(0 : i8) : i8
+    %3 = llvm.mlir.constant(1 : i32) : i32
+    %4 = llvm.mlir.constant(832 : i32) : i32
+    %5 = llvm.mlir.constant(0 : i32) : i32
+    %6 = "hivm_regbaseintrins.intr.hivm.pge.b8"(%5, %5) {mask_bit_width = 8 : i32} : (i32, i32) -> vector<256xi1>
+    %7 = "hivm_regbaseintrins.intr.hivm.vdups.z"(%2, %6, %3) : (i8, vector<256xi1>, i32) -> vector<256xi8>
+    cf.br ^bb1(%5 : i32)
+  ^bb1(%8: i32):  // 2 preds: ^bb0, ^bb2
+    %9 = arith.cmpi slt, %8, %4 : i32
+    cf.cond_br %9, ^bb2, ^bb3
+  ^bb2:  // pred: ^bb1
+    %10 = llvm.sext %8 : i32 to i64
+    %11 = builtin.unrealized_conversion_cast %10 : i64 to index
+    %12 = "hivm_regbaseintrins.intr.hivm.pge.b8"(%1, %5) {mask_bit_width = 8 : i32, mask_op_idx = 0 : i32} : (i32, i32) -> vector<256xi1>
+    %base_buffer, %offset, %sizes:2, %strides:2 = memref.extract_strided_metadata %arg0 : memref<832x8xi8, #hivm.address_space<ub>> -> memref<i8, #hivm.address_space<ub>>, index, index, index, index, index
+    %13 = affine.apply #map4()[%11]
+    %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [%13], sizes: [8], strides: [1] : memref<i8, #hivm.address_space<ub>> to memref<8xi8, #map3, #hivm.address_space<ub>>
+    %14 = builtin.unrealized_conversion_cast %reinterpret_cast : memref<8xi8, #map3, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %15 = llvm.extractvalue %14[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %16 = llvm.extractvalue %14[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %17 = llvm.getelementptr %15[%16] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i8
+    %18 = "hivm_regbaseintrins.intr.hivm.init.vector.align.data"() : () -> vector<32xi8>
+    %19 = "hivm_regbaseintrins.intr.hivm.vstus.post.s8"(%7, %17, %0, %18) : (vector<256xi8>, !llvm.ptr<6>, i32, vector<32xi8>) -> !llvm.struct<(vector<32xi8>, ptr<6>)>
+    %20 = llvm.extractvalue %19[0] : !llvm.struct<(vector<32xi8>, ptr<6>)> 
+    %21 = llvm.extractvalue %19[1] : !llvm.struct<(vector<32xi8>, ptr<6>)> 
+    "hivm_regbaseintrins.intr.hivm.vstas"(%20, %21, %5, %5) : (vector<32xi8>, !llvm.ptr<6>, i32, i32) -> ()
+    %22 = arith.addi %8, %3 overflow<nsw> : i32
+    cf.br ^bb1(%22 : i32)
+  ^bb3:  // pred: ^bb1
+    return
+  }
+  func.func @adc_func_outlined_vf_3(%arg0: memref<832xf32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %0 = llvm.mlir.constant(2 : i32) : i32
+    %1 = llvm.mlir.constant(1 : i32) : i32
+    %2 = llvm.mlir.constant(64 : i32) : i32
+    %3 = llvm.mlir.constant(832 : i32) : i32
+    %4 = llvm.mlir.constant(0 : i32) : i32
+    %5 = llvm.mlir.constant(0.000000e+00 : f32) : f32
+    %6 = llvm.mlir.constant(8 : i32) : i32
+    %7 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%6, %4) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+    %8 = "hivm_regbaseintrins.intr.hivm.vdups.z"(%5, %7, %1) : (f32, vector<256xi1>, i32) -> vector<64xf32>
+    cf.br ^bb1(%4 : i32)
+  ^bb1(%9: i32):  // 2 preds: ^bb0, ^bb2
+    %10 = arith.cmpi slt, %9, %3 : i32
+    cf.cond_br %10, ^bb2, ^bb3
+  ^bb2:  // pred: ^bb1
+    %11 = llvm.sext %9 : i32 to i64
+    %12 = builtin.unrealized_conversion_cast %11 : i64 to index
+    %base_buffer, %offset, %sizes, %strides = memref.extract_strided_metadata %arg0 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+    %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [%12], sizes: [64], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+    %13 = builtin.unrealized_conversion_cast %reinterpret_cast : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %14 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%6, %4) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+    %15 = llvm.extractvalue %13[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %16 = llvm.extractvalue %13[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %17 = llvm.getelementptr %15[%16] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+    "hivm_regbaseintrins.intr.hivm.vstsx1.v64f32"(%8, %17, %4, %0, %4, %14) : (vector<64xf32>, !llvm.ptr<6>, i32, i32, i32, vector<256xi1>) -> ()
+    %18 = arith.addi %9, %2 overflow<nsw> : i32
+    cf.br ^bb1(%18 : i32)
+  ^bb3:  // pred: ^bb1
+    return
+  }
+  func.func @adc_func_outlined_vf_4(%arg0: memref<832xf32, #hivm.address_space<ub>>, %arg1: memref<832xf32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %0 = llvm.mlir.constant(2 : i32) : i32
+    %1 = llvm.mlir.constant(8 : i32) : i32
+    %2 = llvm.mlir.constant(0 : i32) : i32
+    %3 = llvm.mlir.constant(832 : i32) : i32
+    %4 = llvm.mlir.constant(64 : i32) : i32
+    cf.br ^bb1(%2 : i32)
+  ^bb1(%5: i32):  // 2 preds: ^bb0, ^bb2
+    %6 = arith.cmpi slt, %5, %3 : i32
+    cf.cond_br %6, ^bb2, ^bb3
+  ^bb2:  // pred: ^bb1
+    %7 = llvm.sext %5 : i32 to i64
+    %8 = builtin.unrealized_conversion_cast %7 : i64 to index
+    %base_buffer, %offset, %sizes, %strides = memref.extract_strided_metadata %arg0 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+    %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [%8], sizes: [64], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+    %9 = builtin.unrealized_conversion_cast %reinterpret_cast : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %base_buffer_0, %offset_1, %sizes_2, %strides_3 = memref.extract_strided_metadata %arg1 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+    %reinterpret_cast_4 = memref.reinterpret_cast %base_buffer_0 to offset: [%8], sizes: [64], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+    %10 = builtin.unrealized_conversion_cast %reinterpret_cast_4 : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %11 = llvm.extractvalue %9[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %12 = llvm.extractvalue %9[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %13 = llvm.getelementptr %11[%12] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+    %14 = "hivm_regbaseintrins.intr.hivm.vldsx1.v64f32"(%13, %2, %2, %2) : (!llvm.ptr<6>, i32, i32, i32) -> vector<64xf32>
+    %15 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%1, %2) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+    %16 = "hivm_regbaseintrins.intr.hivm.vsqrt.x"(%14, %15) : (vector<64xf32>, vector<256xi1>) -> vector<64xf32>
+    %17 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%1, %2) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+    %18 = llvm.extractvalue %10[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %19 = llvm.extractvalue %10[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %20 = llvm.getelementptr %18[%19] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+    "hivm_regbaseintrins.intr.hivm.vstsx1.v64f32"(%16, %20, %2, %0, %2, %17) : (vector<64xf32>, !llvm.ptr<6>, i32, i32, i32, vector<256xi1>) -> ()
+    %21 = arith.addi %5, %4 overflow<nsw> : i32
+    cf.br ^bb1(%21 : i32)
+  ^bb3:  // pred: ^bb1
+    return
+  }
+  func.func private @load_gm_to_ubuf_1d_float(memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>, memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>, i32, f32, index, i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface}
+  func.func private @load_gm_to_ubuf_2d_int8_t(memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<gm>>, memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<ub>>, i32, i8, index, i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface}
+  func.func private @copy_ubuf_to_ubuf_1d_int8_t(memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>, memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface}
+  func.func private @store_ubuf_to_gm_1d_float(memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>, memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>, i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface}
+  func.func @adc_func(%arg0: memref<?xi8, #hivm.address_space<gm>> {hacc.arg_type = #hacc.arg_type<sync_block_lock>}, %arg1: memref<?xi8, #hivm.address_space<gm>> {hacc.arg_type = #hacc.arg_type<workspace>}, %arg2: memref<?xf32, #hivm.address_space<gm>>, %arg3: memref<?xi8, #hivm.address_space<gm>>, %arg4: memref<?xf32, #hivm.address_space<gm>>, %arg5: i32, %arg6: i32, %arg7: i32, %arg8: i32) attributes {SyncBlockLockArgIdx = 0 : i64, WorkspaceArgIdx = 1 : i64, func_dyn_memref_args = dense<[true, true, true, true, true, false, false, false, false]> : vector<9xi1>, hacc.entry, hacc.function_kind = #hacc.function_kind<DEVICE>, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vf_mode = #hivm.vf_mode<SIMD>, hivm_regbaseintrins.target = #hivm_regbaseintrins.target<"dav-c310">, mix_mode = "aiv", parallel_mode = "simd"} {
+    %0 = llvm.mlir.constant(118784 : i64) : i64
+    %1 = llvm.mlir.constant(108800 : i64) : i64
+    %2 = llvm.mlir.constant(75520 : i64) : i64
+    %3 = llvm.mlir.constant(112128 : i64) : i64
+    %4 = llvm.mlir.constant(1 : i64) : i64
+    %5 = llvm.mlir.constant(82176 : i64) : i64
+    %6 = llvm.mlir.constant(72192 : i64) : i64
+    %7 = llvm.mlir.constant(65536 : i64) : i64
+    %8 = llvm.mlir.constant(0 : i64) : i64
+    %9 = llvm.mlir.constant(1 : i32) : i32
+    %10 = llvm.mlir.constant(8 : i32) : i32
+    %11 = llvm.mlir.constant(832 : i32) : i32
+    %12 = llvm.mlir.constant(831 : i32) : i32
+    %13 = llvm.mlir.constant(56 : i32) : i32
+    %14 = llvm.mlir.constant(46592 : i32) : i32
+    %15 = llvm.mlir.constant(46591 : i32) : i32
+    %16 = llvm.mlir.constant(0 : i32) : i32
+    %17 = llvm.mlir.constant(0 : i8) : i8
+    %18 = llvm.mlir.constant(0.000000e+00 : f32) : f32
+    %19 = llvm.mlir.constant(0 : index) : i64
+    %20 = builtin.unrealized_conversion_cast %19 : i64 to index
+    %21 = hivm.hir.pointer_cast(%1) : memref<832xf32, #hivm.address_space<ub>>
+    %22 = builtin.unrealized_conversion_cast %21 : memref<832xf32, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %23 = hivm.hir.pointer_cast(%0) : memref<832xf32, #hivm.address_space<ub>>
+    %24 = builtin.unrealized_conversion_cast %23 : memref<832xf32, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %25 = hivm.hir.pointer_cast(%2) : memref<832x8xi8, #hivm.address_space<ub>>
+    %26 = builtin.unrealized_conversion_cast %25 : memref<832x8xi8, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %27 = hivm.hir.pointer_cast(%3) : memref<832x8xi8, #hivm.address_space<ub>>
+    %28 = builtin.unrealized_conversion_cast %27 : memref<832x8xi8, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    hivm.hir.set_ctrl false at ctrl[60]
+    hivm.hir.set_ctrl true at ctrl[48]
+    %29 = hivm.hir.get_block_idx -> i64
+    %30 = llvm.trunc %29 : i64 to i32
+    %31 = hivm.hir.pointer_cast(%8) : memref<64x256xf32, #hivm.address_space<ub>>
+    %base_buffer, %offset, %sizes, %strides = memref.extract_strided_metadata %arg2 : memref<?xf32, #hivm.address_space<gm>> -> memref<f32, #hivm.address_space<gm>>, index, index, index
+    %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [0], sizes: [16384], strides: [1] : memref<f32, #hivm.address_space<gm>> to memref<16384xf32, strided<[1]>, #hivm.address_space<gm>>
+    %base_buffer_0, %offset_1, %sizes_2:2, %strides_3:2 = memref.extract_strided_metadata %31 : memref<64x256xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index, index, index
+    %reinterpret_cast_4 = memref.reinterpret_cast %base_buffer_0 to offset: [0], sizes: [16384], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<16384xf32, #hivm.address_space<ub>>
+    hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID0>]
+    hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID1>]
+    hivm.hir.set_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID0>]
+    hivm.hir.set_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID1>]
+    %cast = memref.cast %reinterpret_cast : memref<16384xf32, strided<[1]>, #hivm.address_space<gm>> to memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>
+    %cast_5 = memref.cast %reinterpret_cast_4 : memref<16384xf32, #hivm.address_space<ub>> to memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>
+    call @load_gm_to_ubuf_1d_float(%cast, %cast_5, %16, %18, %20, %16) : (memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>, memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>, i32, f32, index, i32) -> ()
+    %32 = llvm.add %arg5, %15 : i32
+    %33 = llvm.sdiv %32, %14  : i32
+    %34 = llvm.add %arg5, %12 : i32
+    %35 = llvm.sdiv %34, %11  : i32
+    cf.br ^bb1(%16 : i32)
+  ^bb1(%36: i32):  // 2 preds: ^bb0, ^bb10
+    %37 = arith.cmpi slt, %36, %33 : i32
+    cf.cond_br %37, ^bb2, ^bb11
+  ^bb2:  // pred: ^bb1
+    %38 = llvm.sext %36 : i32 to i64
+    %39 = builtin.unrealized_conversion_cast %38 : i64 to index
+    %40 = affine.apply #map5()[%39]
+    %41 = builtin.unrealized_conversion_cast %40 : index to i64
+    %42 = llvm.icmp "eq" %41, %4 : i64
+    %43 = llvm.select %42, %24, %22 : i1, !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %44 = builtin.unrealized_conversion_cast %43 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> to memref<832xf32, #hivm.address_space<ub>>
+    %45 = llvm.zext %42 : i1 to i64
+    %46 = llvm.mul %36, %13 : i32
+    %47 = llvm.add %46, %30 : i32
+    %48 = llvm.icmp "slt" %47, %35 : i32
+    cf.cond_br %48, ^bb3, ^bb10
+  ^bb3:  // pred: ^bb2
+    %49 = hivm.hir.pointer_cast(%7) : memref<832x8xi8, #hivm.address_space<ub>>
+    call @adc_func_outlined_vf_2(%49) {hivm.vector_function, no_inline} : (memref<832x8xi8, #hivm.address_space<ub>>) -> ()
+    %50 = hivm.hir.pointer_cast(%6) : memref<832xf32, #hivm.address_space<ub>>
+    call @adc_func_outlined_vf_3(%50) {hivm.vector_function, no_inline} : (memref<832xf32, #hivm.address_space<ub>>) -> ()
+    %51 = llvm.mul %36, %14 : i32
+    %52 = llvm.mul %30, %11 : i32
+    %53 = llvm.add %51, %52 : i32
+    %54 = llvm.sext %53 : i32 to i64
+    %55 = builtin.unrealized_conversion_cast %54 : i64 to index
+    %56 = llvm.sub %arg5, %52 : i32
+    %57 = llvm.sub %56, %51 : i32
+    %58 = llvm.intr.smin(%57, %11)  : (i32, i32) -> i32
+    %59 = llvm.sext %58 : i32 to i64
+    %60 = builtin.unrealized_conversion_cast %59 : i64 to index
+    cf.br ^bb4(%16, %50 : i32, memref<832xf32, #hivm.address_space<ub>>)
+  ^bb4(%61: i32, %62: memref<832xf32, #hivm.address_space<ub>>):  // 2 preds: ^bb3, ^bb8
+    %63 = arith.cmpi slt, %61, %10 : i32
+    cf.cond_br %63, ^bb5, ^bb9
+  ^bb5:  // pred: ^bb4
+    %64 = llvm.sext %61 : i32 to i64
+    %65 = builtin.unrealized_conversion_cast %64 : i64 to index
+    %66 = affine.apply #map5()[%65]
+    %67 = builtin.unrealized_conversion_cast %66 : index to i64
+    %68 = llvm.icmp "eq" %67, %4 : i64
+    %69 = llvm.select %68, %28, %26 : i1, !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %70 = builtin.unrealized_conversion_cast %69 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> to memref<832x8xi8, #hivm.address_space<ub>>
+    %71 = llvm.zext %68 : i1 to i64
+    %72 = llvm.mul %61, %10 : i32
+    %73 = llvm.sext %72 : i32 to i64
+    %74 = builtin.unrealized_conversion_cast %73 : i64 to index
+    %base_buffer_6, %offset_7, %sizes_8, %strides_9 = memref.extract_strided_metadata %arg3 : memref<?xi8, #hivm.address_space<gm>> -> memref<i8, #hivm.address_space<gm>>, index, index, index
+    %75 = affine.apply #map6()[%55, %74]
+    %reinterpret_cast_10 = memref.reinterpret_cast %base_buffer_6 to offset: [%75], sizes: [%60, 8], strides: [64, 1] : memref<i8, #hivm.address_space<gm>> to memref<?x8xi8, strided<[64, 1], offset: ?>, #hivm.address_space<gm>>
+    %base_buffer_11, %offset_12, %sizes_13:2, %strides_14:2 = memref.extract_strided_metadata %70 : memref<832x8xi8, #hivm.address_space<ub>> -> memref<i8, #hivm.address_space<ub>>, index, index, index, index, index
+    %reinterpret_cast_15 = memref.reinterpret_cast %base_buffer_11 to offset: [0], sizes: [%60, 8], strides: [8, 1] : memref<i8, #hivm.address_space<ub>> to memref<?x8xi8, strided<[8, 1]>, #hivm.address_space<ub>>
+    hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE2>, %71]
+    %cast_16 = memref.cast %reinterpret_cast_10 : memref<?x8xi8, strided<[64, 1], offset: ?>, #hivm.address_space<gm>> to memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<gm>>
+    %cast_17 = memref.cast %reinterpret_cast_15 : memref<?x8xi8, strided<[8, 1]>, #hivm.address_space<ub>> to memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<ub>>
+    call @load_gm_to_ubuf_2d_int8_t(%cast_16, %cast_17, %16, %17, %20, %16) : (memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<gm>>, memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<ub>>, i32, i8, index, i32) -> ()
+    hivm.hir.set_flag[<PIPE_MTE2>, <PIPE_V>, <EVENT_ID0>]
+    %base_buffer_18, %offset_19, %sizes_20:2, %strides_21:2 = memref.extract_strided_metadata %70 : memref<832x8xi8, #hivm.address_space<ub>> -> memref<i8, #hivm.address_space<ub>>, index, index, index, index, index
+    %76 = affine.apply #map4()[%60]
+    %reinterpret_cast_22 = memref.reinterpret_cast %base_buffer_18 to offset: [0], sizes: [%76], strides: [1] : memref<i8, #hivm.address_space<ub>> to memref<?xi8, strided<[1]>, #hivm.address_space<ub>>
+    %base_buffer_23, %offset_24, %sizes_25:2, %strides_26:2 = memref.extract_strided_metadata %49 : memref<832x8xi8, #hivm.address_space<ub>> -> memref<i8, #hivm.address_space<ub>>, index, index, index, index, index
+    %77 = affine.apply #map4()[%60]
+    %reinterpret_cast_27 = memref.reinterpret_cast %base_buffer_23 to offset: [0], sizes: [%77], strides: [1] : memref<i8, #hivm.address_space<ub>> to memref<?xi8, strided<[1]>, #hivm.address_space<ub>>
+    hivm.hir.wait_flag[<PIPE_MTE2>, <PIPE_V>, <EVENT_ID0>]
+    %cast_28 = memref.cast %reinterpret_cast_22 : memref<?xi8, strided<[1]>, #hivm.address_space<ub>> to memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>
+    %cast_29 = memref.cast %reinterpret_cast_27 : memref<?xi8, strided<[1]>, #hivm.address_space<ub>> to memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>
+    call @copy_ubuf_to_ubuf_1d_int8_t(%cast_28, %cast_29) : (memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>, memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>) -> ()
+    hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE2>, %71]
+    %78 = hivm.hir.pointer_cast(%5) : memref<8x832xi32, #hivm.address_space<ub>>
+    call @adc_func_outlined_vf_1(%49, %78) {hivm.vector_function, no_inline} : (memref<832x8xi8, #hivm.address_space<ub>>, memref<8x832xi32, #hivm.address_space<ub>>) -> ()
+    cf.br ^bb6(%16, %62 : i32, memref<832xf32, #hivm.address_space<ub>>)
+  ^bb6(%79: i32, %80: memref<832xf32, #hivm.address_space<ub>>):  // 2 preds: ^bb5, ^bb7
+    %81 = arith.cmpi slt, %79, %10 : i32
+    cf.cond_br %81, ^bb7, ^bb8
+  ^bb7:  // pred: ^bb6
+    %82 = llvm.add %72, %79 : i32
+    %83 = llvm.sext %82 : i32 to i64
+    %84 = builtin.unrealized_conversion_cast %83 : i64 to index
+    %85 = llvm.sext %79 : i32 to i64
+    %86 = builtin.unrealized_conversion_cast %85 : i64 to index
+    %87 = hivm.hir.pointer_cast(%6) : memref<832xf32, #hivm.address_space<ub>>
+    call @adc_func_outlined_vf_0(%80, %78, %86, %31, %84, %87) {hivm.vector_function, no_inline} : (memref<832xf32, #hivm.address_space<ub>>, memref<8x832xi32, #hivm.address_space<ub>>, index, memref<64x256xf32, #hivm.address_space<ub>>, index, memref<832xf32, #hivm.address_space<ub>>) -> ()
+    %88 = arith.addi %79, %9 overflow<nsw> : i32
+    cf.br ^bb6(%88, %87 : i32, memref<832xf32, #hivm.address_space<ub>>)
+  ^bb8:  // pred: ^bb6
+    %89 = arith.addi %61, %9 overflow<nsw> : i32
+    cf.br ^bb4(%89, %80 : i32, memref<832xf32, #hivm.address_space<ub>>)
+  ^bb9:  // pred: ^bb4
+    hivm.hir.wait_flag[<PIPE_MTE3>, <PIPE_V>, %45]
+    call @adc_func_outlined_vf_4(%62, %44) {hivm.vector_function, no_inline} : (memref<832xf32, #hivm.address_space<ub>>, memref<832xf32, #hivm.address_space<ub>>) -> ()
+    hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE3>, <EVENT_ID0>]
+    %base_buffer_30, %offset_31, %sizes_32, %strides_33 = memref.extract_strided_metadata %44 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+    %reinterpret_cast_34 = memref.reinterpret_cast %base_buffer_30 to offset: [0], sizes: [%60], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<?xf32, strided<[1]>, #hivm.address_space<ub>>
+    %base_buffer_35, %offset_36, %sizes_37, %strides_38 = memref.extract_strided_metadata %arg4 : memref<?xf32, #hivm.address_space<gm>> -> memref<f32, #hivm.address_space<gm>>, index, index, index
+    %reinterpret_cast_39 = memref.reinterpret_cast %base_buffer_35 to offset: [%55], sizes: [%60], strides: [1] : memref<f32, #hivm.address_space<gm>> to memref<?xf32, strided<[1], offset: ?>, #hivm.address_space<gm>>
+    hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE3>, <EVENT_ID0>]
+    hivm.hir.pipe_barrier[<PIPE_MTE3>]
+    %cast_40 = memref.cast %reinterpret_cast_34 : memref<?xf32, strided<[1]>, #hivm.address_space<ub>> to memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>
+    %cast_41 = memref.cast %reinterpret_cast_39 : memref<?xf32, strided<[1], offset: ?>, #hivm.address_space<gm>> to memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>
+    call @store_ubuf_to_gm_1d_float(%cast_40, %cast_41, %16) : (memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>, memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>, i32) -> ()
+    hivm.hir.set_flag[<PIPE_MTE3>, <PIPE_V>, %45]
+    cf.br ^bb10
+  ^bb10:  // 2 preds: ^bb2, ^bb9
+    %90 = arith.addi %36, %9 overflow<nsw> : i32
+    cf.br ^bb1(%90 : i32)
+  ^bb11:  // pred: ^bb1
+    hivm.hir.pipe_barrier[<PIPE_ALL>]
+    hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID0>]
+    hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID1>]
+    hivm.hir.wait_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID0>]
+    hivm.hir.wait_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID1>]
+    return
+  }
+}
+
+
+// -----// IR Dump Before ConvertAffineToStandard (lower-affine) //----- //
+#map = affine_map<()[s0] -> (s0 * 256)>
+#map1 = affine_map<()[s0, s1] -> (s0 * 832 + s1)>
+#map2 = affine_map<()[s0, s1] -> (s0 * 8 + s1)>
+#map3 = affine_map<(d0)[s0] -> (d0 + s0)>
+#map4 = affine_map<()[s0] -> (s0 * 8)>
+#map5 = affine_map<()[s0] -> (s0 mod 2)>
+#map6 = affine_map<()[s0, s1] -> (s0 * 64 + s1)>
+module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #hacc.target_device_spec<#dlti.dl_entry<"AI_CORE_COUNT", 28 : i32>, #dlti.dl_entry<"CUBE_CORE_COUNT", 28 : i32>, #dlti.dl_entry<"VECTOR_CORE_COUNT", 56 : i32>, #dlti.dl_entry<"UB_SIZE", 2031616 : i32>, #dlti.dl_entry<"L1_SIZE", 4194304 : i32>, #dlti.dl_entry<"L0A_SIZE", 524288 : i32>, #dlti.dl_entry<"L0B_SIZE", 524288 : i32>, #dlti.dl_entry<"L0C_SIZE", 2097152 : i32>, #dlti.dl_entry<"UB_ALIGN_SIZE", 256 : i32>, #dlti.dl_entry<"L1_ALIGN_SIZE", 256 : i32>, #dlti.dl_entry<"L0C_ALIGN_SIZE", 4096 : i32>, #dlti.dl_entry<"MINIMAL_D_CACHE_SIZE", 262144 : i32>, #dlti.dl_entry<"MAXIMUM_D_CACHE_SIZE", 983040 : i32>, #dlti.dl_entry<"ARCH", "dav-c310">>>, hacc.target = #hacc.target<"Ascend950PR_9579">, hivm.module_core_type = #hivm.module_core_type<AIV>, memref.memref_as_ptr} {
+  func.func @adc_func_outlined_vf_0(%arg0: memref<832xf32, #hivm.address_space<ub>>, %arg1: memref<8x832xi32, #hivm.address_space<ub>>, %arg2: index, %arg3: memref<64x256xf32, #hivm.address_space<ub>>, %arg4: index, %arg5: memref<832xf32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %0 = llvm.mlir.constant(2 : i32) : i32
+    %1 = llvm.mlir.constant(64 : i32) : i32
+    %2 = llvm.mlir.constant(832 : i32) : i32
+    %3 = llvm.mlir.constant(0 : i32) : i32
+    %4 = llvm.mlir.constant(8 : i32) : i32
+    %5 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%4, %3) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+    %base_buffer, %offset, %sizes:2, %strides:2 = memref.extract_strided_metadata %arg3 : memref<64x256xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index, index, index
+    %6 = affine.apply #map()[%arg4]
+    %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [%6], sizes: [256], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<256xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+    %7 = builtin.unrealized_conversion_cast %reinterpret_cast : memref<256xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    cf.br ^bb1(%3 : i32)
+  ^bb1(%8: i32):  // 2 preds: ^bb0, ^bb2
+    %9 = arith.cmpi slt, %8, %2 : i32
+    cf.cond_br %9, ^bb2, ^bb3
+  ^bb2:  // pred: ^bb1
+    %10 = llvm.sext %8 : i32 to i64
+    %11 = builtin.unrealized_conversion_cast %10 : i64 to index
+    %base_buffer_0, %offset_1, %sizes_2, %strides_3 = memref.extract_strided_metadata %arg0 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+    %reinterpret_cast_4 = memref.reinterpret_cast %base_buffer_0 to offset: [%11], sizes: [64], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+    %12 = builtin.unrealized_conversion_cast %reinterpret_cast_4 : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %base_buffer_5, %offset_6, %sizes_7:2, %strides_8:2 = memref.extract_strided_metadata %arg1 : memref<8x832xi32, #hivm.address_space<ub>> -> memref<i32, #hivm.address_space<ub>>, index, index, index, index, index
+    %13 = affine.apply #map1()[%arg2, %11]
+    %reinterpret_cast_9 = memref.reinterpret_cast %base_buffer_5 to offset: [%13], sizes: [64], strides: [1] : memref<i32, #hivm.address_space<ub>> to memref<64xi32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+    %14 = builtin.unrealized_conversion_cast %reinterpret_cast_9 : memref<64xi32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %base_buffer_10, %offset_11, %sizes_12, %strides_13 = memref.extract_strided_metadata %arg5 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+    %reinterpret_cast_14 = memref.reinterpret_cast %base_buffer_10 to offset: [%11], sizes: [64], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+    %15 = builtin.unrealized_conversion_cast %reinterpret_cast_14 : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %16 = llvm.extractvalue %12[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %17 = llvm.extractvalue %12[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %18 = llvm.getelementptr %16[%17] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+    %19 = "hivm_regbaseintrins.intr.hivm.vldsx1.v64f32"(%18, %3, %3, %3) : (!llvm.ptr<6>, i32, i32, i32) -> vector<64xf32>
+    %20 = llvm.extractvalue %14[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %21 = llvm.extractvalue %14[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %22 = llvm.getelementptr %20[%21] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i32
+    %23 = "hivm_regbaseintrins.intr.hivm.vldsx1.v64s32"(%22, %3, %3, %3) : (!llvm.ptr<6>, i32, i32, i32) -> vector<64xi32>
+    %24 = llvm.extractvalue %7[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %25 = llvm.extractvalue %7[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %26 = llvm.getelementptr %24[%25] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+    %27 = "hivm_regbaseintrins.intr.hivm.vgather2_v300.v64f32"(%26, %23, %5) : (!llvm.ptr<6>, vector<64xi32>, vector<256xi1>) -> vector<64xf32>
+    %28 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%4, %3) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+    %29 = "hivm_regbaseintrins.intr.hivm.vadd.s.x"(%19, %27, %28) : (vector<64xf32>, vector<64xf32>, vector<256xi1>) -> vector<64xf32>
+    %30 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%4, %3) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+    %31 = llvm.extractvalue %15[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %32 = llvm.extractvalue %15[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %33 = llvm.getelementptr %31[%32] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+    "hivm_regbaseintrins.intr.hivm.vstsx1.v64f32"(%29, %33, %3, %0, %3, %30) : (vector<64xf32>, !llvm.ptr<6>, i32, i32, i32, vector<256xi1>) -> ()
+    %34 = arith.addi %8, %1 overflow<nsw> : i32
+    cf.br ^bb1(%34 : i32)
+  ^bb3:  // pred: ^bb1
+    return
+  }
+  func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub>>, %arg1: memref<8x832xi32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %0 = llvm.mlir.constant(2 : i32) : i32
+    %1 = llvm.mlir.constant(0 : i8) : i8
+    %2 = llvm.mlir.constant(8 : index) : i64
+    %3 = llvm.mlir.constant(64 : i32) : i32
+    %4 = llvm.mlir.constant(832 : i32) : i32
+    %5 = llvm.mlir.constant(0 : index) : i64
+    %6 = llvm.mlir.constant(0 : i32) : i32
+    %7 = llvm.mlir.constant(8 : i32) : i32
+    %8 = llvm.mlir.constant(1 : i32) : i32
+    cf.br ^bb1(%6 : i32)
+  ^bb1(%9: i32):  // 2 preds: ^bb0, ^bb5
+    %10 = arith.cmpi slt, %9, %7 : i32
+    cf.cond_br %10, ^bb2, ^bb6
+  ^bb2:  // pred: ^bb1
+    %11 = llvm.sext %9 : i32 to i64
+    %12 = builtin.unrealized_conversion_cast %11 : i64 to index
+    cf.br ^bb3(%6 : i32)
+  ^bb3(%13: i32):  // 2 preds: ^bb2, ^bb4
+    %14 = arith.cmpi slt, %13, %4 : i32
+    cf.cond_br %14, ^bb4, ^bb5
+  ^bb4:  // pred: ^bb3
+    %15 = llvm.sext %13 : i32 to i64
+    %16 = builtin.unrealized_conversion_cast %15 : i64 to index
+    %base_buffer, %offset, %sizes:2, %strides:2 = memref.extract_strided_metadata %arg0 : memref<832x8xi8, #hivm.address_space<ub>> -> memref<i8, #hivm.address_space<ub>>, index, index, index, index, index
+    %17 = affine.apply #map2()[%16, %12]
+    %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [%17], sizes: [64, 1], strides: [8, 1] : memref<i8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
+    %18 = builtin.unrealized_conversion_cast %reinterpret_cast : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %19 = llvm.extractvalue %18[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %20 = llvm.extractvalue %18[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %21 = llvm.getelementptr %19[%20] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i8
+    %22 = llvm.mul %5, %2 : i64
+    %23 = llvm.add %22, %5 : i64
+    %24 = llvm.getelementptr %21[%23] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i8
+    %25 = "hivm_regbaseintrins.intr.hivm.vldas"(%24) : (!llvm.ptr<6>) -> vector<32xi8>
+    %26 = "hivm_regbaseintrins.intr.hivm.vldus.post.s8"(%24, %25, %6) : (!llvm.ptr<6>, vector<32xi8>, i32) -> !llvm.struct<(vector<256xi8>, vector<32xi8>, ptr<6>)>
+    %27 = llvm.extractvalue %26[0] : !llvm.struct<(vector<256xi8>, vector<32xi8>, ptr<6>)> 
+    %28 = "hivm_regbaseintrins.intr.hivm.vbr"(%1) : (i8) -> vector<256xi8>
+    %29 = "hivm_regbaseintrins.intr.hivm.vintlv"(%27, %28) : (vector<256xi8>, vector<256xi8>) -> !llvm.struct<(vector<256xi8>, vector<256xi8>)>
+    %30 = llvm.extractvalue %29[0] : !llvm.struct<(vector<256xi8>, vector<256xi8>)> 
+    %31 = "hivm_regbaseintrins.intr.hivm.vintlv"(%30, %28) : (vector<256xi8>, vector<256xi8>) -> !llvm.struct<(vector<256xi8>, vector<256xi8>)>
+    %32 = llvm.extractvalue %31[0] : !llvm.struct<(vector<256xi8>, vector<256xi8>)> 
+    %33 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%7, %6) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+    %34 = "hivm_regbaseintrins.intr.hivm.vcvtii.s82s32.x"(%32, %33, %6) : (vector<256xi8>, vector<256xi1>, i32) -> vector<64xi32>
+    %base_buffer_0, %offset_1, %sizes_2:2, %strides_3:2 = memref.extract_strided_metadata %arg1 : memref<8x832xi32, #hivm.address_space<ub>> -> memref<i32, #hivm.address_space<ub>>, index, index, index, index, index
+    %35 = affine.apply #map1()[%12, %16]
+    %reinterpret_cast_4 = memref.reinterpret_cast %base_buffer_0 to offset: [%35], sizes: [64], strides: [1] : memref<i32, #hivm.address_space<ub>> to memref<64xi32, #map3, #hivm.address_space<ub>>
+    %36 = builtin.unrealized_conversion_cast %reinterpret_cast_4 : memref<64xi32, #map3, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %37 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%7, %6) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+    %38 = llvm.extractvalue %36[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %39 = llvm.extractvalue %36[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %40 = llvm.getelementptr %38[%39] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i32
+    "hivm_regbaseintrins.intr.hivm.vstsx1.v64s32"(%34, %40, %6, %0, %6, %37) : (vector<64xi32>, !llvm.ptr<6>, i32, i32, i32, vector<256xi1>) -> ()
+    %41 = arith.addi %13, %3 overflow<nsw> : i32
+    cf.br ^bb3(%41 : i32)
+  ^bb5:  // pred: ^bb3
+    %42 = arith.addi %9, %8 overflow<nsw> : i32
+    cf.br ^bb1(%42 : i32)
+  ^bb6:  // pred: ^bb1
+    return
+  }
+  func.func @adc_func_outlined_vf_2(%arg0: memref<832x8xi8, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 8 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %0 = llvm.mlir.constant(8 : i32) : i32
+    %1 = llvm.mlir.constant(5 : i32) : i32
+    %2 = llvm.mlir.constant(0 : i8) : i8
+    %3 = llvm.mlir.constant(1 : i32) : i32
+    %4 = llvm.mlir.constant(832 : i32) : i32
+    %5 = llvm.mlir.constant(0 : i32) : i32
+    %6 = "hivm_regbaseintrins.intr.hivm.pge.b8"(%5, %5) {mask_bit_width = 8 : i32} : (i32, i32) -> vector<256xi1>
+    %7 = "hivm_regbaseintrins.intr.hivm.vdups.z"(%2, %6, %3) : (i8, vector<256xi1>, i32) -> vector<256xi8>
+    cf.br ^bb1(%5 : i32)
+  ^bb1(%8: i32):  // 2 preds: ^bb0, ^bb2
+    %9 = arith.cmpi slt, %8, %4 : i32
+    cf.cond_br %9, ^bb2, ^bb3
+  ^bb2:  // pred: ^bb1
+    %10 = llvm.sext %8 : i32 to i64
+    %11 = builtin.unrealized_conversion_cast %10 : i64 to index
+    %12 = "hivm_regbaseintrins.intr.hivm.pge.b8"(%1, %5) {mask_bit_width = 8 : i32, mask_op_idx = 0 : i32} : (i32, i32) -> vector<256xi1>
+    %base_buffer, %offset, %sizes:2, %strides:2 = memref.extract_strided_metadata %arg0 : memref<832x8xi8, #hivm.address_space<ub>> -> memref<i8, #hivm.address_space<ub>>, index, index, index, index, index
+    %13 = affine.apply #map4()[%11]
+    %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [%13], sizes: [8], strides: [1] : memref<i8, #hivm.address_space<ub>> to memref<8xi8, #map3, #hivm.address_space<ub>>
+    %14 = builtin.unrealized_conversion_cast %reinterpret_cast : memref<8xi8, #map3, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %15 = llvm.extractvalue %14[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %16 = llvm.extractvalue %14[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %17 = llvm.getelementptr %15[%16] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i8
+    %18 = "hivm_regbaseintrins.intr.hivm.init.vector.align.data"() : () -> vector<32xi8>
+    %19 = "hivm_regbaseintrins.intr.hivm.vstus.post.s8"(%7, %17, %0, %18) : (vector<256xi8>, !llvm.ptr<6>, i32, vector<32xi8>) -> !llvm.struct<(vector<32xi8>, ptr<6>)>
+    %20 = llvm.extractvalue %19[0] : !llvm.struct<(vector<32xi8>, ptr<6>)> 
+    %21 = llvm.extractvalue %19[1] : !llvm.struct<(vector<32xi8>, ptr<6>)> 
+    "hivm_regbaseintrins.intr.hivm.vstas"(%20, %21, %5, %5) : (vector<32xi8>, !llvm.ptr<6>, i32, i32) -> ()
+    %22 = arith.addi %8, %3 overflow<nsw> : i32
+    cf.br ^bb1(%22 : i32)
+  ^bb3:  // pred: ^bb1
+    return
+  }
+  func.func @adc_func_outlined_vf_3(%arg0: memref<832xf32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %0 = llvm.mlir.constant(2 : i32) : i32
+    %1 = llvm.mlir.constant(1 : i32) : i32
+    %2 = llvm.mlir.constant(64 : i32) : i32
+    %3 = llvm.mlir.constant(832 : i32) : i32
+    %4 = llvm.mlir.constant(0 : i32) : i32
+    %5 = llvm.mlir.constant(0.000000e+00 : f32) : f32
+    %6 = llvm.mlir.constant(8 : i32) : i32
+    %7 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%6, %4) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+    %8 = "hivm_regbaseintrins.intr.hivm.vdups.z"(%5, %7, %1) : (f32, vector<256xi1>, i32) -> vector<64xf32>
+    cf.br ^bb1(%4 : i32)
+  ^bb1(%9: i32):  // 2 preds: ^bb0, ^bb2
+    %10 = arith.cmpi slt, %9, %3 : i32
+    cf.cond_br %10, ^bb2, ^bb3
+  ^bb2:  // pred: ^bb1
+    %11 = llvm.sext %9 : i32 to i64
+    %12 = builtin.unrealized_conversion_cast %11 : i64 to index
+    %base_buffer, %offset, %sizes, %strides = memref.extract_strided_metadata %arg0 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+    %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [%12], sizes: [64], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+    %13 = builtin.unrealized_conversion_cast %reinterpret_cast : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %14 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%6, %4) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+    %15 = llvm.extractvalue %13[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %16 = llvm.extractvalue %13[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %17 = llvm.getelementptr %15[%16] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+    "hivm_regbaseintrins.intr.hivm.vstsx1.v64f32"(%8, %17, %4, %0, %4, %14) : (vector<64xf32>, !llvm.ptr<6>, i32, i32, i32, vector<256xi1>) -> ()
+    %18 = arith.addi %9, %2 overflow<nsw> : i32
+    cf.br ^bb1(%18 : i32)
+  ^bb3:  // pred: ^bb1
+    return
+  }
+  func.func @adc_func_outlined_vf_4(%arg0: memref<832xf32, #hivm.address_space<ub>>, %arg1: memref<832xf32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %0 = llvm.mlir.constant(2 : i32) : i32
+    %1 = llvm.mlir.constant(8 : i32) : i32
+    %2 = llvm.mlir.constant(0 : i32) : i32
+    %3 = llvm.mlir.constant(832 : i32) : i32
+    %4 = llvm.mlir.constant(64 : i32) : i32
+    cf.br ^bb1(%2 : i32)
+  ^bb1(%5: i32):  // 2 preds: ^bb0, ^bb2
+    %6 = arith.cmpi slt, %5, %3 : i32
+    cf.cond_br %6, ^bb2, ^bb3
+  ^bb2:  // pred: ^bb1
+    %7 = llvm.sext %5 : i32 to i64
+    %8 = builtin.unrealized_conversion_cast %7 : i64 to index
+    %base_buffer, %offset, %sizes, %strides = memref.extract_strided_metadata %arg0 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+    %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [%8], sizes: [64], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+    %9 = builtin.unrealized_conversion_cast %reinterpret_cast : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %base_buffer_0, %offset_1, %sizes_2, %strides_3 = memref.extract_strided_metadata %arg1 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+    %reinterpret_cast_4 = memref.reinterpret_cast %base_buffer_0 to offset: [%8], sizes: [64], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+    %10 = builtin.unrealized_conversion_cast %reinterpret_cast_4 : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %11 = llvm.extractvalue %9[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %12 = llvm.extractvalue %9[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %13 = llvm.getelementptr %11[%12] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+    %14 = "hivm_regbaseintrins.intr.hivm.vldsx1.v64f32"(%13, %2, %2, %2) : (!llvm.ptr<6>, i32, i32, i32) -> vector<64xf32>
+    %15 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%1, %2) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+    %16 = "hivm_regbaseintrins.intr.hivm.vsqrt.x"(%14, %15) : (vector<64xf32>, vector<256xi1>) -> vector<64xf32>
+    %17 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%1, %2) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+    %18 = llvm.extractvalue %10[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %19 = llvm.extractvalue %10[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %20 = llvm.getelementptr %18[%19] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+    "hivm_regbaseintrins.intr.hivm.vstsx1.v64f32"(%16, %20, %2, %0, %2, %17) : (vector<64xf32>, !llvm.ptr<6>, i32, i32, i32, vector<256xi1>) -> ()
+    %21 = arith.addi %5, %4 overflow<nsw> : i32
+    cf.br ^bb1(%21 : i32)
+  ^bb3:  // pred: ^bb1
+    return
+  }
+  func.func private @load_gm_to_ubuf_1d_float(memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>, memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>, i32, f32, index, i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface}
+  func.func private @load_gm_to_ubuf_2d_int8_t(memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<gm>>, memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<ub>>, i32, i8, index, i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface}
+  func.func private @copy_ubuf_to_ubuf_1d_int8_t(memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>, memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface}
+  func.func private @store_ubuf_to_gm_1d_float(memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>, memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>, i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface}
+  func.func @adc_func(%arg0: memref<?xi8, #hivm.address_space<gm>> {hacc.arg_type = #hacc.arg_type<sync_block_lock>}, %arg1: memref<?xi8, #hivm.address_space<gm>> {hacc.arg_type = #hacc.arg_type<workspace>}, %arg2: memref<?xf32, #hivm.address_space<gm>>, %arg3: memref<?xi8, #hivm.address_space<gm>>, %arg4: memref<?xf32, #hivm.address_space<gm>>, %arg5: i32, %arg6: i32, %arg7: i32, %arg8: i32) attributes {SyncBlockLockArgIdx = 0 : i64, WorkspaceArgIdx = 1 : i64, func_dyn_memref_args = dense<[true, true, true, true, true, false, false, false, false]> : vector<9xi1>, hacc.entry, hacc.function_kind = #hacc.function_kind<DEVICE>, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vf_mode = #hivm.vf_mode<SIMD>, hivm_regbaseintrins.target = #hivm_regbaseintrins.target<"dav-c310">, mix_mode = "aiv", parallel_mode = "simd"} {
+    %0 = llvm.mlir.constant(118784 : i64) : i64
+    %1 = llvm.mlir.constant(108800 : i64) : i64
+    %2 = llvm.mlir.constant(75520 : i64) : i64
+    %3 = llvm.mlir.constant(112128 : i64) : i64
+    %4 = llvm.mlir.constant(1 : i64) : i64
+    %5 = llvm.mlir.constant(82176 : i64) : i64
+    %6 = llvm.mlir.constant(72192 : i64) : i64
+    %7 = llvm.mlir.constant(65536 : i64) : i64
+    %8 = llvm.mlir.constant(0 : i64) : i64
+    %9 = llvm.mlir.constant(1 : i32) : i32
+    %10 = llvm.mlir.constant(8 : i32) : i32
+    %11 = llvm.mlir.constant(832 : i32) : i32
+    %12 = llvm.mlir.constant(831 : i32) : i32
+    %13 = llvm.mlir.constant(56 : i32) : i32
+    %14 = llvm.mlir.constant(46592 : i32) : i32
+    %15 = llvm.mlir.constant(46591 : i32) : i32
+    %16 = llvm.mlir.constant(0 : i32) : i32
+    %17 = llvm.mlir.constant(0 : i8) : i8
+    %18 = llvm.mlir.constant(0.000000e+00 : f32) : f32
+    %19 = llvm.mlir.constant(0 : index) : i64
+    %20 = builtin.unrealized_conversion_cast %19 : i64 to index
+    %21 = hivm.hir.pointer_cast(%1) : memref<832xf32, #hivm.address_space<ub>>
+    %22 = builtin.unrealized_conversion_cast %21 : memref<832xf32, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %23 = hivm.hir.pointer_cast(%0) : memref<832xf32, #hivm.address_space<ub>>
+    %24 = builtin.unrealized_conversion_cast %23 : memref<832xf32, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %25 = hivm.hir.pointer_cast(%2) : memref<832x8xi8, #hivm.address_space<ub>>
+    %26 = builtin.unrealized_conversion_cast %25 : memref<832x8xi8, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %27 = hivm.hir.pointer_cast(%3) : memref<832x8xi8, #hivm.address_space<ub>>
+    %28 = builtin.unrealized_conversion_cast %27 : memref<832x8xi8, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    hivm.hir.set_ctrl false at ctrl[60]
+    hivm.hir.set_ctrl true at ctrl[48]
+    %29 = hivm.hir.get_block_idx -> i64
+    %30 = llvm.trunc %29 : i64 to i32
+    %31 = hivm.hir.pointer_cast(%8) : memref<64x256xf32, #hivm.address_space<ub>>
+    %base_buffer, %offset, %sizes, %strides = memref.extract_strided_metadata %arg2 : memref<?xf32, #hivm.address_space<gm>> -> memref<f32, #hivm.address_space<gm>>, index, index, index
+    %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [0], sizes: [16384], strides: [1] : memref<f32, #hivm.address_space<gm>> to memref<16384xf32, strided<[1]>, #hivm.address_space<gm>>
+    %base_buffer_0, %offset_1, %sizes_2:2, %strides_3:2 = memref.extract_strided_metadata %31 : memref<64x256xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index, index, index
+    %reinterpret_cast_4 = memref.reinterpret_cast %base_buffer_0 to offset: [0], sizes: [16384], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<16384xf32, #hivm.address_space<ub>>
+    hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID0>]
+    hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID1>]
+    hivm.hir.set_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID0>]
+    hivm.hir.set_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID1>]
+    %cast = memref.cast %reinterpret_cast : memref<16384xf32, strided<[1]>, #hivm.address_space<gm>> to memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>
+    %cast_5 = memref.cast %reinterpret_cast_4 : memref<16384xf32, #hivm.address_space<ub>> to memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>
+    call @load_gm_to_ubuf_1d_float(%cast, %cast_5, %16, %18, %20, %16) : (memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>, memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>, i32, f32, index, i32) -> ()
+    %32 = llvm.add %arg5, %15 : i32
+    %33 = llvm.sdiv %32, %14  : i32
+    %34 = llvm.add %arg5, %12 : i32
+    %35 = llvm.sdiv %34, %11  : i32
+    cf.br ^bb1(%16 : i32)
+  ^bb1(%36: i32):  // 2 preds: ^bb0, ^bb10
+    %37 = arith.cmpi slt, %36, %33 : i32
+    cf.cond_br %37, ^bb2, ^bb11
+  ^bb2:  // pred: ^bb1
+    %38 = llvm.sext %36 : i32 to i64
+    %39 = builtin.unrealized_conversion_cast %38 : i64 to index
+    %40 = affine.apply #map5()[%39]
+    %41 = builtin.unrealized_conversion_cast %40 : index to i64
+    %42 = llvm.icmp "eq" %41, %4 : i64
+    %43 = llvm.select %42, %24, %22 : i1, !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %44 = builtin.unrealized_conversion_cast %43 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> to memref<832xf32, #hivm.address_space<ub>>
+    %45 = llvm.zext %42 : i1 to i64
+    %46 = llvm.mul %36, %13 : i32
+    %47 = llvm.add %46, %30 : i32
+    %48 = llvm.icmp "slt" %47, %35 : i32
+    cf.cond_br %48, ^bb3, ^bb10
+  ^bb3:  // pred: ^bb2
+    %49 = hivm.hir.pointer_cast(%7) : memref<832x8xi8, #hivm.address_space<ub>>
+    call @adc_func_outlined_vf_2(%49) {hivm.vector_function, no_inline} : (memref<832x8xi8, #hivm.address_space<ub>>) -> ()
+    %50 = hivm.hir.pointer_cast(%6) : memref<832xf32, #hivm.address_space<ub>>
+    call @adc_func_outlined_vf_3(%50) {hivm.vector_function, no_inline} : (memref<832xf32, #hivm.address_space<ub>>) -> ()
+    %51 = llvm.mul %36, %14 : i32
+    %52 = llvm.mul %30, %11 : i32
+    %53 = llvm.add %51, %52 : i32
+    %54 = llvm.sext %53 : i32 to i64
+    %55 = builtin.unrealized_conversion_cast %54 : i64 to index
+    %56 = llvm.sub %arg5, %52 : i32
+    %57 = llvm.sub %56, %51 : i32
+    %58 = llvm.intr.smin(%57, %11)  : (i32, i32) -> i32
+    %59 = llvm.sext %58 : i32 to i64
+    %60 = builtin.unrealized_conversion_cast %59 : i64 to index
+    cf.br ^bb4(%16, %50 : i32, memref<832xf32, #hivm.address_space<ub>>)
+  ^bb4(%61: i32, %62: memref<832xf32, #hivm.address_space<ub>>):  // 2 preds: ^bb3, ^bb8
+    %63 = arith.cmpi slt, %61, %10 : i32
+    cf.cond_br %63, ^bb5, ^bb9
+  ^bb5:  // pred: ^bb4
+    %64 = llvm.sext %61 : i32 to i64
+    %65 = builtin.unrealized_conversion_cast %64 : i64 to index
+    %66 = affine.apply #map5()[%65]
+    %67 = builtin.unrealized_conversion_cast %66 : index to i64
+    %68 = llvm.icmp "eq" %67, %4 : i64
+    %69 = llvm.select %68, %28, %26 : i1, !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %70 = builtin.unrealized_conversion_cast %69 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> to memref<832x8xi8, #hivm.address_space<ub>>
+    %71 = llvm.zext %68 : i1 to i64
+    %72 = llvm.mul %61, %10 : i32
+    %73 = llvm.sext %72 : i32 to i64
+    %74 = builtin.unrealized_conversion_cast %73 : i64 to index
+    %base_buffer_6, %offset_7, %sizes_8, %strides_9 = memref.extract_strided_metadata %arg3 : memref<?xi8, #hivm.address_space<gm>> -> memref<i8, #hivm.address_space<gm>>, index, index, index
+    %75 = affine.apply #map6()[%55, %74]
+    %reinterpret_cast_10 = memref.reinterpret_cast %base_buffer_6 to offset: [%75], sizes: [%60, 8], strides: [64, 1] : memref<i8, #hivm.address_space<gm>> to memref<?x8xi8, strided<[64, 1], offset: ?>, #hivm.address_space<gm>>
+    %base_buffer_11, %offset_12, %sizes_13:2, %strides_14:2 = memref.extract_strided_metadata %70 : memref<832x8xi8, #hivm.address_space<ub>> -> memref<i8, #hivm.address_space<ub>>, index, index, index, index, index
+    %reinterpret_cast_15 = memref.reinterpret_cast %base_buffer_11 to offset: [0], sizes: [%60, 8], strides: [8, 1] : memref<i8, #hivm.address_space<ub>> to memref<?x8xi8, strided<[8, 1]>, #hivm.address_space<ub>>
+    hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE2>, %71]
+    %cast_16 = memref.cast %reinterpret_cast_10 : memref<?x8xi8, strided<[64, 1], offset: ?>, #hivm.address_space<gm>> to memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<gm>>
+    %cast_17 = memref.cast %reinterpret_cast_15 : memref<?x8xi8, strided<[8, 1]>, #hivm.address_space<ub>> to memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<ub>>
+    call @load_gm_to_ubuf_2d_int8_t(%cast_16, %cast_17, %16, %17, %20, %16) : (memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<gm>>, memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<ub>>, i32, i8, index, i32) -> ()
+    hivm.hir.set_flag[<PIPE_MTE2>, <PIPE_V>, <EVENT_ID0>]
+    %base_buffer_18, %offset_19, %sizes_20:2, %strides_21:2 = memref.extract_strided_metadata %70 : memref<832x8xi8, #hivm.address_space<ub>> -> memref<i8, #hivm.address_space<ub>>, index, index, index, index, index
+    %76 = affine.apply #map4()[%60]
+    %reinterpret_cast_22 = memref.reinterpret_cast %base_buffer_18 to offset: [0], sizes: [%76], strides: [1] : memref<i8, #hivm.address_space<ub>> to memref<?xi8, strided<[1]>, #hivm.address_space<ub>>
+    %base_buffer_23, %offset_24, %sizes_25:2, %strides_26:2 = memref.extract_strided_metadata %49 : memref<832x8xi8, #hivm.address_space<ub>> -> memref<i8, #hivm.address_space<ub>>, index, index, index, index, index
+    %77 = affine.apply #map4()[%60]
+    %reinterpret_cast_27 = memref.reinterpret_cast %base_buffer_23 to offset: [0], sizes: [%77], strides: [1] : memref<i8, #hivm.address_space<ub>> to memref<?xi8, strided<[1]>, #hivm.address_space<ub>>
+    hivm.hir.wait_flag[<PIPE_MTE2>, <PIPE_V>, <EVENT_ID0>]
+    %cast_28 = memref.cast %reinterpret_cast_22 : memref<?xi8, strided<[1]>, #hivm.address_space<ub>> to memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>
+    %cast_29 = memref.cast %reinterpret_cast_27 : memref<?xi8, strided<[1]>, #hivm.address_space<ub>> to memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>
+    call @copy_ubuf_to_ubuf_1d_int8_t(%cast_28, %cast_29) : (memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>, memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>) -> ()
+    hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE2>, %71]
+    %78 = hivm.hir.pointer_cast(%5) : memref<8x832xi32, #hivm.address_space<ub>>
+    call @adc_func_outlined_vf_1(%49, %78) {hivm.vector_function, no_inline} : (memref<832x8xi8, #hivm.address_space<ub>>, memref<8x832xi32, #hivm.address_space<ub>>) -> ()
+    cf.br ^bb6(%16, %62 : i32, memref<832xf32, #hivm.address_space<ub>>)
+  ^bb6(%79: i32, %80: memref<832xf32, #hivm.address_space<ub>>):  // 2 preds: ^bb5, ^bb7
+    %81 = arith.cmpi slt, %79, %10 : i32
+    cf.cond_br %81, ^bb7, ^bb8
+  ^bb7:  // pred: ^bb6
+    %82 = llvm.add %72, %79 : i32
+    %83 = llvm.sext %82 : i32 to i64
+    %84 = builtin.unrealized_conversion_cast %83 : i64 to index
+    %85 = llvm.sext %79 : i32 to i64
+    %86 = builtin.unrealized_conversion_cast %85 : i64 to index
+    %87 = hivm.hir.pointer_cast(%6) : memref<832xf32, #hivm.address_space<ub>>
+    call @adc_func_outlined_vf_0(%80, %78, %86, %31, %84, %87) {hivm.vector_function, no_inline} : (memref<832xf32, #hivm.address_space<ub>>, memref<8x832xi32, #hivm.address_space<ub>>, index, memref<64x256xf32, #hivm.address_space<ub>>, index, memref<832xf32, #hivm.address_space<ub>>) -> ()
+    %88 = arith.addi %79, %9 overflow<nsw> : i32
+    cf.br ^bb6(%88, %87 : i32, memref<832xf32, #hivm.address_space<ub>>)
+  ^bb8:  // pred: ^bb6
+    %89 = arith.addi %61, %9 overflow<nsw> : i32
+    cf.br ^bb4(%89, %80 : i32, memref<832xf32, #hivm.address_space<ub>>)
+  ^bb9:  // pred: ^bb4
+    hivm.hir.wait_flag[<PIPE_MTE3>, <PIPE_V>, %45]
+    call @adc_func_outlined_vf_4(%62, %44) {hivm.vector_function, no_inline} : (memref<832xf32, #hivm.address_space<ub>>, memref<832xf32, #hivm.address_space<ub>>) -> ()
+    hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE3>, <EVENT_ID0>]
+    %base_buffer_30, %offset_31, %sizes_32, %strides_33 = memref.extract_strided_metadata %44 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+    %reinterpret_cast_34 = memref.reinterpret_cast %base_buffer_30 to offset: [0], sizes: [%60], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<?xf32, strided<[1]>, #hivm.address_space<ub>>
+    %base_buffer_35, %offset_36, %sizes_37, %strides_38 = memref.extract_strided_metadata %arg4 : memref<?xf32, #hivm.address_space<gm>> -> memref<f32, #hivm.address_space<gm>>, index, index, index
+    %reinterpret_cast_39 = memref.reinterpret_cast %base_buffer_35 to offset: [%55], sizes: [%60], strides: [1] : memref<f32, #hivm.address_space<gm>> to memref<?xf32, strided<[1], offset: ?>, #hivm.address_space<gm>>
+    hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE3>, <EVENT_ID0>]
+    hivm.hir.pipe_barrier[<PIPE_MTE3>]
+    %cast_40 = memref.cast %reinterpret_cast_34 : memref<?xf32, strided<[1]>, #hivm.address_space<ub>> to memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>
+    %cast_41 = memref.cast %reinterpret_cast_39 : memref<?xf32, strided<[1], offset: ?>, #hivm.address_space<gm>> to memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>
+    call @store_ubuf_to_gm_1d_float(%cast_40, %cast_41, %16) : (memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>, memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>, i32) -> ()
+    hivm.hir.set_flag[<PIPE_MTE3>, <PIPE_V>, %45]
+    cf.br ^bb10
+  ^bb10:  // 2 preds: ^bb2, ^bb9
+    %90 = arith.addi %36, %9 overflow<nsw> : i32
+    cf.br ^bb1(%90 : i32)
+  ^bb11:  // pred: ^bb1
+    hivm.hir.pipe_barrier[<PIPE_ALL>]
+    hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID0>]
+    hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID1>]
+    hivm.hir.wait_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID0>]
+    hivm.hir.wait_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID1>]
+    return
+  }
+}
+
+
+// -----// IR Dump After ConvertAffineToStandard (lower-affine) //----- //
+#map = affine_map<(d0)[s0] -> (d0 + s0)>
+module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #hacc.target_device_spec<#dlti.dl_entry<"AI_CORE_COUNT", 28 : i32>, #dlti.dl_entry<"CUBE_CORE_COUNT", 28 : i32>, #dlti.dl_entry<"VECTOR_CORE_COUNT", 56 : i32>, #dlti.dl_entry<"UB_SIZE", 2031616 : i32>, #dlti.dl_entry<"L1_SIZE", 4194304 : i32>, #dlti.dl_entry<"L0A_SIZE", 524288 : i32>, #dlti.dl_entry<"L0B_SIZE", 524288 : i32>, #dlti.dl_entry<"L0C_SIZE", 2097152 : i32>, #dlti.dl_entry<"UB_ALIGN_SIZE", 256 : i32>, #dlti.dl_entry<"L1_ALIGN_SIZE", 256 : i32>, #dlti.dl_entry<"L0C_ALIGN_SIZE", 4096 : i32>, #dlti.dl_entry<"MINIMAL_D_CACHE_SIZE", 262144 : i32>, #dlti.dl_entry<"MAXIMUM_D_CACHE_SIZE", 983040 : i32>, #dlti.dl_entry<"ARCH", "dav-c310">>>, hacc.target = #hacc.target<"Ascend950PR_9579">, hivm.module_core_type = #hivm.module_core_type<AIV>, memref.memref_as_ptr} {
+  func.func @adc_func_outlined_vf_0(%arg0: memref<832xf32, #hivm.address_space<ub>>, %arg1: memref<8x832xi32, #hivm.address_space<ub>>, %arg2: index, %arg3: memref<64x256xf32, #hivm.address_space<ub>>, %arg4: index, %arg5: memref<832xf32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %0 = llvm.mlir.constant(2 : i32) : i32
+    %1 = llvm.mlir.constant(64 : i32) : i32
+    %2 = llvm.mlir.constant(832 : i32) : i32
+    %3 = llvm.mlir.constant(0 : i32) : i32
+    %4 = llvm.mlir.constant(8 : i32) : i32
+    %5 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%4, %3) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+    %base_buffer, %offset, %sizes:2, %strides:2 = memref.extract_strided_metadata %arg3 : memref<64x256xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index, index, index
+    %c256 = arith.constant 256 : index
+    %6 = arith.muli %arg4, %c256 : index
+    %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [%6], sizes: [256], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<256xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+    %7 = builtin.unrealized_conversion_cast %reinterpret_cast : memref<256xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    cf.br ^bb1(%3 : i32)
+  ^bb1(%8: i32):  // 2 preds: ^bb0, ^bb2
+    %9 = arith.cmpi slt, %8, %2 : i32
+    cf.cond_br %9, ^bb2, ^bb3
+  ^bb2:  // pred: ^bb1
+    %10 = llvm.sext %8 : i32 to i64
+    %11 = builtin.unrealized_conversion_cast %10 : i64 to index
+    %base_buffer_0, %offset_1, %sizes_2, %strides_3 = memref.extract_strided_metadata %arg0 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+    %reinterpret_cast_4 = memref.reinterpret_cast %base_buffer_0 to offset: [%11], sizes: [64], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+    %12 = builtin.unrealized_conversion_cast %reinterpret_cast_4 : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %base_buffer_5, %offset_6, %sizes_7:2, %strides_8:2 = memref.extract_strided_metadata %arg1 : memref<8x832xi32, #hivm.address_space<ub>> -> memref<i32, #hivm.address_space<ub>>, index, index, index, index, index
+    %c832 = arith.constant 832 : index
+    %13 = arith.muli %arg2, %c832 : index
+    %14 = arith.addi %13, %11 : index
+    %reinterpret_cast_9 = memref.reinterpret_cast %base_buffer_5 to offset: [%14], sizes: [64], strides: [1] : memref<i32, #hivm.address_space<ub>> to memref<64xi32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+    %15 = builtin.unrealized_conversion_cast %reinterpret_cast_9 : memref<64xi32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %base_buffer_10, %offset_11, %sizes_12, %strides_13 = memref.extract_strided_metadata %arg5 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+    %reinterpret_cast_14 = memref.reinterpret_cast %base_buffer_10 to offset: [%11], sizes: [64], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+    %16 = builtin.unrealized_conversion_cast %reinterpret_cast_14 : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %17 = llvm.extractvalue %12[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %18 = llvm.extractvalue %12[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %19 = llvm.getelementptr %17[%18] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+    %20 = "hivm_regbaseintrins.intr.hivm.vldsx1.v64f32"(%19, %3, %3, %3) : (!llvm.ptr<6>, i32, i32, i32) -> vector<64xf32>
+    %21 = llvm.extractvalue %15[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %22 = llvm.extractvalue %15[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %23 = llvm.getelementptr %21[%22] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i32
+    %24 = "hivm_regbaseintrins.intr.hivm.vldsx1.v64s32"(%23, %3, %3, %3) : (!llvm.ptr<6>, i32, i32, i32) -> vector<64xi32>
+    %25 = llvm.extractvalue %7[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %26 = llvm.extractvalue %7[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %27 = llvm.getelementptr %25[%26] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+    %28 = "hivm_regbaseintrins.intr.hivm.vgather2_v300.v64f32"(%27, %24, %5) : (!llvm.ptr<6>, vector<64xi32>, vector<256xi1>) -> vector<64xf32>
+    %29 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%4, %3) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+    %30 = "hivm_regbaseintrins.intr.hivm.vadd.s.x"(%20, %28, %29) : (vector<64xf32>, vector<64xf32>, vector<256xi1>) -> vector<64xf32>
+    %31 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%4, %3) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+    %32 = llvm.extractvalue %16[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %33 = llvm.extractvalue %16[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %34 = llvm.getelementptr %32[%33] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+    "hivm_regbaseintrins.intr.hivm.vstsx1.v64f32"(%30, %34, %3, %0, %3, %31) : (vector<64xf32>, !llvm.ptr<6>, i32, i32, i32, vector<256xi1>) -> ()
+    %35 = arith.addi %8, %1 overflow<nsw> : i32
+    cf.br ^bb1(%35 : i32)
+  ^bb3:  // pred: ^bb1
+    return
+  }
+  func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub>>, %arg1: memref<8x832xi32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %0 = llvm.mlir.constant(2 : i32) : i32
+    %1 = llvm.mlir.constant(0 : i8) : i8
+    %2 = llvm.mlir.constant(8 : index) : i64
+    %3 = llvm.mlir.constant(64 : i32) : i32
+    %4 = llvm.mlir.constant(832 : i32) : i32
+    %5 = llvm.mlir.constant(0 : index) : i64
+    %6 = llvm.mlir.constant(0 : i32) : i32
+    %7 = llvm.mlir.constant(8 : i32) : i32
+    %8 = llvm.mlir.constant(1 : i32) : i32
+    cf.br ^bb1(%6 : i32)
+  ^bb1(%9: i32):  // 2 preds: ^bb0, ^bb5
+    %10 = arith.cmpi slt, %9, %7 : i32
+    cf.cond_br %10, ^bb2, ^bb6
+  ^bb2:  // pred: ^bb1
+    %11 = llvm.sext %9 : i32 to i64
+    %12 = builtin.unrealized_conversion_cast %11 : i64 to index
+    cf.br ^bb3(%6 : i32)
+  ^bb3(%13: i32):  // 2 preds: ^bb2, ^bb4
+    %14 = arith.cmpi slt, %13, %4 : i32
+    cf.cond_br %14, ^bb4, ^bb5
+  ^bb4:  // pred: ^bb3
+    %15 = llvm.sext %13 : i32 to i64
+    %16 = builtin.unrealized_conversion_cast %15 : i64 to index
+    %base_buffer, %offset, %sizes:2, %strides:2 = memref.extract_strided_metadata %arg0 : memref<832x8xi8, #hivm.address_space<ub>> -> memref<i8, #hivm.address_space<ub>>, index, index, index, index, index
+    %c8 = arith.constant 8 : index
+    %17 = arith.muli %16, %c8 : index
+    %18 = arith.addi %17, %12 : index
+    %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [%18], sizes: [64, 1], strides: [8, 1] : memref<i8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
+    %19 = builtin.unrealized_conversion_cast %reinterpret_cast : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %20 = llvm.extractvalue %19[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %21 = llvm.extractvalue %19[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %22 = llvm.getelementptr %20[%21] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i8
+    %23 = llvm.mul %5, %2 : i64
+    %24 = llvm.add %23, %5 : i64
+    %25 = llvm.getelementptr %22[%24] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i8
+    %26 = "hivm_regbaseintrins.intr.hivm.vldas"(%25) : (!llvm.ptr<6>) -> vector<32xi8>
+    %27 = "hivm_regbaseintrins.intr.hivm.vldus.post.s8"(%25, %26, %6) : (!llvm.ptr<6>, vector<32xi8>, i32) -> !llvm.struct<(vector<256xi8>, vector<32xi8>, ptr<6>)>
+    %28 = llvm.extractvalue %27[0] : !llvm.struct<(vector<256xi8>, vector<32xi8>, ptr<6>)> 
+    %29 = "hivm_regbaseintrins.intr.hivm.vbr"(%1) : (i8) -> vector<256xi8>
+    %30 = "hivm_regbaseintrins.intr.hivm.vintlv"(%28, %29) : (vector<256xi8>, vector<256xi8>) -> !llvm.struct<(vector<256xi8>, vector<256xi8>)>
+    %31 = llvm.extractvalue %30[0] : !llvm.struct<(vector<256xi8>, vector<256xi8>)> 
+    %32 = "hivm_regbaseintrins.intr.hivm.vintlv"(%31, %29) : (vector<256xi8>, vector<256xi8>) -> !llvm.struct<(vector<256xi8>, vector<256xi8>)>
+    %33 = llvm.extractvalue %32[0] : !llvm.struct<(vector<256xi8>, vector<256xi8>)> 
+    %34 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%7, %6) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+    %35 = "hivm_regbaseintrins.intr.hivm.vcvtii.s82s32.x"(%33, %34, %6) : (vector<256xi8>, vector<256xi1>, i32) -> vector<64xi32>
+    %base_buffer_0, %offset_1, %sizes_2:2, %strides_3:2 = memref.extract_strided_metadata %arg1 : memref<8x832xi32, #hivm.address_space<ub>> -> memref<i32, #hivm.address_space<ub>>, index, index, index, index, index
+    %c832 = arith.constant 832 : index
+    %36 = arith.muli %12, %c832 : index
+    %37 = arith.addi %36, %16 : index
+    %reinterpret_cast_4 = memref.reinterpret_cast %base_buffer_0 to offset: [%37], sizes: [64], strides: [1] : memref<i32, #hivm.address_space<ub>> to memref<64xi32, #map, #hivm.address_space<ub>>
+    %38 = builtin.unrealized_conversion_cast %reinterpret_cast_4 : memref<64xi32, #map, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %39 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%7, %6) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+    %40 = llvm.extractvalue %38[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %41 = llvm.extractvalue %38[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %42 = llvm.getelementptr %40[%41] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i32
+    "hivm_regbaseintrins.intr.hivm.vstsx1.v64s32"(%35, %42, %6, %0, %6, %39) : (vector<64xi32>, !llvm.ptr<6>, i32, i32, i32, vector<256xi1>) -> ()
+    %43 = arith.addi %13, %3 overflow<nsw> : i32
+    cf.br ^bb3(%43 : i32)
+  ^bb5:  // pred: ^bb3
+    %44 = arith.addi %9, %8 overflow<nsw> : i32
+    cf.br ^bb1(%44 : i32)
+  ^bb6:  // pred: ^bb1
+    return
+  }
+  func.func @adc_func_outlined_vf_2(%arg0: memref<832x8xi8, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 8 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %0 = llvm.mlir.constant(8 : i32) : i32
+    %1 = llvm.mlir.constant(5 : i32) : i32
+    %2 = llvm.mlir.constant(0 : i8) : i8
+    %3 = llvm.mlir.constant(1 : i32) : i32
+    %4 = llvm.mlir.constant(832 : i32) : i32
+    %5 = llvm.mlir.constant(0 : i32) : i32
+    %6 = "hivm_regbaseintrins.intr.hivm.pge.b8"(%5, %5) {mask_bit_width = 8 : i32} : (i32, i32) -> vector<256xi1>
+    %7 = "hivm_regbaseintrins.intr.hivm.vdups.z"(%2, %6, %3) : (i8, vector<256xi1>, i32) -> vector<256xi8>
+    cf.br ^bb1(%5 : i32)
+  ^bb1(%8: i32):  // 2 preds: ^bb0, ^bb2
+    %9 = arith.cmpi slt, %8, %4 : i32
+    cf.cond_br %9, ^bb2, ^bb3
+  ^bb2:  // pred: ^bb1
+    %10 = llvm.sext %8 : i32 to i64
+    %11 = builtin.unrealized_conversion_cast %10 : i64 to index
+    %12 = "hivm_regbaseintrins.intr.hivm.pge.b8"(%1, %5) {mask_bit_width = 8 : i32, mask_op_idx = 0 : i32} : (i32, i32) -> vector<256xi1>
+    %base_buffer, %offset, %sizes:2, %strides:2 = memref.extract_strided_metadata %arg0 : memref<832x8xi8, #hivm.address_space<ub>> -> memref<i8, #hivm.address_space<ub>>, index, index, index, index, index
+    %c8 = arith.constant 8 : index
+    %13 = arith.muli %11, %c8 : index
+    %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [%13], sizes: [8], strides: [1] : memref<i8, #hivm.address_space<ub>> to memref<8xi8, #map, #hivm.address_space<ub>>
+    %14 = builtin.unrealized_conversion_cast %reinterpret_cast : memref<8xi8, #map, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %15 = llvm.extractvalue %14[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %16 = llvm.extractvalue %14[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %17 = llvm.getelementptr %15[%16] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i8
+    %18 = "hivm_regbaseintrins.intr.hivm.init.vector.align.data"() : () -> vector<32xi8>
+    %19 = "hivm_regbaseintrins.intr.hivm.vstus.post.s8"(%7, %17, %0, %18) : (vector<256xi8>, !llvm.ptr<6>, i32, vector<32xi8>) -> !llvm.struct<(vector<32xi8>, ptr<6>)>
+    %20 = llvm.extractvalue %19[0] : !llvm.struct<(vector<32xi8>, ptr<6>)> 
+    %21 = llvm.extractvalue %19[1] : !llvm.struct<(vector<32xi8>, ptr<6>)> 
+    "hivm_regbaseintrins.intr.hivm.vstas"(%20, %21, %5, %5) : (vector<32xi8>, !llvm.ptr<6>, i32, i32) -> ()
+    %22 = arith.addi %8, %3 overflow<nsw> : i32
+    cf.br ^bb1(%22 : i32)
+  ^bb3:  // pred: ^bb1
+    return
+  }
+  func.func @adc_func_outlined_vf_3(%arg0: memref<832xf32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %0 = llvm.mlir.constant(2 : i32) : i32
+    %1 = llvm.mlir.constant(1 : i32) : i32
+    %2 = llvm.mlir.constant(64 : i32) : i32
+    %3 = llvm.mlir.constant(832 : i32) : i32
+    %4 = llvm.mlir.constant(0 : i32) : i32
+    %5 = llvm.mlir.constant(0.000000e+00 : f32) : f32
+    %6 = llvm.mlir.constant(8 : i32) : i32
+    %7 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%6, %4) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+    %8 = "hivm_regbaseintrins.intr.hivm.vdups.z"(%5, %7, %1) : (f32, vector<256xi1>, i32) -> vector<64xf32>
+    cf.br ^bb1(%4 : i32)
+  ^bb1(%9: i32):  // 2 preds: ^bb0, ^bb2
+    %10 = arith.cmpi slt, %9, %3 : i32
+    cf.cond_br %10, ^bb2, ^bb3
+  ^bb2:  // pred: ^bb1
+    %11 = llvm.sext %9 : i32 to i64
+    %12 = builtin.unrealized_conversion_cast %11 : i64 to index
+    %base_buffer, %offset, %sizes, %strides = memref.extract_strided_metadata %arg0 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+    %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [%12], sizes: [64], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+    %13 = builtin.unrealized_conversion_cast %reinterpret_cast : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %14 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%6, %4) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+    %15 = llvm.extractvalue %13[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %16 = llvm.extractvalue %13[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %17 = llvm.getelementptr %15[%16] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+    "hivm_regbaseintrins.intr.hivm.vstsx1.v64f32"(%8, %17, %4, %0, %4, %14) : (vector<64xf32>, !llvm.ptr<6>, i32, i32, i32, vector<256xi1>) -> ()
+    %18 = arith.addi %9, %2 overflow<nsw> : i32
+    cf.br ^bb1(%18 : i32)
+  ^bb3:  // pred: ^bb1
+    return
+  }
+  func.func @adc_func_outlined_vf_4(%arg0: memref<832xf32, #hivm.address_space<ub>>, %arg1: memref<832xf32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %0 = llvm.mlir.constant(2 : i32) : i32
+    %1 = llvm.mlir.constant(8 : i32) : i32
+    %2 = llvm.mlir.constant(0 : i32) : i32
+    %3 = llvm.mlir.constant(832 : i32) : i32
+    %4 = llvm.mlir.constant(64 : i32) : i32
+    cf.br ^bb1(%2 : i32)
+  ^bb1(%5: i32):  // 2 preds: ^bb0, ^bb2
+    %6 = arith.cmpi slt, %5, %3 : i32
+    cf.cond_br %6, ^bb2, ^bb3
+  ^bb2:  // pred: ^bb1
+    %7 = llvm.sext %5 : i32 to i64
+    %8 = builtin.unrealized_conversion_cast %7 : i64 to index
+    %base_buffer, %offset, %sizes, %strides = memref.extract_strided_metadata %arg0 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+    %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [%8], sizes: [64], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+    %9 = builtin.unrealized_conversion_cast %reinterpret_cast : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %base_buffer_0, %offset_1, %sizes_2, %strides_3 = memref.extract_strided_metadata %arg1 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+    %reinterpret_cast_4 = memref.reinterpret_cast %base_buffer_0 to offset: [%8], sizes: [64], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+    %10 = builtin.unrealized_conversion_cast %reinterpret_cast_4 : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %11 = llvm.extractvalue %9[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %12 = llvm.extractvalue %9[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %13 = llvm.getelementptr %11[%12] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+    %14 = "hivm_regbaseintrins.intr.hivm.vldsx1.v64f32"(%13, %2, %2, %2) : (!llvm.ptr<6>, i32, i32, i32) -> vector<64xf32>
+    %15 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%1, %2) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+    %16 = "hivm_regbaseintrins.intr.hivm.vsqrt.x"(%14, %15) : (vector<64xf32>, vector<256xi1>) -> vector<64xf32>
+    %17 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%1, %2) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+    %18 = llvm.extractvalue %10[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %19 = llvm.extractvalue %10[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %20 = llvm.getelementptr %18[%19] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+    "hivm_regbaseintrins.intr.hivm.vstsx1.v64f32"(%16, %20, %2, %0, %2, %17) : (vector<64xf32>, !llvm.ptr<6>, i32, i32, i32, vector<256xi1>) -> ()
+    %21 = arith.addi %5, %4 overflow<nsw> : i32
+    cf.br ^bb1(%21 : i32)
+  ^bb3:  // pred: ^bb1
+    return
+  }
+  func.func private @load_gm_to_ubuf_1d_float(memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>, memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>, i32, f32, index, i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface}
+  func.func private @load_gm_to_ubuf_2d_int8_t(memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<gm>>, memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<ub>>, i32, i8, index, i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface}
+  func.func private @copy_ubuf_to_ubuf_1d_int8_t(memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>, memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface}
+  func.func private @store_ubuf_to_gm_1d_float(memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>, memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>, i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface}
+  func.func @adc_func(%arg0: memref<?xi8, #hivm.address_space<gm>> {hacc.arg_type = #hacc.arg_type<sync_block_lock>}, %arg1: memref<?xi8, #hivm.address_space<gm>> {hacc.arg_type = #hacc.arg_type<workspace>}, %arg2: memref<?xf32, #hivm.address_space<gm>>, %arg3: memref<?xi8, #hivm.address_space<gm>>, %arg4: memref<?xf32, #hivm.address_space<gm>>, %arg5: i32, %arg6: i32, %arg7: i32, %arg8: i32) attributes {SyncBlockLockArgIdx = 0 : i64, WorkspaceArgIdx = 1 : i64, func_dyn_memref_args = dense<[true, true, true, true, true, false, false, false, false]> : vector<9xi1>, hacc.entry, hacc.function_kind = #hacc.function_kind<DEVICE>, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vf_mode = #hivm.vf_mode<SIMD>, hivm_regbaseintrins.target = #hivm_regbaseintrins.target<"dav-c310">, mix_mode = "aiv", parallel_mode = "simd"} {
+    %0 = llvm.mlir.constant(118784 : i64) : i64
+    %1 = llvm.mlir.constant(108800 : i64) : i64
+    %2 = llvm.mlir.constant(75520 : i64) : i64
+    %3 = llvm.mlir.constant(112128 : i64) : i64
+    %4 = llvm.mlir.constant(1 : i64) : i64
+    %5 = llvm.mlir.constant(82176 : i64) : i64
+    %6 = llvm.mlir.constant(72192 : i64) : i64
+    %7 = llvm.mlir.constant(65536 : i64) : i64
+    %8 = llvm.mlir.constant(0 : i64) : i64
+    %9 = llvm.mlir.constant(1 : i32) : i32
+    %10 = llvm.mlir.constant(8 : i32) : i32
+    %11 = llvm.mlir.constant(832 : i32) : i32
+    %12 = llvm.mlir.constant(831 : i32) : i32
+    %13 = llvm.mlir.constant(56 : i32) : i32
+    %14 = llvm.mlir.constant(46592 : i32) : i32
+    %15 = llvm.mlir.constant(46591 : i32) : i32
+    %16 = llvm.mlir.constant(0 : i32) : i32
+    %17 = llvm.mlir.constant(0 : i8) : i8
+    %18 = llvm.mlir.constant(0.000000e+00 : f32) : f32
+    %19 = llvm.mlir.constant(0 : index) : i64
+    %20 = builtin.unrealized_conversion_cast %19 : i64 to index
+    %21 = hivm.hir.pointer_cast(%1) : memref<832xf32, #hivm.address_space<ub>>
+    %22 = builtin.unrealized_conversion_cast %21 : memref<832xf32, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %23 = hivm.hir.pointer_cast(%0) : memref<832xf32, #hivm.address_space<ub>>
+    %24 = builtin.unrealized_conversion_cast %23 : memref<832xf32, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %25 = hivm.hir.pointer_cast(%2) : memref<832x8xi8, #hivm.address_space<ub>>
+    %26 = builtin.unrealized_conversion_cast %25 : memref<832x8xi8, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %27 = hivm.hir.pointer_cast(%3) : memref<832x8xi8, #hivm.address_space<ub>>
+    %28 = builtin.unrealized_conversion_cast %27 : memref<832x8xi8, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    hivm.hir.set_ctrl false at ctrl[60]
+    hivm.hir.set_ctrl true at ctrl[48]
+    %29 = hivm.hir.get_block_idx -> i64
+    %30 = llvm.trunc %29 : i64 to i32
+    %31 = hivm.hir.pointer_cast(%8) : memref<64x256xf32, #hivm.address_space<ub>>
+    %base_buffer, %offset, %sizes, %strides = memref.extract_strided_metadata %arg2 : memref<?xf32, #hivm.address_space<gm>> -> memref<f32, #hivm.address_space<gm>>, index, index, index
+    %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [0], sizes: [16384], strides: [1] : memref<f32, #hivm.address_space<gm>> to memref<16384xf32, strided<[1]>, #hivm.address_space<gm>>
+    %base_buffer_0, %offset_1, %sizes_2:2, %strides_3:2 = memref.extract_strided_metadata %31 : memref<64x256xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index, index, index
+    %reinterpret_cast_4 = memref.reinterpret_cast %base_buffer_0 to offset: [0], sizes: [16384], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<16384xf32, #hivm.address_space<ub>>
+    hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID0>]
+    hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID1>]
+    hivm.hir.set_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID0>]
+    hivm.hir.set_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID1>]
+    %cast = memref.cast %reinterpret_cast : memref<16384xf32, strided<[1]>, #hivm.address_space<gm>> to memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>
+    %cast_5 = memref.cast %reinterpret_cast_4 : memref<16384xf32, #hivm.address_space<ub>> to memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>
+    call @load_gm_to_ubuf_1d_float(%cast, %cast_5, %16, %18, %20, %16) : (memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>, memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>, i32, f32, index, i32) -> ()
+    %32 = llvm.add %arg5, %15 : i32
+    %33 = llvm.sdiv %32, %14  : i32
+    %34 = llvm.add %arg5, %12 : i32
+    %35 = llvm.sdiv %34, %11  : i32
+    cf.br ^bb1(%16 : i32)
+  ^bb1(%36: i32):  // 2 preds: ^bb0, ^bb10
+    %37 = arith.cmpi slt, %36, %33 : i32
+    cf.cond_br %37, ^bb2, ^bb11
+  ^bb2:  // pred: ^bb1
+    %38 = llvm.sext %36 : i32 to i64
+    %39 = builtin.unrealized_conversion_cast %38 : i64 to index
+    %c2 = arith.constant 2 : index
+    %40 = arith.remsi %39, %c2 : index
+    %c0 = arith.constant 0 : index
+    %41 = arith.cmpi slt, %40, %c0 : index
+    %42 = arith.addi %40, %c2 : index
+    %43 = arith.select %41, %42, %40 : index
+    %44 = builtin.unrealized_conversion_cast %43 : index to i64
+    %45 = llvm.icmp "eq" %44, %4 : i64
+    %46 = llvm.select %45, %24, %22 : i1, !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %47 = builtin.unrealized_conversion_cast %46 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> to memref<832xf32, #hivm.address_space<ub>>
+    %48 = llvm.zext %45 : i1 to i64
+    %49 = llvm.mul %36, %13 : i32
+    %50 = llvm.add %49, %30 : i32
+    %51 = llvm.icmp "slt" %50, %35 : i32
+    cf.cond_br %51, ^bb3, ^bb10
+  ^bb3:  // pred: ^bb2
+    %52 = hivm.hir.pointer_cast(%7) : memref<832x8xi8, #hivm.address_space<ub>>
+    call @adc_func_outlined_vf_2(%52) {hivm.vector_function, no_inline} : (memref<832x8xi8, #hivm.address_space<ub>>) -> ()
+    %53 = hivm.hir.pointer_cast(%6) : memref<832xf32, #hivm.address_space<ub>>
+    call @adc_func_outlined_vf_3(%53) {hivm.vector_function, no_inline} : (memref<832xf32, #hivm.address_space<ub>>) -> ()
+    %54 = llvm.mul %36, %14 : i32
+    %55 = llvm.mul %30, %11 : i32
+    %56 = llvm.add %54, %55 : i32
+    %57 = llvm.sext %56 : i32 to i64
+    %58 = builtin.unrealized_conversion_cast %57 : i64 to index
+    %59 = llvm.sub %arg5, %55 : i32
+    %60 = llvm.sub %59, %54 : i32
+    %61 = llvm.intr.smin(%60, %11)  : (i32, i32) -> i32
+    %62 = llvm.sext %61 : i32 to i64
+    %63 = builtin.unrealized_conversion_cast %62 : i64 to index
+    cf.br ^bb4(%16, %53 : i32, memref<832xf32, #hivm.address_space<ub>>)
+  ^bb4(%64: i32, %65: memref<832xf32, #hivm.address_space<ub>>):  // 2 preds: ^bb3, ^bb8
+    %66 = arith.cmpi slt, %64, %10 : i32
+    cf.cond_br %66, ^bb5, ^bb9
+  ^bb5:  // pred: ^bb4
+    %67 = llvm.sext %64 : i32 to i64
+    %68 = builtin.unrealized_conversion_cast %67 : i64 to index
+    %c2_6 = arith.constant 2 : index
+    %69 = arith.remsi %68, %c2_6 : index
+    %c0_7 = arith.constant 0 : index
+    %70 = arith.cmpi slt, %69, %c0_7 : index
+    %71 = arith.addi %69, %c2_6 : index
+    %72 = arith.select %70, %71, %69 : index
+    %73 = builtin.unrealized_conversion_cast %72 : index to i64
+    %74 = llvm.icmp "eq" %73, %4 : i64
+    %75 = llvm.select %74, %28, %26 : i1, !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %76 = builtin.unrealized_conversion_cast %75 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> to memref<832x8xi8, #hivm.address_space<ub>>
+    %77 = llvm.zext %74 : i1 to i64
+    %78 = llvm.mul %64, %10 : i32
+    %79 = llvm.sext %78 : i32 to i64
+    %80 = builtin.unrealized_conversion_cast %79 : i64 to index
+    %base_buffer_8, %offset_9, %sizes_10, %strides_11 = memref.extract_strided_metadata %arg3 : memref<?xi8, #hivm.address_space<gm>> -> memref<i8, #hivm.address_space<gm>>, index, index, index
+    %c64 = arith.constant 64 : index
+    %81 = arith.muli %58, %c64 : index
+    %82 = arith.addi %81, %80 : index
+    %reinterpret_cast_12 = memref.reinterpret_cast %base_buffer_8 to offset: [%82], sizes: [%63, 8], strides: [64, 1] : memref<i8, #hivm.address_space<gm>> to memref<?x8xi8, strided<[64, 1], offset: ?>, #hivm.address_space<gm>>
+    %base_buffer_13, %offset_14, %sizes_15:2, %strides_16:2 = memref.extract_strided_metadata %76 : memref<832x8xi8, #hivm.address_space<ub>> -> memref<i8, #hivm.address_space<ub>>, index, index, index, index, index
+    %reinterpret_cast_17 = memref.reinterpret_cast %base_buffer_13 to offset: [0], sizes: [%63, 8], strides: [8, 1] : memref<i8, #hivm.address_space<ub>> to memref<?x8xi8, strided<[8, 1]>, #hivm.address_space<ub>>
+    hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE2>, %77]
+    %cast_18 = memref.cast %reinterpret_cast_12 : memref<?x8xi8, strided<[64, 1], offset: ?>, #hivm.address_space<gm>> to memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<gm>>
+    %cast_19 = memref.cast %reinterpret_cast_17 : memref<?x8xi8, strided<[8, 1]>, #hivm.address_space<ub>> to memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<ub>>
+    call @load_gm_to_ubuf_2d_int8_t(%cast_18, %cast_19, %16, %17, %20, %16) : (memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<gm>>, memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<ub>>, i32, i8, index, i32) -> ()
+    hivm.hir.set_flag[<PIPE_MTE2>, <PIPE_V>, <EVENT_ID0>]
+    %base_buffer_20, %offset_21, %sizes_22:2, %strides_23:2 = memref.extract_strided_metadata %76 : memref<832x8xi8, #hivm.address_space<ub>> -> memref<i8, #hivm.address_space<ub>>, index, index, index, index, index
+    %c8 = arith.constant 8 : index
+    %83 = arith.muli %63, %c8 : index
+    %reinterpret_cast_24 = memref.reinterpret_cast %base_buffer_20 to offset: [0], sizes: [%83], strides: [1] : memref<i8, #hivm.address_space<ub>> to memref<?xi8, strided<[1]>, #hivm.address_space<ub>>
+    %base_buffer_25, %offset_26, %sizes_27:2, %strides_28:2 = memref.extract_strided_metadata %52 : memref<832x8xi8, #hivm.address_space<ub>> -> memref<i8, #hivm.address_space<ub>>, index, index, index, index, index
+    %c8_29 = arith.constant 8 : index
+    %84 = arith.muli %63, %c8_29 : index
+    %reinterpret_cast_30 = memref.reinterpret_cast %base_buffer_25 to offset: [0], sizes: [%84], strides: [1] : memref<i8, #hivm.address_space<ub>> to memref<?xi8, strided<[1]>, #hivm.address_space<ub>>
+    hivm.hir.wait_flag[<PIPE_MTE2>, <PIPE_V>, <EVENT_ID0>]
+    %cast_31 = memref.cast %reinterpret_cast_24 : memref<?xi8, strided<[1]>, #hivm.address_space<ub>> to memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>
+    %cast_32 = memref.cast %reinterpret_cast_30 : memref<?xi8, strided<[1]>, #hivm.address_space<ub>> to memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>
+    call @copy_ubuf_to_ubuf_1d_int8_t(%cast_31, %cast_32) : (memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>, memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>) -> ()
+    hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE2>, %77]
+    %85 = hivm.hir.pointer_cast(%5) : memref<8x832xi32, #hivm.address_space<ub>>
+    call @adc_func_outlined_vf_1(%52, %85) {hivm.vector_function, no_inline} : (memref<832x8xi8, #hivm.address_space<ub>>, memref<8x832xi32, #hivm.address_space<ub>>) -> ()
+    cf.br ^bb6(%16, %65 : i32, memref<832xf32, #hivm.address_space<ub>>)
+  ^bb6(%86: i32, %87: memref<832xf32, #hivm.address_space<ub>>):  // 2 preds: ^bb5, ^bb7
+    %88 = arith.cmpi slt, %86, %10 : i32
+    cf.cond_br %88, ^bb7, ^bb8
+  ^bb7:  // pred: ^bb6
+    %89 = llvm.add %78, %86 : i32
+    %90 = llvm.sext %89 : i32 to i64
+    %91 = builtin.unrealized_conversion_cast %90 : i64 to index
+    %92 = llvm.sext %86 : i32 to i64
+    %93 = builtin.unrealized_conversion_cast %92 : i64 to index
+    %94 = hivm.hir.pointer_cast(%6) : memref<832xf32, #hivm.address_space<ub>>
+    call @adc_func_outlined_vf_0(%87, %85, %93, %31, %91, %94) {hivm.vector_function, no_inline} : (memref<832xf32, #hivm.address_space<ub>>, memref<8x832xi32, #hivm.address_space<ub>>, index, memref<64x256xf32, #hivm.address_space<ub>>, index, memref<832xf32, #hivm.address_space<ub>>) -> ()
+    %95 = arith.addi %86, %9 overflow<nsw> : i32
+    cf.br ^bb6(%95, %94 : i32, memref<832xf32, #hivm.address_space<ub>>)
+  ^bb8:  // pred: ^bb6
+    %96 = arith.addi %64, %9 overflow<nsw> : i32
+    cf.br ^bb4(%96, %87 : i32, memref<832xf32, #hivm.address_space<ub>>)
+  ^bb9:  // pred: ^bb4
+    hivm.hir.wait_flag[<PIPE_MTE3>, <PIPE_V>, %48]
+    call @adc_func_outlined_vf_4(%65, %47) {hivm.vector_function, no_inline} : (memref<832xf32, #hivm.address_space<ub>>, memref<832xf32, #hivm.address_space<ub>>) -> ()
+    hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE3>, <EVENT_ID0>]
+    %base_buffer_33, %offset_34, %sizes_35, %strides_36 = memref.extract_strided_metadata %47 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+    %reinterpret_cast_37 = memref.reinterpret_cast %base_buffer_33 to offset: [0], sizes: [%63], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<?xf32, strided<[1]>, #hivm.address_space<ub>>
+    %base_buffer_38, %offset_39, %sizes_40, %strides_41 = memref.extract_strided_metadata %arg4 : memref<?xf32, #hivm.address_space<gm>> -> memref<f32, #hivm.address_space<gm>>, index, index, index
+    %reinterpret_cast_42 = memref.reinterpret_cast %base_buffer_38 to offset: [%58], sizes: [%63], strides: [1] : memref<f32, #hivm.address_space<gm>> to memref<?xf32, strided<[1], offset: ?>, #hivm.address_space<gm>>
+    hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE3>, <EVENT_ID0>]
+    hivm.hir.pipe_barrier[<PIPE_MTE3>]
+    %cast_43 = memref.cast %reinterpret_cast_37 : memref<?xf32, strided<[1]>, #hivm.address_space<ub>> to memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>
+    %cast_44 = memref.cast %reinterpret_cast_42 : memref<?xf32, strided<[1], offset: ?>, #hivm.address_space<gm>> to memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>
+    call @store_ubuf_to_gm_1d_float(%cast_43, %cast_44, %16) : (memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>, memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>, i32) -> ()
+    hivm.hir.set_flag[<PIPE_MTE3>, <PIPE_V>, %48]
+    cf.br ^bb10
+  ^bb10:  // 2 preds: ^bb2, ^bb9
+    %97 = arith.addi %36, %9 overflow<nsw> : i32
+    cf.br ^bb1(%97 : i32)
+  ^bb11:  // pred: ^bb1
+    hivm.hir.pipe_barrier[<PIPE_ALL>]
+    hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID0>]
+    hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID1>]
+    hivm.hir.wait_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID0>]
+    hivm.hir.wait_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID1>]
+    return
+  }
+}
+
+
+// -----// IR Dump Before ArithExpandOpsPass (arith-expand) //----- //
+#map = affine_map<(d0)[s0] -> (d0 + s0)>
+module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #hacc.target_device_spec<#dlti.dl_entry<"AI_CORE_COUNT", 28 : i32>, #dlti.dl_entry<"CUBE_CORE_COUNT", 28 : i32>, #dlti.dl_entry<"VECTOR_CORE_COUNT", 56 : i32>, #dlti.dl_entry<"UB_SIZE", 2031616 : i32>, #dlti.dl_entry<"L1_SIZE", 4194304 : i32>, #dlti.dl_entry<"L0A_SIZE", 524288 : i32>, #dlti.dl_entry<"L0B_SIZE", 524288 : i32>, #dlti.dl_entry<"L0C_SIZE", 2097152 : i32>, #dlti.dl_entry<"UB_ALIGN_SIZE", 256 : i32>, #dlti.dl_entry<"L1_ALIGN_SIZE", 256 : i32>, #dlti.dl_entry<"L0C_ALIGN_SIZE", 4096 : i32>, #dlti.dl_entry<"MINIMAL_D_CACHE_SIZE", 262144 : i32>, #dlti.dl_entry<"MAXIMUM_D_CACHE_SIZE", 983040 : i32>, #dlti.dl_entry<"ARCH", "dav-c310">>>, hacc.target = #hacc.target<"Ascend950PR_9579">, hivm.module_core_type = #hivm.module_core_type<AIV>, memref.memref_as_ptr} {
+  func.func @adc_func_outlined_vf_0(%arg0: memref<832xf32, #hivm.address_space<ub>>, %arg1: memref<8x832xi32, #hivm.address_space<ub>>, %arg2: index, %arg3: memref<64x256xf32, #hivm.address_space<ub>>, %arg4: index, %arg5: memref<832xf32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %0 = llvm.mlir.constant(2 : i32) : i32
+    %1 = llvm.mlir.constant(64 : i32) : i32
+    %2 = llvm.mlir.constant(832 : i32) : i32
+    %3 = llvm.mlir.constant(0 : i32) : i32
+    %4 = llvm.mlir.constant(8 : i32) : i32
+    %5 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%4, %3) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+    %base_buffer, %offset, %sizes:2, %strides:2 = memref.extract_strided_metadata %arg3 : memref<64x256xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index, index, index
+    %c256 = arith.constant 256 : index
+    %6 = arith.muli %arg4, %c256 : index
+    %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [%6], sizes: [256], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<256xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+    %7 = builtin.unrealized_conversion_cast %reinterpret_cast : memref<256xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    cf.br ^bb1(%3 : i32)
+  ^bb1(%8: i32):  // 2 preds: ^bb0, ^bb2
+    %9 = arith.cmpi slt, %8, %2 : i32
+    cf.cond_br %9, ^bb2, ^bb3
+  ^bb2:  // pred: ^bb1
+    %10 = llvm.sext %8 : i32 to i64
+    %11 = builtin.unrealized_conversion_cast %10 : i64 to index
+    %base_buffer_0, %offset_1, %sizes_2, %strides_3 = memref.extract_strided_metadata %arg0 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+    %reinterpret_cast_4 = memref.reinterpret_cast %base_buffer_0 to offset: [%11], sizes: [64], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+    %12 = builtin.unrealized_conversion_cast %reinterpret_cast_4 : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %base_buffer_5, %offset_6, %sizes_7:2, %strides_8:2 = memref.extract_strided_metadata %arg1 : memref<8x832xi32, #hivm.address_space<ub>> -> memref<i32, #hivm.address_space<ub>>, index, index, index, index, index
+    %c832 = arith.constant 832 : index
+    %13 = arith.muli %arg2, %c832 : index
+    %14 = arith.addi %13, %11 : index
+    %reinterpret_cast_9 = memref.reinterpret_cast %base_buffer_5 to offset: [%14], sizes: [64], strides: [1] : memref<i32, #hivm.address_space<ub>> to memref<64xi32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+    %15 = builtin.unrealized_conversion_cast %reinterpret_cast_9 : memref<64xi32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %base_buffer_10, %offset_11, %sizes_12, %strides_13 = memref.extract_strided_metadata %arg5 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+    %reinterpret_cast_14 = memref.reinterpret_cast %base_buffer_10 to offset: [%11], sizes: [64], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+    %16 = builtin.unrealized_conversion_cast %reinterpret_cast_14 : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %17 = llvm.extractvalue %12[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %18 = llvm.extractvalue %12[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %19 = llvm.getelementptr %17[%18] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+    %20 = "hivm_regbaseintrins.intr.hivm.vldsx1.v64f32"(%19, %3, %3, %3) : (!llvm.ptr<6>, i32, i32, i32) -> vector<64xf32>
+    %21 = llvm.extractvalue %15[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %22 = llvm.extractvalue %15[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %23 = llvm.getelementptr %21[%22] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i32
+    %24 = "hivm_regbaseintrins.intr.hivm.vldsx1.v64s32"(%23, %3, %3, %3) : (!llvm.ptr<6>, i32, i32, i32) -> vector<64xi32>
+    %25 = llvm.extractvalue %7[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %26 = llvm.extractvalue %7[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %27 = llvm.getelementptr %25[%26] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+    %28 = "hivm_regbaseintrins.intr.hivm.vgather2_v300.v64f32"(%27, %24, %5) : (!llvm.ptr<6>, vector<64xi32>, vector<256xi1>) -> vector<64xf32>
+    %29 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%4, %3) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+    %30 = "hivm_regbaseintrins.intr.hivm.vadd.s.x"(%20, %28, %29) : (vector<64xf32>, vector<64xf32>, vector<256xi1>) -> vector<64xf32>
+    %31 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%4, %3) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+    %32 = llvm.extractvalue %16[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %33 = llvm.extractvalue %16[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %34 = llvm.getelementptr %32[%33] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+    "hivm_regbaseintrins.intr.hivm.vstsx1.v64f32"(%30, %34, %3, %0, %3, %31) : (vector<64xf32>, !llvm.ptr<6>, i32, i32, i32, vector<256xi1>) -> ()
+    %35 = arith.addi %8, %1 overflow<nsw> : i32
+    cf.br ^bb1(%35 : i32)
+  ^bb3:  // pred: ^bb1
+    return
+  }
+  func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub>>, %arg1: memref<8x832xi32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %0 = llvm.mlir.constant(2 : i32) : i32
+    %1 = llvm.mlir.constant(0 : i8) : i8
+    %2 = llvm.mlir.constant(8 : index) : i64
+    %3 = llvm.mlir.constant(64 : i32) : i32
+    %4 = llvm.mlir.constant(832 : i32) : i32
+    %5 = llvm.mlir.constant(0 : index) : i64
+    %6 = llvm.mlir.constant(0 : i32) : i32
+    %7 = llvm.mlir.constant(8 : i32) : i32
+    %8 = llvm.mlir.constant(1 : i32) : i32
+    cf.br ^bb1(%6 : i32)
+  ^bb1(%9: i32):  // 2 preds: ^bb0, ^bb5
+    %10 = arith.cmpi slt, %9, %7 : i32
+    cf.cond_br %10, ^bb2, ^bb6
+  ^bb2:  // pred: ^bb1
+    %11 = llvm.sext %9 : i32 to i64
+    %12 = builtin.unrealized_conversion_cast %11 : i64 to index
+    cf.br ^bb3(%6 : i32)
+  ^bb3(%13: i32):  // 2 preds: ^bb2, ^bb4
+    %14 = arith.cmpi slt, %13, %4 : i32
+    cf.cond_br %14, ^bb4, ^bb5
+  ^bb4:  // pred: ^bb3
+    %15 = llvm.sext %13 : i32 to i64
+    %16 = builtin.unrealized_conversion_cast %15 : i64 to index
+    %base_buffer, %offset, %sizes:2, %strides:2 = memref.extract_strided_metadata %arg0 : memref<832x8xi8, #hivm.address_space<ub>> -> memref<i8, #hivm.address_space<ub>>, index, index, index, index, index
+    %c8 = arith.constant 8 : index
+    %17 = arith.muli %16, %c8 : index
+    %18 = arith.addi %17, %12 : index
+    %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [%18], sizes: [64, 1], strides: [8, 1] : memref<i8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
+    %19 = builtin.unrealized_conversion_cast %reinterpret_cast : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %20 = llvm.extractvalue %19[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %21 = llvm.extractvalue %19[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %22 = llvm.getelementptr %20[%21] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i8
+    %23 = llvm.mul %5, %2 : i64
+    %24 = llvm.add %23, %5 : i64
+    %25 = llvm.getelementptr %22[%24] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i8
+    %26 = "hivm_regbaseintrins.intr.hivm.vldas"(%25) : (!llvm.ptr<6>) -> vector<32xi8>
+    %27 = "hivm_regbaseintrins.intr.hivm.vldus.post.s8"(%25, %26, %6) : (!llvm.ptr<6>, vector<32xi8>, i32) -> !llvm.struct<(vector<256xi8>, vector<32xi8>, ptr<6>)>
+    %28 = llvm.extractvalue %27[0] : !llvm.struct<(vector<256xi8>, vector<32xi8>, ptr<6>)> 
+    %29 = "hivm_regbaseintrins.intr.hivm.vbr"(%1) : (i8) -> vector<256xi8>
+    %30 = "hivm_regbaseintrins.intr.hivm.vintlv"(%28, %29) : (vector<256xi8>, vector<256xi8>) -> !llvm.struct<(vector<256xi8>, vector<256xi8>)>
+    %31 = llvm.extractvalue %30[0] : !llvm.struct<(vector<256xi8>, vector<256xi8>)> 
+    %32 = "hivm_regbaseintrins.intr.hivm.vintlv"(%31, %29) : (vector<256xi8>, vector<256xi8>) -> !llvm.struct<(vector<256xi8>, vector<256xi8>)>
+    %33 = llvm.extractvalue %32[0] : !llvm.struct<(vector<256xi8>, vector<256xi8>)> 
+    %34 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%7, %6) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+    %35 = "hivm_regbaseintrins.intr.hivm.vcvtii.s82s32.x"(%33, %34, %6) : (vector<256xi8>, vector<256xi1>, i32) -> vector<64xi32>
+    %base_buffer_0, %offset_1, %sizes_2:2, %strides_3:2 = memref.extract_strided_metadata %arg1 : memref<8x832xi32, #hivm.address_space<ub>> -> memref<i32, #hivm.address_space<ub>>, index, index, index, index, index
+    %c832 = arith.constant 832 : index
+    %36 = arith.muli %12, %c832 : index
+    %37 = arith.addi %36, %16 : index
+    %reinterpret_cast_4 = memref.reinterpret_cast %base_buffer_0 to offset: [%37], sizes: [64], strides: [1] : memref<i32, #hivm.address_space<ub>> to memref<64xi32, #map, #hivm.address_space<ub>>
+    %38 = builtin.unrealized_conversion_cast %reinterpret_cast_4 : memref<64xi32, #map, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %39 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%7, %6) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+    %40 = llvm.extractvalue %38[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %41 = llvm.extractvalue %38[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %42 = llvm.getelementptr %40[%41] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i32
+    "hivm_regbaseintrins.intr.hivm.vstsx1.v64s32"(%35, %42, %6, %0, %6, %39) : (vector<64xi32>, !llvm.ptr<6>, i32, i32, i32, vector<256xi1>) -> ()
+    %43 = arith.addi %13, %3 overflow<nsw> : i32
+    cf.br ^bb3(%43 : i32)
+  ^bb5:  // pred: ^bb3
+    %44 = arith.addi %9, %8 overflow<nsw> : i32
+    cf.br ^bb1(%44 : i32)
+  ^bb6:  // pred: ^bb1
+    return
+  }
+  func.func @adc_func_outlined_vf_2(%arg0: memref<832x8xi8, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 8 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %0 = llvm.mlir.constant(8 : i32) : i32
+    %1 = llvm.mlir.constant(5 : i32) : i32
+    %2 = llvm.mlir.constant(0 : i8) : i8
+    %3 = llvm.mlir.constant(1 : i32) : i32
+    %4 = llvm.mlir.constant(832 : i32) : i32
+    %5 = llvm.mlir.constant(0 : i32) : i32
+    %6 = "hivm_regbaseintrins.intr.hivm.pge.b8"(%5, %5) {mask_bit_width = 8 : i32} : (i32, i32) -> vector<256xi1>
+    %7 = "hivm_regbaseintrins.intr.hivm.vdups.z"(%2, %6, %3) : (i8, vector<256xi1>, i32) -> vector<256xi8>
+    cf.br ^bb1(%5 : i32)
+  ^bb1(%8: i32):  // 2 preds: ^bb0, ^bb2
+    %9 = arith.cmpi slt, %8, %4 : i32
+    cf.cond_br %9, ^bb2, ^bb3
+  ^bb2:  // pred: ^bb1
+    %10 = llvm.sext %8 : i32 to i64
+    %11 = builtin.unrealized_conversion_cast %10 : i64 to index
+    %12 = "hivm_regbaseintrins.intr.hivm.pge.b8"(%1, %5) {mask_bit_width = 8 : i32, mask_op_idx = 0 : i32} : (i32, i32) -> vector<256xi1>
+    %base_buffer, %offset, %sizes:2, %strides:2 = memref.extract_strided_metadata %arg0 : memref<832x8xi8, #hivm.address_space<ub>> -> memref<i8, #hivm.address_space<ub>>, index, index, index, index, index
+    %c8 = arith.constant 8 : index
+    %13 = arith.muli %11, %c8 : index
+    %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [%13], sizes: [8], strides: [1] : memref<i8, #hivm.address_space<ub>> to memref<8xi8, #map, #hivm.address_space<ub>>
+    %14 = builtin.unrealized_conversion_cast %reinterpret_cast : memref<8xi8, #map, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %15 = llvm.extractvalue %14[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %16 = llvm.extractvalue %14[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %17 = llvm.getelementptr %15[%16] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i8
+    %18 = "hivm_regbaseintrins.intr.hivm.init.vector.align.data"() : () -> vector<32xi8>
+    %19 = "hivm_regbaseintrins.intr.hivm.vstus.post.s8"(%7, %17, %0, %18) : (vector<256xi8>, !llvm.ptr<6>, i32, vector<32xi8>) -> !llvm.struct<(vector<32xi8>, ptr<6>)>
+    %20 = llvm.extractvalue %19[0] : !llvm.struct<(vector<32xi8>, ptr<6>)> 
+    %21 = llvm.extractvalue %19[1] : !llvm.struct<(vector<32xi8>, ptr<6>)> 
+    "hivm_regbaseintrins.intr.hivm.vstas"(%20, %21, %5, %5) : (vector<32xi8>, !llvm.ptr<6>, i32, i32) -> ()
+    %22 = arith.addi %8, %3 overflow<nsw> : i32
+    cf.br ^bb1(%22 : i32)
+  ^bb3:  // pred: ^bb1
+    return
+  }
+  func.func @adc_func_outlined_vf_3(%arg0: memref<832xf32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %0 = llvm.mlir.constant(2 : i32) : i32
+    %1 = llvm.mlir.constant(1 : i32) : i32
+    %2 = llvm.mlir.constant(64 : i32) : i32
+    %3 = llvm.mlir.constant(832 : i32) : i32
+    %4 = llvm.mlir.constant(0 : i32) : i32
+    %5 = llvm.mlir.constant(0.000000e+00 : f32) : f32
+    %6 = llvm.mlir.constant(8 : i32) : i32
+    %7 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%6, %4) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+    %8 = "hivm_regbaseintrins.intr.hivm.vdups.z"(%5, %7, %1) : (f32, vector<256xi1>, i32) -> vector<64xf32>
+    cf.br ^bb1(%4 : i32)
+  ^bb1(%9: i32):  // 2 preds: ^bb0, ^bb2
+    %10 = arith.cmpi slt, %9, %3 : i32
+    cf.cond_br %10, ^bb2, ^bb3
+  ^bb2:  // pred: ^bb1
+    %11 = llvm.sext %9 : i32 to i64
+    %12 = builtin.unrealized_conversion_cast %11 : i64 to index
+    %base_buffer, %offset, %sizes, %strides = memref.extract_strided_metadata %arg0 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+    %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [%12], sizes: [64], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+    %13 = builtin.unrealized_conversion_cast %reinterpret_cast : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %14 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%6, %4) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+    %15 = llvm.extractvalue %13[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %16 = llvm.extractvalue %13[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %17 = llvm.getelementptr %15[%16] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+    "hivm_regbaseintrins.intr.hivm.vstsx1.v64f32"(%8, %17, %4, %0, %4, %14) : (vector<64xf32>, !llvm.ptr<6>, i32, i32, i32, vector<256xi1>) -> ()
+    %18 = arith.addi %9, %2 overflow<nsw> : i32
+    cf.br ^bb1(%18 : i32)
+  ^bb3:  // pred: ^bb1
+    return
+  }
+  func.func @adc_func_outlined_vf_4(%arg0: memref<832xf32, #hivm.address_space<ub>>, %arg1: memref<832xf32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %0 = llvm.mlir.constant(2 : i32) : i32
+    %1 = llvm.mlir.constant(8 : i32) : i32
+    %2 = llvm.mlir.constant(0 : i32) : i32
+    %3 = llvm.mlir.constant(832 : i32) : i32
+    %4 = llvm.mlir.constant(64 : i32) : i32
+    cf.br ^bb1(%2 : i32)
+  ^bb1(%5: i32):  // 2 preds: ^bb0, ^bb2
+    %6 = arith.cmpi slt, %5, %3 : i32
+    cf.cond_br %6, ^bb2, ^bb3
+  ^bb2:  // pred: ^bb1
+    %7 = llvm.sext %5 : i32 to i64
+    %8 = builtin.unrealized_conversion_cast %7 : i64 to index
+    %base_buffer, %offset, %sizes, %strides = memref.extract_strided_metadata %arg0 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+    %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [%8], sizes: [64], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+    %9 = builtin.unrealized_conversion_cast %reinterpret_cast : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %base_buffer_0, %offset_1, %sizes_2, %strides_3 = memref.extract_strided_metadata %arg1 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+    %reinterpret_cast_4 = memref.reinterpret_cast %base_buffer_0 to offset: [%8], sizes: [64], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+    %10 = builtin.unrealized_conversion_cast %reinterpret_cast_4 : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %11 = llvm.extractvalue %9[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %12 = llvm.extractvalue %9[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %13 = llvm.getelementptr %11[%12] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+    %14 = "hivm_regbaseintrins.intr.hivm.vldsx1.v64f32"(%13, %2, %2, %2) : (!llvm.ptr<6>, i32, i32, i32) -> vector<64xf32>
+    %15 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%1, %2) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+    %16 = "hivm_regbaseintrins.intr.hivm.vsqrt.x"(%14, %15) : (vector<64xf32>, vector<256xi1>) -> vector<64xf32>
+    %17 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%1, %2) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+    %18 = llvm.extractvalue %10[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %19 = llvm.extractvalue %10[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %20 = llvm.getelementptr %18[%19] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+    "hivm_regbaseintrins.intr.hivm.vstsx1.v64f32"(%16, %20, %2, %0, %2, %17) : (vector<64xf32>, !llvm.ptr<6>, i32, i32, i32, vector<256xi1>) -> ()
+    %21 = arith.addi %5, %4 overflow<nsw> : i32
+    cf.br ^bb1(%21 : i32)
+  ^bb3:  // pred: ^bb1
+    return
+  }
+  func.func private @load_gm_to_ubuf_1d_float(memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>, memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>, i32, f32, index, i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface}
+  func.func private @load_gm_to_ubuf_2d_int8_t(memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<gm>>, memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<ub>>, i32, i8, index, i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface}
+  func.func private @copy_ubuf_to_ubuf_1d_int8_t(memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>, memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface}
+  func.func private @store_ubuf_to_gm_1d_float(memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>, memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>, i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface}
+  func.func @adc_func(%arg0: memref<?xi8, #hivm.address_space<gm>> {hacc.arg_type = #hacc.arg_type<sync_block_lock>}, %arg1: memref<?xi8, #hivm.address_space<gm>> {hacc.arg_type = #hacc.arg_type<workspace>}, %arg2: memref<?xf32, #hivm.address_space<gm>>, %arg3: memref<?xi8, #hivm.address_space<gm>>, %arg4: memref<?xf32, #hivm.address_space<gm>>, %arg5: i32, %arg6: i32, %arg7: i32, %arg8: i32) attributes {SyncBlockLockArgIdx = 0 : i64, WorkspaceArgIdx = 1 : i64, func_dyn_memref_args = dense<[true, true, true, true, true, false, false, false, false]> : vector<9xi1>, hacc.entry, hacc.function_kind = #hacc.function_kind<DEVICE>, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vf_mode = #hivm.vf_mode<SIMD>, hivm_regbaseintrins.target = #hivm_regbaseintrins.target<"dav-c310">, mix_mode = "aiv", parallel_mode = "simd"} {
+    %0 = llvm.mlir.constant(118784 : i64) : i64
+    %1 = llvm.mlir.constant(108800 : i64) : i64
+    %2 = llvm.mlir.constant(75520 : i64) : i64
+    %3 = llvm.mlir.constant(112128 : i64) : i64
+    %4 = llvm.mlir.constant(1 : i64) : i64
+    %5 = llvm.mlir.constant(82176 : i64) : i64
+    %6 = llvm.mlir.constant(72192 : i64) : i64
+    %7 = llvm.mlir.constant(65536 : i64) : i64
+    %8 = llvm.mlir.constant(0 : i64) : i64
+    %9 = llvm.mlir.constant(1 : i32) : i32
+    %10 = llvm.mlir.constant(8 : i32) : i32
+    %11 = llvm.mlir.constant(832 : i32) : i32
+    %12 = llvm.mlir.constant(831 : i32) : i32
+    %13 = llvm.mlir.constant(56 : i32) : i32
+    %14 = llvm.mlir.constant(46592 : i32) : i32
+    %15 = llvm.mlir.constant(46591 : i32) : i32
+    %16 = llvm.mlir.constant(0 : i32) : i32
+    %17 = llvm.mlir.constant(0 : i8) : i8
+    %18 = llvm.mlir.constant(0.000000e+00 : f32) : f32
+    %19 = llvm.mlir.constant(0 : index) : i64
+    %20 = builtin.unrealized_conversion_cast %19 : i64 to index
+    %21 = hivm.hir.pointer_cast(%1) : memref<832xf32, #hivm.address_space<ub>>
+    %22 = builtin.unrealized_conversion_cast %21 : memref<832xf32, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %23 = hivm.hir.pointer_cast(%0) : memref<832xf32, #hivm.address_space<ub>>
+    %24 = builtin.unrealized_conversion_cast %23 : memref<832xf32, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %25 = hivm.hir.pointer_cast(%2) : memref<832x8xi8, #hivm.address_space<ub>>
+    %26 = builtin.unrealized_conversion_cast %25 : memref<832x8xi8, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %27 = hivm.hir.pointer_cast(%3) : memref<832x8xi8, #hivm.address_space<ub>>
+    %28 = builtin.unrealized_conversion_cast %27 : memref<832x8xi8, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    hivm.hir.set_ctrl false at ctrl[60]
+    hivm.hir.set_ctrl true at ctrl[48]
+    %29 = hivm.hir.get_block_idx -> i64
+    %30 = llvm.trunc %29 : i64 to i32
+    %31 = hivm.hir.pointer_cast(%8) : memref<64x256xf32, #hivm.address_space<ub>>
+    %base_buffer, %offset, %sizes, %strides = memref.extract_strided_metadata %arg2 : memref<?xf32, #hivm.address_space<gm>> -> memref<f32, #hivm.address_space<gm>>, index, index, index
+    %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [0], sizes: [16384], strides: [1] : memref<f32, #hivm.address_space<gm>> to memref<16384xf32, strided<[1]>, #hivm.address_space<gm>>
+    %base_buffer_0, %offset_1, %sizes_2:2, %strides_3:2 = memref.extract_strided_metadata %31 : memref<64x256xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index, index, index
+    %reinterpret_cast_4 = memref.reinterpret_cast %base_buffer_0 to offset: [0], sizes: [16384], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<16384xf32, #hivm.address_space<ub>>
+    hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID0>]
+    hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID1>]
+    hivm.hir.set_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID0>]
+    hivm.hir.set_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID1>]
+    %cast = memref.cast %reinterpret_cast : memref<16384xf32, strided<[1]>, #hivm.address_space<gm>> to memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>
+    %cast_5 = memref.cast %reinterpret_cast_4 : memref<16384xf32, #hivm.address_space<ub>> to memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>
+    call @load_gm_to_ubuf_1d_float(%cast, %cast_5, %16, %18, %20, %16) : (memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>, memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>, i32, f32, index, i32) -> ()
+    %32 = llvm.add %arg5, %15 : i32
+    %33 = llvm.sdiv %32, %14  : i32
+    %34 = llvm.add %arg5, %12 : i32
+    %35 = llvm.sdiv %34, %11  : i32
+    cf.br ^bb1(%16 : i32)
+  ^bb1(%36: i32):  // 2 preds: ^bb0, ^bb10
+    %37 = arith.cmpi slt, %36, %33 : i32
+    cf.cond_br %37, ^bb2, ^bb11
+  ^bb2:  // pred: ^bb1
+    %38 = llvm.sext %36 : i32 to i64
+    %39 = builtin.unrealized_conversion_cast %38 : i64 to index
+    %c2 = arith.constant 2 : index
+    %40 = arith.remsi %39, %c2 : index
+    %c0 = arith.constant 0 : index
+    %41 = arith.cmpi slt, %40, %c0 : index
+    %42 = arith.addi %40, %c2 : index
+    %43 = arith.select %41, %42, %40 : index
+    %44 = builtin.unrealized_conversion_cast %43 : index to i64
+    %45 = llvm.icmp "eq" %44, %4 : i64
+    %46 = llvm.select %45, %24, %22 : i1, !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %47 = builtin.unrealized_conversion_cast %46 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> to memref<832xf32, #hivm.address_space<ub>>
+    %48 = llvm.zext %45 : i1 to i64
+    %49 = llvm.mul %36, %13 : i32
+    %50 = llvm.add %49, %30 : i32
+    %51 = llvm.icmp "slt" %50, %35 : i32
+    cf.cond_br %51, ^bb3, ^bb10
+  ^bb3:  // pred: ^bb2
+    %52 = hivm.hir.pointer_cast(%7) : memref<832x8xi8, #hivm.address_space<ub>>
+    call @adc_func_outlined_vf_2(%52) {hivm.vector_function, no_inline} : (memref<832x8xi8, #hivm.address_space<ub>>) -> ()
+    %53 = hivm.hir.pointer_cast(%6) : memref<832xf32, #hivm.address_space<ub>>
+    call @adc_func_outlined_vf_3(%53) {hivm.vector_function, no_inline} : (memref<832xf32, #hivm.address_space<ub>>) -> ()
+    %54 = llvm.mul %36, %14 : i32
+    %55 = llvm.mul %30, %11 : i32
+    %56 = llvm.add %54, %55 : i32
+    %57 = llvm.sext %56 : i32 to i64
+    %58 = builtin.unrealized_conversion_cast %57 : i64 to index
+    %59 = llvm.sub %arg5, %55 : i32
+    %60 = llvm.sub %59, %54 : i32
+    %61 = llvm.intr.smin(%60, %11)  : (i32, i32) -> i32
+    %62 = llvm.sext %61 : i32 to i64
+    %63 = builtin.unrealized_conversion_cast %62 : i64 to index
+    cf.br ^bb4(%16, %53 : i32, memref<832xf32, #hivm.address_space<ub>>)
+  ^bb4(%64: i32, %65: memref<832xf32, #hivm.address_space<ub>>):  // 2 preds: ^bb3, ^bb8
+    %66 = arith.cmpi slt, %64, %10 : i32
+    cf.cond_br %66, ^bb5, ^bb9
+  ^bb5:  // pred: ^bb4
+    %67 = llvm.sext %64 : i32 to i64
+    %68 = builtin.unrealized_conversion_cast %67 : i64 to index
+    %c2_6 = arith.constant 2 : index
+    %69 = arith.remsi %68, %c2_6 : index
+    %c0_7 = arith.constant 0 : index
+    %70 = arith.cmpi slt, %69, %c0_7 : index
+    %71 = arith.addi %69, %c2_6 : index
+    %72 = arith.select %70, %71, %69 : index
+    %73 = builtin.unrealized_conversion_cast %72 : index to i64
+    %74 = llvm.icmp "eq" %73, %4 : i64
+    %75 = llvm.select %74, %28, %26 : i1, !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %76 = builtin.unrealized_conversion_cast %75 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> to memref<832x8xi8, #hivm.address_space<ub>>
+    %77 = llvm.zext %74 : i1 to i64
+    %78 = llvm.mul %64, %10 : i32
+    %79 = llvm.sext %78 : i32 to i64
+    %80 = builtin.unrealized_conversion_cast %79 : i64 to index
+    %base_buffer_8, %offset_9, %sizes_10, %strides_11 = memref.extract_strided_metadata %arg3 : memref<?xi8, #hivm.address_space<gm>> -> memref<i8, #hivm.address_space<gm>>, index, index, index
+    %c64 = arith.constant 64 : index
+    %81 = arith.muli %58, %c64 : index
+    %82 = arith.addi %81, %80 : index
+    %reinterpret_cast_12 = memref.reinterpret_cast %base_buffer_8 to offset: [%82], sizes: [%63, 8], strides: [64, 1] : memref<i8, #hivm.address_space<gm>> to memref<?x8xi8, strided<[64, 1], offset: ?>, #hivm.address_space<gm>>
+    %base_buffer_13, %offset_14, %sizes_15:2, %strides_16:2 = memref.extract_strided_metadata %76 : memref<832x8xi8, #hivm.address_space<ub>> -> memref<i8, #hivm.address_space<ub>>, index, index, index, index, index
+    %reinterpret_cast_17 = memref.reinterpret_cast %base_buffer_13 to offset: [0], sizes: [%63, 8], strides: [8, 1] : memref<i8, #hivm.address_space<ub>> to memref<?x8xi8, strided<[8, 1]>, #hivm.address_space<ub>>
+    hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE2>, %77]
+    %cast_18 = memref.cast %reinterpret_cast_12 : memref<?x8xi8, strided<[64, 1], offset: ?>, #hivm.address_space<gm>> to memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<gm>>
+    %cast_19 = memref.cast %reinterpret_cast_17 : memref<?x8xi8, strided<[8, 1]>, #hivm.address_space<ub>> to memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<ub>>
+    call @load_gm_to_ubuf_2d_int8_t(%cast_18, %cast_19, %16, %17, %20, %16) : (memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<gm>>, memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<ub>>, i32, i8, index, i32) -> ()
+    hivm.hir.set_flag[<PIPE_MTE2>, <PIPE_V>, <EVENT_ID0>]
+    %base_buffer_20, %offset_21, %sizes_22:2, %strides_23:2 = memref.extract_strided_metadata %76 : memref<832x8xi8, #hivm.address_space<ub>> -> memref<i8, #hivm.address_space<ub>>, index, index, index, index, index
+    %c8 = arith.constant 8 : index
+    %83 = arith.muli %63, %c8 : index
+    %reinterpret_cast_24 = memref.reinterpret_cast %base_buffer_20 to offset: [0], sizes: [%83], strides: [1] : memref<i8, #hivm.address_space<ub>> to memref<?xi8, strided<[1]>, #hivm.address_space<ub>>
+    %base_buffer_25, %offset_26, %sizes_27:2, %strides_28:2 = memref.extract_strided_metadata %52 : memref<832x8xi8, #hivm.address_space<ub>> -> memref<i8, #hivm.address_space<ub>>, index, index, index, index, index
+    %c8_29 = arith.constant 8 : index
+    %84 = arith.muli %63, %c8_29 : index
+    %reinterpret_cast_30 = memref.reinterpret_cast %base_buffer_25 to offset: [0], sizes: [%84], strides: [1] : memref<i8, #hivm.address_space<ub>> to memref<?xi8, strided<[1]>, #hivm.address_space<ub>>
+    hivm.hir.wait_flag[<PIPE_MTE2>, <PIPE_V>, <EVENT_ID0>]
+    %cast_31 = memref.cast %reinterpret_cast_24 : memref<?xi8, strided<[1]>, #hivm.address_space<ub>> to memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>
+    %cast_32 = memref.cast %reinterpret_cast_30 : memref<?xi8, strided<[1]>, #hivm.address_space<ub>> to memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>
+    call @copy_ubuf_to_ubuf_1d_int8_t(%cast_31, %cast_32) : (memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>, memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>) -> ()
+    hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE2>, %77]
+    %85 = hivm.hir.pointer_cast(%5) : memref<8x832xi32, #hivm.address_space<ub>>
+    call @adc_func_outlined_vf_1(%52, %85) {hivm.vector_function, no_inline} : (memref<832x8xi8, #hivm.address_space<ub>>, memref<8x832xi32, #hivm.address_space<ub>>) -> ()
+    cf.br ^bb6(%16, %65 : i32, memref<832xf32, #hivm.address_space<ub>>)
+  ^bb6(%86: i32, %87: memref<832xf32, #hivm.address_space<ub>>):  // 2 preds: ^bb5, ^bb7
+    %88 = arith.cmpi slt, %86, %10 : i32
+    cf.cond_br %88, ^bb7, ^bb8
+  ^bb7:  // pred: ^bb6
+    %89 = llvm.add %78, %86 : i32
+    %90 = llvm.sext %89 : i32 to i64
+    %91 = builtin.unrealized_conversion_cast %90 : i64 to index
+    %92 = llvm.sext %86 : i32 to i64
+    %93 = builtin.unrealized_conversion_cast %92 : i64 to index
+    %94 = hivm.hir.pointer_cast(%6) : memref<832xf32, #hivm.address_space<ub>>
+    call @adc_func_outlined_vf_0(%87, %85, %93, %31, %91, %94) {hivm.vector_function, no_inline} : (memref<832xf32, #hivm.address_space<ub>>, memref<8x832xi32, #hivm.address_space<ub>>, index, memref<64x256xf32, #hivm.address_space<ub>>, index, memref<832xf32, #hivm.address_space<ub>>) -> ()
+    %95 = arith.addi %86, %9 overflow<nsw> : i32
+    cf.br ^bb6(%95, %94 : i32, memref<832xf32, #hivm.address_space<ub>>)
+  ^bb8:  // pred: ^bb6
+    %96 = arith.addi %64, %9 overflow<nsw> : i32
+    cf.br ^bb4(%96, %87 : i32, memref<832xf32, #hivm.address_space<ub>>)
+  ^bb9:  // pred: ^bb4
+    hivm.hir.wait_flag[<PIPE_MTE3>, <PIPE_V>, %48]
+    call @adc_func_outlined_vf_4(%65, %47) {hivm.vector_function, no_inline} : (memref<832xf32, #hivm.address_space<ub>>, memref<832xf32, #hivm.address_space<ub>>) -> ()
+    hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE3>, <EVENT_ID0>]
+    %base_buffer_33, %offset_34, %sizes_35, %strides_36 = memref.extract_strided_metadata %47 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+    %reinterpret_cast_37 = memref.reinterpret_cast %base_buffer_33 to offset: [0], sizes: [%63], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<?xf32, strided<[1]>, #hivm.address_space<ub>>
+    %base_buffer_38, %offset_39, %sizes_40, %strides_41 = memref.extract_strided_metadata %arg4 : memref<?xf32, #hivm.address_space<gm>> -> memref<f32, #hivm.address_space<gm>>, index, index, index
+    %reinterpret_cast_42 = memref.reinterpret_cast %base_buffer_38 to offset: [%58], sizes: [%63], strides: [1] : memref<f32, #hivm.address_space<gm>> to memref<?xf32, strided<[1], offset: ?>, #hivm.address_space<gm>>
+    hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE3>, <EVENT_ID0>]
+    hivm.hir.pipe_barrier[<PIPE_MTE3>]
+    %cast_43 = memref.cast %reinterpret_cast_37 : memref<?xf32, strided<[1]>, #hivm.address_space<ub>> to memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>
+    %cast_44 = memref.cast %reinterpret_cast_42 : memref<?xf32, strided<[1], offset: ?>, #hivm.address_space<gm>> to memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>
+    call @store_ubuf_to_gm_1d_float(%cast_43, %cast_44, %16) : (memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>, memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>, i32) -> ()
+    hivm.hir.set_flag[<PIPE_MTE3>, <PIPE_V>, %48]
+    cf.br ^bb10
+  ^bb10:  // 2 preds: ^bb2, ^bb9
+    %97 = arith.addi %36, %9 overflow<nsw> : i32
+    cf.br ^bb1(%97 : i32)
+  ^bb11:  // pred: ^bb1
+    hivm.hir.pipe_barrier[<PIPE_ALL>]
+    hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID0>]
+    hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID1>]
+    hivm.hir.wait_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID0>]
+    hivm.hir.wait_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID1>]
+    return
+  }
+}
+
+
+// -----// IR Dump After ArithExpandOpsPass (arith-expand) //----- //
+#map = affine_map<(d0)[s0] -> (d0 + s0)>
+module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #hacc.target_device_spec<#dlti.dl_entry<"AI_CORE_COUNT", 28 : i32>, #dlti.dl_entry<"CUBE_CORE_COUNT", 28 : i32>, #dlti.dl_entry<"VECTOR_CORE_COUNT", 56 : i32>, #dlti.dl_entry<"UB_SIZE", 2031616 : i32>, #dlti.dl_entry<"L1_SIZE", 4194304 : i32>, #dlti.dl_entry<"L0A_SIZE", 524288 : i32>, #dlti.dl_entry<"L0B_SIZE", 524288 : i32>, #dlti.dl_entry<"L0C_SIZE", 2097152 : i32>, #dlti.dl_entry<"UB_ALIGN_SIZE", 256 : i32>, #dlti.dl_entry<"L1_ALIGN_SIZE", 256 : i32>, #dlti.dl_entry<"L0C_ALIGN_SIZE", 4096 : i32>, #dlti.dl_entry<"MINIMAL_D_CACHE_SIZE", 262144 : i32>, #dlti.dl_entry<"MAXIMUM_D_CACHE_SIZE", 983040 : i32>, #dlti.dl_entry<"ARCH", "dav-c310">>>, hacc.target = #hacc.target<"Ascend950PR_9579">, hivm.module_core_type = #hivm.module_core_type<AIV>, memref.memref_as_ptr} {
+  func.func @adc_func_outlined_vf_0(%arg0: memref<832xf32, #hivm.address_space<ub>>, %arg1: memref<8x832xi32, #hivm.address_space<ub>>, %arg2: index, %arg3: memref<64x256xf32, #hivm.address_space<ub>>, %arg4: index, %arg5: memref<832xf32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %0 = llvm.mlir.constant(2 : i32) : i32
+    %1 = llvm.mlir.constant(64 : i32) : i32
+    %2 = llvm.mlir.constant(832 : i32) : i32
+    %3 = llvm.mlir.constant(0 : i32) : i32
+    %4 = llvm.mlir.constant(8 : i32) : i32
+    %5 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%4, %3) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+    %base_buffer, %offset, %sizes:2, %strides:2 = memref.extract_strided_metadata %arg3 : memref<64x256xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index, index, index
+    %c256 = arith.constant 256 : index
+    %6 = arith.muli %arg4, %c256 : index
+    %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [%6], sizes: [256], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<256xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+    %7 = builtin.unrealized_conversion_cast %reinterpret_cast : memref<256xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    cf.br ^bb1(%3 : i32)
+  ^bb1(%8: i32):  // 2 preds: ^bb0, ^bb2
+    %9 = arith.cmpi slt, %8, %2 : i32
+    cf.cond_br %9, ^bb2, ^bb3
+  ^bb2:  // pred: ^bb1
+    %10 = llvm.sext %8 : i32 to i64
+    %11 = builtin.unrealized_conversion_cast %10 : i64 to index
+    %base_buffer_0, %offset_1, %sizes_2, %strides_3 = memref.extract_strided_metadata %arg0 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+    %reinterpret_cast_4 = memref.reinterpret_cast %base_buffer_0 to offset: [%11], sizes: [64], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+    %12 = builtin.unrealized_conversion_cast %reinterpret_cast_4 : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %base_buffer_5, %offset_6, %sizes_7:2, %strides_8:2 = memref.extract_strided_metadata %arg1 : memref<8x832xi32, #hivm.address_space<ub>> -> memref<i32, #hivm.address_space<ub>>, index, index, index, index, index
+    %c832 = arith.constant 832 : index
+    %13 = arith.muli %arg2, %c832 : index
+    %14 = arith.addi %13, %11 : index
+    %reinterpret_cast_9 = memref.reinterpret_cast %base_buffer_5 to offset: [%14], sizes: [64], strides: [1] : memref<i32, #hivm.address_space<ub>> to memref<64xi32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+    %15 = builtin.unrealized_conversion_cast %reinterpret_cast_9 : memref<64xi32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %base_buffer_10, %offset_11, %sizes_12, %strides_13 = memref.extract_strided_metadata %arg5 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+    %reinterpret_cast_14 = memref.reinterpret_cast %base_buffer_10 to offset: [%11], sizes: [64], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+    %16 = builtin.unrealized_conversion_cast %reinterpret_cast_14 : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %17 = llvm.extractvalue %12[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %18 = llvm.extractvalue %12[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %19 = llvm.getelementptr %17[%18] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+    %20 = "hivm_regbaseintrins.intr.hivm.vldsx1.v64f32"(%19, %3, %3, %3) : (!llvm.ptr<6>, i32, i32, i32) -> vector<64xf32>
+    %21 = llvm.extractvalue %15[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %22 = llvm.extractvalue %15[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %23 = llvm.getelementptr %21[%22] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i32
+    %24 = "hivm_regbaseintrins.intr.hivm.vldsx1.v64s32"(%23, %3, %3, %3) : (!llvm.ptr<6>, i32, i32, i32) -> vector<64xi32>
+    %25 = llvm.extractvalue %7[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %26 = llvm.extractvalue %7[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %27 = llvm.getelementptr %25[%26] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+    %28 = "hivm_regbaseintrins.intr.hivm.vgather2_v300.v64f32"(%27, %24, %5) : (!llvm.ptr<6>, vector<64xi32>, vector<256xi1>) -> vector<64xf32>
+    %29 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%4, %3) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+    %30 = "hivm_regbaseintrins.intr.hivm.vadd.s.x"(%20, %28, %29) : (vector<64xf32>, vector<64xf32>, vector<256xi1>) -> vector<64xf32>
+    %31 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%4, %3) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+    %32 = llvm.extractvalue %16[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %33 = llvm.extractvalue %16[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %34 = llvm.getelementptr %32[%33] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+    "hivm_regbaseintrins.intr.hivm.vstsx1.v64f32"(%30, %34, %3, %0, %3, %31) : (vector<64xf32>, !llvm.ptr<6>, i32, i32, i32, vector<256xi1>) -> ()
+    %35 = arith.addi %8, %1 overflow<nsw> : i32
+    cf.br ^bb1(%35 : i32)
+  ^bb3:  // pred: ^bb1
+    return
+  }
+  func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub>>, %arg1: memref<8x832xi32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %0 = llvm.mlir.constant(2 : i32) : i32
+    %1 = llvm.mlir.constant(0 : i8) : i8
+    %2 = llvm.mlir.constant(8 : index) : i64
+    %3 = llvm.mlir.constant(64 : i32) : i32
+    %4 = llvm.mlir.constant(832 : i32) : i32
+    %5 = llvm.mlir.constant(0 : index) : i64
+    %6 = llvm.mlir.constant(0 : i32) : i32
+    %7 = llvm.mlir.constant(8 : i32) : i32
+    %8 = llvm.mlir.constant(1 : i32) : i32
+    cf.br ^bb1(%6 : i32)
+  ^bb1(%9: i32):  // 2 preds: ^bb0, ^bb5
+    %10 = arith.cmpi slt, %9, %7 : i32
+    cf.cond_br %10, ^bb2, ^bb6
+  ^bb2:  // pred: ^bb1
+    %11 = llvm.sext %9 : i32 to i64
+    %12 = builtin.unrealized_conversion_cast %11 : i64 to index
+    cf.br ^bb3(%6 : i32)
+  ^bb3(%13: i32):  // 2 preds: ^bb2, ^bb4
+    %14 = arith.cmpi slt, %13, %4 : i32
+    cf.cond_br %14, ^bb4, ^bb5
+  ^bb4:  // pred: ^bb3
+    %15 = llvm.sext %13 : i32 to i64
+    %16 = builtin.unrealized_conversion_cast %15 : i64 to index
+    %base_buffer, %offset, %sizes:2, %strides:2 = memref.extract_strided_metadata %arg0 : memref<832x8xi8, #hivm.address_space<ub>> -> memref<i8, #hivm.address_space<ub>>, index, index, index, index, index
+    %c8 = arith.constant 8 : index
+    %17 = arith.muli %16, %c8 : index
+    %18 = arith.addi %17, %12 : index
+    %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [%18], sizes: [64, 1], strides: [8, 1] : memref<i8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
+    %19 = builtin.unrealized_conversion_cast %reinterpret_cast : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %20 = llvm.extractvalue %19[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %21 = llvm.extractvalue %19[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %22 = llvm.getelementptr %20[%21] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i8
+    %23 = llvm.mul %5, %2 : i64
+    %24 = llvm.add %23, %5 : i64
+    %25 = llvm.getelementptr %22[%24] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i8
+    %26 = "hivm_regbaseintrins.intr.hivm.vldas"(%25) : (!llvm.ptr<6>) -> vector<32xi8>
+    %27 = "hivm_regbaseintrins.intr.hivm.vldus.post.s8"(%25, %26, %6) : (!llvm.ptr<6>, vector<32xi8>, i32) -> !llvm.struct<(vector<256xi8>, vector<32xi8>, ptr<6>)>
+    %28 = llvm.extractvalue %27[0] : !llvm.struct<(vector<256xi8>, vector<32xi8>, ptr<6>)> 
+    %29 = "hivm_regbaseintrins.intr.hivm.vbr"(%1) : (i8) -> vector<256xi8>
+    %30 = "hivm_regbaseintrins.intr.hivm.vintlv"(%28, %29) : (vector<256xi8>, vector<256xi8>) -> !llvm.struct<(vector<256xi8>, vector<256xi8>)>
+    %31 = llvm.extractvalue %30[0] : !llvm.struct<(vector<256xi8>, vector<256xi8>)> 
+    %32 = "hivm_regbaseintrins.intr.hivm.vintlv"(%31, %29) : (vector<256xi8>, vector<256xi8>) -> !llvm.struct<(vector<256xi8>, vector<256xi8>)>
+    %33 = llvm.extractvalue %32[0] : !llvm.struct<(vector<256xi8>, vector<256xi8>)> 
+    %34 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%7, %6) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+    %35 = "hivm_regbaseintrins.intr.hivm.vcvtii.s82s32.x"(%33, %34, %6) : (vector<256xi8>, vector<256xi1>, i32) -> vector<64xi32>
+    %base_buffer_0, %offset_1, %sizes_2:2, %strides_3:2 = memref.extract_strided_metadata %arg1 : memref<8x832xi32, #hivm.address_space<ub>> -> memref<i32, #hivm.address_space<ub>>, index, index, index, index, index
+    %c832 = arith.constant 832 : index
+    %36 = arith.muli %12, %c832 : index
+    %37 = arith.addi %36, %16 : index
+    %reinterpret_cast_4 = memref.reinterpret_cast %base_buffer_0 to offset: [%37], sizes: [64], strides: [1] : memref<i32, #hivm.address_space<ub>> to memref<64xi32, #map, #hivm.address_space<ub>>
+    %38 = builtin.unrealized_conversion_cast %reinterpret_cast_4 : memref<64xi32, #map, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %39 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%7, %6) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+    %40 = llvm.extractvalue %38[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %41 = llvm.extractvalue %38[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %42 = llvm.getelementptr %40[%41] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i32
+    "hivm_regbaseintrins.intr.hivm.vstsx1.v64s32"(%35, %42, %6, %0, %6, %39) : (vector<64xi32>, !llvm.ptr<6>, i32, i32, i32, vector<256xi1>) -> ()
+    %43 = arith.addi %13, %3 overflow<nsw> : i32
+    cf.br ^bb3(%43 : i32)
+  ^bb5:  // pred: ^bb3
+    %44 = arith.addi %9, %8 overflow<nsw> : i32
+    cf.br ^bb1(%44 : i32)
+  ^bb6:  // pred: ^bb1
+    return
+  }
+  func.func @adc_func_outlined_vf_2(%arg0: memref<832x8xi8, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 8 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %0 = llvm.mlir.constant(8 : i32) : i32
+    %1 = llvm.mlir.constant(5 : i32) : i32
+    %2 = llvm.mlir.constant(0 : i8) : i8
+    %3 = llvm.mlir.constant(1 : i32) : i32
+    %4 = llvm.mlir.constant(832 : i32) : i32
+    %5 = llvm.mlir.constant(0 : i32) : i32
+    %6 = "hivm_regbaseintrins.intr.hivm.pge.b8"(%5, %5) {mask_bit_width = 8 : i32} : (i32, i32) -> vector<256xi1>
+    %7 = "hivm_regbaseintrins.intr.hivm.vdups.z"(%2, %6, %3) : (i8, vector<256xi1>, i32) -> vector<256xi8>
+    cf.br ^bb1(%5 : i32)
+  ^bb1(%8: i32):  // 2 preds: ^bb0, ^bb2
+    %9 = arith.cmpi slt, %8, %4 : i32
+    cf.cond_br %9, ^bb2, ^bb3
+  ^bb2:  // pred: ^bb1
+    %10 = llvm.sext %8 : i32 to i64
+    %11 = builtin.unrealized_conversion_cast %10 : i64 to index
+    %12 = "hivm_regbaseintrins.intr.hivm.pge.b8"(%1, %5) {mask_bit_width = 8 : i32, mask_op_idx = 0 : i32} : (i32, i32) -> vector<256xi1>
+    %base_buffer, %offset, %sizes:2, %strides:2 = memref.extract_strided_metadata %arg0 : memref<832x8xi8, #hivm.address_space<ub>> -> memref<i8, #hivm.address_space<ub>>, index, index, index, index, index
+    %c8 = arith.constant 8 : index
+    %13 = arith.muli %11, %c8 : index
+    %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [%13], sizes: [8], strides: [1] : memref<i8, #hivm.address_space<ub>> to memref<8xi8, #map, #hivm.address_space<ub>>
+    %14 = builtin.unrealized_conversion_cast %reinterpret_cast : memref<8xi8, #map, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %15 = llvm.extractvalue %14[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %16 = llvm.extractvalue %14[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %17 = llvm.getelementptr %15[%16] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i8
+    %18 = "hivm_regbaseintrins.intr.hivm.init.vector.align.data"() : () -> vector<32xi8>
+    %19 = "hivm_regbaseintrins.intr.hivm.vstus.post.s8"(%7, %17, %0, %18) : (vector<256xi8>, !llvm.ptr<6>, i32, vector<32xi8>) -> !llvm.struct<(vector<32xi8>, ptr<6>)>
+    %20 = llvm.extractvalue %19[0] : !llvm.struct<(vector<32xi8>, ptr<6>)> 
+    %21 = llvm.extractvalue %19[1] : !llvm.struct<(vector<32xi8>, ptr<6>)> 
+    "hivm_regbaseintrins.intr.hivm.vstas"(%20, %21, %5, %5) : (vector<32xi8>, !llvm.ptr<6>, i32, i32) -> ()
+    %22 = arith.addi %8, %3 overflow<nsw> : i32
+    cf.br ^bb1(%22 : i32)
+  ^bb3:  // pred: ^bb1
+    return
+  }
+  func.func @adc_func_outlined_vf_3(%arg0: memref<832xf32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %0 = llvm.mlir.constant(2 : i32) : i32
+    %1 = llvm.mlir.constant(1 : i32) : i32
+    %2 = llvm.mlir.constant(64 : i32) : i32
+    %3 = llvm.mlir.constant(832 : i32) : i32
+    %4 = llvm.mlir.constant(0 : i32) : i32
+    %5 = llvm.mlir.constant(0.000000e+00 : f32) : f32
+    %6 = llvm.mlir.constant(8 : i32) : i32
+    %7 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%6, %4) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+    %8 = "hivm_regbaseintrins.intr.hivm.vdups.z"(%5, %7, %1) : (f32, vector<256xi1>, i32) -> vector<64xf32>
+    cf.br ^bb1(%4 : i32)
+  ^bb1(%9: i32):  // 2 preds: ^bb0, ^bb2
+    %10 = arith.cmpi slt, %9, %3 : i32
+    cf.cond_br %10, ^bb2, ^bb3
+  ^bb2:  // pred: ^bb1
+    %11 = llvm.sext %9 : i32 to i64
+    %12 = builtin.unrealized_conversion_cast %11 : i64 to index
+    %base_buffer, %offset, %sizes, %strides = memref.extract_strided_metadata %arg0 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+    %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [%12], sizes: [64], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+    %13 = builtin.unrealized_conversion_cast %reinterpret_cast : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %14 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%6, %4) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+    %15 = llvm.extractvalue %13[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %16 = llvm.extractvalue %13[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %17 = llvm.getelementptr %15[%16] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+    "hivm_regbaseintrins.intr.hivm.vstsx1.v64f32"(%8, %17, %4, %0, %4, %14) : (vector<64xf32>, !llvm.ptr<6>, i32, i32, i32, vector<256xi1>) -> ()
+    %18 = arith.addi %9, %2 overflow<nsw> : i32
+    cf.br ^bb1(%18 : i32)
+  ^bb3:  // pred: ^bb1
+    return
+  }
+  func.func @adc_func_outlined_vf_4(%arg0: memref<832xf32, #hivm.address_space<ub>>, %arg1: memref<832xf32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %0 = llvm.mlir.constant(2 : i32) : i32
+    %1 = llvm.mlir.constant(8 : i32) : i32
+    %2 = llvm.mlir.constant(0 : i32) : i32
+    %3 = llvm.mlir.constant(832 : i32) : i32
+    %4 = llvm.mlir.constant(64 : i32) : i32
+    cf.br ^bb1(%2 : i32)
+  ^bb1(%5: i32):  // 2 preds: ^bb0, ^bb2
+    %6 = arith.cmpi slt, %5, %3 : i32
+    cf.cond_br %6, ^bb2, ^bb3
+  ^bb2:  // pred: ^bb1
+    %7 = llvm.sext %5 : i32 to i64
+    %8 = builtin.unrealized_conversion_cast %7 : i64 to index
+    %base_buffer, %offset, %sizes, %strides = memref.extract_strided_metadata %arg0 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+    %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [%8], sizes: [64], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+    %9 = builtin.unrealized_conversion_cast %reinterpret_cast : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %base_buffer_0, %offset_1, %sizes_2, %strides_3 = memref.extract_strided_metadata %arg1 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+    %reinterpret_cast_4 = memref.reinterpret_cast %base_buffer_0 to offset: [%8], sizes: [64], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+    %10 = builtin.unrealized_conversion_cast %reinterpret_cast_4 : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %11 = llvm.extractvalue %9[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %12 = llvm.extractvalue %9[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %13 = llvm.getelementptr %11[%12] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+    %14 = "hivm_regbaseintrins.intr.hivm.vldsx1.v64f32"(%13, %2, %2, %2) : (!llvm.ptr<6>, i32, i32, i32) -> vector<64xf32>
+    %15 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%1, %2) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+    %16 = "hivm_regbaseintrins.intr.hivm.vsqrt.x"(%14, %15) : (vector<64xf32>, vector<256xi1>) -> vector<64xf32>
+    %17 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%1, %2) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+    %18 = llvm.extractvalue %10[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %19 = llvm.extractvalue %10[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %20 = llvm.getelementptr %18[%19] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+    "hivm_regbaseintrins.intr.hivm.vstsx1.v64f32"(%16, %20, %2, %0, %2, %17) : (vector<64xf32>, !llvm.ptr<6>, i32, i32, i32, vector<256xi1>) -> ()
+    %21 = arith.addi %5, %4 overflow<nsw> : i32
+    cf.br ^bb1(%21 : i32)
+  ^bb3:  // pred: ^bb1
+    return
+  }
+  func.func private @load_gm_to_ubuf_1d_float(memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>, memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>, i32, f32, index, i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface}
+  func.func private @load_gm_to_ubuf_2d_int8_t(memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<gm>>, memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<ub>>, i32, i8, index, i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface}
+  func.func private @copy_ubuf_to_ubuf_1d_int8_t(memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>, memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface}
+  func.func private @store_ubuf_to_gm_1d_float(memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>, memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>, i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface}
+  func.func @adc_func(%arg0: memref<?xi8, #hivm.address_space<gm>> {hacc.arg_type = #hacc.arg_type<sync_block_lock>}, %arg1: memref<?xi8, #hivm.address_space<gm>> {hacc.arg_type = #hacc.arg_type<workspace>}, %arg2: memref<?xf32, #hivm.address_space<gm>>, %arg3: memref<?xi8, #hivm.address_space<gm>>, %arg4: memref<?xf32, #hivm.address_space<gm>>, %arg5: i32, %arg6: i32, %arg7: i32, %arg8: i32) attributes {SyncBlockLockArgIdx = 0 : i64, WorkspaceArgIdx = 1 : i64, func_dyn_memref_args = dense<[true, true, true, true, true, false, false, false, false]> : vector<9xi1>, hacc.entry, hacc.function_kind = #hacc.function_kind<DEVICE>, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vf_mode = #hivm.vf_mode<SIMD>, hivm_regbaseintrins.target = #hivm_regbaseintrins.target<"dav-c310">, mix_mode = "aiv", parallel_mode = "simd"} {
+    %0 = llvm.mlir.constant(118784 : i64) : i64
+    %1 = llvm.mlir.constant(108800 : i64) : i64
+    %2 = llvm.mlir.constant(75520 : i64) : i64
+    %3 = llvm.mlir.constant(112128 : i64) : i64
+    %4 = llvm.mlir.constant(1 : i64) : i64
+    %5 = llvm.mlir.constant(82176 : i64) : i64
+    %6 = llvm.mlir.constant(72192 : i64) : i64
+    %7 = llvm.mlir.constant(65536 : i64) : i64
+    %8 = llvm.mlir.constant(0 : i64) : i64
+    %9 = llvm.mlir.constant(1 : i32) : i32
+    %10 = llvm.mlir.constant(8 : i32) : i32
+    %11 = llvm.mlir.constant(832 : i32) : i32
+    %12 = llvm.mlir.constant(831 : i32) : i32
+    %13 = llvm.mlir.constant(56 : i32) : i32
+    %14 = llvm.mlir.constant(46592 : i32) : i32
+    %15 = llvm.mlir.constant(46591 : i32) : i32
+    %16 = llvm.mlir.constant(0 : i32) : i32
+    %17 = llvm.mlir.constant(0 : i8) : i8
+    %18 = llvm.mlir.constant(0.000000e+00 : f32) : f32
+    %19 = llvm.mlir.constant(0 : index) : i64
+    %20 = builtin.unrealized_conversion_cast %19 : i64 to index
+    %21 = hivm.hir.pointer_cast(%1) : memref<832xf32, #hivm.address_space<ub>>
+    %22 = builtin.unrealized_conversion_cast %21 : memref<832xf32, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %23 = hivm.hir.pointer_cast(%0) : memref<832xf32, #hivm.address_space<ub>>
+    %24 = builtin.unrealized_conversion_cast %23 : memref<832xf32, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %25 = hivm.hir.pointer_cast(%2) : memref<832x8xi8, #hivm.address_space<ub>>
+    %26 = builtin.unrealized_conversion_cast %25 : memref<832x8xi8, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %27 = hivm.hir.pointer_cast(%3) : memref<832x8xi8, #hivm.address_space<ub>>
+    %28 = builtin.unrealized_conversion_cast %27 : memref<832x8xi8, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    hivm.hir.set_ctrl false at ctrl[60]
+    hivm.hir.set_ctrl true at ctrl[48]
+    %29 = hivm.hir.get_block_idx -> i64
+    %30 = llvm.trunc %29 : i64 to i32
+    %31 = hivm.hir.pointer_cast(%8) : memref<64x256xf32, #hivm.address_space<ub>>
+    %base_buffer, %offset, %sizes, %strides = memref.extract_strided_metadata %arg2 : memref<?xf32, #hivm.address_space<gm>> -> memref<f32, #hivm.address_space<gm>>, index, index, index
+    %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [0], sizes: [16384], strides: [1] : memref<f32, #hivm.address_space<gm>> to memref<16384xf32, strided<[1]>, #hivm.address_space<gm>>
+    %base_buffer_0, %offset_1, %sizes_2:2, %strides_3:2 = memref.extract_strided_metadata %31 : memref<64x256xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index, index, index
+    %reinterpret_cast_4 = memref.reinterpret_cast %base_buffer_0 to offset: [0], sizes: [16384], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<16384xf32, #hivm.address_space<ub>>
+    hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID0>]
+    hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID1>]
+    hivm.hir.set_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID0>]
+    hivm.hir.set_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID1>]
+    %cast = memref.cast %reinterpret_cast : memref<16384xf32, strided<[1]>, #hivm.address_space<gm>> to memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>
+    %cast_5 = memref.cast %reinterpret_cast_4 : memref<16384xf32, #hivm.address_space<ub>> to memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>
+    call @load_gm_to_ubuf_1d_float(%cast, %cast_5, %16, %18, %20, %16) : (memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>, memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>, i32, f32, index, i32) -> ()
+    %32 = llvm.add %arg5, %15 : i32
+    %33 = llvm.sdiv %32, %14  : i32
+    %34 = llvm.add %arg5, %12 : i32
+    %35 = llvm.sdiv %34, %11  : i32
+    cf.br ^bb1(%16 : i32)
+  ^bb1(%36: i32):  // 2 preds: ^bb0, ^bb10
+    %37 = arith.cmpi slt, %36, %33 : i32
+    cf.cond_br %37, ^bb2, ^bb11
+  ^bb2:  // pred: ^bb1
+    %38 = llvm.sext %36 : i32 to i64
+    %39 = builtin.unrealized_conversion_cast %38 : i64 to index
+    %c2 = arith.constant 2 : index
+    %40 = arith.remsi %39, %c2 : index
+    %c0 = arith.constant 0 : index
+    %41 = arith.cmpi slt, %40, %c0 : index
+    %42 = arith.addi %40, %c2 : index
+    %43 = arith.select %41, %42, %40 : index
+    %44 = builtin.unrealized_conversion_cast %43 : index to i64
+    %45 = llvm.icmp "eq" %44, %4 : i64
+    %46 = llvm.select %45, %24, %22 : i1, !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %47 = builtin.unrealized_conversion_cast %46 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> to memref<832xf32, #hivm.address_space<ub>>
+    %48 = llvm.zext %45 : i1 to i64
+    %49 = llvm.mul %36, %13 : i32
+    %50 = llvm.add %49, %30 : i32
+    %51 = llvm.icmp "slt" %50, %35 : i32
+    cf.cond_br %51, ^bb3, ^bb10
+  ^bb3:  // pred: ^bb2
+    %52 = hivm.hir.pointer_cast(%7) : memref<832x8xi8, #hivm.address_space<ub>>
+    call @adc_func_outlined_vf_2(%52) {hivm.vector_function, no_inline} : (memref<832x8xi8, #hivm.address_space<ub>>) -> ()
+    %53 = hivm.hir.pointer_cast(%6) : memref<832xf32, #hivm.address_space<ub>>
+    call @adc_func_outlined_vf_3(%53) {hivm.vector_function, no_inline} : (memref<832xf32, #hivm.address_space<ub>>) -> ()
+    %54 = llvm.mul %36, %14 : i32
+    %55 = llvm.mul %30, %11 : i32
+    %56 = llvm.add %54, %55 : i32
+    %57 = llvm.sext %56 : i32 to i64
+    %58 = builtin.unrealized_conversion_cast %57 : i64 to index
+    %59 = llvm.sub %arg5, %55 : i32
+    %60 = llvm.sub %59, %54 : i32
+    %61 = llvm.intr.smin(%60, %11)  : (i32, i32) -> i32
+    %62 = llvm.sext %61 : i32 to i64
+    %63 = builtin.unrealized_conversion_cast %62 : i64 to index
+    cf.br ^bb4(%16, %53 : i32, memref<832xf32, #hivm.address_space<ub>>)
+  ^bb4(%64: i32, %65: memref<832xf32, #hivm.address_space<ub>>):  // 2 preds: ^bb3, ^bb8
+    %66 = arith.cmpi slt, %64, %10 : i32
+    cf.cond_br %66, ^bb5, ^bb9
+  ^bb5:  // pred: ^bb4
+    %67 = llvm.sext %64 : i32 to i64
+    %68 = builtin.unrealized_conversion_cast %67 : i64 to index
+    %c2_6 = arith.constant 2 : index
+    %69 = arith.remsi %68, %c2_6 : index
+    %c0_7 = arith.constant 0 : index
+    %70 = arith.cmpi slt, %69, %c0_7 : index
+    %71 = arith.addi %69, %c2_6 : index
+    %72 = arith.select %70, %71, %69 : index
+    %73 = builtin.unrealized_conversion_cast %72 : index to i64
+    %74 = llvm.icmp "eq" %73, %4 : i64
+    %75 = llvm.select %74, %28, %26 : i1, !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %76 = builtin.unrealized_conversion_cast %75 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> to memref<832x8xi8, #hivm.address_space<ub>>
+    %77 = llvm.zext %74 : i1 to i64
+    %78 = llvm.mul %64, %10 : i32
+    %79 = llvm.sext %78 : i32 to i64
+    %80 = builtin.unrealized_conversion_cast %79 : i64 to index
+    %base_buffer_8, %offset_9, %sizes_10, %strides_11 = memref.extract_strided_metadata %arg3 : memref<?xi8, #hivm.address_space<gm>> -> memref<i8, #hivm.address_space<gm>>, index, index, index
+    %c64 = arith.constant 64 : index
+    %81 = arith.muli %58, %c64 : index
+    %82 = arith.addi %81, %80 : index
+    %reinterpret_cast_12 = memref.reinterpret_cast %base_buffer_8 to offset: [%82], sizes: [%63, 8], strides: [64, 1] : memref<i8, #hivm.address_space<gm>> to memref<?x8xi8, strided<[64, 1], offset: ?>, #hivm.address_space<gm>>
+    %base_buffer_13, %offset_14, %sizes_15:2, %strides_16:2 = memref.extract_strided_metadata %76 : memref<832x8xi8, #hivm.address_space<ub>> -> memref<i8, #hivm.address_space<ub>>, index, index, index, index, index
+    %reinterpret_cast_17 = memref.reinterpret_cast %base_buffer_13 to offset: [0], sizes: [%63, 8], strides: [8, 1] : memref<i8, #hivm.address_space<ub>> to memref<?x8xi8, strided<[8, 1]>, #hivm.address_space<ub>>
+    hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE2>, %77]
+    %cast_18 = memref.cast %reinterpret_cast_12 : memref<?x8xi8, strided<[64, 1], offset: ?>, #hivm.address_space<gm>> to memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<gm>>
+    %cast_19 = memref.cast %reinterpret_cast_17 : memref<?x8xi8, strided<[8, 1]>, #hivm.address_space<ub>> to memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<ub>>
+    call @load_gm_to_ubuf_2d_int8_t(%cast_18, %cast_19, %16, %17, %20, %16) : (memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<gm>>, memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<ub>>, i32, i8, index, i32) -> ()
+    hivm.hir.set_flag[<PIPE_MTE2>, <PIPE_V>, <EVENT_ID0>]
+    %base_buffer_20, %offset_21, %sizes_22:2, %strides_23:2 = memref.extract_strided_metadata %76 : memref<832x8xi8, #hivm.address_space<ub>> -> memref<i8, #hivm.address_space<ub>>, index, index, index, index, index
+    %c8 = arith.constant 8 : index
+    %83 = arith.muli %63, %c8 : index
+    %reinterpret_cast_24 = memref.reinterpret_cast %base_buffer_20 to offset: [0], sizes: [%83], strides: [1] : memref<i8, #hivm.address_space<ub>> to memref<?xi8, strided<[1]>, #hivm.address_space<ub>>
+    %base_buffer_25, %offset_26, %sizes_27:2, %strides_28:2 = memref.extract_strided_metadata %52 : memref<832x8xi8, #hivm.address_space<ub>> -> memref<i8, #hivm.address_space<ub>>, index, index, index, index, index
+    %c8_29 = arith.constant 8 : index
+    %84 = arith.muli %63, %c8_29 : index
+    %reinterpret_cast_30 = memref.reinterpret_cast %base_buffer_25 to offset: [0], sizes: [%84], strides: [1] : memref<i8, #hivm.address_space<ub>> to memref<?xi8, strided<[1]>, #hivm.address_space<ub>>
+    hivm.hir.wait_flag[<PIPE_MTE2>, <PIPE_V>, <EVENT_ID0>]
+    %cast_31 = memref.cast %reinterpret_cast_24 : memref<?xi8, strided<[1]>, #hivm.address_space<ub>> to memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>
+    %cast_32 = memref.cast %reinterpret_cast_30 : memref<?xi8, strided<[1]>, #hivm.address_space<ub>> to memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>
+    call @copy_ubuf_to_ubuf_1d_int8_t(%cast_31, %cast_32) : (memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>, memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>) -> ()
+    hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE2>, %77]
+    %85 = hivm.hir.pointer_cast(%5) : memref<8x832xi32, #hivm.address_space<ub>>
+    call @adc_func_outlined_vf_1(%52, %85) {hivm.vector_function, no_inline} : (memref<832x8xi8, #hivm.address_space<ub>>, memref<8x832xi32, #hivm.address_space<ub>>) -> ()
+    cf.br ^bb6(%16, %65 : i32, memref<832xf32, #hivm.address_space<ub>>)
+  ^bb6(%86: i32, %87: memref<832xf32, #hivm.address_space<ub>>):  // 2 preds: ^bb5, ^bb7
+    %88 = arith.cmpi slt, %86, %10 : i32
+    cf.cond_br %88, ^bb7, ^bb8
+  ^bb7:  // pred: ^bb6
+    %89 = llvm.add %78, %86 : i32
+    %90 = llvm.sext %89 : i32 to i64
+    %91 = builtin.unrealized_conversion_cast %90 : i64 to index
+    %92 = llvm.sext %86 : i32 to i64
+    %93 = builtin.unrealized_conversion_cast %92 : i64 to index
+    %94 = hivm.hir.pointer_cast(%6) : memref<832xf32, #hivm.address_space<ub>>
+    call @adc_func_outlined_vf_0(%87, %85, %93, %31, %91, %94) {hivm.vector_function, no_inline} : (memref<832xf32, #hivm.address_space<ub>>, memref<8x832xi32, #hivm.address_space<ub>>, index, memref<64x256xf32, #hivm.address_space<ub>>, index, memref<832xf32, #hivm.address_space<ub>>) -> ()
+    %95 = arith.addi %86, %9 overflow<nsw> : i32
+    cf.br ^bb6(%95, %94 : i32, memref<832xf32, #hivm.address_space<ub>>)
+  ^bb8:  // pred: ^bb6
+    %96 = arith.addi %64, %9 overflow<nsw> : i32
+    cf.br ^bb4(%96, %87 : i32, memref<832xf32, #hivm.address_space<ub>>)
+  ^bb9:  // pred: ^bb4
+    hivm.hir.wait_flag[<PIPE_MTE3>, <PIPE_V>, %48]
+    call @adc_func_outlined_vf_4(%65, %47) {hivm.vector_function, no_inline} : (memref<832xf32, #hivm.address_space<ub>>, memref<832xf32, #hivm.address_space<ub>>) -> ()
+    hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE3>, <EVENT_ID0>]
+    %base_buffer_33, %offset_34, %sizes_35, %strides_36 = memref.extract_strided_metadata %47 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+    %reinterpret_cast_37 = memref.reinterpret_cast %base_buffer_33 to offset: [0], sizes: [%63], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<?xf32, strided<[1]>, #hivm.address_space<ub>>
+    %base_buffer_38, %offset_39, %sizes_40, %strides_41 = memref.extract_strided_metadata %arg4 : memref<?xf32, #hivm.address_space<gm>> -> memref<f32, #hivm.address_space<gm>>, index, index, index
+    %reinterpret_cast_42 = memref.reinterpret_cast %base_buffer_38 to offset: [%58], sizes: [%63], strides: [1] : memref<f32, #hivm.address_space<gm>> to memref<?xf32, strided<[1], offset: ?>, #hivm.address_space<gm>>
+    hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE3>, <EVENT_ID0>]
+    hivm.hir.pipe_barrier[<PIPE_MTE3>]
+    %cast_43 = memref.cast %reinterpret_cast_37 : memref<?xf32, strided<[1]>, #hivm.address_space<ub>> to memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>
+    %cast_44 = memref.cast %reinterpret_cast_42 : memref<?xf32, strided<[1], offset: ?>, #hivm.address_space<gm>> to memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>
+    call @store_ubuf_to_gm_1d_float(%cast_43, %cast_44, %16) : (memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>, memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>, i32) -> ()
+    hivm.hir.set_flag[<PIPE_MTE3>, <PIPE_V>, %48]
+    cf.br ^bb10
+  ^bb10:  // 2 preds: ^bb2, ^bb9
+    %97 = arith.addi %36, %9 overflow<nsw> : i32
+    cf.br ^bb1(%97 : i32)
+  ^bb11:  // pred: ^bb1
+    hivm.hir.pipe_barrier[<PIPE_ALL>]
+    hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID0>]
+    hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID1>]
+    hivm.hir.wait_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID0>]
+    hivm.hir.wait_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID1>]
+    return
+  }
+}
+
+
+// -----// IR Dump Before ConvertHIVMToLLVM (convert-hivm-to-llvm) //----- //
+#map = affine_map<(d0)[s0] -> (d0 + s0)>
+module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #hacc.target_device_spec<#dlti.dl_entry<"AI_CORE_COUNT", 28 : i32>, #dlti.dl_entry<"CUBE_CORE_COUNT", 28 : i32>, #dlti.dl_entry<"VECTOR_CORE_COUNT", 56 : i32>, #dlti.dl_entry<"UB_SIZE", 2031616 : i32>, #dlti.dl_entry<"L1_SIZE", 4194304 : i32>, #dlti.dl_entry<"L0A_SIZE", 524288 : i32>, #dlti.dl_entry<"L0B_SIZE", 524288 : i32>, #dlti.dl_entry<"L0C_SIZE", 2097152 : i32>, #dlti.dl_entry<"UB_ALIGN_SIZE", 256 : i32>, #dlti.dl_entry<"L1_ALIGN_SIZE", 256 : i32>, #dlti.dl_entry<"L0C_ALIGN_SIZE", 4096 : i32>, #dlti.dl_entry<"MINIMAL_D_CACHE_SIZE", 262144 : i32>, #dlti.dl_entry<"MAXIMUM_D_CACHE_SIZE", 983040 : i32>, #dlti.dl_entry<"ARCH", "dav-c310">>>, hacc.target = #hacc.target<"Ascend950PR_9579">, hivm.module_core_type = #hivm.module_core_type<AIV>, memref.memref_as_ptr} {
+  func.func @adc_func_outlined_vf_0(%arg0: memref<832xf32, #hivm.address_space<ub>>, %arg1: memref<8x832xi32, #hivm.address_space<ub>>, %arg2: index, %arg3: memref<64x256xf32, #hivm.address_space<ub>>, %arg4: index, %arg5: memref<832xf32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %0 = llvm.mlir.constant(2 : i32) : i32
+    %1 = llvm.mlir.constant(64 : i32) : i32
+    %2 = llvm.mlir.constant(832 : i32) : i32
+    %3 = llvm.mlir.constant(0 : i32) : i32
+    %4 = llvm.mlir.constant(8 : i32) : i32
+    %5 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%4, %3) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+    %base_buffer, %offset, %sizes:2, %strides:2 = memref.extract_strided_metadata %arg3 : memref<64x256xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index, index, index
+    %c256 = arith.constant 256 : index
+    %6 = arith.muli %arg4, %c256 : index
+    %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [%6], sizes: [256], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<256xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+    %7 = builtin.unrealized_conversion_cast %reinterpret_cast : memref<256xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    cf.br ^bb1(%3 : i32)
+  ^bb1(%8: i32):  // 2 preds: ^bb0, ^bb2
+    %9 = arith.cmpi slt, %8, %2 : i32
+    cf.cond_br %9, ^bb2, ^bb3
+  ^bb2:  // pred: ^bb1
+    %10 = llvm.sext %8 : i32 to i64
+    %11 = builtin.unrealized_conversion_cast %10 : i64 to index
+    %base_buffer_0, %offset_1, %sizes_2, %strides_3 = memref.extract_strided_metadata %arg0 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+    %reinterpret_cast_4 = memref.reinterpret_cast %base_buffer_0 to offset: [%11], sizes: [64], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+    %12 = builtin.unrealized_conversion_cast %reinterpret_cast_4 : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %base_buffer_5, %offset_6, %sizes_7:2, %strides_8:2 = memref.extract_strided_metadata %arg1 : memref<8x832xi32, #hivm.address_space<ub>> -> memref<i32, #hivm.address_space<ub>>, index, index, index, index, index
+    %c832 = arith.constant 832 : index
+    %13 = arith.muli %arg2, %c832 : index
+    %14 = arith.addi %13, %11 : index
+    %reinterpret_cast_9 = memref.reinterpret_cast %base_buffer_5 to offset: [%14], sizes: [64], strides: [1] : memref<i32, #hivm.address_space<ub>> to memref<64xi32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+    %15 = builtin.unrealized_conversion_cast %reinterpret_cast_9 : memref<64xi32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %base_buffer_10, %offset_11, %sizes_12, %strides_13 = memref.extract_strided_metadata %arg5 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+    %reinterpret_cast_14 = memref.reinterpret_cast %base_buffer_10 to offset: [%11], sizes: [64], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+    %16 = builtin.unrealized_conversion_cast %reinterpret_cast_14 : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %17 = llvm.extractvalue %12[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %18 = llvm.extractvalue %12[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %19 = llvm.getelementptr %17[%18] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+    %20 = "hivm_regbaseintrins.intr.hivm.vldsx1.v64f32"(%19, %3, %3, %3) : (!llvm.ptr<6>, i32, i32, i32) -> vector<64xf32>
+    %21 = llvm.extractvalue %15[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %22 = llvm.extractvalue %15[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %23 = llvm.getelementptr %21[%22] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i32
+    %24 = "hivm_regbaseintrins.intr.hivm.vldsx1.v64s32"(%23, %3, %3, %3) : (!llvm.ptr<6>, i32, i32, i32) -> vector<64xi32>
+    %25 = llvm.extractvalue %7[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %26 = llvm.extractvalue %7[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %27 = llvm.getelementptr %25[%26] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+    %28 = "hivm_regbaseintrins.intr.hivm.vgather2_v300.v64f32"(%27, %24, %5) : (!llvm.ptr<6>, vector<64xi32>, vector<256xi1>) -> vector<64xf32>
+    %29 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%4, %3) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+    %30 = "hivm_regbaseintrins.intr.hivm.vadd.s.x"(%20, %28, %29) : (vector<64xf32>, vector<64xf32>, vector<256xi1>) -> vector<64xf32>
+    %31 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%4, %3) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+    %32 = llvm.extractvalue %16[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %33 = llvm.extractvalue %16[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %34 = llvm.getelementptr %32[%33] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+    "hivm_regbaseintrins.intr.hivm.vstsx1.v64f32"(%30, %34, %3, %0, %3, %31) : (vector<64xf32>, !llvm.ptr<6>, i32, i32, i32, vector<256xi1>) -> ()
+    %35 = arith.addi %8, %1 overflow<nsw> : i32
+    cf.br ^bb1(%35 : i32)
+  ^bb3:  // pred: ^bb1
+    return
+  }
+  func.func @adc_func_outlined_vf_1(%arg0: memref<832x8xi8, #hivm.address_space<ub>>, %arg1: memref<8x832xi32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %0 = llvm.mlir.constant(2 : i32) : i32
+    %1 = llvm.mlir.constant(0 : i8) : i8
+    %2 = llvm.mlir.constant(8 : index) : i64
+    %3 = llvm.mlir.constant(64 : i32) : i32
+    %4 = llvm.mlir.constant(832 : i32) : i32
+    %5 = llvm.mlir.constant(0 : index) : i64
+    %6 = llvm.mlir.constant(0 : i32) : i32
+    %7 = llvm.mlir.constant(8 : i32) : i32
+    %8 = llvm.mlir.constant(1 : i32) : i32
+    cf.br ^bb1(%6 : i32)
+  ^bb1(%9: i32):  // 2 preds: ^bb0, ^bb5
+    %10 = arith.cmpi slt, %9, %7 : i32
+    cf.cond_br %10, ^bb2, ^bb6
+  ^bb2:  // pred: ^bb1
+    %11 = llvm.sext %9 : i32 to i64
+    %12 = builtin.unrealized_conversion_cast %11 : i64 to index
+    cf.br ^bb3(%6 : i32)
+  ^bb3(%13: i32):  // 2 preds: ^bb2, ^bb4
+    %14 = arith.cmpi slt, %13, %4 : i32
+    cf.cond_br %14, ^bb4, ^bb5
+  ^bb4:  // pred: ^bb3
+    %15 = llvm.sext %13 : i32 to i64
+    %16 = builtin.unrealized_conversion_cast %15 : i64 to index
+    %base_buffer, %offset, %sizes:2, %strides:2 = memref.extract_strided_metadata %arg0 : memref<832x8xi8, #hivm.address_space<ub>> -> memref<i8, #hivm.address_space<ub>>, index, index, index, index, index
+    %c8 = arith.constant 8 : index
+    %17 = arith.muli %16, %c8 : index
+    %18 = arith.addi %17, %12 : index
+    %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [%18], sizes: [64, 1], strides: [8, 1] : memref<i8, #hivm.address_space<ub>> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
+    %19 = builtin.unrealized_conversion_cast %reinterpret_cast : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %20 = llvm.extractvalue %19[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %21 = llvm.extractvalue %19[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %22 = llvm.getelementptr %20[%21] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i8
+    %23 = llvm.mul %5, %2 : i64
+    %24 = llvm.add %23, %5 : i64
+    %25 = llvm.getelementptr %22[%24] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i8
+    %26 = "hivm_regbaseintrins.intr.hivm.vldas"(%25) : (!llvm.ptr<6>) -> vector<32xi8>
+    %27 = "hivm_regbaseintrins.intr.hivm.vldus.post.s8"(%25, %26, %6) : (!llvm.ptr<6>, vector<32xi8>, i32) -> !llvm.struct<(vector<256xi8>, vector<32xi8>, ptr<6>)>
+    %28 = llvm.extractvalue %27[0] : !llvm.struct<(vector<256xi8>, vector<32xi8>, ptr<6>)> 
+    %29 = "hivm_regbaseintrins.intr.hivm.vbr"(%1) : (i8) -> vector<256xi8>
+    %30 = "hivm_regbaseintrins.intr.hivm.vintlv"(%28, %29) : (vector<256xi8>, vector<256xi8>) -> !llvm.struct<(vector<256xi8>, vector<256xi8>)>
+    %31 = llvm.extractvalue %30[0] : !llvm.struct<(vector<256xi8>, vector<256xi8>)> 
+    %32 = "hivm_regbaseintrins.intr.hivm.vintlv"(%31, %29) : (vector<256xi8>, vector<256xi8>) -> !llvm.struct<(vector<256xi8>, vector<256xi8>)>
+    %33 = llvm.extractvalue %32[0] : !llvm.struct<(vector<256xi8>, vector<256xi8>)> 
+    %34 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%7, %6) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+    %35 = "hivm_regbaseintrins.intr.hivm.vcvtii.s82s32.x"(%33, %34, %6) : (vector<256xi8>, vector<256xi1>, i32) -> vector<64xi32>
+    %base_buffer_0, %offset_1, %sizes_2:2, %strides_3:2 = memref.extract_strided_metadata %arg1 : memref<8x832xi32, #hivm.address_space<ub>> -> memref<i32, #hivm.address_space<ub>>, index, index, index, index, index
+    %c832 = arith.constant 832 : index
+    %36 = arith.muli %12, %c832 : index
+    %37 = arith.addi %36, %16 : index
+    %reinterpret_cast_4 = memref.reinterpret_cast %base_buffer_0 to offset: [%37], sizes: [64], strides: [1] : memref<i32, #hivm.address_space<ub>> to memref<64xi32, #map, #hivm.address_space<ub>>
+    %38 = builtin.unrealized_conversion_cast %reinterpret_cast_4 : memref<64xi32, #map, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %39 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%7, %6) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+    %40 = llvm.extractvalue %38[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %41 = llvm.extractvalue %38[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %42 = llvm.getelementptr %40[%41] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i32
+    "hivm_regbaseintrins.intr.hivm.vstsx1.v64s32"(%35, %42, %6, %0, %6, %39) : (vector<64xi32>, !llvm.ptr<6>, i32, i32, i32, vector<256xi1>) -> ()
+    %43 = arith.addi %13, %3 overflow<nsw> : i32
+    cf.br ^bb3(%43 : i32)
+  ^bb5:  // pred: ^bb3
+    %44 = arith.addi %9, %8 overflow<nsw> : i32
+    cf.br ^bb1(%44 : i32)
+  ^bb6:  // pred: ^bb1
+    return
+  }
+  func.func @adc_func_outlined_vf_2(%arg0: memref<832x8xi8, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 8 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %0 = llvm.mlir.constant(8 : i32) : i32
+    %1 = llvm.mlir.constant(5 : i32) : i32
+    %2 = llvm.mlir.constant(0 : i8) : i8
+    %3 = llvm.mlir.constant(1 : i32) : i32
+    %4 = llvm.mlir.constant(832 : i32) : i32
+    %5 = llvm.mlir.constant(0 : i32) : i32
+    %6 = "hivm_regbaseintrins.intr.hivm.pge.b8"(%5, %5) {mask_bit_width = 8 : i32} : (i32, i32) -> vector<256xi1>
+    %7 = "hivm_regbaseintrins.intr.hivm.vdups.z"(%2, %6, %3) : (i8, vector<256xi1>, i32) -> vector<256xi8>
+    cf.br ^bb1(%5 : i32)
+  ^bb1(%8: i32):  // 2 preds: ^bb0, ^bb2
+    %9 = arith.cmpi slt, %8, %4 : i32
+    cf.cond_br %9, ^bb2, ^bb3
+  ^bb2:  // pred: ^bb1
+    %10 = llvm.sext %8 : i32 to i64
+    %11 = builtin.unrealized_conversion_cast %10 : i64 to index
+    %12 = "hivm_regbaseintrins.intr.hivm.pge.b8"(%1, %5) {mask_bit_width = 8 : i32, mask_op_idx = 0 : i32} : (i32, i32) -> vector<256xi1>
+    %base_buffer, %offset, %sizes:2, %strides:2 = memref.extract_strided_metadata %arg0 : memref<832x8xi8, #hivm.address_space<ub>> -> memref<i8, #hivm.address_space<ub>>, index, index, index, index, index
+    %c8 = arith.constant 8 : index
+    %13 = arith.muli %11, %c8 : index
+    %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [%13], sizes: [8], strides: [1] : memref<i8, #hivm.address_space<ub>> to memref<8xi8, #map, #hivm.address_space<ub>>
+    %14 = builtin.unrealized_conversion_cast %reinterpret_cast : memref<8xi8, #map, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %15 = llvm.extractvalue %14[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %16 = llvm.extractvalue %14[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %17 = llvm.getelementptr %15[%16] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i8
+    %18 = "hivm_regbaseintrins.intr.hivm.init.vector.align.data"() : () -> vector<32xi8>
+    %19 = "hivm_regbaseintrins.intr.hivm.vstus.post.s8"(%7, %17, %0, %18) : (vector<256xi8>, !llvm.ptr<6>, i32, vector<32xi8>) -> !llvm.struct<(vector<32xi8>, ptr<6>)>
+    %20 = llvm.extractvalue %19[0] : !llvm.struct<(vector<32xi8>, ptr<6>)> 
+    %21 = llvm.extractvalue %19[1] : !llvm.struct<(vector<32xi8>, ptr<6>)> 
+    "hivm_regbaseintrins.intr.hivm.vstas"(%20, %21, %5, %5) : (vector<32xi8>, !llvm.ptr<6>, i32, i32) -> ()
+    %22 = arith.addi %8, %3 overflow<nsw> : i32
+    cf.br ^bb1(%22 : i32)
+  ^bb3:  // pred: ^bb1
+    return
+  }
+  func.func @adc_func_outlined_vf_3(%arg0: memref<832xf32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %0 = llvm.mlir.constant(2 : i32) : i32
+    %1 = llvm.mlir.constant(1 : i32) : i32
+    %2 = llvm.mlir.constant(64 : i32) : i32
+    %3 = llvm.mlir.constant(832 : i32) : i32
+    %4 = llvm.mlir.constant(0 : i32) : i32
+    %5 = llvm.mlir.constant(0.000000e+00 : f32) : f32
+    %6 = llvm.mlir.constant(8 : i32) : i32
+    %7 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%6, %4) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+    %8 = "hivm_regbaseintrins.intr.hivm.vdups.z"(%5, %7, %1) : (f32, vector<256xi1>, i32) -> vector<64xf32>
+    cf.br ^bb1(%4 : i32)
+  ^bb1(%9: i32):  // 2 preds: ^bb0, ^bb2
+    %10 = arith.cmpi slt, %9, %3 : i32
+    cf.cond_br %10, ^bb2, ^bb3
+  ^bb2:  // pred: ^bb1
+    %11 = llvm.sext %9 : i32 to i64
+    %12 = builtin.unrealized_conversion_cast %11 : i64 to index
+    %base_buffer, %offset, %sizes, %strides = memref.extract_strided_metadata %arg0 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+    %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [%12], sizes: [64], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+    %13 = builtin.unrealized_conversion_cast %reinterpret_cast : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %14 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%6, %4) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+    %15 = llvm.extractvalue %13[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %16 = llvm.extractvalue %13[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %17 = llvm.getelementptr %15[%16] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+    "hivm_regbaseintrins.intr.hivm.vstsx1.v64f32"(%8, %17, %4, %0, %4, %14) : (vector<64xf32>, !llvm.ptr<6>, i32, i32, i32, vector<256xi1>) -> ()
+    %18 = arith.addi %9, %2 overflow<nsw> : i32
+    cf.br ^bb1(%18 : i32)
+  ^bb3:  // pred: ^bb1
+    return
+  }
+  func.func @adc_func_outlined_vf_4(%arg0: memref<832xf32, #hivm.address_space<ub>>, %arg1: memref<832xf32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+    %0 = llvm.mlir.constant(2 : i32) : i32
+    %1 = llvm.mlir.constant(8 : i32) : i32
+    %2 = llvm.mlir.constant(0 : i32) : i32
+    %3 = llvm.mlir.constant(832 : i32) : i32
+    %4 = llvm.mlir.constant(64 : i32) : i32
+    cf.br ^bb1(%2 : i32)
+  ^bb1(%5: i32):  // 2 preds: ^bb0, ^bb2
+    %6 = arith.cmpi slt, %5, %3 : i32
+    cf.cond_br %6, ^bb2, ^bb3
+  ^bb2:  // pred: ^bb1
+    %7 = llvm.sext %5 : i32 to i64
+    %8 = builtin.unrealized_conversion_cast %7 : i64 to index
+    %base_buffer, %offset, %sizes, %strides = memref.extract_strided_metadata %arg0 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+    %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [%8], sizes: [64], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+    %9 = builtin.unrealized_conversion_cast %reinterpret_cast : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %base_buffer_0, %offset_1, %sizes_2, %strides_3 = memref.extract_strided_metadata %arg1 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+    %reinterpret_cast_4 = memref.reinterpret_cast %base_buffer_0 to offset: [%8], sizes: [64], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+    %10 = builtin.unrealized_conversion_cast %reinterpret_cast_4 : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %11 = llvm.extractvalue %9[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %12 = llvm.extractvalue %9[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %13 = llvm.getelementptr %11[%12] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+    %14 = "hivm_regbaseintrins.intr.hivm.vldsx1.v64f32"(%13, %2, %2, %2) : (!llvm.ptr<6>, i32, i32, i32) -> vector<64xf32>
+    %15 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%1, %2) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+    %16 = "hivm_regbaseintrins.intr.hivm.vsqrt.x"(%14, %15) : (vector<64xf32>, vector<256xi1>) -> vector<64xf32>
+    %17 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%1, %2) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+    %18 = llvm.extractvalue %10[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %19 = llvm.extractvalue %10[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %20 = llvm.getelementptr %18[%19] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+    "hivm_regbaseintrins.intr.hivm.vstsx1.v64f32"(%16, %20, %2, %0, %2, %17) : (vector<64xf32>, !llvm.ptr<6>, i32, i32, i32, vector<256xi1>) -> ()
+    %21 = arith.addi %5, %4 overflow<nsw> : i32
+    cf.br ^bb1(%21 : i32)
+  ^bb3:  // pred: ^bb1
+    return
+  }
+  func.func private @load_gm_to_ubuf_1d_float(memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>, memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>, i32, f32, index, i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface}
+  func.func private @load_gm_to_ubuf_2d_int8_t(memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<gm>>, memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<ub>>, i32, i8, index, i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface}
+  func.func private @copy_ubuf_to_ubuf_1d_int8_t(memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>, memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface}
+  func.func private @store_ubuf_to_gm_1d_float(memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>, memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>, i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface}
+  func.func @adc_func(%arg0: memref<?xi8, #hivm.address_space<gm>> {hacc.arg_type = #hacc.arg_type<sync_block_lock>}, %arg1: memref<?xi8, #hivm.address_space<gm>> {hacc.arg_type = #hacc.arg_type<workspace>}, %arg2: memref<?xf32, #hivm.address_space<gm>>, %arg3: memref<?xi8, #hivm.address_space<gm>>, %arg4: memref<?xf32, #hivm.address_space<gm>>, %arg5: i32, %arg6: i32, %arg7: i32, %arg8: i32) attributes {SyncBlockLockArgIdx = 0 : i64, WorkspaceArgIdx = 1 : i64, func_dyn_memref_args = dense<[true, true, true, true, true, false, false, false, false]> : vector<9xi1>, hacc.entry, hacc.function_kind = #hacc.function_kind<DEVICE>, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vf_mode = #hivm.vf_mode<SIMD>, hivm_regbaseintrins.target = #hivm_regbaseintrins.target<"dav-c310">, mix_mode = "aiv", parallel_mode = "simd"} {
+    %0 = llvm.mlir.constant(118784 : i64) : i64
+    %1 = llvm.mlir.constant(108800 : i64) : i64
+    %2 = llvm.mlir.constant(75520 : i64) : i64
+    %3 = llvm.mlir.constant(112128 : i64) : i64
+    %4 = llvm.mlir.constant(1 : i64) : i64
+    %5 = llvm.mlir.constant(82176 : i64) : i64
+    %6 = llvm.mlir.constant(72192 : i64) : i64
+    %7 = llvm.mlir.constant(65536 : i64) : i64
+    %8 = llvm.mlir.constant(0 : i64) : i64
+    %9 = llvm.mlir.constant(1 : i32) : i32
+    %10 = llvm.mlir.constant(8 : i32) : i32
+    %11 = llvm.mlir.constant(832 : i32) : i32
+    %12 = llvm.mlir.constant(831 : i32) : i32
+    %13 = llvm.mlir.constant(56 : i32) : i32
+    %14 = llvm.mlir.constant(46592 : i32) : i32
+    %15 = llvm.mlir.constant(46591 : i32) : i32
+    %16 = llvm.mlir.constant(0 : i32) : i32
+    %17 = llvm.mlir.constant(0 : i8) : i8
+    %18 = llvm.mlir.constant(0.000000e+00 : f32) : f32
+    %19 = llvm.mlir.constant(0 : index) : i64
+    %20 = builtin.unrealized_conversion_cast %19 : i64 to index
+    %21 = hivm.hir.pointer_cast(%1) : memref<832xf32, #hivm.address_space<ub>>
+    %22 = builtin.unrealized_conversion_cast %21 : memref<832xf32, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %23 = hivm.hir.pointer_cast(%0) : memref<832xf32, #hivm.address_space<ub>>
+    %24 = builtin.unrealized_conversion_cast %23 : memref<832xf32, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %25 = hivm.hir.pointer_cast(%2) : memref<832x8xi8, #hivm.address_space<ub>>
+    %26 = builtin.unrealized_conversion_cast %25 : memref<832x8xi8, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %27 = hivm.hir.pointer_cast(%3) : memref<832x8xi8, #hivm.address_space<ub>>
+    %28 = builtin.unrealized_conversion_cast %27 : memref<832x8xi8, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    hivm.hir.set_ctrl false at ctrl[60]
+    hivm.hir.set_ctrl true at ctrl[48]
+    %29 = hivm.hir.get_block_idx -> i64
+    %30 = llvm.trunc %29 : i64 to i32
+    %31 = hivm.hir.pointer_cast(%8) : memref<64x256xf32, #hivm.address_space<ub>>
+    %base_buffer, %offset, %sizes, %strides = memref.extract_strided_metadata %arg2 : memref<?xf32, #hivm.address_space<gm>> -> memref<f32, #hivm.address_space<gm>>, index, index, index
+    %reinterpret_cast = memref.reinterpret_cast %base_buffer to offset: [0], sizes: [16384], strides: [1] : memref<f32, #hivm.address_space<gm>> to memref<16384xf32, strided<[1]>, #hivm.address_space<gm>>
+    %base_buffer_0, %offset_1, %sizes_2:2, %strides_3:2 = memref.extract_strided_metadata %31 : memref<64x256xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index, index, index
+    %reinterpret_cast_4 = memref.reinterpret_cast %base_buffer_0 to offset: [0], sizes: [16384], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<16384xf32, #hivm.address_space<ub>>
+    hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID0>]
+    hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID1>]
+    hivm.hir.set_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID0>]
+    hivm.hir.set_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID1>]
+    %cast = memref.cast %reinterpret_cast : memref<16384xf32, strided<[1]>, #hivm.address_space<gm>> to memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>
+    %cast_5 = memref.cast %reinterpret_cast_4 : memref<16384xf32, #hivm.address_space<ub>> to memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>
+    call @load_gm_to_ubuf_1d_float(%cast, %cast_5, %16, %18, %20, %16) : (memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>, memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>, i32, f32, index, i32) -> ()
+    %32 = llvm.add %arg5, %15 : i32
+    %33 = llvm.sdiv %32, %14  : i32
+    %34 = llvm.add %arg5, %12 : i32
+    %35 = llvm.sdiv %34, %11  : i32
+    cf.br ^bb1(%16 : i32)
+  ^bb1(%36: i32):  // 2 preds: ^bb0, ^bb10
+    %37 = arith.cmpi slt, %36, %33 : i32
+    cf.cond_br %37, ^bb2, ^bb11
+  ^bb2:  // pred: ^bb1
+    %38 = llvm.sext %36 : i32 to i64
+    %39 = builtin.unrealized_conversion_cast %38 : i64 to index
+    %c2 = arith.constant 2 : index
+    %40 = arith.remsi %39, %c2 : index
+    %c0 = arith.constant 0 : index
+    %41 = arith.cmpi slt, %40, %c0 : index
+    %42 = arith.addi %40, %c2 : index
+    %43 = arith.select %41, %42, %40 : index
+    %44 = builtin.unrealized_conversion_cast %43 : index to i64
+    %45 = llvm.icmp "eq" %44, %4 : i64
+    %46 = llvm.select %45, %24, %22 : i1, !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %47 = builtin.unrealized_conversion_cast %46 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> to memref<832xf32, #hivm.address_space<ub>>
+    %48 = llvm.zext %45 : i1 to i64
+    %49 = llvm.mul %36, %13 : i32
+    %50 = llvm.add %49, %30 : i32
+    %51 = llvm.icmp "slt" %50, %35 : i32
+    cf.cond_br %51, ^bb3, ^bb10
+  ^bb3:  // pred: ^bb2
+    %52 = hivm.hir.pointer_cast(%7) : memref<832x8xi8, #hivm.address_space<ub>>
+    call @adc_func_outlined_vf_2(%52) {hivm.vector_function, no_inline} : (memref<832x8xi8, #hivm.address_space<ub>>) -> ()
+    %53 = hivm.hir.pointer_cast(%6) : memref<832xf32, #hivm.address_space<ub>>
+    call @adc_func_outlined_vf_3(%53) {hivm.vector_function, no_inline} : (memref<832xf32, #hivm.address_space<ub>>) -> ()
+    %54 = llvm.mul %36, %14 : i32
+    %55 = llvm.mul %30, %11 : i32
+    %56 = llvm.add %54, %55 : i32
+    %57 = llvm.sext %56 : i32 to i64
+    %58 = builtin.unrealized_conversion_cast %57 : i64 to index
+    %59 = llvm.sub %arg5, %55 : i32
+    %60 = llvm.sub %59, %54 : i32
+    %61 = llvm.intr.smin(%60, %11)  : (i32, i32) -> i32
+    %62 = llvm.sext %61 : i32 to i64
+    %63 = builtin.unrealized_conversion_cast %62 : i64 to index
+    cf.br ^bb4(%16, %53 : i32, memref<832xf32, #hivm.address_space<ub>>)
+  ^bb4(%64: i32, %65: memref<832xf32, #hivm.address_space<ub>>):  // 2 preds: ^bb3, ^bb8
+    %66 = arith.cmpi slt, %64, %10 : i32
+    cf.cond_br %66, ^bb5, ^bb9
+  ^bb5:  // pred: ^bb4
+    %67 = llvm.sext %64 : i32 to i64
+    %68 = builtin.unrealized_conversion_cast %67 : i64 to index
+    %c2_6 = arith.constant 2 : index
+    %69 = arith.remsi %68, %c2_6 : index
+    %c0_7 = arith.constant 0 : index
+    %70 = arith.cmpi slt, %69, %c0_7 : index
+    %71 = arith.addi %69, %c2_6 : index
+    %72 = arith.select %70, %71, %69 : index
+    %73 = builtin.unrealized_conversion_cast %72 : index to i64
+    %74 = llvm.icmp "eq" %73, %4 : i64
+    %75 = llvm.select %74, %28, %26 : i1, !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %76 = builtin.unrealized_conversion_cast %75 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> to memref<832x8xi8, #hivm.address_space<ub>>
+    %77 = llvm.zext %74 : i1 to i64
+    %78 = llvm.mul %64, %10 : i32
+    %79 = llvm.sext %78 : i32 to i64
+    %80 = builtin.unrealized_conversion_cast %79 : i64 to index
+    %base_buffer_8, %offset_9, %sizes_10, %strides_11 = memref.extract_strided_metadata %arg3 : memref<?xi8, #hivm.address_space<gm>> -> memref<i8, #hivm.address_space<gm>>, index, index, index
+    %c64 = arith.constant 64 : index
+    %81 = arith.muli %58, %c64 : index
+    %82 = arith.addi %81, %80 : index
+    %reinterpret_cast_12 = memref.reinterpret_cast %base_buffer_8 to offset: [%82], sizes: [%63, 8], strides: [64, 1] : memref<i8, #hivm.address_space<gm>> to memref<?x8xi8, strided<[64, 1], offset: ?>, #hivm.address_space<gm>>
+    %base_buffer_13, %offset_14, %sizes_15:2, %strides_16:2 = memref.extract_strided_metadata %76 : memref<832x8xi8, #hivm.address_space<ub>> -> memref<i8, #hivm.address_space<ub>>, index, index, index, index, index
+    %reinterpret_cast_17 = memref.reinterpret_cast %base_buffer_13 to offset: [0], sizes: [%63, 8], strides: [8, 1] : memref<i8, #hivm.address_space<ub>> to memref<?x8xi8, strided<[8, 1]>, #hivm.address_space<ub>>
+    hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE2>, %77]
+    %cast_18 = memref.cast %reinterpret_cast_12 : memref<?x8xi8, strided<[64, 1], offset: ?>, #hivm.address_space<gm>> to memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<gm>>
+    %cast_19 = memref.cast %reinterpret_cast_17 : memref<?x8xi8, strided<[8, 1]>, #hivm.address_space<ub>> to memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<ub>>
+    call @load_gm_to_ubuf_2d_int8_t(%cast_18, %cast_19, %16, %17, %20, %16) : (memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<gm>>, memref<?x?xi8, strided<[?, ?], offset: ?>, #hivm.address_space<ub>>, i32, i8, index, i32) -> ()
+    hivm.hir.set_flag[<PIPE_MTE2>, <PIPE_V>, <EVENT_ID0>]
+    %base_buffer_20, %offset_21, %sizes_22:2, %strides_23:2 = memref.extract_strided_metadata %76 : memref<832x8xi8, #hivm.address_space<ub>> -> memref<i8, #hivm.address_space<ub>>, index, index, index, index, index
+    %c8 = arith.constant 8 : index
+    %83 = arith.muli %63, %c8 : index
+    %reinterpret_cast_24 = memref.reinterpret_cast %base_buffer_20 to offset: [0], sizes: [%83], strides: [1] : memref<i8, #hivm.address_space<ub>> to memref<?xi8, strided<[1]>, #hivm.address_space<ub>>
+    %base_buffer_25, %offset_26, %sizes_27:2, %strides_28:2 = memref.extract_strided_metadata %52 : memref<832x8xi8, #hivm.address_space<ub>> -> memref<i8, #hivm.address_space<ub>>, index, index, index, index, index
+    %c8_29 = arith.constant 8 : index
+    %84 = arith.muli %63, %c8_29 : index
+    %reinterpret_cast_30 = memref.reinterpret_cast %base_buffer_25 to offset: [0], sizes: [%84], strides: [1] : memref<i8, #hivm.address_space<ub>> to memref<?xi8, strided<[1]>, #hivm.address_space<ub>>
+    hivm.hir.wait_flag[<PIPE_MTE2>, <PIPE_V>, <EVENT_ID0>]
+    %cast_31 = memref.cast %reinterpret_cast_24 : memref<?xi8, strided<[1]>, #hivm.address_space<ub>> to memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>
+    %cast_32 = memref.cast %reinterpret_cast_30 : memref<?xi8, strided<[1]>, #hivm.address_space<ub>> to memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>
+    call @copy_ubuf_to_ubuf_1d_int8_t(%cast_31, %cast_32) : (memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>, memref<?xi8, strided<[?], offset: ?>, #hivm.address_space<ub>>) -> ()
+    hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE2>, %77]
+    %85 = hivm.hir.pointer_cast(%5) : memref<8x832xi32, #hivm.address_space<ub>>
+    call @adc_func_outlined_vf_1(%52, %85) {hivm.vector_function, no_inline} : (memref<832x8xi8, #hivm.address_space<ub>>, memref<8x832xi32, #hivm.address_space<ub>>) -> ()
+    cf.br ^bb6(%16, %65 : i32, memref<832xf32, #hivm.address_space<ub>>)
+  ^bb6(%86: i32, %87: memref<832xf32, #hivm.address_space<ub>>):  // 2 preds: ^bb5, ^bb7
+    %88 = arith.cmpi slt, %86, %10 : i32
+    cf.cond_br %88, ^bb7, ^bb8
+  ^bb7:  // pred: ^bb6
+    %89 = llvm.add %78, %86 : i32
+    %90 = llvm.sext %89 : i32 to i64
+    %91 = builtin.unrealized_conversion_cast %90 : i64 to index
+    %92 = llvm.sext %86 : i32 to i64
+    %93 = builtin.unrealized_conversion_cast %92 : i64 to index
+    %94 = hivm.hir.pointer_cast(%6) : memref<832xf32, #hivm.address_space<ub>>
+    call @adc_func_outlined_vf_0(%87, %85, %93, %31, %91, %94) {hivm.vector_function, no_inline} : (memref<832xf32, #hivm.address_space<ub>>, memref<8x832xi32, #hivm.address_space<ub>>, index, memref<64x256xf32, #hivm.address_space<ub>>, index, memref<832xf32, #hivm.address_space<ub>>) -> ()
+    %95 = arith.addi %86, %9 overflow<nsw> : i32
+    cf.br ^bb6(%95, %94 : i32, memref<832xf32, #hivm.address_space<ub>>)
+  ^bb8:  // pred: ^bb6
+    %96 = arith.addi %64, %9 overflow<nsw> : i32
+    cf.br ^bb4(%96, %87 : i32, memref<832xf32, #hivm.address_space<ub>>)
+  ^bb9:  // pred: ^bb4
+    hivm.hir.wait_flag[<PIPE_MTE3>, <PIPE_V>, %48]
+    call @adc_func_outlined_vf_4(%65, %47) {hivm.vector_function, no_inline} : (memref<832xf32, #hivm.address_space<ub>>, memref<832xf32, #hivm.address_space<ub>>) -> ()
+    hivm.hir.set_flag[<PIPE_V>, <PIPE_MTE3>, <EVENT_ID0>]
+    %base_buffer_33, %offset_34, %sizes_35, %strides_36 = memref.extract_strided_metadata %47 : memref<832xf32, #hivm.address_space<ub>> -> memref<f32, #hivm.address_space<ub>>, index, index, index
+    %reinterpret_cast_37 = memref.reinterpret_cast %base_buffer_33 to offset: [0], sizes: [%63], strides: [1] : memref<f32, #hivm.address_space<ub>> to memref<?xf32, strided<[1]>, #hivm.address_space<ub>>
+    %base_buffer_38, %offset_39, %sizes_40, %strides_41 = memref.extract_strided_metadata %arg4 : memref<?xf32, #hivm.address_space<gm>> -> memref<f32, #hivm.address_space<gm>>, index, index, index
+    %reinterpret_cast_42 = memref.reinterpret_cast %base_buffer_38 to offset: [%58], sizes: [%63], strides: [1] : memref<f32, #hivm.address_space<gm>> to memref<?xf32, strided<[1], offset: ?>, #hivm.address_space<gm>>
+    hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE3>, <EVENT_ID0>]
+    hivm.hir.pipe_barrier[<PIPE_MTE3>]
+    %cast_43 = memref.cast %reinterpret_cast_37 : memref<?xf32, strided<[1]>, #hivm.address_space<ub>> to memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>
+    %cast_44 = memref.cast %reinterpret_cast_42 : memref<?xf32, strided<[1], offset: ?>, #hivm.address_space<gm>> to memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>
+    call @store_ubuf_to_gm_1d_float(%cast_43, %cast_44, %16) : (memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<ub>>, memref<?xf32, strided<[?], offset: ?>, #hivm.address_space<gm>>, i32) -> ()
+    hivm.hir.set_flag[<PIPE_MTE3>, <PIPE_V>, %48]
+    cf.br ^bb10
+  ^bb10:  // 2 preds: ^bb2, ^bb9
+    %97 = arith.addi %36, %9 overflow<nsw> : i32
+    cf.br ^bb1(%97 : i32)
+  ^bb11:  // pred: ^bb1
+    hivm.hir.pipe_barrier[<PIPE_ALL>]
+    hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID0>]
+    hivm.hir.wait_flag[<PIPE_V>, <PIPE_MTE2>, <EVENT_ID1>]
+    hivm.hir.wait_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID0>]
+    hivm.hir.wait_flag[<PIPE_MTE3>, <PIPE_V>, <EVENT_ID1>]
+    return
+  }
+}
+
+
+// -----// IR Dump After ConvertHIVMToLLVM (convert-hivm-to-llvm) //----- //
+#map = affine_map<(d0)[s0] -> (d0 + s0)>
+module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #hacc.target_device_spec<#dlti.dl_entry<"AI_CORE_COUNT", 28 : i32>, #dlti.dl_entry<"CUBE_CORE_COUNT", 28 : i32>, #dlti.dl_entry<"VECTOR_CORE_COUNT", 56 : i32>, #dlti.dl_entry<"UB_SIZE", 2031616 : i32>, #dlti.dl_entry<"L1_SIZE", 4194304 : i32>, #dlti.dl_entry<"L0A_SIZE", 524288 : i32>, #dlti.dl_entry<"L0B_SIZE", 524288 : i32>, #dlti.dl_entry<"L0C_SIZE", 2097152 : i32>, #dlti.dl_entry<"UB_ALIGN_SIZE", 256 : i32>, #dlti.dl_entry<"L1_ALIGN_SIZE", 256 : i32>, #dlti.dl_entry<"L0C_ALIGN_SIZE", 4096 : i32>, #dlti.dl_entry<"MINIMAL_D_CACHE_SIZE", 262144 : i32>, #dlti.dl_entry<"MAXIMUM_D_CACHE_SIZE", 983040 : i32>, #dlti.dl_entry<"ARCH", "dav-c310">>>, hacc.target = #hacc.target<"Ascend950PR_9579">, hivm.module_core_type = #hivm.module_core_type<AIV>, memref.memref_as_ptr} {
+  llvm.func @adc_func_outlined_vf_0(%arg0: !llvm.ptr<6>, %arg1: !llvm.ptr<6>, %arg2: i64, %arg3: !llvm.ptr<6>, %arg4: i64, %arg5: !llvm.ptr<6>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function} {
+    %0 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %1 = llvm.insertvalue %arg5, %0[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %2 = llvm.insertvalue %arg5, %1[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %3 = llvm.mlir.constant(0 : index) : i64
+    %4 = llvm.insertvalue %3, %2[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %5 = llvm.mlir.constant(832 : index) : i64
+    %6 = llvm.insertvalue %5, %4[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %7 = llvm.mlir.constant(1 : index) : i64
+    %8 = llvm.insertvalue %7, %6[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %9 = builtin.unrealized_conversion_cast %8 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> to memref<832xf32, #hivm.address_space<ub>>
+    %10 = builtin.unrealized_conversion_cast %9 : memref<832xf32, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %11 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %12 = llvm.insertvalue %arg3, %11[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %13 = llvm.insertvalue %arg3, %12[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %14 = llvm.mlir.constant(0 : index) : i64
+    %15 = llvm.insertvalue %14, %13[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %16 = llvm.mlir.constant(64 : index) : i64
+    %17 = llvm.insertvalue %16, %15[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %18 = llvm.mlir.constant(256 : index) : i64
+    %19 = llvm.insertvalue %18, %17[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %20 = llvm.mlir.constant(256 : index) : i64
+    %21 = llvm.insertvalue %20, %19[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %22 = llvm.mlir.constant(1 : index) : i64
+    %23 = llvm.insertvalue %22, %21[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %24 = builtin.unrealized_conversion_cast %23 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> to memref<64x256xf32, #hivm.address_space<ub>>
+    %25 = builtin.unrealized_conversion_cast %24 : memref<64x256xf32, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %26 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %27 = llvm.insertvalue %arg1, %26[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %28 = llvm.insertvalue %arg1, %27[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %29 = llvm.mlir.constant(0 : index) : i64
+    %30 = llvm.insertvalue %29, %28[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %31 = llvm.mlir.constant(8 : index) : i64
+    %32 = llvm.insertvalue %31, %30[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %33 = llvm.mlir.constant(832 : index) : i64
+    %34 = llvm.insertvalue %33, %32[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %35 = llvm.mlir.constant(832 : index) : i64
+    %36 = llvm.insertvalue %35, %34[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %37 = llvm.mlir.constant(1 : index) : i64
+    %38 = llvm.insertvalue %37, %36[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %39 = builtin.unrealized_conversion_cast %38 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> to memref<8x832xi32, #hivm.address_space<ub>>
+    %40 = builtin.unrealized_conversion_cast %39 : memref<8x832xi32, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %41 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %42 = llvm.insertvalue %arg0, %41[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %43 = llvm.insertvalue %arg0, %42[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %44 = llvm.mlir.constant(0 : index) : i64
+    %45 = llvm.insertvalue %44, %43[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %46 = llvm.mlir.constant(832 : index) : i64
+    %47 = llvm.insertvalue %46, %45[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %48 = llvm.mlir.constant(1 : index) : i64
+    %49 = llvm.insertvalue %48, %47[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %50 = builtin.unrealized_conversion_cast %49 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> to memref<832xf32, #hivm.address_space<ub>>
+    %51 = builtin.unrealized_conversion_cast %50 : memref<832xf32, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %52 = llvm.mlir.constant(2 : i32) : i32
+    %53 = llvm.mlir.constant(64 : i32) : i32
+    %54 = llvm.mlir.constant(832 : i32) : i32
+    %55 = llvm.mlir.constant(0 : i32) : i32
+    %56 = llvm.mlir.constant(8 : i32) : i32
+    %57 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%56, %55) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+    %58 = llvm.extractvalue %25[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %59 = llvm.extractvalue %25[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %60 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64)>
+    %61 = llvm.insertvalue %58, %60[0] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %62 = llvm.insertvalue %59, %61[1] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %63 = llvm.mlir.constant(0 : index) : i64
+    %64 = llvm.insertvalue %63, %62[2] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %65 = llvm.extractvalue %25[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %66 = llvm.extractvalue %25[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %67 = llvm.extractvalue %25[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %68 = llvm.extractvalue %25[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %69 = llvm.extractvalue %25[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %70 = llvm.mlir.constant(256 : index) : i64
+    %71 = llvm.mul %arg4, %70 : i64
+    %72 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %73 = llvm.extractvalue %64[0] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %74 = llvm.extractvalue %64[1] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %75 = llvm.insertvalue %73, %72[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %76 = llvm.insertvalue %74, %75[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %77 = llvm.insertvalue %71, %76[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %78 = llvm.mlir.constant(256 : index) : i64
+    %79 = llvm.insertvalue %78, %77[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %80 = llvm.mlir.constant(1 : index) : i64
+    %81 = llvm.insertvalue %80, %79[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %82 = builtin.unrealized_conversion_cast %81 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> to memref<256xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+    %83 = builtin.unrealized_conversion_cast %82 : memref<256xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    llvm.br ^bb1(%55 : i32)
+  ^bb1(%84: i32):  // 2 preds: ^bb0, ^bb2
+    %85 = llvm.icmp "slt" %84, %54 : i32
+    llvm.cond_br %85, ^bb2, ^bb3
+  ^bb2:  // pred: ^bb1
+    %86 = llvm.sext %84 : i32 to i64
+    %87 = llvm.extractvalue %51[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %88 = llvm.extractvalue %51[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %89 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64)>
+    %90 = llvm.insertvalue %87, %89[0] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %91 = llvm.insertvalue %88, %90[1] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %92 = llvm.mlir.constant(0 : index) : i64
+    %93 = llvm.insertvalue %92, %91[2] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %94 = llvm.extractvalue %51[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %95 = llvm.extractvalue %51[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %96 = llvm.extractvalue %51[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %97 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %98 = llvm.extractvalue %93[0] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %99 = llvm.extractvalue %93[1] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %100 = llvm.insertvalue %98, %97[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %101 = llvm.insertvalue %99, %100[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %102 = llvm.insertvalue %86, %101[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %103 = llvm.mlir.constant(64 : index) : i64
+    %104 = llvm.insertvalue %103, %102[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %105 = llvm.mlir.constant(1 : index) : i64
+    %106 = llvm.insertvalue %105, %104[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %107 = builtin.unrealized_conversion_cast %106 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+    %108 = builtin.unrealized_conversion_cast %107 : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %109 = llvm.extractvalue %40[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %110 = llvm.extractvalue %40[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %111 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64)>
+    %112 = llvm.insertvalue %109, %111[0] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %113 = llvm.insertvalue %110, %112[1] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %114 = llvm.mlir.constant(0 : index) : i64
+    %115 = llvm.insertvalue %114, %113[2] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %116 = llvm.extractvalue %40[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %117 = llvm.extractvalue %40[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %118 = llvm.extractvalue %40[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %119 = llvm.extractvalue %40[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %120 = llvm.extractvalue %40[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %121 = llvm.mlir.constant(832 : index) : i64
+    %122 = llvm.mul %arg2, %121 : i64
+    %123 = llvm.add %122, %86 : i64
+    %124 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %125 = llvm.extractvalue %115[0] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %126 = llvm.extractvalue %115[1] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %127 = llvm.insertvalue %125, %124[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %128 = llvm.insertvalue %126, %127[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %129 = llvm.insertvalue %123, %128[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %130 = llvm.mlir.constant(64 : index) : i64
+    %131 = llvm.insertvalue %130, %129[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %132 = llvm.mlir.constant(1 : index) : i64
+    %133 = llvm.insertvalue %132, %131[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %134 = builtin.unrealized_conversion_cast %133 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> to memref<64xi32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+    %135 = builtin.unrealized_conversion_cast %134 : memref<64xi32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %136 = llvm.extractvalue %10[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %137 = llvm.extractvalue %10[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %138 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64)>
+    %139 = llvm.insertvalue %136, %138[0] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %140 = llvm.insertvalue %137, %139[1] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %141 = llvm.mlir.constant(0 : index) : i64
+    %142 = llvm.insertvalue %141, %140[2] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %143 = llvm.extractvalue %10[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %144 = llvm.extractvalue %10[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %145 = llvm.extractvalue %10[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %146 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %147 = llvm.extractvalue %142[0] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %148 = llvm.extractvalue %142[1] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %149 = llvm.insertvalue %147, %146[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %150 = llvm.insertvalue %148, %149[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %151 = llvm.insertvalue %86, %150[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %152 = llvm.mlir.constant(64 : index) : i64
+    %153 = llvm.insertvalue %152, %151[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %154 = llvm.mlir.constant(1 : index) : i64
+    %155 = llvm.insertvalue %154, %153[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %156 = builtin.unrealized_conversion_cast %155 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+    %157 = builtin.unrealized_conversion_cast %156 : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %158 = llvm.extractvalue %108[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %159 = llvm.extractvalue %108[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %160 = llvm.getelementptr %158[%159] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+    %161 = "hivm_regbaseintrins.intr.hivm.vldsx1.v64f32"(%160, %55, %55, %55) : (!llvm.ptr<6>, i32, i32, i32) -> vector<64xf32>
+    %162 = llvm.extractvalue %135[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %163 = llvm.extractvalue %135[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %164 = llvm.getelementptr %162[%163] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i32
+    %165 = "hivm_regbaseintrins.intr.hivm.vldsx1.v64s32"(%164, %55, %55, %55) : (!llvm.ptr<6>, i32, i32, i32) -> vector<64xi32>
+    %166 = llvm.extractvalue %83[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %167 = llvm.extractvalue %83[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %168 = llvm.getelementptr %166[%167] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+    %169 = "hivm_regbaseintrins.intr.hivm.vgather2_v300.v64f32"(%168, %165, %57) : (!llvm.ptr<6>, vector<64xi32>, vector<256xi1>) -> vector<64xf32>
+    %170 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%56, %55) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+    %171 = "hivm_regbaseintrins.intr.hivm.vadd.s.x"(%161, %169, %170) : (vector<64xf32>, vector<64xf32>, vector<256xi1>) -> vector<64xf32>
+    %172 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%56, %55) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+    %173 = llvm.extractvalue %157[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %174 = llvm.extractvalue %157[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %175 = llvm.getelementptr %173[%174] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+    "hivm_regbaseintrins.intr.hivm.vstsx1.v64f32"(%171, %175, %55, %52, %55, %172) : (vector<64xf32>, !llvm.ptr<6>, i32, i32, i32, vector<256xi1>) -> ()
+    %176 = llvm.add %84, %53 overflow<nsw> : i32
+    llvm.br ^bb1(%176 : i32)
+  ^bb3:  // pred: ^bb1
+    llvm.return
+  }
+  llvm.func @adc_func_outlined_vf_1(%arg0: !llvm.ptr<6>, %arg1: !llvm.ptr<6>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function} {
+    %0 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %1 = llvm.insertvalue %arg1, %0[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %2 = llvm.insertvalue %arg1, %1[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %3 = llvm.mlir.constant(0 : index) : i64
+    %4 = llvm.insertvalue %3, %2[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %5 = llvm.mlir.constant(8 : index) : i64
+    %6 = llvm.insertvalue %5, %4[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %7 = llvm.mlir.constant(832 : index) : i64
+    %8 = llvm.insertvalue %7, %6[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %9 = llvm.mlir.constant(832 : index) : i64
+    %10 = llvm.insertvalue %9, %8[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %11 = llvm.mlir.constant(1 : index) : i64
+    %12 = llvm.insertvalue %11, %10[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %13 = builtin.unrealized_conversion_cast %12 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> to memref<8x832xi32, #hivm.address_space<ub>>
+    %14 = builtin.unrealized_conversion_cast %13 : memref<8x832xi32, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %15 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %16 = llvm.insertvalue %arg0, %15[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %17 = llvm.insertvalue %arg0, %16[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %18 = llvm.mlir.constant(0 : index) : i64
+    %19 = llvm.insertvalue %18, %17[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %20 = llvm.mlir.constant(832 : index) : i64
+    %21 = llvm.insertvalue %20, %19[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %22 = llvm.mlir.constant(8 : index) : i64
+    %23 = llvm.insertvalue %22, %21[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %24 = llvm.mlir.constant(8 : index) : i64
+    %25 = llvm.insertvalue %24, %23[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %26 = llvm.mlir.constant(1 : index) : i64
+    %27 = llvm.insertvalue %26, %25[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %28 = builtin.unrealized_conversion_cast %27 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> to memref<832x8xi8, #hivm.address_space<ub>>
+    %29 = builtin.unrealized_conversion_cast %28 : memref<832x8xi8, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %30 = llvm.mlir.constant(2 : i32) : i32
+    %31 = llvm.mlir.constant(0 : i8) : i8
+    %32 = llvm.mlir.constant(8 : index) : i64
+    %33 = llvm.mlir.constant(64 : i32) : i32
+    %34 = llvm.mlir.constant(832 : i32) : i32
+    %35 = llvm.mlir.constant(0 : index) : i64
+    %36 = llvm.mlir.constant(0 : i32) : i32
+    %37 = llvm.mlir.constant(8 : i32) : i32
+    %38 = llvm.mlir.constant(1 : i32) : i32
+    llvm.br ^bb1(%36 : i32)
+  ^bb1(%39: i32):  // 2 preds: ^bb0, ^bb5
+    %40 = llvm.icmp "slt" %39, %37 : i32
+    llvm.cond_br %40, ^bb2, ^bb6
+  ^bb2:  // pred: ^bb1
+    %41 = llvm.sext %39 : i32 to i64
+    llvm.br ^bb3(%36 : i32)
+  ^bb3(%42: i32):  // 2 preds: ^bb2, ^bb4
+    %43 = llvm.icmp "slt" %42, %34 : i32
+    llvm.cond_br %43, ^bb4, ^bb5
+  ^bb4:  // pred: ^bb3
+    %44 = llvm.sext %42 : i32 to i64
+    %45 = llvm.extractvalue %29[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %46 = llvm.extractvalue %29[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %47 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64)>
+    %48 = llvm.insertvalue %45, %47[0] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %49 = llvm.insertvalue %46, %48[1] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %50 = llvm.mlir.constant(0 : index) : i64
+    %51 = llvm.insertvalue %50, %49[2] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %52 = llvm.extractvalue %29[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %53 = llvm.extractvalue %29[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %54 = llvm.extractvalue %29[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %55 = llvm.extractvalue %29[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %56 = llvm.extractvalue %29[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %57 = llvm.mlir.constant(8 : index) : i64
+    %58 = llvm.mul %44, %57 : i64
+    %59 = llvm.add %58, %41 : i64
+    %60 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %61 = llvm.extractvalue %51[0] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %62 = llvm.extractvalue %51[1] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %63 = llvm.insertvalue %61, %60[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %64 = llvm.insertvalue %62, %63[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %65 = llvm.insertvalue %59, %64[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %66 = llvm.mlir.constant(64 : index) : i64
+    %67 = llvm.insertvalue %66, %65[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %68 = llvm.mlir.constant(8 : index) : i64
+    %69 = llvm.insertvalue %68, %67[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %70 = llvm.mlir.constant(1 : index) : i64
+    %71 = llvm.insertvalue %70, %69[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %72 = llvm.mlir.constant(1 : index) : i64
+    %73 = llvm.insertvalue %72, %71[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %74 = builtin.unrealized_conversion_cast %73 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> to memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
+    %75 = builtin.unrealized_conversion_cast %74 : memref<64x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %76 = llvm.extractvalue %75[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %77 = llvm.extractvalue %75[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %78 = llvm.getelementptr %76[%77] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i8
+    %79 = llvm.mul %35, %32 : i64
+    %80 = llvm.add %79, %35 : i64
+    %81 = llvm.getelementptr %78[%80] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i8
+    %82 = "hivm_regbaseintrins.intr.hivm.vldas"(%81) : (!llvm.ptr<6>) -> vector<32xi8>
+    %83 = "hivm_regbaseintrins.intr.hivm.vldus.post.s8"(%81, %82, %36) : (!llvm.ptr<6>, vector<32xi8>, i32) -> !llvm.struct<(vector<256xi8>, vector<32xi8>, ptr<6>)>
+    %84 = llvm.extractvalue %83[0] : !llvm.struct<(vector<256xi8>, vector<32xi8>, ptr<6>)> 
+    %85 = "hivm_regbaseintrins.intr.hivm.vbr"(%31) : (i8) -> vector<256xi8>
+    %86 = "hivm_regbaseintrins.intr.hivm.vintlv"(%84, %85) : (vector<256xi8>, vector<256xi8>) -> !llvm.struct<(vector<256xi8>, vector<256xi8>)>
+    %87 = llvm.extractvalue %86[0] : !llvm.struct<(vector<256xi8>, vector<256xi8>)> 
+    %88 = "hivm_regbaseintrins.intr.hivm.vintlv"(%87, %85) : (vector<256xi8>, vector<256xi8>) -> !llvm.struct<(vector<256xi8>, vector<256xi8>)>
+    %89 = llvm.extractvalue %88[0] : !llvm.struct<(vector<256xi8>, vector<256xi8>)> 
+    %90 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%37, %36) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+    %91 = "hivm_regbaseintrins.intr.hivm.vcvtii.s82s32.x"(%89, %90, %36) : (vector<256xi8>, vector<256xi1>, i32) -> vector<64xi32>
+    %92 = llvm.extractvalue %14[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %93 = llvm.extractvalue %14[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %94 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64)>
+    %95 = llvm.insertvalue %92, %94[0] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %96 = llvm.insertvalue %93, %95[1] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %97 = llvm.mlir.constant(0 : index) : i64
+    %98 = llvm.insertvalue %97, %96[2] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %99 = llvm.extractvalue %14[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %100 = llvm.extractvalue %14[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %101 = llvm.extractvalue %14[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %102 = llvm.extractvalue %14[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %103 = llvm.extractvalue %14[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %104 = llvm.mlir.constant(832 : index) : i64
+    %105 = llvm.mul %41, %104 : i64
+    %106 = llvm.add %105, %44 : i64
+    %107 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %108 = llvm.extractvalue %98[0] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %109 = llvm.extractvalue %98[1] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %110 = llvm.insertvalue %108, %107[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %111 = llvm.insertvalue %109, %110[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %112 = llvm.insertvalue %106, %111[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %113 = llvm.mlir.constant(64 : index) : i64
+    %114 = llvm.insertvalue %113, %112[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %115 = llvm.mlir.constant(1 : index) : i64
+    %116 = llvm.insertvalue %115, %114[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %117 = builtin.unrealized_conversion_cast %116 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> to memref<64xi32, #map, #hivm.address_space<ub>>
+    %118 = builtin.unrealized_conversion_cast %117 : memref<64xi32, #map, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %119 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%37, %36) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+    %120 = llvm.extractvalue %118[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %121 = llvm.extractvalue %118[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %122 = llvm.getelementptr %120[%121] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i32
+    "hivm_regbaseintrins.intr.hivm.vstsx1.v64s32"(%91, %122, %36, %30, %36, %119) : (vector<64xi32>, !llvm.ptr<6>, i32, i32, i32, vector<256xi1>) -> ()
+    %123 = llvm.add %42, %33 overflow<nsw> : i32
+    llvm.br ^bb3(%123 : i32)
+  ^bb5:  // pred: ^bb3
+    %124 = llvm.add %39, %38 overflow<nsw> : i32
+    llvm.br ^bb1(%124 : i32)
+  ^bb6:  // pred: ^bb1
+    llvm.return
+  }
+  llvm.func @adc_func_outlined_vf_2(%arg0: !llvm.ptr<6>) attributes {element_alignment_bit_width = 8 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function} {
+    %0 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %1 = llvm.insertvalue %arg0, %0[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %2 = llvm.insertvalue %arg0, %1[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %3 = llvm.mlir.constant(0 : index) : i64
+    %4 = llvm.insertvalue %3, %2[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %5 = llvm.mlir.constant(832 : index) : i64
+    %6 = llvm.insertvalue %5, %4[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %7 = llvm.mlir.constant(8 : index) : i64
+    %8 = llvm.insertvalue %7, %6[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %9 = llvm.mlir.constant(8 : index) : i64
+    %10 = llvm.insertvalue %9, %8[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %11 = llvm.mlir.constant(1 : index) : i64
+    %12 = llvm.insertvalue %11, %10[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %13 = builtin.unrealized_conversion_cast %12 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> to memref<832x8xi8, #hivm.address_space<ub>>
+    %14 = builtin.unrealized_conversion_cast %13 : memref<832x8xi8, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %15 = llvm.mlir.constant(8 : i32) : i32
+    %16 = llvm.mlir.constant(5 : i32) : i32
+    %17 = llvm.mlir.constant(0 : i8) : i8
+    %18 = llvm.mlir.constant(1 : i32) : i32
+    %19 = llvm.mlir.constant(832 : i32) : i32
+    %20 = llvm.mlir.constant(0 : i32) : i32
+    %21 = "hivm_regbaseintrins.intr.hivm.pge.b8"(%20, %20) {mask_bit_width = 8 : i32} : (i32, i32) -> vector<256xi1>
+    %22 = "hivm_regbaseintrins.intr.hivm.vdups.z"(%17, %21, %18) : (i8, vector<256xi1>, i32) -> vector<256xi8>
+    llvm.br ^bb1(%20 : i32)
+  ^bb1(%23: i32):  // 2 preds: ^bb0, ^bb2
+    %24 = llvm.icmp "slt" %23, %19 : i32
+    llvm.cond_br %24, ^bb2, ^bb3
+  ^bb2:  // pred: ^bb1
+    %25 = llvm.sext %23 : i32 to i64
+    %26 = "hivm_regbaseintrins.intr.hivm.pge.b8"(%16, %20) {mask_bit_width = 8 : i32, mask_op_idx = 0 : i32} : (i32, i32) -> vector<256xi1>
+    %27 = llvm.extractvalue %14[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %28 = llvm.extractvalue %14[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %29 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64)>
+    %30 = llvm.insertvalue %27, %29[0] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %31 = llvm.insertvalue %28, %30[1] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %32 = llvm.mlir.constant(0 : index) : i64
+    %33 = llvm.insertvalue %32, %31[2] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %34 = llvm.extractvalue %14[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %35 = llvm.extractvalue %14[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %36 = llvm.extractvalue %14[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %37 = llvm.extractvalue %14[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %38 = llvm.extractvalue %14[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %39 = llvm.mlir.constant(8 : index) : i64
+    %40 = llvm.mul %25, %39 : i64
+    %41 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %42 = llvm.extractvalue %33[0] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %43 = llvm.extractvalue %33[1] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %44 = llvm.insertvalue %42, %41[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %45 = llvm.insertvalue %43, %44[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %46 = llvm.insertvalue %40, %45[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %47 = llvm.mlir.constant(8 : index) : i64
+    %48 = llvm.insertvalue %47, %46[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %49 = llvm.mlir.constant(1 : index) : i64
+    %50 = llvm.insertvalue %49, %48[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %51 = builtin.unrealized_conversion_cast %50 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> to memref<8xi8, #map, #hivm.address_space<ub>>
+    %52 = builtin.unrealized_conversion_cast %51 : memref<8xi8, #map, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %53 = llvm.extractvalue %52[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %54 = llvm.extractvalue %52[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %55 = llvm.getelementptr %53[%54] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, i8
+    %56 = "hivm_regbaseintrins.intr.hivm.init.vector.align.data"() : () -> vector<32xi8>
+    %57 = "hivm_regbaseintrins.intr.hivm.vstus.post.s8"(%22, %55, %15, %56) : (vector<256xi8>, !llvm.ptr<6>, i32, vector<32xi8>) -> !llvm.struct<(vector<32xi8>, ptr<6>)>
+    %58 = llvm.extractvalue %57[0] : !llvm.struct<(vector<32xi8>, ptr<6>)> 
+    %59 = llvm.extractvalue %57[1] : !llvm.struct<(vector<32xi8>, ptr<6>)> 
+    "hivm_regbaseintrins.intr.hivm.vstas"(%58, %59, %20, %20) : (vector<32xi8>, !llvm.ptr<6>, i32, i32) -> ()
+    %60 = llvm.add %23, %18 overflow<nsw> : i32
+    llvm.br ^bb1(%60 : i32)
+  ^bb3:  // pred: ^bb1
+    llvm.return
+  }
+  llvm.func @adc_func_outlined_vf_3(%arg0: !llvm.ptr<6>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function} {
+    %0 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %1 = llvm.insertvalue %arg0, %0[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %2 = llvm.insertvalue %arg0, %1[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %3 = llvm.mlir.constant(0 : index) : i64
+    %4 = llvm.insertvalue %3, %2[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %5 = llvm.mlir.constant(832 : index) : i64
+    %6 = llvm.insertvalue %5, %4[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %7 = llvm.mlir.constant(1 : index) : i64
+    %8 = llvm.insertvalue %7, %6[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %9 = builtin.unrealized_conversion_cast %8 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> to memref<832xf32, #hivm.address_space<ub>>
+    %10 = builtin.unrealized_conversion_cast %9 : memref<832xf32, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %11 = llvm.mlir.constant(2 : i32) : i32
+    %12 = llvm.mlir.constant(1 : i32) : i32
+    %13 = llvm.mlir.constant(64 : i32) : i32
+    %14 = llvm.mlir.constant(832 : i32) : i32
+    %15 = llvm.mlir.constant(0 : i32) : i32
+    %16 = llvm.mlir.constant(0.000000e+00 : f32) : f32
+    %17 = llvm.mlir.constant(8 : i32) : i32
+    %18 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%17, %15) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+    %19 = "hivm_regbaseintrins.intr.hivm.vdups.z"(%16, %18, %12) : (f32, vector<256xi1>, i32) -> vector<64xf32>
+    llvm.br ^bb1(%15 : i32)
+  ^bb1(%20: i32):  // 2 preds: ^bb0, ^bb2
+    %21 = llvm.icmp "slt" %20, %14 : i32
+    llvm.cond_br %21, ^bb2, ^bb3
+  ^bb2:  // pred: ^bb1
+    %22 = llvm.sext %20 : i32 to i64
+    %23 = llvm.extractvalue %10[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %24 = llvm.extractvalue %10[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %25 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64)>
+    %26 = llvm.insertvalue %23, %25[0] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %27 = llvm.insertvalue %24, %26[1] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %28 = llvm.mlir.constant(0 : index) : i64
+    %29 = llvm.insertvalue %28, %27[2] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %30 = llvm.extractvalue %10[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %31 = llvm.extractvalue %10[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %32 = llvm.extractvalue %10[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %33 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %34 = llvm.extractvalue %29[0] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %35 = llvm.extractvalue %29[1] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %36 = llvm.insertvalue %34, %33[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %37 = llvm.insertvalue %35, %36[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %38 = llvm.insertvalue %22, %37[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %39 = llvm.mlir.constant(64 : index) : i64
+    %40 = llvm.insertvalue %39, %38[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %41 = llvm.mlir.constant(1 : index) : i64
+    %42 = llvm.insertvalue %41, %40[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %43 = builtin.unrealized_conversion_cast %42 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+    %44 = builtin.unrealized_conversion_cast %43 : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %45 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%17, %15) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+    %46 = llvm.extractvalue %44[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %47 = llvm.extractvalue %44[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %48 = llvm.getelementptr %46[%47] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+    "hivm_regbaseintrins.intr.hivm.vstsx1.v64f32"(%19, %48, %15, %11, %15, %45) : (vector<64xf32>, !llvm.ptr<6>, i32, i32, i32, vector<256xi1>) -> ()
+    %49 = llvm.add %20, %13 overflow<nsw> : i32
+    llvm.br ^bb1(%49 : i32)
+  ^bb3:  // pred: ^bb1
+    llvm.return
+  }
+  llvm.func @adc_func_outlined_vf_4(%arg0: !llvm.ptr<6>, %arg1: !llvm.ptr<6>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function} {
+    %0 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %1 = llvm.insertvalue %arg1, %0[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %2 = llvm.insertvalue %arg1, %1[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %3 = llvm.mlir.constant(0 : index) : i64
+    %4 = llvm.insertvalue %3, %2[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %5 = llvm.mlir.constant(832 : index) : i64
+    %6 = llvm.insertvalue %5, %4[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %7 = llvm.mlir.constant(1 : index) : i64
+    %8 = llvm.insertvalue %7, %6[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %9 = builtin.unrealized_conversion_cast %8 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> to memref<832xf32, #hivm.address_space<ub>>
+    %10 = builtin.unrealized_conversion_cast %9 : memref<832xf32, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %11 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %12 = llvm.insertvalue %arg0, %11[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %13 = llvm.insertvalue %arg0, %12[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %14 = llvm.mlir.constant(0 : index) : i64
+    %15 = llvm.insertvalue %14, %13[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %16 = llvm.mlir.constant(832 : index) : i64
+    %17 = llvm.insertvalue %16, %15[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %18 = llvm.mlir.constant(1 : index) : i64
+    %19 = llvm.insertvalue %18, %17[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %20 = builtin.unrealized_conversion_cast %19 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> to memref<832xf32, #hivm.address_space<ub>>
+    %21 = builtin.unrealized_conversion_cast %20 : memref<832xf32, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %22 = llvm.mlir.constant(2 : i32) : i32
+    %23 = llvm.mlir.constant(8 : i32) : i32
+    %24 = llvm.mlir.constant(0 : i32) : i32
+    %25 = llvm.mlir.constant(832 : i32) : i32
+    %26 = llvm.mlir.constant(64 : i32) : i32
+    llvm.br ^bb1(%24 : i32)
+  ^bb1(%27: i32):  // 2 preds: ^bb0, ^bb2
+    %28 = llvm.icmp "slt" %27, %25 : i32
+    llvm.cond_br %28, ^bb2, ^bb3
+  ^bb2:  // pred: ^bb1
+    %29 = llvm.sext %27 : i32 to i64
+    %30 = llvm.extractvalue %21[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %31 = llvm.extractvalue %21[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %32 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64)>
+    %33 = llvm.insertvalue %30, %32[0] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %34 = llvm.insertvalue %31, %33[1] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %35 = llvm.mlir.constant(0 : index) : i64
+    %36 = llvm.insertvalue %35, %34[2] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %37 = llvm.extractvalue %21[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %38 = llvm.extractvalue %21[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %39 = llvm.extractvalue %21[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %40 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %41 = llvm.extractvalue %36[0] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %42 = llvm.extractvalue %36[1] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %43 = llvm.insertvalue %41, %40[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %44 = llvm.insertvalue %42, %43[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %45 = llvm.insertvalue %29, %44[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %46 = llvm.mlir.constant(64 : index) : i64
+    %47 = llvm.insertvalue %46, %45[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %48 = llvm.mlir.constant(1 : index) : i64
+    %49 = llvm.insertvalue %48, %47[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %50 = builtin.unrealized_conversion_cast %49 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+    %51 = builtin.unrealized_conversion_cast %50 : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %52 = llvm.extractvalue %10[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %53 = llvm.extractvalue %10[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %54 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64)>
+    %55 = llvm.insertvalue %52, %54[0] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %56 = llvm.insertvalue %53, %55[1] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %57 = llvm.mlir.constant(0 : index) : i64
+    %58 = llvm.insertvalue %57, %56[2] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %59 = llvm.extractvalue %10[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %60 = llvm.extractvalue %10[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %61 = llvm.extractvalue %10[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %62 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %63 = llvm.extractvalue %58[0] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %64 = llvm.extractvalue %58[1] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %65 = llvm.insertvalue %63, %62[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %66 = llvm.insertvalue %64, %65[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %67 = llvm.insertvalue %29, %66[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %68 = llvm.mlir.constant(64 : index) : i64
+    %69 = llvm.insertvalue %68, %67[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %70 = llvm.mlir.constant(1 : index) : i64
+    %71 = llvm.insertvalue %70, %69[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %72 = builtin.unrealized_conversion_cast %71 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> to memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+    %73 = builtin.unrealized_conversion_cast %72 : memref<64xf32, strided<[1], offset: ?>, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %74 = llvm.extractvalue %51[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %75 = llvm.extractvalue %51[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %76 = llvm.getelementptr %74[%75] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+    %77 = "hivm_regbaseintrins.intr.hivm.vldsx1.v64f32"(%76, %24, %24, %24) : (!llvm.ptr<6>, i32, i32, i32) -> vector<64xf32>
+    %78 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%23, %24) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+    %79 = "hivm_regbaseintrins.intr.hivm.vsqrt.x"(%77, %78) : (vector<64xf32>, vector<256xi1>) -> vector<64xf32>
+    %80 = "hivm_regbaseintrins.intr.hivm.pge.b32"(%23, %24) {mask_bit_width = 32 : i32} : (i32, i32) -> vector<256xi1>
+    %81 = llvm.extractvalue %73[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %82 = llvm.extractvalue %73[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %83 = llvm.getelementptr %81[%82] : (!llvm.ptr<6>, i64) -> !llvm.ptr<6>, f32
+    "hivm_regbaseintrins.intr.hivm.vstsx1.v64f32"(%79, %83, %24, %22, %24, %80) : (vector<64xf32>, !llvm.ptr<6>, i32, i32, i32, vector<256xi1>) -> ()
+    %84 = llvm.add %27, %26 overflow<nsw> : i32
+    llvm.br ^bb1(%84 : i32)
+  ^bb3:  // pred: ^bb1
+    llvm.return
+  }
+  llvm.func private @load_gm_to_ubuf_1d_float(%arg0: !llvm.ptr<1>, %arg1: !llvm.ptr<1>, %arg2: i64, %arg3: i64, %arg4: i64, %arg5: !llvm.ptr<6>, %arg6: !llvm.ptr<6>, %arg7: i64, %arg8: i64, %arg9: i64, %arg10: i32, %arg11: f32, %arg12: i64, %arg13: i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface, sym_visibility = "private"} {
+    %0 = llvm.mlir.undef : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)>
+    %1 = llvm.insertvalue %arg0, %0[0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %2 = llvm.insertvalue %arg1, %1[1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %3 = llvm.insertvalue %arg2, %2[2] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %4 = llvm.insertvalue %arg3, %3[3, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %5 = llvm.insertvalue %arg4, %4[4, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %6 = llvm.mlir.constant(1 : index) : i64
+    %7 = llvm.alloca %6 x !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> : (i64) -> !llvm.ptr
+    llvm.store %5, %7 : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)>, !llvm.ptr
+    %8 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %9 = llvm.insertvalue %arg5, %8[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %10 = llvm.insertvalue %arg6, %9[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %11 = llvm.insertvalue %arg7, %10[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %12 = llvm.insertvalue %arg8, %11[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %13 = llvm.insertvalue %arg9, %12[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %14 = llvm.mlir.constant(1 : index) : i64
+    %15 = llvm.alloca %14 x !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> : (i64) -> !llvm.ptr
+    llvm.store %13, %15 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>, !llvm.ptr
+    llvm.call @_mlir_ciface_load_gm_to_ubuf_1d_float(%7, %15, %arg10, %arg11, %arg12, %arg13) : (!llvm.ptr, !llvm.ptr, i32, f32, i64, i32) -> ()
+    llvm.return
+  }
+  llvm.func @_mlir_ciface_load_gm_to_ubuf_1d_float(!llvm.ptr, !llvm.ptr, i32, f32, i64, i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface, sym_visibility = "private"}
+  llvm.func private @load_gm_to_ubuf_2d_int8_t(%arg0: !llvm.ptr<1>, %arg1: !llvm.ptr<1>, %arg2: i64, %arg3: i64, %arg4: i64, %arg5: i64, %arg6: i64, %arg7: !llvm.ptr<6>, %arg8: !llvm.ptr<6>, %arg9: i64, %arg10: i64, %arg11: i64, %arg12: i64, %arg13: i64, %arg14: i32, %arg15: i8, %arg16: i64, %arg17: i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface, sym_visibility = "private"} {
+    %0 = llvm.mlir.undef : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)>
+    %1 = llvm.insertvalue %arg0, %0[0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %2 = llvm.insertvalue %arg1, %1[1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %3 = llvm.insertvalue %arg2, %2[2] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %4 = llvm.insertvalue %arg3, %3[3, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %5 = llvm.insertvalue %arg5, %4[4, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %6 = llvm.insertvalue %arg4, %5[3, 1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %7 = llvm.insertvalue %arg6, %6[4, 1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %8 = llvm.mlir.constant(1 : index) : i64
+    %9 = llvm.alloca %8 x !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> : (i64) -> !llvm.ptr
+    llvm.store %7, %9 : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)>, !llvm.ptr
+    %10 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %11 = llvm.insertvalue %arg7, %10[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %12 = llvm.insertvalue %arg8, %11[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %13 = llvm.insertvalue %arg9, %12[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %14 = llvm.insertvalue %arg10, %13[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %15 = llvm.insertvalue %arg12, %14[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %16 = llvm.insertvalue %arg11, %15[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %17 = llvm.insertvalue %arg13, %16[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %18 = llvm.mlir.constant(1 : index) : i64
+    %19 = llvm.alloca %18 x !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> : (i64) -> !llvm.ptr
+    llvm.store %17, %19 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>, !llvm.ptr
+    llvm.call @_mlir_ciface_load_gm_to_ubuf_2d_int8_t(%9, %19, %arg14, %arg15, %arg16, %arg17) : (!llvm.ptr, !llvm.ptr, i32, i8, i64, i32) -> ()
+    llvm.return
+  }
+  llvm.func @_mlir_ciface_load_gm_to_ubuf_2d_int8_t(!llvm.ptr, !llvm.ptr, i32, i8, i64, i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface, sym_visibility = "private"}
+  llvm.func private @copy_ubuf_to_ubuf_1d_int8_t(%arg0: !llvm.ptr<6>, %arg1: !llvm.ptr<6>, %arg2: i64, %arg3: i64, %arg4: i64, %arg5: !llvm.ptr<6>, %arg6: !llvm.ptr<6>, %arg7: i64, %arg8: i64, %arg9: i64) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface, sym_visibility = "private"} {
+    %0 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %1 = llvm.insertvalue %arg0, %0[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %2 = llvm.insertvalue %arg1, %1[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %3 = llvm.insertvalue %arg2, %2[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %4 = llvm.insertvalue %arg3, %3[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %5 = llvm.insertvalue %arg4, %4[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %6 = llvm.mlir.constant(1 : index) : i64
+    %7 = llvm.alloca %6 x !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> : (i64) -> !llvm.ptr
+    llvm.store %5, %7 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>, !llvm.ptr
+    %8 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %9 = llvm.insertvalue %arg5, %8[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %10 = llvm.insertvalue %arg6, %9[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %11 = llvm.insertvalue %arg7, %10[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %12 = llvm.insertvalue %arg8, %11[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %13 = llvm.insertvalue %arg9, %12[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %14 = llvm.mlir.constant(1 : index) : i64
+    %15 = llvm.alloca %14 x !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> : (i64) -> !llvm.ptr
+    llvm.store %13, %15 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>, !llvm.ptr
+    llvm.call @_mlir_ciface_copy_ubuf_to_ubuf_1d_int8_t(%7, %15) : (!llvm.ptr, !llvm.ptr) -> ()
+    llvm.return
+  }
+  llvm.func @_mlir_ciface_copy_ubuf_to_ubuf_1d_int8_t(!llvm.ptr, !llvm.ptr) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface, sym_visibility = "private"}
+  llvm.func private @store_ubuf_to_gm_1d_float(%arg0: !llvm.ptr<6>, %arg1: !llvm.ptr<6>, %arg2: i64, %arg3: i64, %arg4: i64, %arg5: !llvm.ptr<1>, %arg6: !llvm.ptr<1>, %arg7: i64, %arg8: i64, %arg9: i64, %arg10: i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface, sym_visibility = "private"} {
+    %0 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %1 = llvm.insertvalue %arg0, %0[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %2 = llvm.insertvalue %arg1, %1[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %3 = llvm.insertvalue %arg2, %2[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %4 = llvm.insertvalue %arg3, %3[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %5 = llvm.insertvalue %arg4, %4[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %6 = llvm.mlir.constant(1 : index) : i64
+    %7 = llvm.alloca %6 x !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> : (i64) -> !llvm.ptr
+    llvm.store %5, %7 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>, !llvm.ptr
+    %8 = llvm.mlir.undef : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)>
+    %9 = llvm.insertvalue %arg5, %8[0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %10 = llvm.insertvalue %arg6, %9[1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %11 = llvm.insertvalue %arg7, %10[2] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %12 = llvm.insertvalue %arg8, %11[3, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %13 = llvm.insertvalue %arg9, %12[4, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %14 = llvm.mlir.constant(1 : index) : i64
+    %15 = llvm.alloca %14 x !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> : (i64) -> !llvm.ptr
+    llvm.store %13, %15 : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)>, !llvm.ptr
+    llvm.call @_mlir_ciface_store_ubuf_to_gm_1d_float(%7, %15, %arg10) : (!llvm.ptr, !llvm.ptr, i32) -> ()
+    llvm.return
+  }
+  llvm.func @_mlir_ciface_store_ubuf_to_gm_1d_float(!llvm.ptr, !llvm.ptr, i32) attributes {hacc.always_inline, hivm.func_core_type = #hivm.func_core_type<AIV>, llvm.emit_c_interface, sym_visibility = "private"}
+  llvm.func @adc_func(%arg0: !llvm.ptr<1> {hacc.arg_type = #hacc.arg_type<sync_block_lock>}, %arg1: !llvm.ptr<1>, %arg2: i64, %arg3: i64, %arg4: i64, %arg5: !llvm.ptr<1> {hacc.arg_type = #hacc.arg_type<workspace>}, %arg6: !llvm.ptr<1>, %arg7: i64, %arg8: i64, %arg9: i64, %arg10: !llvm.ptr<1>, %arg11: !llvm.ptr<1>, %arg12: i64, %arg13: i64, %arg14: i64, %arg15: !llvm.ptr<1>, %arg16: !llvm.ptr<1>, %arg17: i64, %arg18: i64, %arg19: i64, %arg20: !llvm.ptr<1>, %arg21: !llvm.ptr<1>, %arg22: i64, %arg23: i64, %arg24: i64, %arg25: i32, %arg26: i32, %arg27: i32, %arg28: i32) attributes {SyncBlockLockArgIdx = 0 : i64, WorkspaceArgIdx = 1 : i64, func_dyn_memref_args = dense<[true, true, true, true, true, false, false, false, false]> : vector<9xi1>, hacc.entry, hacc.function_kind = #hacc.function_kind<DEVICE>, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vf_mode = #hivm.vf_mode<SIMD>, hivm_regbaseintrins.target = #hivm_regbaseintrins.target<"dav-c310">, mix_mode = "aiv", parallel_mode = "simd"} {
+    %0 = llvm.mlir.undef : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)>
+    %1 = llvm.insertvalue %arg20, %0[0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %2 = llvm.insertvalue %arg21, %1[1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %3 = llvm.insertvalue %arg22, %2[2] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %4 = llvm.insertvalue %arg23, %3[3, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %5 = llvm.insertvalue %arg24, %4[4, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %6 = builtin.unrealized_conversion_cast %5 : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> to memref<?xf32, #hivm.address_space<gm>>
+    %7 = builtin.unrealized_conversion_cast %6 : memref<?xf32, #hivm.address_space<gm>> to !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)>
+    %8 = llvm.mlir.undef : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)>
+    %9 = llvm.insertvalue %arg15, %8[0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %10 = llvm.insertvalue %arg16, %9[1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %11 = llvm.insertvalue %arg17, %10[2] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %12 = llvm.insertvalue %arg18, %11[3, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %13 = llvm.insertvalue %arg19, %12[4, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %14 = builtin.unrealized_conversion_cast %13 : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> to memref<?xi8, #hivm.address_space<gm>>
+    %15 = builtin.unrealized_conversion_cast %14 : memref<?xi8, #hivm.address_space<gm>> to !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)>
+    %16 = llvm.mlir.undef : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)>
+    %17 = llvm.insertvalue %arg10, %16[0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %18 = llvm.insertvalue %arg11, %17[1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %19 = llvm.insertvalue %arg12, %18[2] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %20 = llvm.insertvalue %arg13, %19[3, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %21 = llvm.insertvalue %arg14, %20[4, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %22 = builtin.unrealized_conversion_cast %21 : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> to memref<?xf32, #hivm.address_space<gm>>
+    %23 = builtin.unrealized_conversion_cast %22 : memref<?xf32, #hivm.address_space<gm>> to !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)>
+    %24 = llvm.mlir.constant(118784 : i64) : i64
+    %25 = llvm.mlir.constant(108800 : i64) : i64
+    %26 = llvm.mlir.constant(75520 : i64) : i64
+    %27 = llvm.mlir.constant(112128 : i64) : i64
+    %28 = llvm.mlir.constant(1 : i64) : i64
+    %29 = llvm.mlir.constant(82176 : i64) : i64
+    %30 = llvm.mlir.constant(72192 : i64) : i64
+    %31 = llvm.mlir.constant(65536 : i64) : i64
+    %32 = llvm.mlir.constant(0 : i64) : i64
+    %33 = llvm.mlir.constant(1 : i32) : i32
+    %34 = llvm.mlir.constant(8 : i32) : i32
+    %35 = llvm.mlir.constant(832 : i32) : i32
+    %36 = llvm.mlir.constant(831 : i32) : i32
+    %37 = llvm.mlir.constant(56 : i32) : i32
+    %38 = llvm.mlir.constant(46592 : i32) : i32
+    %39 = llvm.mlir.constant(46591 : i32) : i32
+    %40 = llvm.mlir.constant(0 : i32) : i32
+    %41 = llvm.mlir.constant(0 : i8) : i8
+    %42 = llvm.mlir.constant(0.000000e+00 : f32) : f32
+    %43 = llvm.mlir.constant(0 : index) : i64
+    %44 = llvm.inttoptr %25 : i64 to !llvm.ptr<6>
+    %45 = llvm.mlir.constant(832 : index) : i64
+    %46 = llvm.mlir.constant(1 : index) : i64
+    %47 = llvm.mlir.zero : !llvm.ptr
+    %48 = llvm.getelementptr %47[%45] : (!llvm.ptr, i64) -> !llvm.ptr, f32
+    %49 = llvm.ptrtoint %48 : !llvm.ptr to i64
+    %50 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %51 = llvm.insertvalue %44, %50[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %52 = llvm.insertvalue %44, %51[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %53 = llvm.mlir.constant(0 : index) : i64
+    %54 = llvm.insertvalue %53, %52[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %55 = llvm.insertvalue %45, %54[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %56 = llvm.insertvalue %46, %55[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %57 = builtin.unrealized_conversion_cast %56 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> to memref<832xf32, #hivm.address_space<ub>>
+    %58 = builtin.unrealized_conversion_cast %57 : memref<832xf32, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %59 = llvm.inttoptr %24 : i64 to !llvm.ptr<6>
+    %60 = llvm.mlir.constant(832 : index) : i64
+    %61 = llvm.mlir.constant(1 : index) : i64
+    %62 = llvm.mlir.zero : !llvm.ptr
+    %63 = llvm.getelementptr %62[%60] : (!llvm.ptr, i64) -> !llvm.ptr, f32
+    %64 = llvm.ptrtoint %63 : !llvm.ptr to i64
+    %65 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %66 = llvm.insertvalue %59, %65[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %67 = llvm.insertvalue %59, %66[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %68 = llvm.mlir.constant(0 : index) : i64
+    %69 = llvm.insertvalue %68, %67[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %70 = llvm.insertvalue %60, %69[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %71 = llvm.insertvalue %61, %70[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %72 = builtin.unrealized_conversion_cast %71 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> to memref<832xf32, #hivm.address_space<ub>>
+    %73 = builtin.unrealized_conversion_cast %72 : memref<832xf32, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %74 = llvm.inttoptr %26 : i64 to !llvm.ptr<6>
+    %75 = llvm.mlir.constant(832 : index) : i64
+    %76 = llvm.mlir.constant(8 : index) : i64
+    %77 = llvm.mlir.constant(1 : index) : i64
+    %78 = llvm.mlir.constant(6656 : index) : i64
+    %79 = llvm.mlir.zero : !llvm.ptr
+    %80 = llvm.getelementptr %79[%78] : (!llvm.ptr, i64) -> !llvm.ptr, i8
+    %81 = llvm.ptrtoint %80 : !llvm.ptr to i64
+    %82 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %83 = llvm.insertvalue %74, %82[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %84 = llvm.insertvalue %74, %83[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %85 = llvm.mlir.constant(0 : index) : i64
+    %86 = llvm.insertvalue %85, %84[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %87 = llvm.insertvalue %75, %86[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %88 = llvm.insertvalue %76, %87[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %89 = llvm.insertvalue %76, %88[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %90 = llvm.insertvalue %77, %89[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %91 = builtin.unrealized_conversion_cast %90 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> to memref<832x8xi8, #hivm.address_space<ub>>
+    %92 = builtin.unrealized_conversion_cast %91 : memref<832x8xi8, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %93 = llvm.inttoptr %27 : i64 to !llvm.ptr<6>
+    %94 = llvm.mlir.constant(832 : index) : i64
+    %95 = llvm.mlir.constant(8 : index) : i64
+    %96 = llvm.mlir.constant(1 : index) : i64
+    %97 = llvm.mlir.constant(6656 : index) : i64
+    %98 = llvm.mlir.zero : !llvm.ptr
+    %99 = llvm.getelementptr %98[%97] : (!llvm.ptr, i64) -> !llvm.ptr, i8
+    %100 = llvm.ptrtoint %99 : !llvm.ptr to i64
+    %101 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %102 = llvm.insertvalue %93, %101[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %103 = llvm.insertvalue %93, %102[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %104 = llvm.mlir.constant(0 : index) : i64
+    %105 = llvm.insertvalue %104, %103[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %106 = llvm.insertvalue %94, %105[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %107 = llvm.insertvalue %95, %106[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %108 = llvm.insertvalue %95, %107[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %109 = llvm.insertvalue %96, %108[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %110 = builtin.unrealized_conversion_cast %109 : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> to memref<832x8xi8, #hivm.address_space<ub>>
+    %111 = builtin.unrealized_conversion_cast %110 : memref<832x8xi8, #hivm.address_space<ub>> to !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %112 = "hivm.intr.hivm.GET.CTRL"() : () -> i64
+    %113 = llvm.mlir.constant(60 : i64) : i64
+    %114 = "hivm.intr.hivm.SBITSET0"(%112, %113) : (i64, i64) -> i64
+    "hivm.intr.hivm.SET.CTRL"(%114) : (i64) -> ()
+    %115 = "hivm.intr.hivm.GET.CTRL"() : () -> i64
+    %116 = llvm.mlir.constant(48 : i64) : i64
+    %117 = "hivm.intr.hivm.SBITSET1"(%115, %116) : (i64, i64) -> i64
+    "hivm.intr.hivm.SET.CTRL"(%117) : (i64) -> ()
+    %118 = "hivm.intr.hivm.GET.BLOCK.IDX"() : () -> i64
+    %119 = llvm.trunc %118 : i64 to i32
+    %120 = llvm.inttoptr %32 : i64 to !llvm.ptr<6>
+    %121 = llvm.mlir.constant(64 : index) : i64
+    %122 = llvm.mlir.constant(256 : index) : i64
+    %123 = llvm.mlir.constant(1 : index) : i64
+    %124 = llvm.mlir.constant(16384 : index) : i64
+    %125 = llvm.mlir.zero : !llvm.ptr
+    %126 = llvm.getelementptr %125[%124] : (!llvm.ptr, i64) -> !llvm.ptr, f32
+    %127 = llvm.ptrtoint %126 : !llvm.ptr to i64
+    %128 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %129 = llvm.insertvalue %120, %128[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %130 = llvm.insertvalue %120, %129[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %131 = llvm.mlir.constant(0 : index) : i64
+    %132 = llvm.insertvalue %131, %130[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %133 = llvm.insertvalue %121, %132[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %134 = llvm.insertvalue %122, %133[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %135 = llvm.insertvalue %122, %134[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %136 = llvm.insertvalue %123, %135[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %137 = llvm.extractvalue %23[0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %138 = llvm.extractvalue %23[1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %139 = llvm.mlir.undef : !llvm.struct<(ptr<1>, ptr<1>, i64)>
+    %140 = llvm.insertvalue %137, %139[0] : !llvm.struct<(ptr<1>, ptr<1>, i64)> 
+    %141 = llvm.insertvalue %138, %140[1] : !llvm.struct<(ptr<1>, ptr<1>, i64)> 
+    %142 = llvm.mlir.constant(0 : index) : i64
+    %143 = llvm.insertvalue %142, %141[2] : !llvm.struct<(ptr<1>, ptr<1>, i64)> 
+    %144 = llvm.extractvalue %23[2] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %145 = llvm.extractvalue %23[3, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %146 = llvm.extractvalue %23[4, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %147 = llvm.mlir.undef : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)>
+    %148 = llvm.extractvalue %143[0] : !llvm.struct<(ptr<1>, ptr<1>, i64)> 
+    %149 = llvm.extractvalue %143[1] : !llvm.struct<(ptr<1>, ptr<1>, i64)> 
+    %150 = llvm.insertvalue %148, %147[0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %151 = llvm.insertvalue %149, %150[1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %152 = llvm.mlir.constant(0 : index) : i64
+    %153 = llvm.insertvalue %152, %151[2] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %154 = llvm.mlir.constant(16384 : index) : i64
+    %155 = llvm.insertvalue %154, %153[3, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %156 = llvm.mlir.constant(1 : index) : i64
+    %157 = llvm.insertvalue %156, %155[4, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %158 = llvm.extractvalue %136[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %159 = llvm.extractvalue %136[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %160 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64)>
+    %161 = llvm.insertvalue %158, %160[0] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %162 = llvm.insertvalue %159, %161[1] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %163 = llvm.mlir.constant(0 : index) : i64
+    %164 = llvm.insertvalue %163, %162[2] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %165 = llvm.extractvalue %136[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %166 = llvm.extractvalue %136[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %167 = llvm.extractvalue %136[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %168 = llvm.extractvalue %136[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %169 = llvm.extractvalue %136[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %170 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %171 = llvm.extractvalue %164[0] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %172 = llvm.extractvalue %164[1] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %173 = llvm.insertvalue %171, %170[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %174 = llvm.insertvalue %172, %173[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %175 = llvm.mlir.constant(0 : index) : i64
+    %176 = llvm.insertvalue %175, %174[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %177 = llvm.mlir.constant(16384 : index) : i64
+    %178 = llvm.insertvalue %177, %176[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %179 = llvm.mlir.constant(1 : index) : i64
+    %180 = llvm.insertvalue %179, %178[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    "hivm.intr.hivm.SET.FLAG.IMM"() <{event_id = 0 : i64, set_pipe = 1 : i64, wait_pipe = 4 : i64}> : () -> ()
+    "hivm.intr.hivm.SET.FLAG.IMM"() <{event_id = 1 : i64, set_pipe = 1 : i64, wait_pipe = 4 : i64}> : () -> ()
+    "hivm.intr.hivm.SET.FLAG.IMM"() <{event_id = 0 : i64, set_pipe = 5 : i64, wait_pipe = 1 : i64}> : () -> ()
+    "hivm.intr.hivm.SET.FLAG.IMM"() <{event_id = 1 : i64, set_pipe = 5 : i64, wait_pipe = 1 : i64}> : () -> ()
+    %181 = llvm.extractvalue %157[0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %182 = llvm.extractvalue %157[1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %183 = llvm.extractvalue %157[2] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %184 = llvm.extractvalue %157[3, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %185 = llvm.extractvalue %157[4, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %186 = llvm.extractvalue %180[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %187 = llvm.extractvalue %180[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %188 = llvm.extractvalue %180[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %189 = llvm.extractvalue %180[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %190 = llvm.extractvalue %180[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    llvm.call @load_gm_to_ubuf_1d_float(%181, %182, %183, %184, %185, %186, %187, %188, %189, %190, %40, %42, %43, %40) : (!llvm.ptr<1>, !llvm.ptr<1>, i64, i64, i64, !llvm.ptr<6>, !llvm.ptr<6>, i64, i64, i64, i32, f32, i64, i32) -> ()
+    %191 = llvm.add %arg25, %39 : i32
+    %192 = llvm.sdiv %191, %38  : i32
+    %193 = llvm.add %arg25, %36 : i32
+    %194 = llvm.sdiv %193, %35  : i32
+    llvm.br ^bb1(%40 : i32)
+  ^bb1(%195: i32):  // 2 preds: ^bb0, ^bb10
+    %196 = llvm.icmp "slt" %195, %192 : i32
+    llvm.cond_br %196, ^bb2, ^bb11
+  ^bb2:  // pred: ^bb1
+    %197 = llvm.sext %195 : i32 to i64
+    %198 = llvm.mlir.constant(2 : index) : i64
+    %199 = llvm.srem %197, %198  : i64
+    %200 = llvm.mlir.constant(0 : index) : i64
+    %201 = llvm.icmp "slt" %199, %200 : i64
+    %202 = llvm.add %199, %198 : i64
+    %203 = llvm.select %201, %202, %199 : i1, i64
+    %204 = builtin.unrealized_conversion_cast %203 : i64 to index
+    %205 = builtin.unrealized_conversion_cast %204 : index to i64
+    %206 = llvm.icmp "eq" %205, %28 : i64
+    %207 = llvm.select %206, %73, %58 : i1, !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %208 = llvm.zext %206 : i1 to i64
+    %209 = llvm.mul %195, %37 : i32
+    %210 = llvm.add %209, %119 : i32
+    %211 = llvm.icmp "slt" %210, %194 : i32
+    llvm.cond_br %211, ^bb3, ^bb10
+  ^bb3:  // pred: ^bb2
+    %212 = llvm.inttoptr %31 : i64 to !llvm.ptr<6>
+    %213 = llvm.mlir.constant(832 : index) : i64
+    %214 = llvm.mlir.constant(8 : index) : i64
+    %215 = llvm.mlir.constant(1 : index) : i64
+    %216 = llvm.mlir.constant(6656 : index) : i64
+    %217 = llvm.mlir.zero : !llvm.ptr
+    %218 = llvm.getelementptr %217[%216] : (!llvm.ptr, i64) -> !llvm.ptr, i8
+    %219 = llvm.ptrtoint %218 : !llvm.ptr to i64
+    %220 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %221 = llvm.insertvalue %212, %220[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %222 = llvm.insertvalue %212, %221[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %223 = llvm.mlir.constant(0 : index) : i64
+    %224 = llvm.insertvalue %223, %222[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %225 = llvm.insertvalue %213, %224[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %226 = llvm.insertvalue %214, %225[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %227 = llvm.insertvalue %214, %226[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %228 = llvm.insertvalue %215, %227[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %229 = llvm.extractvalue %228[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    llvm.call @adc_func_outlined_vf_2(%229) {hivm.vector_function, no_inline} : (!llvm.ptr<6>) -> ()
+    %230 = llvm.inttoptr %30 : i64 to !llvm.ptr<6>
+    %231 = llvm.mlir.constant(832 : index) : i64
+    %232 = llvm.mlir.constant(1 : index) : i64
+    %233 = llvm.mlir.zero : !llvm.ptr
+    %234 = llvm.getelementptr %233[%231] : (!llvm.ptr, i64) -> !llvm.ptr, f32
+    %235 = llvm.ptrtoint %234 : !llvm.ptr to i64
+    %236 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %237 = llvm.insertvalue %230, %236[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %238 = llvm.insertvalue %230, %237[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %239 = llvm.mlir.constant(0 : index) : i64
+    %240 = llvm.insertvalue %239, %238[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %241 = llvm.insertvalue %231, %240[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %242 = llvm.insertvalue %232, %241[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %243 = llvm.extractvalue %242[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    llvm.call @adc_func_outlined_vf_3(%243) {hivm.vector_function, no_inline} : (!llvm.ptr<6>) -> ()
+    %244 = llvm.mul %195, %38 : i32
+    %245 = llvm.mul %119, %35 : i32
+    %246 = llvm.add %244, %245 : i32
+    %247 = llvm.sext %246 : i32 to i64
+    %248 = llvm.sub %arg25, %245 : i32
+    %249 = llvm.sub %248, %244 : i32
+    %250 = llvm.intr.smin(%249, %35)  : (i32, i32) -> i32
+    %251 = llvm.sext %250 : i32 to i64
+    llvm.br ^bb4(%40, %242 : i32, !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>)
+  ^bb4(%252: i32, %253: !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>):  // 2 preds: ^bb3, ^bb8
+    %254 = llvm.icmp "slt" %252, %34 : i32
+    llvm.cond_br %254, ^bb5, ^bb9
+  ^bb5:  // pred: ^bb4
+    %255 = llvm.sext %252 : i32 to i64
+    %256 = llvm.mlir.constant(2 : index) : i64
+    %257 = llvm.srem %255, %256  : i64
+    %258 = llvm.mlir.constant(0 : index) : i64
+    %259 = llvm.icmp "slt" %257, %258 : i64
+    %260 = llvm.add %257, %256 : i64
+    %261 = llvm.select %259, %260, %257 : i1, i64
+    %262 = builtin.unrealized_conversion_cast %261 : i64 to index
+    %263 = builtin.unrealized_conversion_cast %262 : index to i64
+    %264 = llvm.icmp "eq" %263, %28 : i64
+    %265 = llvm.select %264, %111, %92 : i1, !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %266 = llvm.zext %264 : i1 to i64
+    %267 = llvm.mul %252, %34 : i32
+    %268 = llvm.sext %267 : i32 to i64
+    %269 = llvm.extractvalue %15[0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %270 = llvm.extractvalue %15[1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %271 = llvm.mlir.undef : !llvm.struct<(ptr<1>, ptr<1>, i64)>
+    %272 = llvm.insertvalue %269, %271[0] : !llvm.struct<(ptr<1>, ptr<1>, i64)> 
+    %273 = llvm.insertvalue %270, %272[1] : !llvm.struct<(ptr<1>, ptr<1>, i64)> 
+    %274 = llvm.mlir.constant(0 : index) : i64
+    %275 = llvm.insertvalue %274, %273[2] : !llvm.struct<(ptr<1>, ptr<1>, i64)> 
+    %276 = llvm.extractvalue %15[2] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %277 = llvm.extractvalue %15[3, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %278 = llvm.extractvalue %15[4, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %279 = llvm.mlir.constant(64 : index) : i64
+    %280 = llvm.mul %247, %279 : i64
+    %281 = llvm.add %280, %268 : i64
+    %282 = llvm.mlir.undef : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)>
+    %283 = llvm.extractvalue %275[0] : !llvm.struct<(ptr<1>, ptr<1>, i64)> 
+    %284 = llvm.extractvalue %275[1] : !llvm.struct<(ptr<1>, ptr<1>, i64)> 
+    %285 = llvm.insertvalue %283, %282[0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %286 = llvm.insertvalue %284, %285[1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %287 = llvm.insertvalue %281, %286[2] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %288 = llvm.insertvalue %251, %287[3, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %289 = llvm.mlir.constant(64 : index) : i64
+    %290 = llvm.insertvalue %289, %288[4, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %291 = llvm.mlir.constant(8 : index) : i64
+    %292 = llvm.insertvalue %291, %290[3, 1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %293 = llvm.mlir.constant(1 : index) : i64
+    %294 = llvm.insertvalue %293, %292[4, 1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %295 = llvm.extractvalue %265[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %296 = llvm.extractvalue %265[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %297 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64)>
+    %298 = llvm.insertvalue %295, %297[0] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %299 = llvm.insertvalue %296, %298[1] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %300 = llvm.mlir.constant(0 : index) : i64
+    %301 = llvm.insertvalue %300, %299[2] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %302 = llvm.extractvalue %265[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %303 = llvm.extractvalue %265[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %304 = llvm.extractvalue %265[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %305 = llvm.extractvalue %265[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %306 = llvm.extractvalue %265[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %307 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %308 = llvm.extractvalue %301[0] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %309 = llvm.extractvalue %301[1] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %310 = llvm.insertvalue %308, %307[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %311 = llvm.insertvalue %309, %310[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %312 = llvm.mlir.constant(0 : index) : i64
+    %313 = llvm.insertvalue %312, %311[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %314 = llvm.insertvalue %251, %313[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %315 = llvm.mlir.constant(8 : index) : i64
+    %316 = llvm.insertvalue %315, %314[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %317 = llvm.mlir.constant(8 : index) : i64
+    %318 = llvm.insertvalue %317, %316[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %319 = llvm.mlir.constant(1 : index) : i64
+    %320 = llvm.insertvalue %319, %318[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    "hivm.intr.hivm.WAIT.FLAG.REG"(%266) <{set_pipe = 1 : i64, wait_pipe = 4 : i64}> : (i64) -> ()
+    %321 = llvm.extractvalue %294[0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %322 = llvm.extractvalue %294[1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %323 = llvm.extractvalue %294[2] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %324 = llvm.extractvalue %294[3, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %325 = llvm.extractvalue %294[3, 1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %326 = llvm.extractvalue %294[4, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %327 = llvm.extractvalue %294[4, 1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<2 x i64>, array<2 x i64>)> 
+    %328 = llvm.extractvalue %320[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %329 = llvm.extractvalue %320[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %330 = llvm.extractvalue %320[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %331 = llvm.extractvalue %320[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %332 = llvm.extractvalue %320[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %333 = llvm.extractvalue %320[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %334 = llvm.extractvalue %320[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    llvm.call @load_gm_to_ubuf_2d_int8_t(%321, %322, %323, %324, %325, %326, %327, %328, %329, %330, %331, %332, %333, %334, %40, %41, %43, %40) : (!llvm.ptr<1>, !llvm.ptr<1>, i64, i64, i64, i64, i64, !llvm.ptr<6>, !llvm.ptr<6>, i64, i64, i64, i64, i64, i32, i8, i64, i32) -> ()
+    "hivm.intr.hivm.SET.FLAG.IMM"() <{event_id = 0 : i64, set_pipe = 4 : i64, wait_pipe = 1 : i64}> : () -> ()
+    %335 = llvm.extractvalue %265[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %336 = llvm.extractvalue %265[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %337 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64)>
+    %338 = llvm.insertvalue %335, %337[0] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %339 = llvm.insertvalue %336, %338[1] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %340 = llvm.mlir.constant(0 : index) : i64
+    %341 = llvm.insertvalue %340, %339[2] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %342 = llvm.extractvalue %265[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %343 = llvm.extractvalue %265[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %344 = llvm.extractvalue %265[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %345 = llvm.extractvalue %265[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %346 = llvm.extractvalue %265[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %347 = llvm.mlir.constant(8 : index) : i64
+    %348 = llvm.mul %251, %347 : i64
+    %349 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %350 = llvm.extractvalue %341[0] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %351 = llvm.extractvalue %341[1] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %352 = llvm.insertvalue %350, %349[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %353 = llvm.insertvalue %351, %352[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %354 = llvm.mlir.constant(0 : index) : i64
+    %355 = llvm.insertvalue %354, %353[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %356 = llvm.insertvalue %348, %355[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %357 = llvm.mlir.constant(1 : index) : i64
+    %358 = llvm.insertvalue %357, %356[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %359 = llvm.extractvalue %228[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %360 = llvm.extractvalue %228[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %361 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64)>
+    %362 = llvm.insertvalue %359, %361[0] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %363 = llvm.insertvalue %360, %362[1] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %364 = llvm.mlir.constant(0 : index) : i64
+    %365 = llvm.insertvalue %364, %363[2] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %366 = llvm.extractvalue %228[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %367 = llvm.extractvalue %228[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %368 = llvm.extractvalue %228[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %369 = llvm.extractvalue %228[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %370 = llvm.extractvalue %228[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %371 = llvm.mlir.constant(8 : index) : i64
+    %372 = llvm.mul %251, %371 : i64
+    %373 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %374 = llvm.extractvalue %365[0] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %375 = llvm.extractvalue %365[1] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %376 = llvm.insertvalue %374, %373[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %377 = llvm.insertvalue %375, %376[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %378 = llvm.mlir.constant(0 : index) : i64
+    %379 = llvm.insertvalue %378, %377[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %380 = llvm.insertvalue %372, %379[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %381 = llvm.mlir.constant(1 : index) : i64
+    %382 = llvm.insertvalue %381, %380[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    "hivm.intr.hivm.WAIT.FLAG.IMM"() <{event_id = 0 : i64, set_pipe = 4 : i64, wait_pipe = 1 : i64}> : () -> ()
+    %383 = llvm.extractvalue %358[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %384 = llvm.extractvalue %358[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %385 = llvm.extractvalue %358[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %386 = llvm.extractvalue %358[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %387 = llvm.extractvalue %358[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %388 = llvm.extractvalue %382[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %389 = llvm.extractvalue %382[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %390 = llvm.extractvalue %382[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %391 = llvm.extractvalue %382[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %392 = llvm.extractvalue %382[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    llvm.call @copy_ubuf_to_ubuf_1d_int8_t(%383, %384, %385, %386, %387, %388, %389, %390, %391, %392) : (!llvm.ptr<6>, !llvm.ptr<6>, i64, i64, i64, !llvm.ptr<6>, !llvm.ptr<6>, i64, i64, i64) -> ()
+    "hivm.intr.hivm.SET.FLAG.REG"(%266) <{set_pipe = 1 : i64, wait_pipe = 4 : i64}> : (i64) -> ()
+    %393 = llvm.inttoptr %29 : i64 to !llvm.ptr<6>
+    %394 = llvm.mlir.constant(8 : index) : i64
+    %395 = llvm.mlir.constant(832 : index) : i64
+    %396 = llvm.mlir.constant(1 : index) : i64
+    %397 = llvm.mlir.constant(6656 : index) : i64
+    %398 = llvm.mlir.zero : !llvm.ptr
+    %399 = llvm.getelementptr %398[%397] : (!llvm.ptr, i64) -> !llvm.ptr, i32
+    %400 = llvm.ptrtoint %399 : !llvm.ptr to i64
+    %401 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)>
+    %402 = llvm.insertvalue %393, %401[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %403 = llvm.insertvalue %393, %402[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %404 = llvm.mlir.constant(0 : index) : i64
+    %405 = llvm.insertvalue %404, %403[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %406 = llvm.insertvalue %394, %405[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %407 = llvm.insertvalue %395, %406[3, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %408 = llvm.insertvalue %395, %407[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %409 = llvm.insertvalue %396, %408[4, 1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %410 = llvm.extractvalue %228[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %411 = llvm.extractvalue %409[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    llvm.call @adc_func_outlined_vf_1(%410, %411) {hivm.vector_function, no_inline} : (!llvm.ptr<6>, !llvm.ptr<6>) -> ()
+    llvm.br ^bb6(%40, %253 : i32, !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>)
+  ^bb6(%412: i32, %413: !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>):  // 2 preds: ^bb5, ^bb7
+    %414 = llvm.icmp "slt" %412, %34 : i32
+    llvm.cond_br %414, ^bb7, ^bb8
+  ^bb7:  // pred: ^bb6
+    %415 = llvm.add %267, %412 : i32
+    %416 = llvm.sext %415 : i32 to i64
+    %417 = llvm.sext %412 : i32 to i64
+    %418 = llvm.inttoptr %30 : i64 to !llvm.ptr<6>
+    %419 = llvm.mlir.constant(832 : index) : i64
+    %420 = llvm.mlir.constant(1 : index) : i64
+    %421 = llvm.mlir.zero : !llvm.ptr
+    %422 = llvm.getelementptr %421[%419] : (!llvm.ptr, i64) -> !llvm.ptr, f32
+    %423 = llvm.ptrtoint %422 : !llvm.ptr to i64
+    %424 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %425 = llvm.insertvalue %418, %424[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %426 = llvm.insertvalue %418, %425[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %427 = llvm.mlir.constant(0 : index) : i64
+    %428 = llvm.insertvalue %427, %426[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %429 = llvm.insertvalue %419, %428[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %430 = llvm.insertvalue %420, %429[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %431 = llvm.extractvalue %413[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %432 = llvm.extractvalue %409[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %433 = llvm.extractvalue %136[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<2 x i64>, array<2 x i64>)> 
+    %434 = llvm.extractvalue %430[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    llvm.call @adc_func_outlined_vf_0(%431, %432, %417, %433, %416, %434) {hivm.vector_function, no_inline} : (!llvm.ptr<6>, !llvm.ptr<6>, i64, !llvm.ptr<6>, i64, !llvm.ptr<6>) -> ()
+    %435 = llvm.add %412, %33 overflow<nsw> : i32
+    llvm.br ^bb6(%435, %430 : i32, !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>)
+  ^bb8:  // pred: ^bb6
+    %436 = llvm.add %252, %33 overflow<nsw> : i32
+    llvm.br ^bb4(%436, %413 : i32, !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>)
+  ^bb9:  // pred: ^bb4
+    "hivm.intr.hivm.WAIT.FLAG.REG"(%208) <{set_pipe = 5 : i64, wait_pipe = 1 : i64}> : (i64) -> ()
+    %437 = llvm.extractvalue %253[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %438 = llvm.extractvalue %207[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    llvm.call @adc_func_outlined_vf_4(%437, %438) {hivm.vector_function, no_inline} : (!llvm.ptr<6>, !llvm.ptr<6>) -> ()
+    "hivm.intr.hivm.SET.FLAG.IMM"() <{event_id = 0 : i64, set_pipe = 1 : i64, wait_pipe = 5 : i64}> : () -> ()
+    %439 = llvm.extractvalue %207[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %440 = llvm.extractvalue %207[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %441 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64)>
+    %442 = llvm.insertvalue %439, %441[0] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %443 = llvm.insertvalue %440, %442[1] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %444 = llvm.mlir.constant(0 : index) : i64
+    %445 = llvm.insertvalue %444, %443[2] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %446 = llvm.extractvalue %207[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %447 = llvm.extractvalue %207[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %448 = llvm.extractvalue %207[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %449 = llvm.mlir.undef : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)>
+    %450 = llvm.extractvalue %445[0] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %451 = llvm.extractvalue %445[1] : !llvm.struct<(ptr<6>, ptr<6>, i64)> 
+    %452 = llvm.insertvalue %450, %449[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %453 = llvm.insertvalue %451, %452[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %454 = llvm.mlir.constant(0 : index) : i64
+    %455 = llvm.insertvalue %454, %453[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %456 = llvm.insertvalue %251, %455[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %457 = llvm.mlir.constant(1 : index) : i64
+    %458 = llvm.insertvalue %457, %456[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %459 = llvm.extractvalue %7[0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %460 = llvm.extractvalue %7[1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %461 = llvm.mlir.undef : !llvm.struct<(ptr<1>, ptr<1>, i64)>
+    %462 = llvm.insertvalue %459, %461[0] : !llvm.struct<(ptr<1>, ptr<1>, i64)> 
+    %463 = llvm.insertvalue %460, %462[1] : !llvm.struct<(ptr<1>, ptr<1>, i64)> 
+    %464 = llvm.mlir.constant(0 : index) : i64
+    %465 = llvm.insertvalue %464, %463[2] : !llvm.struct<(ptr<1>, ptr<1>, i64)> 
+    %466 = llvm.extractvalue %7[2] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %467 = llvm.extractvalue %7[3, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %468 = llvm.extractvalue %7[4, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %469 = llvm.mlir.undef : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)>
+    %470 = llvm.extractvalue %465[0] : !llvm.struct<(ptr<1>, ptr<1>, i64)> 
+    %471 = llvm.extractvalue %465[1] : !llvm.struct<(ptr<1>, ptr<1>, i64)> 
+    %472 = llvm.insertvalue %470, %469[0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %473 = llvm.insertvalue %471, %472[1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %474 = llvm.insertvalue %247, %473[2] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %475 = llvm.insertvalue %251, %474[3, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %476 = llvm.mlir.constant(1 : index) : i64
+    %477 = llvm.insertvalue %476, %475[4, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    "hivm.intr.hivm.WAIT.FLAG.IMM"() <{event_id = 0 : i64, set_pipe = 1 : i64, wait_pipe = 5 : i64}> : () -> ()
+    "hivm.intr.hivm.BARRIER"() <{pipe = 5 : i64}> : () -> ()
+    %478 = llvm.extractvalue %458[0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %479 = llvm.extractvalue %458[1] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %480 = llvm.extractvalue %458[2] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %481 = llvm.extractvalue %458[3, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %482 = llvm.extractvalue %458[4, 0] : !llvm.struct<(ptr<6>, ptr<6>, i64, array<1 x i64>, array<1 x i64>)> 
+    %483 = llvm.extractvalue %477[0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %484 = llvm.extractvalue %477[1] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %485 = llvm.extractvalue %477[2] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %486 = llvm.extractvalue %477[3, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    %487 = llvm.extractvalue %477[4, 0] : !llvm.struct<(ptr<1>, ptr<1>, i64, array<1 x i64>, array<1 x i64>)> 
+    llvm.call @store_ubuf_to_gm_1d_float(%478, %479, %480, %481, %482, %483, %484, %485, %486, %487, %40) : (!llvm.ptr<6>, !llvm.ptr<6>, i64, i64, i64, !llvm.ptr<1>, !llvm.ptr<1>, i64, i64, i64, i32) -> ()
+    "hivm.intr.hivm.SET.FLAG.REG"(%208) <{set_pipe = 5 : i64, wait_pipe = 1 : i64}> : (i64) -> ()
+    llvm.br ^bb10
+  ^bb10:  // 2 preds: ^bb2, ^bb9
+    %488 = llvm.add %195, %33 overflow<nsw> : i32
+    llvm.br ^bb1(%488 : i32)
+  ^bb11:  // pred: ^bb1
+    "hivm.intr.hivm.BARRIER"() <{pipe = 6 : i64}> : () -> ()
+    "hivm.intr.hivm.WAIT.FLAG.IMM"() <{event_id = 0 : i64, set_pipe = 1 : i64, wait_pipe = 4 : i64}> : () -> ()
+    "hivm.intr.hivm.WAIT.FLAG.IMM"() <{event_id = 1 : i64, set_pipe = 1 : i64, wait_pipe = 4 : i64}> : () -> ()
+    "hivm.intr.hivm.WAIT.FLAG.IMM"() <{event_id = 0 : i64, set_pipe = 5 : i64, wait_pipe = 1 : i64}> : () -> ()
+    "hivm.intr.hivm.WAIT.FLAG.IMM"() <{event_id = 1 : i64, set_pipe = 5 : i64, wait_pipe = 1 : i64}> : () -> ()
+    llvm.return
+  }
+}
+
