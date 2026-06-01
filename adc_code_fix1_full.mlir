@@ -74022,3 +74022,736 @@ func.func @adc_func_outlined_vf_0(%arg0: memref<32xf32, #hivm.address_space<ub>>
   ave.hir.masked_store <NORM_B32> %arg5[%c0], %0, %4 {element_alignment_bit_width = 32 : i32} : memref<32xf32, #hivm.address_space<ub>>, vector<64xi1>, vector<64xf32>
   return
 }
+
+// -----// IR Dump After EliminateVectorLayout (eliminate-vector-layout) //----- //
+func.func @adc_func_outlined_vf_0(%arg0: memref<32xf32, #hivm.address_space<ub>>, %arg1: memref<8x32xi32, #hivm.address_space<ub>>, %arg2: index, %arg3: memref<64x256xf32, #hivm.address_space<ub>>, %arg4: index, %arg5: memref<32xf32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+  %c0 = arith.constant 0 : index
+  %subview = memref.subview %arg3[%arg4, 0] [1, 256] [1, 1] : memref<64x256xf32, #hivm.address_space<ub>> to memref<256xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+  %subview_0 = memref.subview %arg1[%arg2, 0] [1, 32] [1, 1] : memref<8x32xi32, #hivm.address_space<ub>> to memref<32xi32, strided<[1], offset: ?>, #hivm.address_space<ub>>
+  %0 = ave.hir.pge <VL32> {element_alignment_bit_width = 32 : i32, mask_op_idx = 0 : i32} : vector<64xi1>
+  %res = ave.hir.vload <NORM> %arg0[%c0] {element_alignment_bit_width = 32 : i32} : memref<32xf32, #hivm.address_space<ub>> into vector<64xf32>
+  %res_1 = ave.hir.vload <NORM> %subview_0[%c0] {element_alignment_bit_width = 32 : i32} : memref<32xi32, strided<[1], offset: ?>, #hivm.address_space<ub>> into vector<64xi32>
+  %1 = ave.hir.vgather %subview[%c0] [%res_1], %0 {element_alignment_bit_width = 32 : i32} : memref<256xf32, strided<[1], offset: ?>, #hivm.address_space<ub>>, vector<64xi32>, vector<64xi1> into vector<64xf32>
+  %2 = ave.hir.vadd %res, %1, %0 {element_alignment_bit_width = 32 : i32} : vector<64xf32>, vector<64xi1>
+  ave.hir.masked_store <NORM_B32> %arg5[%c0], %0, %2 {element_alignment_bit_width = 32 : i32} : memref<32xf32, #hivm.address_space<ub>>, vector<64xi1>, vector<64xf32>
+  return
+}
+
+// -----// IR Dump Before PLTToPLTM (ave-plt-to-pltm) //----- //
+func.func @adc_func_outlined_vf_1(%arg0: memref<32x8xi8, #hivm.address_space<ub>>, %arg1: memref<8x32xi32, #hivm.address_space<ub>>) attributes {hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+  %c1 = arith.constant 1 : index
+  %c8 = arith.constant 8 : index
+  %c0 = arith.constant 0 : index
+  %0 = ave.hir.pge <VL32> {mask_op_idx = 0 : i32} : vector<64xi1>
+  annotation.mark %0 {mask_op_idx = 0 : i32} : vector<64xi1>
+  %1 = builtin.unrealized_conversion_cast %0 : vector<64xi1> to vector<64x1xi1>
+  annotation.mark %1 {reached_mask_ops_idx = 0 : i32} : vector<64x1xi1>
+  scf.for %arg2 = %c0 to %c8 step %c1 {
+    %subview = memref.subview %arg1[%arg2, 0] [1, 32] [1, 1] : memref<8x32xi32, #hivm.address_space<ub>> to memref<1x32xi32, strided<[32, 1], offset: ?>, #hivm.address_space<ub>>
+    %subview_0 = memref.subview %arg0[0, %arg2] [32, 1] [1, 1] : memref<32x8xi8, #hivm.address_space<ub>> to memref<32x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
+    %res = ave.hir.vload <NORM> %subview_0[%c0, %c0] {ave.unaligned_ub_access = #ave.unaligned_ub_access} : memref<32x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>> into vector<64xi8>
+    %2 = builtin.unrealized_conversion_cast %res : vector<64xi8> to vector<1x64xi8>
+    annotation.mark %2 {reached_mask_ops_idx = 0 : i32} : vector<1x64xi8>
+    annotation.mark %res {reached_mask_ops_idx = 0 : i32} : vector<64xi8>
+    %3 = ave.hir.vextui %res, %0 {pp = #ave.vcvt_pp_type<pp0>} : vector<64xi8>, vector<64xi32>, vector<64xi1>
+    annotation.mark %3 {reached_mask_ops_idx = 0 : i32} : vector<64xi32>
+    %subview_1 = memref.subview %subview[0, 0] [1, 32] [1, 1] : memref<1x32xi32, strided<[32, 1], offset: ?>, #hivm.address_space<ub>> to memref<32xi32, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>
+    ave.hir.masked_store <NORM_B32> %subview_1[%c0], %0, %3 : memref<32xi32, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>, vector<64xi1>, vector<64xi32>
+  }
+  return
+}
+
+// -----// IR Dump After PLTToPLTM (ave-plt-to-pltm) //----- //
+func.func @adc_func_outlined_vf_1(%arg0: memref<32x8xi8, #hivm.address_space<ub>>, %arg1: memref<8x32xi32, #hivm.address_space<ub>>) attributes {hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+  %c1 = arith.constant 1 : index
+  %c8 = arith.constant 8 : index
+  %c0 = arith.constant 0 : index
+  %0 = ave.hir.pge <VL32> {mask_op_idx = 0 : i32} : vector<64xi1>
+  annotation.mark %0 {mask_op_idx = 0 : i32} : vector<64xi1>
+  %1 = builtin.unrealized_conversion_cast %0 : vector<64xi1> to vector<64x1xi1>
+  annotation.mark %1 {reached_mask_ops_idx = 0 : i32} : vector<64x1xi1>
+  scf.for %arg2 = %c0 to %c8 step %c1 {
+    %subview = memref.subview %arg1[%arg2, 0] [1, 32] [1, 1] : memref<8x32xi32, #hivm.address_space<ub>> to memref<1x32xi32, strided<[32, 1], offset: ?>, #hivm.address_space<ub>>
+    %subview_0 = memref.subview %arg0[0, %arg2] [32, 1] [1, 1] : memref<32x8xi8, #hivm.address_space<ub>> to memref<32x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
+    %res = ave.hir.vload <NORM> %subview_0[%c0, %c0] {ave.unaligned_ub_access = #ave.unaligned_ub_access} : memref<32x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>> into vector<64xi8>
+    %2 = builtin.unrealized_conversion_cast %res : vector<64xi8> to vector<1x64xi8>
+    annotation.mark %2 {reached_mask_ops_idx = 0 : i32} : vector<1x64xi8>
+    annotation.mark %res {reached_mask_ops_idx = 0 : i32} : vector<64xi8>
+    %3 = ave.hir.vextui %res, %0 {pp = #ave.vcvt_pp_type<pp0>} : vector<64xi8>, vector<64xi32>, vector<64xi1>
+    annotation.mark %3 {reached_mask_ops_idx = 0 : i32} : vector<64xi32>
+    %subview_1 = memref.subview %subview[0, 0] [1, 32] [1, 1] : memref<1x32xi32, strided<[32, 1], offset: ?>, #hivm.address_space<ub>> to memref<32xi32, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>
+    ave.hir.masked_store <NORM_B32> %subview_1[%c0], %0, %3 : memref<32xi32, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>, vector<64xi1>, vector<64xi32>
+  }
+  return
+}
+
+// -----// IR Dump Before OptimizeReductionLoopHIVMAVE (optimize-reduction-loop) //----- //
+func.func @adc_func_outlined_vf_1(%arg0: memref<32x8xi8, #hivm.address_space<ub>>, %arg1: memref<8x32xi32, #hivm.address_space<ub>>) attributes {hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+  %c1 = arith.constant 1 : index
+  %c8 = arith.constant 8 : index
+  %c0 = arith.constant 0 : index
+  %0 = ave.hir.pge <VL32> {mask_op_idx = 0 : i32} : vector<64xi1>
+  annotation.mark %0 {mask_op_idx = 0 : i32} : vector<64xi1>
+  %1 = builtin.unrealized_conversion_cast %0 : vector<64xi1> to vector<64x1xi1>
+  annotation.mark %1 {reached_mask_ops_idx = 0 : i32} : vector<64x1xi1>
+  scf.for %arg2 = %c0 to %c8 step %c1 {
+    %subview = memref.subview %arg1[%arg2, 0] [1, 32] [1, 1] : memref<8x32xi32, #hivm.address_space<ub>> to memref<1x32xi32, strided<[32, 1], offset: ?>, #hivm.address_space<ub>>
+    %subview_0 = memref.subview %arg0[0, %arg2] [32, 1] [1, 1] : memref<32x8xi8, #hivm.address_space<ub>> to memref<32x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
+    %res = ave.hir.vload <NORM> %subview_0[%c0, %c0] {ave.unaligned_ub_access = #ave.unaligned_ub_access} : memref<32x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>> into vector<64xi8>
+    %2 = builtin.unrealized_conversion_cast %res : vector<64xi8> to vector<1x64xi8>
+    annotation.mark %2 {reached_mask_ops_idx = 0 : i32} : vector<1x64xi8>
+    annotation.mark %res {reached_mask_ops_idx = 0 : i32} : vector<64xi8>
+    %3 = ave.hir.vextui %res, %0 {pp = #ave.vcvt_pp_type<pp0>} : vector<64xi8>, vector<64xi32>, vector<64xi1>
+    annotation.mark %3 {reached_mask_ops_idx = 0 : i32} : vector<64xi32>
+    %subview_1 = memref.subview %subview[0, 0] [1, 32] [1, 1] : memref<1x32xi32, strided<[32, 1], offset: ?>, #hivm.address_space<ub>> to memref<32xi32, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>
+    ave.hir.masked_store <NORM_B32> %subview_1[%c0], %0, %3 : memref<32xi32, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>, vector<64xi1>, vector<64xi32>
+  }
+  return
+}
+
+// -----// IR Dump After OptimizeReductionLoopHIVMAVE (optimize-reduction-loop) //----- //
+func.func @adc_func_outlined_vf_1(%arg0: memref<32x8xi8, #hivm.address_space<ub>>, %arg1: memref<8x32xi32, #hivm.address_space<ub>>) attributes {hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+  %c1 = arith.constant 1 : index
+  %c8 = arith.constant 8 : index
+  %c0 = arith.constant 0 : index
+  %0 = ave.hir.pge <VL32> {mask_op_idx = 0 : i32} : vector<64xi1>
+  annotation.mark %0 {mask_op_idx = 0 : i32} : vector<64xi1>
+  %1 = builtin.unrealized_conversion_cast %0 : vector<64xi1> to vector<64x1xi1>
+  annotation.mark %1 {reached_mask_ops_idx = 0 : i32} : vector<64x1xi1>
+  scf.for %arg2 = %c0 to %c8 step %c1 {
+    %subview = memref.subview %arg1[%arg2, 0] [1, 32] [1, 1] : memref<8x32xi32, #hivm.address_space<ub>> to memref<1x32xi32, strided<[32, 1], offset: ?>, #hivm.address_space<ub>>
+    %subview_0 = memref.subview %arg0[0, %arg2] [32, 1] [1, 1] : memref<32x8xi8, #hivm.address_space<ub>> to memref<32x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
+    %res = ave.hir.vload <NORM> %subview_0[%c0, %c0] {ave.unaligned_ub_access = #ave.unaligned_ub_access} : memref<32x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>> into vector<64xi8>
+    %2 = builtin.unrealized_conversion_cast %res : vector<64xi8> to vector<1x64xi8>
+    annotation.mark %2 {reached_mask_ops_idx = 0 : i32} : vector<1x64xi8>
+    annotation.mark %res {reached_mask_ops_idx = 0 : i32} : vector<64xi8>
+    %3 = ave.hir.vextui %res, %0 {pp = #ave.vcvt_pp_type<pp0>} : vector<64xi8>, vector<64xi32>, vector<64xi1>
+    annotation.mark %3 {reached_mask_ops_idx = 0 : i32} : vector<64xi32>
+    %subview_1 = memref.subview %subview[0, 0] [1, 32] [1, 1] : memref<1x32xi32, strided<[32, 1], offset: ?>, #hivm.address_space<ub>> to memref<32xi32, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>
+    ave.hir.masked_store <NORM_B32> %subview_1[%c0], %0, %3 : memref<32xi32, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>, vector<64xi1>, vector<64xi32>
+  }
+  return
+}
+
+// -----// IR Dump Before ProcessVsstb (ave-process-vsstb) //----- //
+func.func @adc_func_outlined_vf_1(%arg0: memref<32x8xi8, #hivm.address_space<ub>>, %arg1: memref<8x32xi32, #hivm.address_space<ub>>) attributes {hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+  %c1 = arith.constant 1 : index
+  %c8 = arith.constant 8 : index
+  %c0 = arith.constant 0 : index
+  %0 = ave.hir.pge <VL32> {mask_op_idx = 0 : i32} : vector<64xi1>
+  annotation.mark %0 {mask_op_idx = 0 : i32} : vector<64xi1>
+  %1 = builtin.unrealized_conversion_cast %0 : vector<64xi1> to vector<64x1xi1>
+  annotation.mark %1 {reached_mask_ops_idx = 0 : i32} : vector<64x1xi1>
+  scf.for %arg2 = %c0 to %c8 step %c1 {
+    %subview = memref.subview %arg1[%arg2, 0] [1, 32] [1, 1] : memref<8x32xi32, #hivm.address_space<ub>> to memref<1x32xi32, strided<[32, 1], offset: ?>, #hivm.address_space<ub>>
+    %subview_0 = memref.subview %arg0[0, %arg2] [32, 1] [1, 1] : memref<32x8xi8, #hivm.address_space<ub>> to memref<32x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
+    %res = ave.hir.vload <NORM> %subview_0[%c0, %c0] {ave.unaligned_ub_access = #ave.unaligned_ub_access} : memref<32x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>> into vector<64xi8>
+    %2 = builtin.unrealized_conversion_cast %res : vector<64xi8> to vector<1x64xi8>
+    annotation.mark %2 {reached_mask_ops_idx = 0 : i32} : vector<1x64xi8>
+    annotation.mark %res {reached_mask_ops_idx = 0 : i32} : vector<64xi8>
+    %3 = ave.hir.vextui %res, %0 {pp = #ave.vcvt_pp_type<pp0>} : vector<64xi8>, vector<64xi32>, vector<64xi1>
+    annotation.mark %3 {reached_mask_ops_idx = 0 : i32} : vector<64xi32>
+    %subview_1 = memref.subview %subview[0, 0] [1, 32] [1, 1] : memref<1x32xi32, strided<[32, 1], offset: ?>, #hivm.address_space<ub>> to memref<32xi32, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>
+    ave.hir.masked_store <NORM_B32> %subview_1[%c0], %0, %3 : memref<32xi32, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>, vector<64xi1>, vector<64xi32>
+  }
+  return
+}
+
+// -----// IR Dump After ProcessVsstb (ave-process-vsstb) //----- //
+func.func @adc_func_outlined_vf_1(%arg0: memref<32x8xi8, #hivm.address_space<ub>>, %arg1: memref<8x32xi32, #hivm.address_space<ub>>) attributes {hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+  %c1 = arith.constant 1 : index
+  %c8 = arith.constant 8 : index
+  %c0 = arith.constant 0 : index
+  %0 = ave.hir.pge <VL32> {mask_op_idx = 0 : i32} : vector<64xi1>
+  annotation.mark %0 {mask_op_idx = 0 : i32} : vector<64xi1>
+  %1 = builtin.unrealized_conversion_cast %0 : vector<64xi1> to vector<64x1xi1>
+  annotation.mark %1 {reached_mask_ops_idx = 0 : i32} : vector<64x1xi1>
+  scf.for %arg2 = %c0 to %c8 step %c1 {
+    %subview = memref.subview %arg1[%arg2, 0] [1, 32] [1, 1] : memref<8x32xi32, #hivm.address_space<ub>> to memref<1x32xi32, strided<[32, 1], offset: ?>, #hivm.address_space<ub>>
+    %subview_0 = memref.subview %arg0[0, %arg2] [32, 1] [1, 1] : memref<32x8xi8, #hivm.address_space<ub>> to memref<32x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
+    %res = ave.hir.vload <NORM> %subview_0[%c0, %c0] {ave.unaligned_ub_access = #ave.unaligned_ub_access} : memref<32x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>> into vector<64xi8>
+    %2 = builtin.unrealized_conversion_cast %res : vector<64xi8> to vector<1x64xi8>
+    annotation.mark %2 {reached_mask_ops_idx = 0 : i32} : vector<1x64xi8>
+    annotation.mark %res {reached_mask_ops_idx = 0 : i32} : vector<64xi8>
+    %3 = ave.hir.vextui %res, %0 {pp = #ave.vcvt_pp_type<pp0>} : vector<64xi8>, vector<64xi32>, vector<64xi1>
+    annotation.mark %3 {reached_mask_ops_idx = 0 : i32} : vector<64xi32>
+    %subview_1 = memref.subview %subview[0, 0] [1, 32] [1, 1] : memref<1x32xi32, strided<[32, 1], offset: ?>, #hivm.address_space<ub>> to memref<32xi32, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>
+    ave.hir.masked_store <NORM_B32> %subview_1[%c0], %0, %3 : memref<32xi32, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>, vector<64xi1>, vector<64xi32>
+  }
+  return
+}
+
+// -----// IR Dump Before LegalizeOptHIVMAVE (legalize-opt-hivmave) //----- //
+func.func @adc_func_outlined_vf_1(%arg0: memref<32x8xi8, #hivm.address_space<ub>>, %arg1: memref<8x32xi32, #hivm.address_space<ub>>) attributes {hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+  %c1 = arith.constant 1 : index
+  %c8 = arith.constant 8 : index
+  %c0 = arith.constant 0 : index
+  %0 = ave.hir.pge <VL32> {mask_op_idx = 0 : i32} : vector<64xi1>
+  annotation.mark %0 {mask_op_idx = 0 : i32} : vector<64xi1>
+  %1 = builtin.unrealized_conversion_cast %0 : vector<64xi1> to vector<64x1xi1>
+  annotation.mark %1 {reached_mask_ops_idx = 0 : i32} : vector<64x1xi1>
+  scf.for %arg2 = %c0 to %c8 step %c1 {
+    %subview = memref.subview %arg1[%arg2, 0] [1, 32] [1, 1] : memref<8x32xi32, #hivm.address_space<ub>> to memref<1x32xi32, strided<[32, 1], offset: ?>, #hivm.address_space<ub>>
+    %subview_0 = memref.subview %arg0[0, %arg2] [32, 1] [1, 1] : memref<32x8xi8, #hivm.address_space<ub>> to memref<32x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
+    %res = ave.hir.vload <NORM> %subview_0[%c0, %c0] {ave.unaligned_ub_access = #ave.unaligned_ub_access} : memref<32x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>> into vector<64xi8>
+    %2 = builtin.unrealized_conversion_cast %res : vector<64xi8> to vector<1x64xi8>
+    annotation.mark %2 {reached_mask_ops_idx = 0 : i32} : vector<1x64xi8>
+    annotation.mark %res {reached_mask_ops_idx = 0 : i32} : vector<64xi8>
+    %3 = ave.hir.vextui %res, %0 {pp = #ave.vcvt_pp_type<pp0>} : vector<64xi8>, vector<64xi32>, vector<64xi1>
+    annotation.mark %3 {reached_mask_ops_idx = 0 : i32} : vector<64xi32>
+    %subview_1 = memref.subview %subview[0, 0] [1, 32] [1, 1] : memref<1x32xi32, strided<[32, 1], offset: ?>, #hivm.address_space<ub>> to memref<32xi32, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>
+    ave.hir.masked_store <NORM_B32> %subview_1[%c0], %0, %3 : memref<32xi32, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>, vector<64xi1>, vector<64xi32>
+  }
+  return
+}
+
+// -----// IR Dump After LegalizeOptHIVMAVE (legalize-opt-hivmave) //----- //
+func.func @adc_func_outlined_vf_1(%arg0: memref<32x8xi8, #hivm.address_space<ub>>, %arg1: memref<8x32xi32, #hivm.address_space<ub>>) attributes {hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+  %c1 = arith.constant 1 : index
+  %c8 = arith.constant 8 : index
+  %c0 = arith.constant 0 : index
+  %0 = ave.hir.pge <VL32> {mask_op_idx = 0 : i32} : vector<64xi1>
+  annotation.mark %0 {mask_op_idx = 0 : i32} : vector<64xi1>
+  %1 = builtin.unrealized_conversion_cast %0 : vector<64xi1> to vector<64x1xi1>
+  annotation.mark %1 {reached_mask_ops_idx = 0 : i32} : vector<64x1xi1>
+  scf.for %arg2 = %c0 to %c8 step %c1 {
+    %subview = memref.subview %arg1[%arg2, 0] [1, 32] [1, 1] : memref<8x32xi32, #hivm.address_space<ub>> to memref<1x32xi32, strided<[32, 1], offset: ?>, #hivm.address_space<ub>>
+    %subview_0 = memref.subview %arg0[0, %arg2] [32, 1] [1, 1] : memref<32x8xi8, #hivm.address_space<ub>> to memref<32x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
+    %res = ave.hir.vload <NORM> %subview_0[%c0, %c0] {ave.unaligned_ub_access = #ave.unaligned_ub_access} : memref<32x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>> into vector<64xi8>
+    %2 = builtin.unrealized_conversion_cast %res : vector<64xi8> to vector<1x64xi8>
+    annotation.mark %2 {reached_mask_ops_idx = 0 : i32} : vector<1x64xi8>
+    annotation.mark %res {reached_mask_ops_idx = 0 : i32} : vector<64xi8>
+    %3 = ave.hir.vextui %res, %0 {pp = #ave.vcvt_pp_type<pp0>} : vector<64xi8>, vector<64xi32>, vector<64xi1>
+    annotation.mark %3 {reached_mask_ops_idx = 0 : i32} : vector<64xi32>
+    %subview_1 = memref.subview %subview[0, 0] [1, 32] [1, 1] : memref<1x32xi32, strided<[32, 1], offset: ?>, #hivm.address_space<ub>> to memref<32xi32, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>
+    ave.hir.masked_store <NORM_B32> %subview_1[%c0], %0, %3 : memref<32xi32, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>, vector<64xi1>, vector<64xi32>
+  }
+  return
+}
+
+// -----// IR Dump Before ReplaceWithVectorScalar (ave-replace-with-vector-scalar) //----- //
+func.func @adc_func_outlined_vf_1(%arg0: memref<32x8xi8, #hivm.address_space<ub>>, %arg1: memref<8x32xi32, #hivm.address_space<ub>>) attributes {hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+  %c1 = arith.constant 1 : index
+  %c8 = arith.constant 8 : index
+  %c0 = arith.constant 0 : index
+  %0 = ave.hir.pge <VL32> {mask_op_idx = 0 : i32} : vector<64xi1>
+  annotation.mark %0 {mask_op_idx = 0 : i32} : vector<64xi1>
+  %1 = builtin.unrealized_conversion_cast %0 : vector<64xi1> to vector<64x1xi1>
+  annotation.mark %1 {reached_mask_ops_idx = 0 : i32} : vector<64x1xi1>
+  scf.for %arg2 = %c0 to %c8 step %c1 {
+    %subview = memref.subview %arg1[%arg2, 0] [1, 32] [1, 1] : memref<8x32xi32, #hivm.address_space<ub>> to memref<1x32xi32, strided<[32, 1], offset: ?>, #hivm.address_space<ub>>
+    %subview_0 = memref.subview %arg0[0, %arg2] [32, 1] [1, 1] : memref<32x8xi8, #hivm.address_space<ub>> to memref<32x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
+    %res = ave.hir.vload <NORM> %subview_0[%c0, %c0] {ave.unaligned_ub_access = #ave.unaligned_ub_access} : memref<32x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>> into vector<64xi8>
+    %2 = builtin.unrealized_conversion_cast %res : vector<64xi8> to vector<1x64xi8>
+    annotation.mark %2 {reached_mask_ops_idx = 0 : i32} : vector<1x64xi8>
+    annotation.mark %res {reached_mask_ops_idx = 0 : i32} : vector<64xi8>
+    %3 = ave.hir.vextui %res, %0 {pp = #ave.vcvt_pp_type<pp0>} : vector<64xi8>, vector<64xi32>, vector<64xi1>
+    annotation.mark %3 {reached_mask_ops_idx = 0 : i32} : vector<64xi32>
+    %subview_1 = memref.subview %subview[0, 0] [1, 32] [1, 1] : memref<1x32xi32, strided<[32, 1], offset: ?>, #hivm.address_space<ub>> to memref<32xi32, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>
+    ave.hir.masked_store <NORM_B32> %subview_1[%c0], %0, %3 : memref<32xi32, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>, vector<64xi1>, vector<64xi32>
+  }
+  return
+}
+
+// -----// IR Dump After ReplaceWithVectorScalar (ave-replace-with-vector-scalar) //----- //
+func.func @adc_func_outlined_vf_1(%arg0: memref<32x8xi8, #hivm.address_space<ub>>, %arg1: memref<8x32xi32, #hivm.address_space<ub>>) attributes {hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+  %c1 = arith.constant 1 : index
+  %c8 = arith.constant 8 : index
+  %c0 = arith.constant 0 : index
+  %0 = ave.hir.pge <VL32> {mask_op_idx = 0 : i32} : vector<64xi1>
+  annotation.mark %0 {mask_op_idx = 0 : i32} : vector<64xi1>
+  %1 = builtin.unrealized_conversion_cast %0 : vector<64xi1> to vector<64x1xi1>
+  annotation.mark %1 {reached_mask_ops_idx = 0 : i32} : vector<64x1xi1>
+  scf.for %arg2 = %c0 to %c8 step %c1 {
+    %subview = memref.subview %arg1[%arg2, 0] [1, 32] [1, 1] : memref<8x32xi32, #hivm.address_space<ub>> to memref<1x32xi32, strided<[32, 1], offset: ?>, #hivm.address_space<ub>>
+    %subview_0 = memref.subview %arg0[0, %arg2] [32, 1] [1, 1] : memref<32x8xi8, #hivm.address_space<ub>> to memref<32x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
+    %res = ave.hir.vload <NORM> %subview_0[%c0, %c0] {ave.unaligned_ub_access = #ave.unaligned_ub_access} : memref<32x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>> into vector<64xi8>
+    %2 = builtin.unrealized_conversion_cast %res : vector<64xi8> to vector<1x64xi8>
+    annotation.mark %2 {reached_mask_ops_idx = 0 : i32} : vector<1x64xi8>
+    annotation.mark %res {reached_mask_ops_idx = 0 : i32} : vector<64xi8>
+    %3 = ave.hir.vextui %res, %0 {pp = #ave.vcvt_pp_type<pp0>} : vector<64xi8>, vector<64xi32>, vector<64xi1>
+    annotation.mark %3 {reached_mask_ops_idx = 0 : i32} : vector<64xi32>
+    %subview_1 = memref.subview %subview[0, 0] [1, 32] [1, 1] : memref<1x32xi32, strided<[32, 1], offset: ?>, #hivm.address_space<ub>> to memref<32xi32, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>
+    ave.hir.masked_store <NORM_B32> %subview_1[%c0], %0, %3 : memref<32xi32, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>, vector<64xi1>, vector<64xi32>
+  }
+  return
+}
+
+// -----// IR Dump Before ProcessMembar (ave-process-membar) //----- //
+func.func @adc_func_outlined_vf_1(%arg0: memref<32x8xi8, #hivm.address_space<ub>>, %arg1: memref<8x32xi32, #hivm.address_space<ub>>) attributes {hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+  %c1 = arith.constant 1 : index
+  %c8 = arith.constant 8 : index
+  %c0 = arith.constant 0 : index
+  %0 = ave.hir.pge <VL32> {mask_op_idx = 0 : i32} : vector<64xi1>
+  annotation.mark %0 {mask_op_idx = 0 : i32} : vector<64xi1>
+  %1 = builtin.unrealized_conversion_cast %0 : vector<64xi1> to vector<64x1xi1>
+  annotation.mark %1 {reached_mask_ops_idx = 0 : i32} : vector<64x1xi1>
+  scf.for %arg2 = %c0 to %c8 step %c1 {
+    %subview = memref.subview %arg1[%arg2, 0] [1, 32] [1, 1] : memref<8x32xi32, #hivm.address_space<ub>> to memref<1x32xi32, strided<[32, 1], offset: ?>, #hivm.address_space<ub>>
+    %subview_0 = memref.subview %arg0[0, %arg2] [32, 1] [1, 1] : memref<32x8xi8, #hivm.address_space<ub>> to memref<32x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
+    %res = ave.hir.vload <NORM> %subview_0[%c0, %c0] {ave.unaligned_ub_access = #ave.unaligned_ub_access} : memref<32x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>> into vector<64xi8>
+    %2 = builtin.unrealized_conversion_cast %res : vector<64xi8> to vector<1x64xi8>
+    annotation.mark %2 {reached_mask_ops_idx = 0 : i32} : vector<1x64xi8>
+    annotation.mark %res {reached_mask_ops_idx = 0 : i32} : vector<64xi8>
+    %3 = ave.hir.vextui %res, %0 {pp = #ave.vcvt_pp_type<pp0>} : vector<64xi8>, vector<64xi32>, vector<64xi1>
+    annotation.mark %3 {reached_mask_ops_idx = 0 : i32} : vector<64xi32>
+    %subview_1 = memref.subview %subview[0, 0] [1, 32] [1, 1] : memref<1x32xi32, strided<[32, 1], offset: ?>, #hivm.address_space<ub>> to memref<32xi32, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>
+    ave.hir.masked_store <NORM_B32> %subview_1[%c0], %0, %3 : memref<32xi32, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>, vector<64xi1>, vector<64xi32>
+  }
+  return
+}
+
+// -----// IR Dump After ProcessMembar (ave-process-membar) //----- //
+func.func @adc_func_outlined_vf_1(%arg0: memref<32x8xi8, #hivm.address_space<ub>>, %arg1: memref<8x32xi32, #hivm.address_space<ub>>) attributes {hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+  %c1 = arith.constant 1 : index
+  %c8 = arith.constant 8 : index
+  %c0 = arith.constant 0 : index
+  %0 = ave.hir.pge <VL32> {mask_op_idx = 0 : i32} : vector<64xi1>
+  annotation.mark %0 {mask_op_idx = 0 : i32} : vector<64xi1>
+  %1 = builtin.unrealized_conversion_cast %0 : vector<64xi1> to vector<64x1xi1>
+  annotation.mark %1 {reached_mask_ops_idx = 0 : i32} : vector<64x1xi1>
+  scf.for %arg2 = %c0 to %c8 step %c1 {
+    %subview = memref.subview %arg1[%arg2, 0] [1, 32] [1, 1] : memref<8x32xi32, #hivm.address_space<ub>> to memref<1x32xi32, strided<[32, 1], offset: ?>, #hivm.address_space<ub>>
+    %subview_0 = memref.subview %arg0[0, %arg2] [32, 1] [1, 1] : memref<32x8xi8, #hivm.address_space<ub>> to memref<32x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
+    %res = ave.hir.vload <NORM> %subview_0[%c0, %c0] {ave.unaligned_ub_access = #ave.unaligned_ub_access} : memref<32x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>> into vector<64xi8>
+    %2 = builtin.unrealized_conversion_cast %res : vector<64xi8> to vector<1x64xi8>
+    annotation.mark %2 {reached_mask_ops_idx = 0 : i32} : vector<1x64xi8>
+    annotation.mark %res {reached_mask_ops_idx = 0 : i32} : vector<64xi8>
+    %3 = ave.hir.vextui %res, %0 {pp = #ave.vcvt_pp_type<pp0>} : vector<64xi8>, vector<64xi32>, vector<64xi1>
+    annotation.mark %3 {reached_mask_ops_idx = 0 : i32} : vector<64xi32>
+    %subview_1 = memref.subview %subview[0, 0] [1, 32] [1, 1] : memref<1x32xi32, strided<[32, 1], offset: ?>, #hivm.address_space<ub>> to memref<32xi32, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>
+    ave.hir.masked_store <NORM_B32> %subview_1[%c0], %0, %3 : memref<32xi32, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>, vector<64xi1>, vector<64xi32>
+  }
+  return
+}
+
+// -----// IR Dump Before AnnotationLowering (annotation-lowering) //----- //
+func.func @adc_func_outlined_vf_1(%arg0: memref<32x8xi8, #hivm.address_space<ub>>, %arg1: memref<8x32xi32, #hivm.address_space<ub>>) attributes {hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+  %c1 = arith.constant 1 : index
+  %c8 = arith.constant 8 : index
+  %c0 = arith.constant 0 : index
+  %0 = ave.hir.pge <VL32> {mask_op_idx = 0 : i32} : vector<64xi1>
+  annotation.mark %0 {mask_op_idx = 0 : i32} : vector<64xi1>
+  %1 = builtin.unrealized_conversion_cast %0 : vector<64xi1> to vector<64x1xi1>
+  annotation.mark %1 {reached_mask_ops_idx = 0 : i32} : vector<64x1xi1>
+  scf.for %arg2 = %c0 to %c8 step %c1 {
+    %subview = memref.subview %arg1[%arg2, 0] [1, 32] [1, 1] : memref<8x32xi32, #hivm.address_space<ub>> to memref<1x32xi32, strided<[32, 1], offset: ?>, #hivm.address_space<ub>>
+    %subview_0 = memref.subview %arg0[0, %arg2] [32, 1] [1, 1] : memref<32x8xi8, #hivm.address_space<ub>> to memref<32x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
+    %res = ave.hir.vload <NORM> %subview_0[%c0, %c0] {ave.unaligned_ub_access = #ave.unaligned_ub_access} : memref<32x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>> into vector<64xi8>
+    %2 = builtin.unrealized_conversion_cast %res : vector<64xi8> to vector<1x64xi8>
+    annotation.mark %2 {reached_mask_ops_idx = 0 : i32} : vector<1x64xi8>
+    annotation.mark %res {reached_mask_ops_idx = 0 : i32} : vector<64xi8>
+    %3 = ave.hir.vextui %res, %0 {pp = #ave.vcvt_pp_type<pp0>} : vector<64xi8>, vector<64xi32>, vector<64xi1>
+    annotation.mark %3 {reached_mask_ops_idx = 0 : i32} : vector<64xi32>
+    %subview_1 = memref.subview %subview[0, 0] [1, 32] [1, 1] : memref<1x32xi32, strided<[32, 1], offset: ?>, #hivm.address_space<ub>> to memref<32xi32, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>
+    ave.hir.masked_store <NORM_B32> %subview_1[%c0], %0, %3 : memref<32xi32, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>, vector<64xi1>, vector<64xi32>
+  }
+  return
+}
+
+// -----// IR Dump After AnnotationLowering (annotation-lowering) //----- //
+func.func @adc_func_outlined_vf_1(%arg0: memref<32x8xi8, #hivm.address_space<ub>>, %arg1: memref<8x32xi32, #hivm.address_space<ub>>) attributes {hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+  %c1 = arith.constant 1 : index
+  %c8 = arith.constant 8 : index
+  %c0 = arith.constant 0 : index
+  %0 = ave.hir.pge <VL32> {mask_op_idx = 0 : i32} : vector<64xi1>
+  %1 = builtin.unrealized_conversion_cast %0 : vector<64xi1> to vector<64x1xi1>
+  scf.for %arg2 = %c0 to %c8 step %c1 {
+    %subview = memref.subview %arg1[%arg2, 0] [1, 32] [1, 1] : memref<8x32xi32, #hivm.address_space<ub>> to memref<1x32xi32, strided<[32, 1], offset: ?>, #hivm.address_space<ub>>
+    %subview_0 = memref.subview %arg0[0, %arg2] [32, 1] [1, 1] : memref<32x8xi8, #hivm.address_space<ub>> to memref<32x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
+    %res = ave.hir.vload <NORM> %subview_0[%c0, %c0] {ave.unaligned_ub_access = #ave.unaligned_ub_access} : memref<32x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>> into vector<64xi8>
+    %2 = builtin.unrealized_conversion_cast %res : vector<64xi8> to vector<1x64xi8>
+    %3 = ave.hir.vextui %res, %0 {pp = #ave.vcvt_pp_type<pp0>} : vector<64xi8>, vector<64xi32>, vector<64xi1>
+    %subview_1 = memref.subview %subview[0, 0] [1, 32] [1, 1] : memref<1x32xi32, strided<[32, 1], offset: ?>, #hivm.address_space<ub>> to memref<32xi32, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>
+    ave.hir.masked_store <NORM_B32> %subview_1[%c0], %0, %3 : memref<32xi32, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>, vector<64xi1>, vector<64xi32>
+  }
+  return
+}
+
+// -----// IR Dump Before CombineAVEOPs (combine-ave-ops) //----- //
+func.func @adc_func_outlined_vf_1(%arg0: memref<32x8xi8, #hivm.address_space<ub>>, %arg1: memref<8x32xi32, #hivm.address_space<ub>>) attributes {hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+  %c1 = arith.constant 1 : index
+  %c8 = arith.constant 8 : index
+  %c0 = arith.constant 0 : index
+  %0 = ave.hir.pge <VL32> {mask_op_idx = 0 : i32} : vector<64xi1>
+  %1 = builtin.unrealized_conversion_cast %0 : vector<64xi1> to vector<64x1xi1>
+  scf.for %arg2 = %c0 to %c8 step %c1 {
+    %subview = memref.subview %arg1[%arg2, 0] [1, 32] [1, 1] : memref<8x32xi32, #hivm.address_space<ub>> to memref<1x32xi32, strided<[32, 1], offset: ?>, #hivm.address_space<ub>>
+    %subview_0 = memref.subview %arg0[0, %arg2] [32, 1] [1, 1] : memref<32x8xi8, #hivm.address_space<ub>> to memref<32x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
+    %res = ave.hir.vload <NORM> %subview_0[%c0, %c0] {ave.unaligned_ub_access = #ave.unaligned_ub_access} : memref<32x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>> into vector<64xi8>
+    %2 = builtin.unrealized_conversion_cast %res : vector<64xi8> to vector<1x64xi8>
+    %3 = ave.hir.vextui %res, %0 {pp = #ave.vcvt_pp_type<pp0>} : vector<64xi8>, vector<64xi32>, vector<64xi1>
+    %subview_1 = memref.subview %subview[0, 0] [1, 32] [1, 1] : memref<1x32xi32, strided<[32, 1], offset: ?>, #hivm.address_space<ub>> to memref<32xi32, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>
+    ave.hir.masked_store <NORM_B32> %subview_1[%c0], %0, %3 : memref<32xi32, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>, vector<64xi1>, vector<64xi32>
+  }
+  return
+}
+
+// -----// IR Dump After CombineAVEOPs (combine-ave-ops) //----- //
+func.func @adc_func_outlined_vf_1(%arg0: memref<32x8xi8, #hivm.address_space<ub>>, %arg1: memref<8x32xi32, #hivm.address_space<ub>>) attributes {hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+  %c1 = arith.constant 1 : index
+  %c8 = arith.constant 8 : index
+  %c0 = arith.constant 0 : index
+  %0 = ave.hir.pge <VL32> {mask_op_idx = 0 : i32} : vector<64xi1>
+  scf.for %arg2 = %c0 to %c8 step %c1 {
+    %subview = memref.subview %arg1[%arg2, 0] [1, 32] [1, 1] : memref<8x32xi32, #hivm.address_space<ub>> to memref<1x32xi32, strided<[32, 1], offset: ?>, #hivm.address_space<ub>>
+    %subview_0 = memref.subview %arg0[0, %arg2] [32, 1] [1, 1] : memref<32x8xi8, #hivm.address_space<ub>> to memref<32x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
+    %res = ave.hir.vload <NORM> %subview_0[%c0, %c0] {ave.unaligned_ub_access = #ave.unaligned_ub_access} : memref<32x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>> into vector<64xi8>
+    %1 = ave.hir.vextui %res, %0 {pp = #ave.vcvt_pp_type<pp0>} : vector<64xi8>, vector<64xi32>, vector<64xi1>
+    %subview_1 = memref.subview %subview[0, 0] [1, 32] [1, 1] : memref<1x32xi32, strided<[32, 1], offset: ?>, #hivm.address_space<ub>> to memref<32xi32, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>
+    ave.hir.masked_store <NORM_B32> %subview_1[%c0], %0, %1 : memref<32xi32, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>, vector<64xi1>, vector<64xi32>
+  }
+  return
+}
+
+// -----// IR Dump Before ScalarBroadcastToVLoad (hivmave-scalar-broadcast-to-vload) //----- //
+func.func @adc_func_outlined_vf_1(%arg0: memref<32x8xi8, #hivm.address_space<ub>>, %arg1: memref<8x32xi32, #hivm.address_space<ub>>) attributes {hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+  %c1 = arith.constant 1 : index
+  %c8 = arith.constant 8 : index
+  %c0 = arith.constant 0 : index
+  %0 = ave.hir.pge <VL32> {mask_op_idx = 0 : i32} : vector<64xi1>
+  scf.for %arg2 = %c0 to %c8 step %c1 {
+    %subview = memref.subview %arg1[%arg2, 0] [1, 32] [1, 1] : memref<8x32xi32, #hivm.address_space<ub>> to memref<1x32xi32, strided<[32, 1], offset: ?>, #hivm.address_space<ub>>
+    %subview_0 = memref.subview %arg0[0, %arg2] [32, 1] [1, 1] : memref<32x8xi8, #hivm.address_space<ub>> to memref<32x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
+    %res = ave.hir.vload <NORM> %subview_0[%c0, %c0] {ave.unaligned_ub_access = #ave.unaligned_ub_access} : memref<32x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>> into vector<64xi8>
+    %1 = ave.hir.vextui %res, %0 {pp = #ave.vcvt_pp_type<pp0>} : vector<64xi8>, vector<64xi32>, vector<64xi1>
+    %subview_1 = memref.subview %subview[0, 0] [1, 32] [1, 1] : memref<1x32xi32, strided<[32, 1], offset: ?>, #hivm.address_space<ub>> to memref<32xi32, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>
+    ave.hir.masked_store <NORM_B32> %subview_1[%c0], %0, %1 : memref<32xi32, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>, vector<64xi1>, vector<64xi32>
+  }
+  return
+}
+
+// -----// IR Dump After ScalarBroadcastToVLoad (hivmave-scalar-broadcast-to-vload) //----- //
+func.func @adc_func_outlined_vf_1(%arg0: memref<32x8xi8, #hivm.address_space<ub>>, %arg1: memref<8x32xi32, #hivm.address_space<ub>>) attributes {hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+  %c1 = arith.constant 1 : index
+  %c8 = arith.constant 8 : index
+  %c0 = arith.constant 0 : index
+  %0 = ave.hir.pge <VL32> {mask_op_idx = 0 : i32} : vector<64xi1>
+  scf.for %arg2 = %c0 to %c8 step %c1 {
+    %subview = memref.subview %arg1[%arg2, 0] [1, 32] [1, 1] : memref<8x32xi32, #hivm.address_space<ub>> to memref<1x32xi32, strided<[32, 1], offset: ?>, #hivm.address_space<ub>>
+    %subview_0 = memref.subview %arg0[0, %arg2] [32, 1] [1, 1] : memref<32x8xi8, #hivm.address_space<ub>> to memref<32x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
+    %res = ave.hir.vload <NORM> %subview_0[%c0, %c0] {ave.unaligned_ub_access = #ave.unaligned_ub_access} : memref<32x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>> into vector<64xi8>
+    %1 = ave.hir.vextui %res, %0 {pp = #ave.vcvt_pp_type<pp0>} : vector<64xi8>, vector<64xi32>, vector<64xi1>
+    %subview_1 = memref.subview %subview[0, 0] [1, 32] [1, 1] : memref<1x32xi32, strided<[32, 1], offset: ?>, #hivm.address_space<ub>> to memref<32xi32, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>
+    ave.hir.masked_store <NORM_B32> %subview_1[%c0], %0, %1 : memref<32xi32, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>, vector<64xi1>, vector<64xi32>
+  }
+  return
+}
+
+// -----// IR Dump Before AnalyzeDataLayout (data-layout-analyze) //----- //
+func.func @adc_func_outlined_vf_1(%arg0: memref<32x8xi8, #hivm.address_space<ub>>, %arg1: memref<8x32xi32, #hivm.address_space<ub>>) attributes {hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+  %c1 = arith.constant 1 : index
+  %c8 = arith.constant 8 : index
+  %c0 = arith.constant 0 : index
+  %0 = ave.hir.pge <VL32> {mask_op_idx = 0 : i32} : vector<64xi1>
+  scf.for %arg2 = %c0 to %c8 step %c1 {
+    %subview = memref.subview %arg1[%arg2, 0] [1, 32] [1, 1] : memref<8x32xi32, #hivm.address_space<ub>> to memref<1x32xi32, strided<[32, 1], offset: ?>, #hivm.address_space<ub>>
+    %subview_0 = memref.subview %arg0[0, %arg2] [32, 1] [1, 1] : memref<32x8xi8, #hivm.address_space<ub>> to memref<32x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
+    %res = ave.hir.vload <NORM> %subview_0[%c0, %c0] {ave.unaligned_ub_access = #ave.unaligned_ub_access} : memref<32x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>> into vector<64xi8>
+    %1 = ave.hir.vextui %res, %0 {pp = #ave.vcvt_pp_type<pp0>} : vector<64xi8>, vector<64xi32>, vector<64xi1>
+    %subview_1 = memref.subview %subview[0, 0] [1, 32] [1, 1] : memref<1x32xi32, strided<[32, 1], offset: ?>, #hivm.address_space<ub>> to memref<32xi32, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>
+    ave.hir.masked_store <NORM_B32> %subview_1[%c0], %0, %1 : memref<32xi32, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>, vector<64xi1>, vector<64xi32>
+  }
+  return
+}
+
+// -----// IR Dump After AnalyzeDataLayout (data-layout-analyze) //----- //
+func.func @adc_func_outlined_vf_1(%arg0: memref<32x8xi8, #hivm.address_space<ub>>, %arg1: memref<8x32xi32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+  %c1 = arith.constant 1 : index
+  %c8 = arith.constant 8 : index
+  %c0 = arith.constant 0 : index
+  %0 = ave.hir.pge <VL32> {mask_op_idx = 0 : i32} : vector<64xi1>
+  scf.for %arg2 = %c0 to %c8 step %c1 {
+    %subview = memref.subview %arg1[%arg2, 0] [1, 32] [1, 1] : memref<8x32xi32, #hivm.address_space<ub>> to memref<1x32xi32, strided<[32, 1], offset: ?>, #hivm.address_space<ub>>
+    %subview_0 = memref.subview %arg0[0, %arg2] [32, 1] [1, 1] : memref<32x8xi8, #hivm.address_space<ub>> to memref<32x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
+    %res = ave.hir.vload <NORM> %subview_0[%c0, %c0] {ave.unaligned_ub_access = #ave.unaligned_ub_access} : memref<32x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>> into vector<64xi8>
+    %1 = ave.hir.vextui %res, %0 {pp = #ave.vcvt_pp_type<pp0>} : vector<64xi8>, vector<64xi32>, vector<64xi1>
+    %subview_1 = memref.subview %subview[0, 0] [1, 32] [1, 1] : memref<1x32xi32, strided<[32, 1], offset: ?>, #hivm.address_space<ub>> to memref<32xi32, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>
+    ave.hir.masked_store <NORM_B32> %subview_1[%c0], %0, %1 : memref<32xi32, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>, vector<64xi1>, vector<64xi32>
+  } {element_alignment_bit_width = 32 : i32}
+  return
+}
+
+// -----// IR Dump Before PLTToPLTM (ave-plt-to-pltm) //----- //
+func.func @adc_func_outlined_vf_1(%arg0: memref<32x8xi8, #hivm.address_space<ub>>, %arg1: memref<8x32xi32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+  %c1 = arith.constant 1 : index
+  %c8 = arith.constant 8 : index
+  %c0 = arith.constant 0 : index
+  %0 = ave.hir.pge <VL32> {mask_op_idx = 0 : i32} : vector<64xi1>
+  scf.for %arg2 = %c0 to %c8 step %c1 {
+    %subview = memref.subview %arg1[%arg2, 0] [1, 32] [1, 1] : memref<8x32xi32, #hivm.address_space<ub>> to memref<1x32xi32, strided<[32, 1], offset: ?>, #hivm.address_space<ub>>
+    %subview_0 = memref.subview %arg0[0, %arg2] [32, 1] [1, 1] : memref<32x8xi8, #hivm.address_space<ub>> to memref<32x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
+    %res = ave.hir.vload <NORM> %subview_0[%c0, %c0] {ave.unaligned_ub_access = #ave.unaligned_ub_access} : memref<32x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>> into vector<64xi8>
+    %1 = ave.hir.vextui %res, %0 {pp = #ave.vcvt_pp_type<pp0>} : vector<64xi8>, vector<64xi32>, vector<64xi1>
+    %subview_1 = memref.subview %subview[0, 0] [1, 32] [1, 1] : memref<1x32xi32, strided<[32, 1], offset: ?>, #hivm.address_space<ub>> to memref<32xi32, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>
+    ave.hir.masked_store <NORM_B32> %subview_1[%c0], %0, %1 : memref<32xi32, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>, vector<64xi1>, vector<64xi32>
+  } {element_alignment_bit_width = 32 : i32}
+  return
+}
+
+// -----// IR Dump After PLTToPLTM (ave-plt-to-pltm) //----- //
+func.func @adc_func_outlined_vf_1(%arg0: memref<32x8xi8, #hivm.address_space<ub>>, %arg1: memref<8x32xi32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+  %c1 = arith.constant 1 : index
+  %c8 = arith.constant 8 : index
+  %c0 = arith.constant 0 : index
+  %0 = ave.hir.pge <VL32> {mask_op_idx = 0 : i32} : vector<64xi1>
+  scf.for %arg2 = %c0 to %c8 step %c1 {
+    %subview = memref.subview %arg1[%arg2, 0] [1, 32] [1, 1] : memref<8x32xi32, #hivm.address_space<ub>> to memref<1x32xi32, strided<[32, 1], offset: ?>, #hivm.address_space<ub>>
+    %subview_0 = memref.subview %arg0[0, %arg2] [32, 1] [1, 1] : memref<32x8xi8, #hivm.address_space<ub>> to memref<32x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
+    %res = ave.hir.vload <NORM> %subview_0[%c0, %c0] {ave.unaligned_ub_access = #ave.unaligned_ub_access} : memref<32x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>> into vector<64xi8>
+    %1 = ave.hir.vextui %res, %0 {pp = #ave.vcvt_pp_type<pp0>} : vector<64xi8>, vector<64xi32>, vector<64xi1>
+    %subview_1 = memref.subview %subview[0, 0] [1, 32] [1, 1] : memref<1x32xi32, strided<[32, 1], offset: ?>, #hivm.address_space<ub>> to memref<32xi32, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>
+    ave.hir.masked_store <NORM_B32> %subview_1[%c0], %0, %1 : memref<32xi32, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>, vector<64xi1>, vector<64xi32>
+  } {element_alignment_bit_width = 32 : i32}
+  return
+}
+
+// -----// IR Dump Before LegalizeLoopIterArgs (hivm-legalize-loop-iter-arg) //----- //
+func.func @adc_func_outlined_vf_1(%arg0: memref<32x8xi8, #hivm.address_space<ub>>, %arg1: memref<8x32xi32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+  %c1 = arith.constant 1 : index
+  %c8 = arith.constant 8 : index
+  %c0 = arith.constant 0 : index
+  %0 = ave.hir.pge <VL32> {mask_op_idx = 0 : i32} : vector<64xi1>
+  scf.for %arg2 = %c0 to %c8 step %c1 {
+    %subview = memref.subview %arg1[%arg2, 0] [1, 32] [1, 1] : memref<8x32xi32, #hivm.address_space<ub>> to memref<1x32xi32, strided<[32, 1], offset: ?>, #hivm.address_space<ub>>
+    %subview_0 = memref.subview %arg0[0, %arg2] [32, 1] [1, 1] : memref<32x8xi8, #hivm.address_space<ub>> to memref<32x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
+    %res = ave.hir.vload <NORM> %subview_0[%c0, %c0] {ave.unaligned_ub_access = #ave.unaligned_ub_access} : memref<32x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>> into vector<64xi8>
+    %1 = ave.hir.vextui %res, %0 {pp = #ave.vcvt_pp_type<pp0>} : vector<64xi8>, vector<64xi32>, vector<64xi1>
+    %subview_1 = memref.subview %subview[0, 0] [1, 32] [1, 1] : memref<1x32xi32, strided<[32, 1], offset: ?>, #hivm.address_space<ub>> to memref<32xi32, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>
+    ave.hir.masked_store <NORM_B32> %subview_1[%c0], %0, %1 : memref<32xi32, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>, vector<64xi1>, vector<64xi32>
+  } {element_alignment_bit_width = 32 : i32}
+  return
+}
+
+// -----// IR Dump After LegalizeLoopIterArgs (hivm-legalize-loop-iter-arg) //----- //
+func.func @adc_func_outlined_vf_1(%arg0: memref<32x8xi8, #hivm.address_space<ub>>, %arg1: memref<8x32xi32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+  %c1 = arith.constant 1 : index
+  %c8 = arith.constant 8 : index
+  %c0 = arith.constant 0 : index
+  %0 = ave.hir.pge <VL32> {mask_op_idx = 0 : i32} : vector<64xi1>
+  scf.for %arg2 = %c0 to %c8 step %c1 {
+    %subview = memref.subview %arg1[%arg2, 0] [1, 32] [1, 1] : memref<8x32xi32, #hivm.address_space<ub>> to memref<1x32xi32, strided<[32, 1], offset: ?>, #hivm.address_space<ub>>
+    %subview_0 = memref.subview %arg0[0, %arg2] [32, 1] [1, 1] : memref<32x8xi8, #hivm.address_space<ub>> to memref<32x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
+    %res = ave.hir.vload <NORM> %subview_0[%c0, %c0] {ave.unaligned_ub_access = #ave.unaligned_ub_access} : memref<32x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>> into vector<64xi8>
+    %1 = ave.hir.vextui %res, %0 {pp = #ave.vcvt_pp_type<pp0>} : vector<64xi8>, vector<64xi32>, vector<64xi1>
+    %subview_1 = memref.subview %subview[0, 0] [1, 32] [1, 1] : memref<1x32xi32, strided<[32, 1], offset: ?>, #hivm.address_space<ub>> to memref<32xi32, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>
+    ave.hir.masked_store <NORM_B32> %subview_1[%c0], %0, %1 : memref<32xi32, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>, vector<64xi1>, vector<64xi32>
+  } {element_alignment_bit_width = 32 : i32}
+  return
+}
+
+// -----// IR Dump Before AppendVectorLayout (append-vector-layout) //----- //
+func.func @adc_func_outlined_vf_1(%arg0: memref<32x8xi8, #hivm.address_space<ub>>, %arg1: memref<8x32xi32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+  %c1 = arith.constant 1 : index
+  %c8 = arith.constant 8 : index
+  %c0 = arith.constant 0 : index
+  %0 = ave.hir.pge <VL32> {mask_op_idx = 0 : i32} : vector<64xi1>
+  scf.for %arg2 = %c0 to %c8 step %c1 {
+    %subview = memref.subview %arg1[%arg2, 0] [1, 32] [1, 1] : memref<8x32xi32, #hivm.address_space<ub>> to memref<1x32xi32, strided<[32, 1], offset: ?>, #hivm.address_space<ub>>
+    %subview_0 = memref.subview %arg0[0, %arg2] [32, 1] [1, 1] : memref<32x8xi8, #hivm.address_space<ub>> to memref<32x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
+    %res = ave.hir.vload <NORM> %subview_0[%c0, %c0] {ave.unaligned_ub_access = #ave.unaligned_ub_access} : memref<32x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>> into vector<64xi8>
+    %1 = ave.hir.vextui %res, %0 {pp = #ave.vcvt_pp_type<pp0>} : vector<64xi8>, vector<64xi32>, vector<64xi1>
+    %subview_1 = memref.subview %subview[0, 0] [1, 32] [1, 1] : memref<1x32xi32, strided<[32, 1], offset: ?>, #hivm.address_space<ub>> to memref<32xi32, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>
+    ave.hir.masked_store <NORM_B32> %subview_1[%c0], %0, %1 : memref<32xi32, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>, vector<64xi1>, vector<64xi32>
+  } {element_alignment_bit_width = 32 : i32}
+  return
+}
+
+// -----// IR Dump After AppendVectorLayout (append-vector-layout) //----- //
+func.func @adc_func_outlined_vf_1(%arg0: memref<32x8xi8, #hivm.address_space<ub>>, %arg1: memref<8x32xi32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+  %c1 = arith.constant 1 : index
+  %c8 = arith.constant 8 : index
+  %c0 = arith.constant 0 : index
+  %0 = ave.hir.pge <VL32> {mask_op_idx = 0 : i32} : vector<64xi1>
+  scf.for %arg2 = %c0 to %c8 step %c1 {
+    %subview = memref.subview %arg1[%arg2, 0] [1, 32] [1, 1] : memref<8x32xi32, #hivm.address_space<ub>> to memref<1x32xi32, strided<[32, 1], offset: ?>, #hivm.address_space<ub>>
+    %subview_0 = memref.subview %arg0[0, %arg2] [32, 1] [1, 1] : memref<32x8xi8, #hivm.address_space<ub>> to memref<32x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
+    %res = ave.hir.vload <NORM> %subview_0[%c0, %c0] {ave.unaligned_ub_access = #ave.unaligned_ub_access} : memref<32x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>> into vector<64xi8>
+    %1 = ave.hir.vector.layout_cast %0 : vector<64xi1> -> vector<64xi1>
+    %2 = ave.hir.vextui %res, %1 {pp = #ave.vcvt_pp_type<pp0>} : vector<64xi8>, vector<64xi32>, vector<64xi1>
+    %subview_1 = memref.subview %subview[0, 0] [1, 32] [1, 1] : memref<1x32xi32, strided<[32, 1], offset: ?>, #hivm.address_space<ub>> to memref<32xi32, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>
+    ave.hir.masked_store <NORM_B32> %subview_1[%c0], %0, %2 : memref<32xi32, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>, vector<64xi1>, vector<64xi32>
+  } {element_alignment_bit_width = 32 : i32}
+  return
+}
+
+// -----// IR Dump Before AnnotateDistOpLayout (annotate-dist-op-layout) //----- //
+func.func @adc_func_outlined_vf_1(%arg0: memref<32x8xi8, #hivm.address_space<ub>>, %arg1: memref<8x32xi32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+  %c1 = arith.constant 1 : index
+  %c8 = arith.constant 8 : index
+  %c0 = arith.constant 0 : index
+  %0 = ave.hir.pge <VL32> {mask_op_idx = 0 : i32} : vector<64xi1>
+  scf.for %arg2 = %c0 to %c8 step %c1 {
+    %subview = memref.subview %arg1[%arg2, 0] [1, 32] [1, 1] : memref<8x32xi32, #hivm.address_space<ub>> to memref<1x32xi32, strided<[32, 1], offset: ?>, #hivm.address_space<ub>>
+    %subview_0 = memref.subview %arg0[0, %arg2] [32, 1] [1, 1] : memref<32x8xi8, #hivm.address_space<ub>> to memref<32x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
+    %res = ave.hir.vload <NORM> %subview_0[%c0, %c0] {ave.unaligned_ub_access = #ave.unaligned_ub_access} : memref<32x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>> into vector<64xi8>
+    %1 = ave.hir.vector.layout_cast %0 : vector<64xi1> -> vector<64xi1>
+    %2 = ave.hir.vextui %res, %1 {pp = #ave.vcvt_pp_type<pp0>} : vector<64xi8>, vector<64xi32>, vector<64xi1>
+    %subview_1 = memref.subview %subview[0, 0] [1, 32] [1, 1] : memref<1x32xi32, strided<[32, 1], offset: ?>, #hivm.address_space<ub>> to memref<32xi32, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>
+    ave.hir.masked_store <NORM_B32> %subview_1[%c0], %0, %2 : memref<32xi32, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>, vector<64xi1>, vector<64xi32>
+  } {element_alignment_bit_width = 32 : i32}
+  return
+}
+
+// -----// IR Dump After AnnotateDistOpLayout (annotate-dist-op-layout) //----- //
+func.func @adc_func_outlined_vf_1(%arg0: memref<32x8xi8, #hivm.address_space<ub>>, %arg1: memref<8x32xi32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+  %c1 = arith.constant 1 : index
+  %c8 = arith.constant 8 : index
+  %c0 = arith.constant 0 : index
+  %0 = ave.hir.pge <VL32> {element_alignment_bit_width = -1 : i32, mask_op_idx = 0 : i32} : vector<64xi1>
+  scf.for %arg2 = %c0 to %c8 step %c1 {
+    %subview = memref.subview %arg1[%arg2, 0] [1, 32] [1, 1] : memref<8x32xi32, #hivm.address_space<ub>> to memref<1x32xi32, strided<[32, 1], offset: ?>, #hivm.address_space<ub>>
+    %subview_0 = memref.subview %arg0[0, %arg2] [32, 1] [1, 1] : memref<32x8xi8, #hivm.address_space<ub>> to memref<32x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
+    %res = ave.hir.vload <NORM> %subview_0[%c0, %c0] {ave.unaligned_ub_access = #ave.unaligned_ub_access, element_alignment_bit_width = 32 : i32} : memref<32x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>> into vector<64xi8>
+    %1 = ave.hir.vector.layout_cast %0 : vector<64xi1> -> vector<64xi1>
+    %2 = ave.hir.vextui %res, %1 {element_alignment_bit_width = 32 : i32, pp = #ave.vcvt_pp_type<pp0>} : vector<64xi8>, vector<64xi32>, vector<64xi1>
+    %subview_1 = memref.subview %subview[0, 0] [1, 32] [1, 1] : memref<1x32xi32, strided<[32, 1], offset: ?>, #hivm.address_space<ub>> to memref<32xi32, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>
+    ave.hir.masked_store <NORM_B32> %subview_1[%c0], %0, %2 {element_alignment_bit_width = 32 : i32} : memref<32xi32, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>, vector<64xi1>, vector<64xi32>
+  } {element_alignment_bit_width = 32 : i32}
+  return
+}
+
+// -----// IR Dump Before EliminateVectorLayout (eliminate-vector-layout) //----- //
+func.func @adc_func_outlined_vf_1(%arg0: memref<32x8xi8, #hivm.address_space<ub>>, %arg1: memref<8x32xi32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+  %c1 = arith.constant 1 : index
+  %c8 = arith.constant 8 : index
+  %c0 = arith.constant 0 : index
+  %0 = ave.hir.pge <VL32> {element_alignment_bit_width = -1 : i32, mask_op_idx = 0 : i32} : vector<64xi1>
+  scf.for %arg2 = %c0 to %c8 step %c1 {
+    %subview = memref.subview %arg1[%arg2, 0] [1, 32] [1, 1] : memref<8x32xi32, #hivm.address_space<ub>> to memref<1x32xi32, strided<[32, 1], offset: ?>, #hivm.address_space<ub>>
+    %subview_0 = memref.subview %arg0[0, %arg2] [32, 1] [1, 1] : memref<32x8xi8, #hivm.address_space<ub>> to memref<32x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
+    %res = ave.hir.vload <NORM> %subview_0[%c0, %c0] {ave.unaligned_ub_access = #ave.unaligned_ub_access, element_alignment_bit_width = 32 : i32} : memref<32x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>> into vector<64xi8>
+    %1 = ave.hir.vector.layout_cast %0 : vector<64xi1> -> vector<64xi1>
+    %2 = ave.hir.vextui %res, %1 {element_alignment_bit_width = 32 : i32, pp = #ave.vcvt_pp_type<pp0>} : vector<64xi8>, vector<64xi32>, vector<64xi1>
+    %subview_1 = memref.subview %subview[0, 0] [1, 32] [1, 1] : memref<1x32xi32, strided<[32, 1], offset: ?>, #hivm.address_space<ub>> to memref<32xi32, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>
+    ave.hir.masked_store <NORM_B32> %subview_1[%c0], %0, %2 {element_alignment_bit_width = 32 : i32} : memref<32xi32, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>, vector<64xi1>, vector<64xi32>
+  } {element_alignment_bit_width = 32 : i32}
+  return
+}
+
+// -----// IR Dump After EliminateVectorLayout (eliminate-vector-layout) //----- //
+func.func @adc_func_outlined_vf_1(%arg0: memref<32x8xi8, #hivm.address_space<ub>>, %arg1: memref<8x32xi32, #hivm.address_space<ub>>) attributes {element_alignment_bit_width = 32 : i32, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+  %c1 = arith.constant 1 : index
+  %c8 = arith.constant 8 : index
+  %c0 = arith.constant 0 : index
+  %0 = ave.hir.pge <VL32> {element_alignment_bit_width = -1 : i32, mask_op_idx = 0 : i32} : vector<64xi1>
+  scf.for %arg2 = %c0 to %c8 step %c1 {
+    %subview = memref.subview %arg1[%arg2, 0] [1, 32] [1, 1] : memref<8x32xi32, #hivm.address_space<ub>> to memref<1x32xi32, strided<[32, 1], offset: ?>, #hivm.address_space<ub>>
+    %subview_0 = memref.subview %arg0[0, %arg2] [32, 1] [1, 1] : memref<32x8xi8, #hivm.address_space<ub>> to memref<32x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
+    %res = ave.hir.vload <NORM> %subview_0[%c0, %c0] {ave.unaligned_ub_access = #ave.unaligned_ub_access, element_alignment_bit_width = 32 : i32} : memref<32x1xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>> into vector<64xi8>
+    %1 = ave.hir.vextui %res, %0 {element_alignment_bit_width = 32 : i32, pp = #ave.vcvt_pp_type<pp0>} : vector<64xi8>, vector<64xi32>, vector<64xi1>
+    %subview_1 = memref.subview %subview[0, 0] [1, 32] [1, 1] : memref<1x32xi32, strided<[32, 1], offset: ?>, #hivm.address_space<ub>> to memref<32xi32, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>
+    ave.hir.masked_store <NORM_B32> %subview_1[%c0], %0, %1 {element_alignment_bit_width = 32 : i32} : memref<32xi32, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>, vector<64xi1>, vector<64xi32>
+  } {element_alignment_bit_width = 32 : i32}
+  return
+}
+
+// -----// IR Dump Before PLTToPLTM (ave-plt-to-pltm) //----- //
+func.func @adc_func_outlined_vf_2(%arg0: memref<32x8xi8, #hivm.address_space<ub>>) attributes {hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+  %c0 = arith.constant 0 : index
+  %c32 = arith.constant 32 : index
+  %c1 = arith.constant 1 : index
+  %c0_i16 = arith.constant 0 : i16
+  %0 = ave.hir.pge <ALL> : vector<256xi1>
+  %1 = ave.hir.broadcast %c0_i16, %0 : i16, vector<256xi1> -> vector<256xi8>
+  scf.for %arg1 = %c0 to %c32 step %c1 {
+    %subview = memref.subview %arg0[%arg1, 0] [1, 8] [1, 1] : memref<32x8xi8, #hivm.address_space<ub>> to memref<1x8xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
+    %2 = ave.hir.pge <VL8> {mask_op_idx = 0 : i32} : vector<256xi1>
+    annotation.mark %2 {mask_op_idx = 0 : i32} : vector<256xi1>
+    %subview_0 = memref.subview %subview[0, 0] [1, 8] [1, 1] : memref<1x8xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>> to memref<8xi8, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>
+    ave.hir.masked_store <NORM_B8> %subview_0[%c0], %2, %1 {ave.unaligned_ub_access = #ave.unaligned_ub_access} : memref<8xi8, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>, vector<256xi1>, vector<256xi8>
+  }
+  return
+}
+
+// -----// IR Dump After PLTToPLTM (ave-plt-to-pltm) //----- //
+func.func @adc_func_outlined_vf_2(%arg0: memref<32x8xi8, #hivm.address_space<ub>>) attributes {hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+  %c0 = arith.constant 0 : index
+  %c32 = arith.constant 32 : index
+  %c1 = arith.constant 1 : index
+  %c0_i16 = arith.constant 0 : i16
+  %0 = ave.hir.pge <ALL> : vector<256xi1>
+  %1 = ave.hir.broadcast %c0_i16, %0 : i16, vector<256xi1> -> vector<256xi8>
+  scf.for %arg1 = %c0 to %c32 step %c1 {
+    %subview = memref.subview %arg0[%arg1, 0] [1, 8] [1, 1] : memref<32x8xi8, #hivm.address_space<ub>> to memref<1x8xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
+    %2 = ave.hir.pge <VL8> {mask_op_idx = 0 : i32} : vector<256xi1>
+    annotation.mark %2 {mask_op_idx = 0 : i32} : vector<256xi1>
+    %subview_0 = memref.subview %subview[0, 0] [1, 8] [1, 1] : memref<1x8xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>> to memref<8xi8, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>
+    ave.hir.masked_store <NORM_B8> %subview_0[%c0], %2, %1 {ave.unaligned_ub_access = #ave.unaligned_ub_access} : memref<8xi8, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>, vector<256xi1>, vector<256xi8>
+  }
+  return
+}
+
+// -----// IR Dump Before OptimizeReductionLoopHIVMAVE (optimize-reduction-loop) //----- //
+func.func @adc_func_outlined_vf_2(%arg0: memref<32x8xi8, #hivm.address_space<ub>>) attributes {hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+  %c0 = arith.constant 0 : index
+  %c32 = arith.constant 32 : index
+  %c1 = arith.constant 1 : index
+  %c0_i16 = arith.constant 0 : i16
+  %0 = ave.hir.pge <ALL> : vector<256xi1>
+  %1 = ave.hir.broadcast %c0_i16, %0 : i16, vector<256xi1> -> vector<256xi8>
+  scf.for %arg1 = %c0 to %c32 step %c1 {
+    %subview = memref.subview %arg0[%arg1, 0] [1, 8] [1, 1] : memref<32x8xi8, #hivm.address_space<ub>> to memref<1x8xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
+    %2 = ave.hir.pge <VL8> {mask_op_idx = 0 : i32} : vector<256xi1>
+    annotation.mark %2 {mask_op_idx = 0 : i32} : vector<256xi1>
+    %subview_0 = memref.subview %subview[0, 0] [1, 8] [1, 1] : memref<1x8xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>> to memref<8xi8, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>
+    ave.hir.masked_store <NORM_B8> %subview_0[%c0], %2, %1 {ave.unaligned_ub_access = #ave.unaligned_ub_access} : memref<8xi8, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>, vector<256xi1>, vector<256xi8>
+  }
+  return
+}
+
+// -----// IR Dump After OptimizeReductionLoopHIVMAVE (optimize-reduction-loop) //----- //
+func.func @adc_func_outlined_vf_2(%arg0: memref<32x8xi8, #hivm.address_space<ub>>) attributes {hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+  %c0 = arith.constant 0 : index
+  %c32 = arith.constant 32 : index
+  %c1 = arith.constant 1 : index
+  %c0_i16 = arith.constant 0 : i16
+  %0 = ave.hir.pge <ALL> : vector<256xi1>
+  %1 = ave.hir.broadcast %c0_i16, %0 : i16, vector<256xi1> -> vector<256xi8>
+  scf.for %arg1 = %c0 to %c32 step %c1 {
+    %subview = memref.subview %arg0[%arg1, 0] [1, 8] [1, 1] : memref<32x8xi8, #hivm.address_space<ub>> to memref<1x8xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
+    %2 = ave.hir.pge <VL8> {mask_op_idx = 0 : i32} : vector<256xi1>
+    annotation.mark %2 {mask_op_idx = 0 : i32} : vector<256xi1>
+    %subview_0 = memref.subview %subview[0, 0] [1, 8] [1, 1] : memref<1x8xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>> to memref<8xi8, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>
+    ave.hir.masked_store <NORM_B8> %subview_0[%c0], %2, %1 {ave.unaligned_ub_access = #ave.unaligned_ub_access} : memref<8xi8, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>, vector<256xi1>, vector<256xi8>
+  }
+  return
+}
+
+// -----// IR Dump Before ProcessVsstb (ave-process-vsstb) //----- //
+func.func @adc_func_outlined_vf_2(%arg0: memref<32x8xi8, #hivm.address_space<ub>>) attributes {hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+  %c0 = arith.constant 0 : index
+  %c32 = arith.constant 32 : index
+  %c1 = arith.constant 1 : index
+  %c0_i16 = arith.constant 0 : i16
+  %0 = ave.hir.pge <ALL> : vector<256xi1>
+  %1 = ave.hir.broadcast %c0_i16, %0 : i16, vector<256xi1> -> vector<256xi8>
+  scf.for %arg1 = %c0 to %c32 step %c1 {
+    %subview = memref.subview %arg0[%arg1, 0] [1, 8] [1, 1] : memref<32x8xi8, #hivm.address_space<ub>> to memref<1x8xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
+    %2 = ave.hir.pge <VL8> {mask_op_idx = 0 : i32} : vector<256xi1>
+    annotation.mark %2 {mask_op_idx = 0 : i32} : vector<256xi1>
+    %subview_0 = memref.subview %subview[0, 0] [1, 8] [1, 1] : memref<1x8xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>> to memref<8xi8, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>
+    ave.hir.masked_store <NORM_B8> %subview_0[%c0], %2, %1 {ave.unaligned_ub_access = #ave.unaligned_ub_access} : memref<8xi8, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>, vector<256xi1>, vector<256xi8>
+  }
+  return
+}
+
+// -----// IR Dump After ProcessVsstb (ave-process-vsstb) //----- //
+func.func @adc_func_outlined_vf_2(%arg0: memref<32x8xi8, #hivm.address_space<ub>>) attributes {hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.vector_function, no_inline} {
+  %c0 = arith.constant 0 : index
+  %c32 = arith.constant 32 : index
+  %c1 = arith.constant 1 : index
+  %c0_i16 = arith.constant 0 : i16
+  %0 = ave.hir.pge <ALL> : vector<256xi1>
+  %1 = ave.hir.broadcast %c0_i16, %0 : i16, vector<256xi1> -> vector<256xi8>
+  scf.for %arg1 = %c0 to %c32 step %c1 {
+    %subview = memref.subview %arg0[%arg1, 0] [1, 8] [1, 1] : memref<32x8xi8, #hivm.address_space<ub>> to memref<1x8xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>>
+    %2 = ave.hir.pge <VL8> {mask_op_idx = 0 : i32} : vector<256xi1>
+    annotation.mark %2 {mask_op_idx = 0 : i32} : vector<256xi1>
+    %subview_0 = memref.subview %subview[0, 0] [1, 8] [1, 1] : memref<1x8xi8, strided<[8, 1], offset: ?>, #hivm.address_space<ub>> to memref<8xi8, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>
+    ave.hir.masked_store <NORM_B8> %subview_0[%c0], %2, %1 {ave.unaligned_ub_access = #ave.unaligned_ub_access} : memref<8xi8, affine_map<(d0)[s0] -> (d0 + s0)>, #hivm.address_space<ub>>, vector<256xi1>, vector<256xi8>
+  }
+  return
+}
+
+// -----// IR Dump Before LegalizeOptHIVMAVE (le
